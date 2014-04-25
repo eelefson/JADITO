@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\JADITO.swf" />
     <movie fps="30" />
-    <movie width="800" />
-    <movie height="600" />
+    <movie width="1024" />
+    <movie height="780" />
     <movie version="10" />
     <movie minorVersion="1" />
     <movie platform="Flash Player" />
@@ -16,7 +16,6 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\..\..\Desktop\flixel" />
   </classpaths>
   <!-- Build options -->
   <build>

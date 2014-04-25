@@ -33,7 +33,6 @@
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>C:\Users\Eli\Documents\GitHub\JADITO\src</path-element>
-      <path-element>C:\Users\Eli\Desktop\flixel</path-element>
       <path-element>E:\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
@@ -43,7 +42,7 @@
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
   <default-size>
-    <width>800</width>
-    <height>600</height>
+    <width>1024</width>
+    <height>780</height>
   </default-size>
 </flex-config>

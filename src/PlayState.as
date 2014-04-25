@@ -19,6 +19,9 @@ package {
 			FlxG.bgColor = 0xffffffff;
 			
 			clipboard_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, ClipboardImage);
+			// REDUCES PERFORMANCE AND DOESN'T RESIZE HITBOX, TRY NOT TO USE IN ACTUAL CODE
+			clipboard_graphic.scale.x = 0.5;
+			clipboard_graphic.scale.y = 0.5;
 			clipboard_graphic.x = clipboard_graphic.x - (clipboard_graphic.width / 2);
 			clipboard_graphic.y = clipboard_graphic.y - (clipboard_graphic.height / 2);
 			add(clipboard_graphic);

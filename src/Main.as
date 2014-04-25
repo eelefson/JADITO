@@ -9,7 +9,7 @@ package  {
 		
 		public function Main() {
 			// arbitrary/feel free to change.
-			super(1024, 1024, MenuState, 1);
+			super(1024, 780, MenuState, 1);
 			FlxG.mouse.show();
 		}
 	}
