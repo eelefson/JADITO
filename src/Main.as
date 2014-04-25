@@ -1,27 +1,16 @@
-package 
-{
-	import flash.display.Sprite;
-	import flash.events.Event;
+package  {
+	import org.flixel.*;
 	
 	/**
 	 * ...
 	 * @author Elijah Elefson
 	 */
-	public class Main extends Sprite 
-	{
+	public class Main extends FlxGame{
 		
-		public function Main():void 
-		{
-			if (stage) init();
-			else addEventListener(Event.ADDED_TO_STAGE, init);
+		public function Main() {
+			// arbitrary/feel free to change.
+			super(1024, 1024, MenuState, 1);
+			FlxG.mouse.show();
 		}
-		
-		private function init(e:Event = null):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
-		}
-		
 	}
-	
 }
