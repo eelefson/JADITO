@@ -1,5 +1,6 @@
 package  {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	
 	/**
 	 * ...
@@ -12,6 +13,7 @@ package  {
 			// arbitrary/feel free to change.
 			super(1024, 780, MenuState, 1);
 			FlxG.mouse.show();
+			FlxG.addPlugin(new FlxMouseControl);
 		}
 	}
 }

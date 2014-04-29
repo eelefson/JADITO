@@ -1,5 +1,6 @@
 package  {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	import flash.utils.*;
 	
 	/**
@@ -38,6 +39,7 @@ package  {
 		
 		public function clickStartButton():void {
 			FlxG.switchState(new PlayState());
+			//FlxG.switchState(new MDAP());
 		}
 	}
 
