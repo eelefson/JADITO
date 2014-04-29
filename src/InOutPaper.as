@@ -3,7 +3,7 @@ package
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
-	public class InOutPaper extends FlxSprite
+	public class InOutPaper extends FlxExtendedSprite
 	{	
 		private static var DIST_FROM_EDGE:Number = 50; // Distance from side of screen
 		
@@ -23,19 +23,23 @@ package
 			}
 			this.left = this.x < FlxG.width / 2;
 			
-			//FlxG.addPlugin(new FlxExtendedSprite);
+			FlxG.addPlugin(new FlxExtendedSprite);
 			FlxG.addPlugin(new FlxMouseControl);
-			//this.enableMouseClicks(false);
-			//this.mousePressedCallback = clicked;
+			this.enableMouseClicks(false);
+			this.mousePressedCallback = clicked;
 		}
 		
 		override public function update():void 
 		{
+			super.update();
+			
 			// Cheating click test
-			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this.width &&
+			/*if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this.width &&
 				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height) {
 					clicked(this, 0, 0);
-				}
+				}*/
+				
+			
 			
 			// Stop moving papers when they reach the edges
 			if (this.velocity.x > 0 && this.x > FlxG.width - 2 * DIST_FROM_EDGE) {
