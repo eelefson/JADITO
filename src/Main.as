@@ -1,9 +1,11 @@
 package  {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	
 	/**
 	 * ...
 	 * @author Elijah Elefson
+	 * Test the changes
 	 */
 	public class Main extends FlxGame{
 		
@@ -11,6 +13,7 @@ package  {
 			// arbitrary/feel free to change.
 			super(1024, 780, MenuState, 1);
 			FlxG.mouse.show();
+			FlxG.addPlugin(new FlxMouseControl);
 		}
 	}
 }
