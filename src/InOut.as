@@ -16,29 +16,7 @@ package {
 			FlxG.mouse.show();
 			
 			papers = new FlxGroup;
-			//addPaper();
 			super.setTimer(20000);
-			
-			/*switch (level) {
-				case 0:
-					counter = 10;
-					break;
-				case 1:
-					counter = 15;
-					break;
-				case 2:
-					counter = 20;
-					break;
-				case 3:
-					counter = 25;
-					break;
-				default:
-					break;
-			}*/
-			
-			/*counterText = new FlxText(20, 600, FlxG.width);
-			counterText.text = "" + counter;
-			add(counterText);*/
 			
 			super.create();
 		}
