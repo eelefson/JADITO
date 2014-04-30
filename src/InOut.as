@@ -44,11 +44,11 @@ package {
 		}
 		
 		override public function update():void {
-			super.update();
-			
-			if (super.timer.secondsRemaining == 0) {
+			if (super.timer.hasExpired) {
 				super.success = true;
 			}
+			
+			super.update();
 			
 			// The ticks in between creating new papers chnages depending on the level
 			var mod:Number;
