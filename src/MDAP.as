@@ -53,7 +53,7 @@ package {
 			finalQuestion = false;
 			
 			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - 12) + 20);
+			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
 			lastX = 0;
 			lastY = 0;
 			dot = new FlxExtendedSprite(x, y);
@@ -110,7 +110,7 @@ package {
 			}
 			
 			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - 12) + 20);
+			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
 			dot.reset(x, y);
 			dots--;
 			dotsLeft.text = dots.toString() + " dots";
@@ -156,7 +156,7 @@ package {
 			var answer:int = 0;
 			
 			var qContent:String
-			question = new FlxText(0, FlxG.height * 2/3, FlxG.width, "");
+			question = new FlxText(0, FlxG.height * 1/2, FlxG.width, "");
 			question.setFormat(null, 16, 0, "center");
 			
 			if (Math.random() >= .5) {
@@ -190,39 +190,35 @@ package {
 			
 			var value:int = realChoices[0] as int;
 			if(value == answer) {
-				b1 = new FlxButton(0, FlxG.height/4, value.toString(), correct);
+				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b1;
 			} else {
-				b1 = new FlxButton(0, FlxG.height/4, value.toString(), wrong);
+				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), wrong);
 			}
-			b1.width = FlxG.width / 4;
 			
 			value = realChoices[1] as int;
 			if(value == answer) {
-				b2 = new FlxButton(FlxG.width/4, FlxG.height/4, value.toString(), correct);
+				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b2;
 			} else {
-				b2 = new FlxButton(FlxG.width/4, FlxG.height/4, value.toString(), wrong);
+				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), wrong);
 			}
-			b2.width = FlxG.width / 4;
 			
 			value = realChoices[2] as int;
 			if(value == answer) {
-				b3 = new FlxButton(FlxG.width/2, FlxG.height/4, value.toString(), correct);
+				b3 = new FlxButton(345, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b3;
 			} else {
-				b3 = new FlxButton(FlxG.width/2, FlxG.height/4, value.toString(), wrong);
+				b3 = new FlxButton(345, FlxG.height * 3 / 4, value.toString(), wrong);
 			}
-			b3.width = FlxG.width / 4;
 			
 			value = realChoices[3] as int;
 			if(value == answer) {
-				b4 = new FlxButton(FlxG.width * 3/4, FlxG.height/4, value.toString(), correct);
+				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b4;
 			} else {
-				b4 = new FlxButton(FlxG.width * 3/4, FlxG.height/4, value.toString(), wrong);
+				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), wrong);
 			}
-			b4.width = FlxG.width / 4;
 			
 			add(question);
 			add(b1);
