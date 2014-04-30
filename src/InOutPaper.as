@@ -13,7 +13,7 @@ package
 		{
 			super (chooseLane(), FlxG.height - 50);
 			
-			// CHange speed depending on game difficutly level
+			// Change speed depending on game difficutly level
 			if (InOut.level == 0) {
 				this.velocity.y = -80;
 			} else if (InOut.level == 1) {

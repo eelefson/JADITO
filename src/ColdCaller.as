@@ -6,7 +6,7 @@ package {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		
-		public static var level:Number = 0; // The level of the game's difficulty
+		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
 		
 		private var another:Boolean = false; // If there is another phone number to input after the current one
 		private var justStarted:Boolean = true; // If the game has just started
@@ -34,7 +34,7 @@ package {
 			
 			goal = generateGoal();
 			
-			goalText = new FlxText(10, 10, FlxG.width, "");
+			goalText = new FlxText(10, 600, FlxG.width, "");
 			goalText.color = 0x00000000;
 			goalText.size = 20;
 			add(goalText);
@@ -44,7 +44,7 @@ package {
 			if (level > 1) {
 				goal2 = generateGoal();
 			
-				goalText2 = new FlxText(10, 40, FlxG.width, "");
+				goalText2 = new FlxText(10, 630, FlxG.width, "");
 				goalText2.color = 0x00000000;
 				goalText2.size = 20;
 				add(goalText2);
@@ -65,10 +65,6 @@ package {
 		}
 		
 		override public function update():void {
-			// CHECKS IF VICTORY CONDITIONS ARE MET
-			if (false) { // REPLACE FALSE WITH APPROPRIATE BOOLEAN VALUE/EXPRESSION
-				super.success = true;
-			}
 			super.update();
 			
 			if (justStarted) {

@@ -9,10 +9,10 @@ package  {
 	 */
 	public class MinigameState extends FlxState {
 		
-		protected var timer:FlxDelay;
+		public var timer:FlxDelay;
 		protected var timerText:FlxText;
 		
-		protected var success:Boolean = false;
+		public var success:Boolean = false;
 		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);		

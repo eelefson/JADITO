@@ -3,10 +3,13 @@ package {
 	import org.flixel.plugin.photonstorm.*;
 	
 	public class InOut extends MinigameState {
-		public static var level:Number = 0; // The level of the game's difficulty
+		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		
+		//public static var counter:Number;
+		//private var counterText:FlxText;
 		
 		private var papers:FlxGroup; // References to the papers
-		private var counter:Number = 0; // Used to control paper creation rate, counts "ticks" of update
+		private var ticks:Number = 0; // Used to control paper creation rate, counts "ticks" of update
 		
 		override public function create():void {
 			FlxG.bgColor = 0xffaaaaaa;
@@ -15,15 +18,37 @@ package {
 			papers = new FlxGroup;
 			//addPaper();
 			super.setTimer(20000);
+			
+			/*switch (level) {
+				case 0:
+					counter = 10;
+					break;
+				case 1:
+					counter = 15;
+					break;
+				case 2:
+					counter = 20;
+					break;
+				case 3:
+					counter = 25;
+					break;
+				default:
+					break;
+			}*/
+			
+			/*counterText = new FlxText(20, 600, FlxG.width);
+			counterText.text = "" + counter;
+			add(counterText);*/
+			
 			super.create();
 		}
 		
 		override public function update():void {
-			// CHECKS IF VICTORY CONDITIONS ARE MET
-			if (false) { // REPLACE FALSE WITH APPROPRIATE BOOLEAN VALUE/EXPRESSION
+			super.update();
+			
+			if (super.timer.secondsRemaining == 0) {
 				super.success = true;
 			}
-			super.update();
 			
 			// The ticks in between creating new papers chnages depending on the level
 			var mod:Number;
@@ -44,11 +69,11 @@ package {
 					break;
 			}
 			
-			if (counter % mod == 0) {
+			if (ticks % mod == 0) {
 				addPaper();
 			}
 			
-			counter++;
+			ticks++;
 		}
 		
 		// Add a random new paper to the screen
@@ -56,9 +81,9 @@ package {
 			var newPaper:InOutPaper;
 			
 			if (Math.floor(Math.random() * 2) < 1) {
-				newPaper = new InPaper;
+				newPaper = new InPaper(super);
 			} else {
-				newPaper = new OutPaper;
+				newPaper = new OutPaper(super);
 			}
 			papers.add(newPaper);
 			add(newPaper);

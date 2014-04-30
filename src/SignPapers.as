@@ -8,7 +8,7 @@ package
 	
 	public class SignPapers extends MinigameState
 	{
-		public static var level:Number = 1; // The level of the game's difficulty
+		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
 		
 		private var papers:Array; // An array containing all of then valid papers to sign for the current level
 		private var papersAmount:int; // How many papers are in the papers array
@@ -18,7 +18,7 @@ package
 		private var currPaperText:FlxText; // The text displaying the current paper
 		
 		private var numAnswered:int; // How many papers the player has answered
-		private var numLeft:FlxText; // TExt showing how many papers the player has left to answer
+		private var numLeft:FlxText; // Text showing how many papers the player has left to answer
 		
 		private var lineSprite:FlxSprite; // The "Sign here: ___" image
 		private var passButton:FlxButtonPlus; // The button to pass on singing a paper
@@ -96,7 +96,7 @@ package
 						numLeft.text = "" + (NUM_PAPERS - numAnswered);
 						// CHECKS IF VICTORY CONDITIONS ARE MET
 						if (numAnswered == NUM_PAPERS) {
-								super.success = true;
+							super.success = true;
 						}
 					} else {
 						super.timer.abort();
@@ -134,22 +134,13 @@ package
 				numLeft.text = "" + (NUM_PAPERS - numAnswered);
 				
 				if (numAnswered == NUM_PAPERS) {
-					win();
+					super.success = true;
 				}
 			} else {
-				fail();
+				super.timer.abort();
 			}
 		}
 		
-		public function win():void
-		{
-			// TODO: Add code for winning
-		}
-		
-		public function fail():void
-		{
-			// TODO: Add code for failing
-		}
 		
 	}
 
