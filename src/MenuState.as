@@ -1,5 +1,4 @@
 package  {
-	import MDAP;
 	import org.flixel.*;
 	import flash.utils.*;
 	
@@ -38,15 +37,17 @@ package  {
 		}
 		
 		public function clickStartButton():void {
-			//var a:Array = new Array(0, 1, 2, 3 , 4, 5, 6, 7);
-			var a:Array = new Array(MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.COLD_CALLER, MinigameEnums.IN_OUT, MinigameEnums.MDAP, MinigameEnums.SIGN_PAPER);
+			// Array storing all the possible minigames available to play
+			var a:Array = new Array(MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.COLD_CALLER, MinigameEnums.IN_OUT, MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER);
 			shuffle(a);
 			var levelZeroMinigames:Array = new Array();
-			
-			for (var i:int = 0; i < 10; i++) {
+			// Adds 10 minigames at difficulty level 0 from the overall pool of minigames
+			var numMinigamesToSelect:int = 6;
+			for (var i:int = 0; i < numMinigamesToSelect; i++) {
 				levelZeroMinigames[i] = a[i];
 			}
 			
+			// Array containing arrays of the minigames at each difficulty level(0-3)
 			var minigames:Array = new Array(levelZeroMinigames, new Array(), new Array(), new Array());
 			Registry.day = 0;
 			Registry.pool = new Array();
