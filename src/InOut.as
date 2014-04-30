@@ -19,10 +19,10 @@ package {
 		}
 		
 		override public function update():void {
-			// CHECKS IF VICTORY CONDITIONS ARE MET
-			if (false) { // REPLACE FALSE WITH APPROPRIATE BOOLEAN VALUE/EXPRESSION
+			if (super.timer.hasExpired) {
 				super.success = true;
 			}
+			
 			super.update();
 			
 			// The ticks in between creating new papers chnages depending on the level
@@ -56,9 +56,9 @@ package {
 			var newPaper:InOutPaper;
 			
 			if (Math.floor(Math.random() * 2) < 1) {
-				newPaper = new InPaper;
+				newPaper = new InPaper(super);
 			} else {
-				newPaper = new OutPaper;
+				newPaper = new OutPaper(super);
 			}
 			papers.add(newPaper);
 			add(newPaper);

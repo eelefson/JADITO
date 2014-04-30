@@ -6,9 +6,11 @@ package
 	{
 		[Embed(source = "image_assets/outfile.png")] private var img:Class;
 		
-		public function OutPaper():void
+		private var minigame_super:MinigameState;
+		public function OutPaper(minigame_super:MinigameState):void
 		{
 			super();
+			this.minigame_super = minigame_super;
 			this.loadGraphic(img, true, false, 55, 72);
 		}
 		
@@ -26,6 +28,7 @@ package
 				
 				if (left) {
 					// Fail condition
+					minigame_super.timer.abort();
 				}
 			}
 		}
