@@ -47,10 +47,14 @@ package  {
 			}
 			
 			var minigames:Array = new Array(levelZeroMinigames, new Array(), new Array(), new Array());
-			Registry.day = -1;
+			Registry.day = 0;
 			Registry.pool = new Array();
 			Registry.taskStatuses = new Array();
-			FlxG.switchState(new PlayState(minigames));
+			for (i = 0; i < 6; i++) {
+				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
+			}
+			Registry.minigames = minigames;
+			FlxG.switchState(new PlayState());
 		}
 		
 		public function shuffle(a:Array):void {

@@ -30,6 +30,8 @@ package {
 		private var timer:FlxDelay;
 		private var flag:Boolean = true;
 		
+		private var go:Boolean = false;
+		
 		private var foo:Number = FlxG.width / 2;
 		private var bar:Number = FlxG.height / 2;
 		
@@ -38,28 +40,9 @@ package {
 		
 		private var increment:int = 0;
 		
-		//Stores important stuff about the state
-		private var minigames:Array = new Array();
-		
-		public function PlayState(minigames:Array) {
-			this.minigames = minigames;
-		}
-		
 		override public function create():void {
 			var i:int;
 			
-			if (Registry.pool.length == 0) {
-				Registry.day++;
-				
-				generatePool();
-				
-				//if (Registry.taskStatuses.length == 0) {
-					for (i = 0; i < 6; i++) {
-						Registry.taskStatuses[i] = TaskStatuses.EMPTY;
-					}
-				//}
-			}
-			trace(Registry.pool);
 			FlxG.bgColor = 0xffffffff;
 			
 			// CAMERA
@@ -111,7 +94,8 @@ package {
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
 			
-			timer = new FlxDelay(5000);
+			///timer = new FlxDelay(5000); changed to speed up testing
+			timer = new FlxDelay(2000);
 			timer.start();
 			
 			super.create();
@@ -119,53 +103,65 @@ package {
 		
 		override public function update():void {
 			super.update();
-			var box2:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
-			if (flag) {
-				xDistance = distanceBetweenPoints(new FlxPoint(box2.x + (box2.width / 2), box2.y + (box2.height / 2)), new FlxPoint(foo, box2.y + (box2.height / 2))) / 50;
-				trace(xDistance);
-				yDistance = distanceBetweenPoints(new FlxPoint(box2.x + (box2.width / 2), box2.y + (box2.height / 2)), new FlxPoint(box2.x + (box2.width / 2), bar)) / 50;
-				trace(yDistance);
-				flag = false;
-			}
-			if (timer.secondsElapsed > 2) {
-				zoomCam.focusOn(new FlxPoint(foo, bar));
-				/*if (foo >= box2.x + (box2.width / 2)) {
-					foo += xDistance;
+			var i:int;
+			if (Registry.pool.length == 0 || go) {
+				if (!go) {
+					if (Registry.day == DaysOfTheWeek.SATURDAY) {
+						for (i = 0; i < 10; i++) {
+							Registry.taskStatuses[i] = TaskStatuses.EMPTY;
+						}
+					} else {
+						for (i = 0; i < 6; i++) {
+							Registry.taskStatuses[i] = TaskStatuses.EMPTY;
+						}
+					}
+					go = true;
 				}
-				if (bar >= box2.y + (box2.height / 2)) {
-					bar += yDistance;
-				}*/
-				if (increment != 50) {
-					foo += xDistance;
-					bar += yDistance;
-					increment++;
+				if (timer.hasExpired) {
+					if (Registry.day > DaysOfTheWeek.SATURDAY) {
+						FlxG.switchState(new WinState());
+					} else {
+						generatePool();
+						Registry.day++;
+						FlxG.switchState(new PlayState());
+					}
 				}
-				zoomCam.fade(0xffffffff, 2);
+			} else {
+			
+				var box2:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
+				if (flag) {
+					xDistance = distanceBetweenPoints(new FlxPoint(box2.x + (box2.width / 2), box2.y + (box2.height / 2)), new FlxPoint(foo, box2.y + (box2.height / 2))) / 50;
+					yDistance = distanceBetweenPoints(new FlxPoint(box2.x + (box2.width / 2), box2.y + (box2.height / 2)), new FlxPoint(box2.x + (box2.width / 2), bar)) / 50;
+					flag = false;
+				}
+				//if (timer.secondsElapsed > 2) { WHAT IT USED TO BE, CHANGED TO MAKE TESTING FASTER
+				if (timer.secondsElapsed > 1) {
+					zoomCam.focusOn(new FlxPoint(foo, bar));
+					if (increment != 50) {
+						foo += xDistance;
+						bar += yDistance;
+						increment++;
+					}
+					zoomCam.fade(0xffffffff, 2);
+					
+					zoomCam.targetZoom = 5;
+				}
 				
-				zoomCam.targetZoom = 5;
-			}
-			/*if (timer.secondsElapsed > 2) {
-				//TESTING CAMERA ZOOM
-				//zoomCam.focusOn(new FlxPoint(box2.x + (box2.width / 2), box2.y + (box2.height / 2)));
-				//zoomCam.focusOn(new FlxPoint(foo + 100, bar + 100));
-				zoomCam.targetZoom = 5;
-				//zoomCam.target = box2;
-				flag = false;
-			}*/
-			if (timer.hasExpired) {
-				pickMinigame();
+				if (timer.hasExpired) {
+					pickMinigame();
+				}
 			}
 		}
 		
 		public function generatePool():void {
-			var levelZeroMinigames:Array = minigames[0];
-			var levelOneMinigames:Array = minigames[1];
-			var levelTwoMinigames:Array = minigames[2];
-			var levelThreeMinigames:Array = minigames[3];
+			var levelZeroMinigames:Array = Registry.minigames[0];
+			var levelOneMinigames:Array = Registry.minigames[1];
+			var levelTwoMinigames:Array = Registry.minigames[2];
+			var levelThreeMinigames:Array = Registry.minigames[3];
 			
 			var i:int;
 			var pair:Dictionary;
-			
+			Registry.pool = new Array();
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
@@ -176,26 +172,17 @@ package {
 						pair["level"] = 0;
 						Registry.pool[i] = pair;
 						// add minigames to next pool of minigames
-						minigames[1].push(levelZeroMinigames[i]);
+						Registry.minigames[1].push(levelZeroMinigames[i]);
 					}
 					// remove the selected minigames from 
 					levelZeroMinigames.splice(0, 6);
-					trace(minigames[0]);
-					trace(minigames[1]);
+					
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
 					break;
 				case DaysOfTheWeek.TUESDAY:
-					// SELECT 4 LEVEL 0 GAMES
-					shuffle(levelZeroMinigames);
-					for (i = 0; i < 4; i++) {
-						pair = new Dictionary();
-						pair["minigame"] = levelZeroMinigames[i];
-						pair["level"] = 0;
-						Registry.pool[i] = pair;
-						// add minigames to next pool of minigames
-						minigames[1].push(levelZeroMinigames[i]);
-					}
-					levelZeroMinigames.splice(0, 4);
-					
 					// SELECT 2 LEVEL 1 GAMES
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
@@ -204,19 +191,109 @@ package {
 						pair["level"] = 1;
 						Registry.pool[i] = pair;
 						// add minigames to next pool of minigames
-						minigames[2].push(levelOneMinigames[i]);
+						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
 					levelOneMinigames.splice(0, 2);
-					trace("THIS HAPPENED");
+					
+					// SELECT 4 LEVEL 0 GAMES
+					shuffle(levelZeroMinigames);
+					for (i = 0; i < 4; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelZeroMinigames[i];
+						pair["level"] = 0;
+						Registry.pool[i+2] = pair;
+						// add minigames to next pool of minigames
+						Registry.minigames[1].push(levelZeroMinigames[i]);
+					}
+					levelZeroMinigames.splice(0, 4);
+
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
 					break;
 				case DaysOfTheWeek.WEDNESDAY:
-					//TO DO
+					// SELECT 6 LEVEL 1 GAMES
+					shuffle(levelOneMinigames);
+					for (i = 0; i < 6; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelOneMinigames[i];
+						pair["level"] = 1;
+						Registry.pool[i] = pair;
+						// add minigames to next pool of minigames
+						Registry.minigames[2].push(levelOneMinigames[i]);
+					}
+					levelOneMinigames.splice(0, 6);
+					
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
+					break;
 				case DaysOfTheWeek.THURSDAY:
-					//TO DO
+					// SELECT 4 LEVEL 2 GAMES
+					shuffle(levelTwoMinigames);
+					for (i = 0; i < 4; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelTwoMinigames[i];
+						pair["level"] = 2;
+						Registry.pool[i] = pair;
+						// add minigames to next pool of minigames
+						Registry.minigames[3].push(levelTwoMinigames[i]);
+					}
+					levelTwoMinigames.splice(0, 4);
+					
+					// SELECT 2 LEVEL 1 GAMES
+					shuffle(levelOneMinigames);
+					for (i = 0; i < 2; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelOneMinigames[i];
+						pair["level"] = 1;
+						Registry.pool[i+4] = pair;
+						// add minigames to next pool of minigames
+						Registry.minigames[2].push(levelOneMinigames[i]);
+					}
+					levelOneMinigames.splice(0, 2);
+					
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
+					break;
 				case DaysOfTheWeek.FRIDAY:
-					//TO DO
+					// SELECT 6 LEVEL 2 GAMES
+					shuffle(levelTwoMinigames);
+					for (i = 0; i < 6; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelTwoMinigames[i];
+						pair["level"] = 1;
+						Registry.pool[i] = pair;
+						// add minigames to next pool of minigames
+						Registry.minigames[3].push(levelTwoMinigames[i]);
+					}
+					levelTwoMinigames.splice(0, 6);
+					
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
+					break;
 				case DaysOfTheWeek.SATURDAY:
-					//TO DO
+					// SELECT 10 LEVEL 3 GAMES
+					shuffle(levelThreeMinigames);
+					for (i = 0; i < 10; i++) {
+						pair = new Dictionary();
+						pair["minigame"] = levelThreeMinigames[i];
+						pair["level"] = 1;
+						Registry.pool[i] = pair;
+					}
+					levelThreeMinigames.splice(0, 10);
+					
+					trace("Level 0: " + Registry.minigames[0]);
+					trace("Level 1: " + Registry.minigames[1]);
+					trace("Level 2: " + Registry.minigames[2]);
+					trace("Level 3: " + Registry.minigames[3]);
+					break;
 			}
 			shuffle(Registry.pool);
 		}
@@ -227,16 +304,15 @@ package {
 			//gets the value of the first element of the array and removes it, won't be played
 			//again on this day
 			var currentMinigame:Dictionary = Registry.pool.shift();
-			var level:uint = currentMinigame["level"];
+			Registry.difficultyLevel = currentMinigame["level"];
 			switch(currentMinigame["minigame"]) {
 				case Minigames.MINIGAME_ZERO:
-					minigameState = new Minigame_ZERO(minigames, level);
+					minigameState = new Minigame_ZERO();
 					break;
 				case Minigames.MINIGAME_ONE:
-					minigameState = new Minigame_ONE(minigames, level);
+					minigameState = new Minigame_ONE();
 					break;
 			}
-			delete
 			FlxG.switchState(minigameState);
 		}
 		
