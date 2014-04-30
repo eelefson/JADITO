@@ -1,10 +1,8 @@
-package  
-{
+package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
-	public class ColdCaller extends FlxState
-	{
+	public class ColdCaller extends MinigameState {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		
@@ -24,8 +22,8 @@ package
 		
 		private var answerText:FlxText; // Text displaying the answer as the player types
 		
-		override public function create():void
-		{
+		override public function create():void {
+			
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
@@ -62,11 +60,15 @@ package
 			answerText.size = 30;
 			add(answerText);
 			
+			super.setTimer(20000);
 			super.create();
 		}
 		
-		override public function update():void
-		{
+		override public function update():void {
+			// CHECKS IF VICTORY CONDITIONS ARE MET
+			if (false) { // REPLACE FALSE WITH APPROPRIATE BOOLEAN VALUE/EXPRESSION
+				super.success = true;
+			}
 			super.update();
 			
 			if (justStarted) {
@@ -161,7 +163,7 @@ package
 					
 					another = false;
 				} else {
-					// Win condition
+					super.success = true;
 				}
 			}
 		}

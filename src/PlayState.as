@@ -306,12 +306,24 @@ package {
 			var currentMinigame:Dictionary = Registry.pool.shift();
 			Registry.difficultyLevel = currentMinigame["level"];
 			switch(currentMinigame["minigame"]) {
-				case Minigames.MINIGAME_ZERO:
+				case MinigameEnums.MINIGAME_ZERO:
 					minigameState = new Minigame_ZERO();
 					break;
-				case Minigames.MINIGAME_ONE:
+				case MinigameEnums.MINIGAME_ONE:
 					minigameState = new Minigame_ONE();
 					break;
+				case MinigameEnums.COLD_CALLER:
+					minigameState = new ColdCaller();
+					break;				
+				case MinigameEnums.MDAP:
+					minigameState = new MDAP();
+					break;					
+				case MinigameEnums.SIGN_PAPER:
+					minigameState = new SignPapers();
+					break;					
+				case MinigameEnums.IN_OUT:
+					minigameState = new InOut();
+					break;					
 			}
 			FlxG.switchState(minigameState);
 		}

@@ -10,7 +10,6 @@ package  {
 	public class WinState extends FlxState {
 		[Embed(source = "sound_assets/song.mp3")] private var Song:Class;
 		[Embed(source="image_assets/BITDANCE.png")]  private var dance_sprites:Class;
-		//[Embed(source="image_assets/explosion.png")]  private var dance_sprites:Class;
 		
 		private var dance_graphic:FlxSprite;
 		
@@ -18,7 +17,6 @@ package  {
 		public var blink:Boolean = true;
 		
 		override public function create():void {
-			//FlxG.bgColor = 0xffffffff;
 			dance_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
 			dance_graphic.loadGraphic(dance_sprites, true, false, 328, 272);
 			dance_graphic.x = dance_graphic.x - (dance_graphic.width / 2);

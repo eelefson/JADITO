@@ -1,4 +1,5 @@
 package  {
+	import MDAP;
 	import org.flixel.*;
 	import flash.utils.*;
 	
@@ -38,7 +39,7 @@ package  {
 		
 		public function clickStartButton():void {
 			//var a:Array = new Array(0, 1, 2, 3 , 4, 5, 6, 7);
-			var a:Array = new Array(Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE, Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE, Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE, Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE, Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE, Minigames.MINIGAME_ZERO, Minigames.MINIGAME_ONE);
+			var a:Array = new Array(MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.MINIGAME_ZERO, MinigameEnums.MINIGAME_ONE, MinigameEnums.COLD_CALLER, MinigameEnums.IN_OUT, MinigameEnums.MDAP, MinigameEnums.SIGN_PAPER);
 			shuffle(a);
 			var levelZeroMinigames:Array = new Array();
 			

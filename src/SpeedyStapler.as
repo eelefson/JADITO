@@ -1,10 +1,10 @@
-package  
+package 
 {
 	/**
 	 * ...
 	 * @author Connor
 	 */
-	public class SpeedyStapler 
+	public class SpeedyStapler extends MinigameState
 	{
 		
 		public function SpeedyStapler() 

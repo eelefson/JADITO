@@ -1,4 +1,4 @@
-package  
+package 
 {
 	import flash.events.Event;
 	import flash.net.URLLoader;
@@ -6,7 +6,7 @@ package
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
-	public class SignPapers extends FlxState
+	public class SignPapers extends MinigameState
 	{
 		public static var level:Number = 1; // The level of the game's difficulty
 		
@@ -80,6 +80,9 @@ package
 			}
 			
 			loader.load(url);
+			
+			super.setTimer(20000);
+			super.create();
 		}
 		
 		override public function update():void
@@ -91,12 +94,12 @@ package
 						updateText();
 						numAnswered++;
 						numLeft.text = "" + (NUM_PAPERS - numAnswered);
-						
+						// CHECKS IF VICTORY CONDITIONS ARE MET
 						if (numAnswered == NUM_PAPERS) {
-							win();
+								super.success = true;
 						}
 					} else {
-						fail();
+						super.timer.abort();
 					}
 			}
 			
