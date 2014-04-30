@@ -41,19 +41,19 @@ package
 			
 			loader.addEventListener(Event.COMPLETE, loaderComplete);
 			
-			currPaperText = new FlxText(300, 300, FlxG.width / 2);
+			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
 			add(currPaperText);
 			
-			lineSprite = new FlxSprite(300, 500);
+			lineSprite = new FlxSprite(30, FlxG.height / 4 + 150);
 			lineSprite.loadGraphic(img);
 			add(lineSprite);
 			
-			numLeft = new FlxText(20, 550, FlxG.width, "" + NUM_PAPERS);
+			numLeft = new FlxText(20, FlxG.height - 60, FlxG.width, "" + NUM_PAPERS);
 			numLeft.color = 0x00000000;
 			numLeft.size = 50;
 			add(numLeft);
 			
-			passButton = new FlxButtonPlus(300, 600, pass, null, "PASS", 200, 40);
+			passButton = new FlxButtonPlus(50, (FlxG.height / 4) * 3, pass, null, "PASS", 200, 40);
 			passButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			passButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			passButton.screenCenter();
