@@ -1,5 +1,6 @@
 package  {
 	import org.flixel.*;
+	import org.flixel.system.*;
 	import org.flixel.plugin.photonstorm.*;
 	
 	/**
@@ -10,8 +11,7 @@ package  {
 	public class Main extends FlxGame{
 		
 		public function Main() {
-			// arbitrary/feel free to change.
-			super(1024, 780, MenuState, 1);
+			super(640, 480, MenuState, 1);
 			FlxG.mouse.show();
 			FlxG.addPlugin(new FlxMouseControl);
 		}

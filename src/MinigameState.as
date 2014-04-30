@@ -16,7 +16,6 @@ package  {
 		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);		
-			//timer = new FlxDelay(5000); WHAT IT USED TO BE, CHANGED TO SPEED UP TESTING
 		}
 		
 		override public function update():void {

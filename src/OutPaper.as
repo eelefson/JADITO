@@ -28,6 +28,10 @@ package
 				this.kill();
 				
 				if (left) {
+<<<<<<< HEAD
+=======
+					// Fail condition
+>>>>>>> f083ecbe74c411fbf00a78bb86e70bfda5890feb
 					minigame_super.timer.abort();
 				}
 			}

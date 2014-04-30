@@ -45,31 +45,35 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
-			difficulty = 4;
-			dots = 4 + 6 * difficulty;
-			words = 10 * difficulty;
-			var seconds:int = 15 + 6 * difficulty;
+			difficulty = Registry.difficultyLevel;
+			dots = 5 + 5 * difficulty;
+			words = 20 + 10 * difficulty;
+			var seconds:int = 10 + 5 * difficulty;
 			
 			finalQuestion = false;
 			
-			var x:int =  FlxU.round(Math.random() * 312);
-			var y:int = FlxU.round(Math.random() * 222 + 10);
+			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
+			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
 			lastX = 0;
 			lastY = 0;
 			dot = new FlxExtendedSprite(x, y);
 			dot.loadGraphic(Ball, true, true, 8, 8, true);
+			dot.width = 16;
+			dot.height = 16;
+			dot.offset.x = -4;
+			dot.offset.y = -4;
 			dot.enableMouseClicks(false);
 			dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
 			
-			dotsLeft = new FlxText(0, 0, 70, dots.toString() + " dots");
-			dotsLeft.color = 0;
+			dotsLeft = new FlxText(0, 0, FlxG.width, dots.toString() + " dots");
+			dotsLeft.setFormat(null, 16, 0, "right");
 			
-			command = new FlxText(125, 0, 200, "Click the dots!");
-			command.color = 0;
+			command = new FlxText(0, 0, FlxG.width, "Click the dots!");
+			command.setFormat(null, 16, 0, "center");
 			
 			sketchpad = new FlxSprite();
-			sketchpad.makeGraphic(320, 240);
+			sketchpad.makeGraphic(FlxG.width, FlxG.height);
 			
 			hazePhrases = [ "Intern!!!", "You shouldn't be proud!", "You missed a spot!", "Go to college for that?", "Just quit!", 
 			":(", "That is bad!", "You will never make it!" ];
@@ -97,16 +101,16 @@ package {
 			if (lastX != 0) {
 				drawLine();
 			}
-			lastX = dot.x + 4;
-			lastY = dot.y + 4;
+			lastX = dot.x + 8;
+			lastY = dot.y + 8;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
 			if (words > speak) {
 				addWord();
 			}
 			
-			var x:int =  FlxU.round(Math.random() * 312);
-			var y:int = FlxU.round(Math.random() * 222 + 10);
+			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
+			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
 			dot.reset(x, y);
 			dots--;
 			dotsLeft.text = dots.toString() + " dots";
@@ -116,7 +120,7 @@ package {
 		}
 		
 		public function drawLine():void {
-			sketchpad.drawLine(lastX, lastY, dot.x + 4, dot.y + 4, 0);
+			sketchpad.drawLine(lastX, lastY, dot.x + 8, dot.y + 8, 0);
 		}
 		
 		public function addWord():void {
@@ -130,18 +134,19 @@ package {
 			}
 			var temp:FlxText
 			if (Math.random() >= .5) {
-				temp = new FlxText(0, 0, 200, word);
+				temp = new FlxText(0, 0, FlxG.width, word);
 				temp.velocity.y = 100 + 20*difficulty;
 			}else {
-				temp = new FlxText(0, 230, 200, word);
+				temp = new FlxText(0, FlxG.height - 20, 200, word);
 				temp.velocity.y = -100 - 20*difficulty;
 			}
-			temp.color = 0;
+			temp.setFormat(null, 16, 0);
 			temp.velocity.x = 130 + 30*difficulty;
 			add(temp);
 		}
 		
 		public function bossQuestion():void {
+			super.setTimer(5000);
 			
 			finalQuestion = true;
 			dot.visible = false;
@@ -151,8 +156,8 @@ package {
 			var answer:int = 0;
 			
 			var qContent:String
-			question = new FlxText(60, 115, 200, "");
-			question.color = 0;
+			question = new FlxText(0, FlxG.height * 1/2, FlxG.width, "");
+			question.setFormat(null, 16, 0, "center");
 			
 			if (Math.random() >= .5) {
 				qContent = "How many times were you given support?";
@@ -185,34 +190,34 @@ package {
 			
 			var value:int = realChoices[0] as int;
 			if(value == answer) {
-				b1 = new FlxButton(0, 200, value.toString(), correct);
+				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b1;
 			} else {
-				b1 = new FlxButton(0, 200, value.toString(), wrong);
+				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), wrong);
 			}
 			
 			value = realChoices[1] as int;
 			if(value == answer) {
-				b2 = new FlxButton(80, 200, value.toString(), correct);
+				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b2;
 			} else {
-				b2 = new FlxButton(80, 200, value.toString(), wrong);
+				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), wrong);
 			}
 			
 			value = realChoices[2] as int;
 			if(value == answer) {
-				b3 = new FlxButton(160, 200, value.toString(), correct);
+				b3 = new FlxButton(345, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b3;
 			} else {
-				b3 = new FlxButton(160, 200, value.toString(), wrong);
+				b3 = new FlxButton(345, FlxG.height * 3 / 4, value.toString(), wrong);
 			}
 			
 			value = realChoices[3] as int;
 			if(value == answer) {
-				b4 = new FlxButton(240, 200, value.toString(), correct);
+				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), correct);
 				correctAnswer = b4;
 			} else {
-				b4 = new FlxButton(240, 200, value.toString(), wrong);
+				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), wrong);
 			}
 			
 			add(question);
@@ -224,17 +229,15 @@ package {
 		
 		public function wrong():void {
 			question.text = "You are wrong!";
-			question.x = 130
 			correctAnswer.flicker(1);
-			//mark wrong
+			
 			super.success = false;
 			super.timer.abort();
 		}
 		
 		public function correct():void {
-			question.x = 120
 			question.text = "You are correct!";
-			//mark correct
+			
 			super.success = true;
 		}
 		
@@ -244,10 +247,11 @@ package {
 			sketchpad.visible = false;
 			command.visible = false;
 			
-			question = new FlxText(130, 115, 200, "Out of time!");
-			question.color = 0;
+			question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
+			question.setFormat(null, 16, 0, "center");
 			add(question);
-			// mark wrong
+			
+			super.success = false;
 			super.timer.abort();
 		}
 	}

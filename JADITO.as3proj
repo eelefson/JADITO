@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="bin\JADITO.swf" />
     <movie fps="30" />
-    <movie width="1024" />
-    <movie height="780" />
+    <movie width="640" />
+    <movie height="480" />
     <movie version="10" />
     <movie minorVersion="1" />
     <movie platform="Flash Player" />
