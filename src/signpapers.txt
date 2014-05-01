@@ -2,6 +2,7 @@
 0 N In the end, you will owe $25,000.
 0 Y The net gain is $35,000.
 0 N It will cost you $1.
+0 N Please pay has the required $100.
 
 1 Y We would like to make a large donation.
 1 N Our services are not cheap, as you may imagine. Be prepared to pay.
@@ -23,7 +24,6 @@
 2 N There aren’t any words to express how much we believe you should make this investment. You won’t regret it!
 2 N The deal is nearly complete. Besides, it won’t cost you THAT much…
 2 N Please ignore the startup fee. It is miniscule in comparison to the benefits you will receive.
-
 
 3 N This is a huge sum of money we are discussing, so please be aware that we do not make this request lightly. However, we believe that you will be paid back tenfold in the productivity increase your office will experience.
 3 Y We must warn you, however: this operation will be costly towards your employees’ happiness. Many companies are unwilling to make this sacrifice.
