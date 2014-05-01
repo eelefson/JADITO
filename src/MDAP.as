@@ -1,9 +1,7 @@
 package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-	import flash.events.*;
-	import flash.display.Stage;
-	
+
 	/**
 	 * Needs to be reworked and have the text, etc be resizeable.
 	 * @author Connor
