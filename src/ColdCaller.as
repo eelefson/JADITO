@@ -113,8 +113,9 @@ package {
 		{
 			//var temp:Array = new Array(10);
 			
-			Nums.sort(randomSort);
+			//Nums.sort(randomSort);
 			
+			FlxG.shuffle(Nums, 5);
 			for (var i:int = 0; i < NumRefs.length; i++) {
 				var curr:Num = NumRefs.members[i];
 				curr.number = Nums[i];
