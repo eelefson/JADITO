@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	
 	public class OutPaper extends InOutPaper
 	{
@@ -27,7 +28,6 @@ package
 				this.kill();
 				
 				if (left) {
-					// Fail condition
 					minigame_super.timer.abort();
 				}
 			}

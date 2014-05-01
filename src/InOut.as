@@ -3,18 +3,21 @@ package {
 	import org.flixel.plugin.photonstorm.*;
 	
 	public class InOut extends MinigameState {
-		public static var level:Number = 0; // The level of the game's difficulty
+		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		
+		//public static var counter:Number;
+		//private var counterText:FlxText;
 		
 		private var papers:FlxGroup; // References to the papers
-		private var counter:Number = 0; // Used to control paper creation rate, counts "ticks" of update
+		private var ticks:Number = 0; // Used to control paper creation rate, counts "ticks" of update
 		
 		override public function create():void {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
 			papers = new FlxGroup;
-			//addPaper();
 			super.setTimer(20000);
+			
 			super.create();
 		}
 		
@@ -44,11 +47,11 @@ package {
 					break;
 			}
 			
-			if (counter % mod == 0) {
+			if (ticks % mod == 0) {
 				addPaper();
 			}
 			
-			counter++;
+			ticks++;
 		}
 		
 		// Add a random new paper to the screen
