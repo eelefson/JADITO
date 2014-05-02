@@ -3,7 +3,6 @@ package {
 	import org.flixel.plugin.photonstorm.*;
 
 	/**
-	 * Needs to be reworked and have the text, etc be resizeable.
 	 * @author Connor
 	 */
 	public class CoffeeRun extends MinigameState {
@@ -27,7 +26,7 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
-			difficulty = 3;
+			difficulty = Registry.difficultyLevel;
 			var seconds:int = 20;
 			
 			traySprite = new FlxExtendedSprite(FlxG.width/2, FlxG.height * 3 / 4, tray);

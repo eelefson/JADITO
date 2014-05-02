@@ -3,7 +3,6 @@ package {
 	import org.flixel.plugin.photonstorm.*;
 
 	/**
-	 * Needs to be reworked and have the text, etc be resizeable.
 	 * @author Connor
 	 */
 	public class MDAP extends MinigameState {
