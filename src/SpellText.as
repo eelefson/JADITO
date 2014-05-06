@@ -21,20 +21,36 @@ package
 		}
 		
 		override public function update():void {
-			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this.width &&
-				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height) {
+			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height ) {
 					
 					if (misspelled) {
 						this.text = correct;
 						this.size = Spellchecker.TEXT_SIZE - 5;
-						this.color = 0x00FF0000;
+						this.color = 0x00009933;
 						Spellchecker.numTypos--;
-						//misspelled = !misspelled;
 					} else {
 						Spellchecker.hasFailed = true;
 					}
 					
 				}
+				
+				/*if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height && misspelled) {
+					corrected = true;
+					this.text = correct;
+					this.size = Spellchecker.TEXT_SIZE - 5;
+					this.color = 0x00FF0000;
+					Spellchecker.numTypos--;
+				}
+				
+				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + getRealWidth &&
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height && !misspelled) {
+					
+					Spellchecker.hasFailed = true;
+					trace(this.text + " " + misspelled);
+					
+				}*/
 			
 				if (Spellchecker.hasFailed) {
 					if (misspelled) {

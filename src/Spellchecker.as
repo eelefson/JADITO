@@ -8,12 +8,12 @@ package
 	
 	public class Spellchecker extends MinigameState
 	{
-		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		public static var level:Number = 0; // The level of the game's difficulty
 		
 		public static var TEXT_SIZE:int = 25; // Size of text
 		public static var SPACE_SIZE:int = 10; // Size of spaces
 		public static var LINE_SPACING:int = 30; // Space between lines
-		public static var TEXT_MARGIN:int = 100; // Space between text and all edges of screen
+		public static var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
 		
 		public static var numTypos:int; // Number of typos left to find
 		public static var hasFailed:Boolean = false; // Has the player failed?
@@ -83,6 +83,8 @@ package
 				for (var i:int; i < paragraph.length; i++) {
 					var word:String = paragraph[i];
 					var text:SpellText;
+					
+					//trace(word);
 					
 					if (word.charAt(0) == "@") { // The current word has a possible substitution
 						if (word.charAt(1) == "" + replaceIndex) { // Replace the current word with the first substitution
