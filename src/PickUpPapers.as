@@ -49,10 +49,10 @@ package  {
 			}
 			
 			add(papers);
-			
+			super.create();
+			super.setCommandText("Pick them up!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		public function timeout():void {

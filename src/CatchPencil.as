@@ -46,9 +46,9 @@ package
 			add(pencil);
 			
 
-			
-			super.setTimer(10 * 1000);
 			super.create();
+			super.setCommandText("Catch!");
+			super.setTimer(10 * 1000);
 		}
 		
 		override public function update():void {

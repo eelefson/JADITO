@@ -113,6 +113,9 @@ package
 			}
 			
 			loader.load(url);
+			super.create();
+			super.setCommandText("Find the Typos!");
+			super.setTimer(20000);
 		}
 		
 		override public function update():void

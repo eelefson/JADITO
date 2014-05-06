@@ -77,9 +77,9 @@ package
 			}
 			
 			loader.load(url);
-			
-			super.setTimer(20000);
 			super.create();
+			super.setCommandText("Sign for money ONLY!");
+			super.setTimer(20000);
 		}
 		
 		override public function update():void

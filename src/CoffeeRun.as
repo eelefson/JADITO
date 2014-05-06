@@ -57,10 +57,10 @@ package {
 			
 			command = new FlxText(0, 0, FlxG.width, "Don't spill the coffee!");
 			command.setFormat(null, 16, 0, "center");
-
+			super.create();
+			super.setCommandText("Balance It!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		override public function update():void {

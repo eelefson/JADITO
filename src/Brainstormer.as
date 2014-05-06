@@ -75,10 +75,10 @@ package {
 			add(badBound);
 			
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
-			
+			super.create();
+			super.setCommandText("Throw ideas away!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		override public function update():void {

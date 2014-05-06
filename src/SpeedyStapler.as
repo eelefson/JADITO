@@ -12,7 +12,7 @@ package
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
 		[Embed(source="sound_assets/startup.mp3")] private var Startup:Class;
 
-		private var command:FlxText;
+		//private var command:FlxText;
 		private var staplesLeft:FlxText;
 		private var midLine:FlxSprite;
 		
@@ -23,7 +23,6 @@ package
 		private var stapleGroup:FlxGroup;
 		
 		override public function create():void {
-			
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
@@ -39,11 +38,11 @@ package
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
 			
-			command = new FlxText(0, 0, FlxG.width, "Staple into one!");
-			command.setFormat(null, 16, 0, "center");
-			add(command);
+			//command = new FlxText(0, 0, FlxG.width, "Staple into one!");
+			//command.setFormat(null, 16, 0, "center");
+			//add(command);
 			
-			staplesLeft = new FlxText(0, 0, FlxG.width, "Staples left: " + staples.toString());
+			staplesLeft = new FlxText(0, 25, FlxG.width, "Staples left: " + staples.toString());
 			staplesLeft.setFormat(null, 16, 0, "right");
 			add(staplesLeft);
 			
@@ -57,10 +56,10 @@ package
 			
 			stapleGroup = new FlxGroup(staples);
 			add(stapleGroup);
-			
+			super.create();
+			super.setCommandText("Staple the Papers !");
 			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		override public function update():void {
@@ -80,7 +79,7 @@ package
 		}
 		
 		public function timeout():void {
-			command.kill();
+			//command.kill();
 			staplesLeft.kill();
 			midLine.visible = false;
 			

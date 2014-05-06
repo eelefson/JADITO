@@ -16,9 +16,9 @@ package {
 			FlxG.mouse.show();
 			
 			papers = new FlxGroup;
-			super.setTimer(20000);
-			
 			super.create();
+			super.setCommandText("Sort Them!");
+			super.setTimer(20000);
 		}
 		
 		override public function update():void {

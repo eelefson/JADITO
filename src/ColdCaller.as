@@ -64,9 +64,9 @@ package {
 			answerText.color = 0x00800000;
 			answerText.size = 30;
 			add(answerText);
-			
-			super.setTimer(20000);
 			super.create();
+			super.setCommandText("Dial the Numbers!");
+			super.setTimer(20000);
 		}
 		
 		override public function update():void {

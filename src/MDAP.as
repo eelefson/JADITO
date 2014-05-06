@@ -13,7 +13,7 @@ package {
 		private var sketchpad:FlxSprite;
 		
 		private var dotsLeft:FlxText;
-		private var command:FlxText;
+		//private var command:FlxText;
 		private var question:FlxText;
 		
 		private var b1:FlxButton;
@@ -63,11 +63,11 @@ package {
 			dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
 			
-			dotsLeft = new FlxText(0, 0, FlxG.width, dots.toString() + " dots");
+			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
 			dotsLeft.setFormat(null, 16, 0, "right");
 			
-			command = new FlxText(0, 0, FlxG.width, "Click the dots!");
-			command.setFormat(null, 16, 0, "center");
+			//command = new FlxText(0, 0, FlxG.width, "Click the dots!");
+			//command.setFormat(null, 16, 0, "center");
 			
 			sketchpad = new FlxSprite();
 			sketchpad.makeGraphic(FlxG.width, FlxG.height);
@@ -82,12 +82,13 @@ package {
 			
 			add(sketchpad);
 			add(dotsLeft);
-			add(command);
+			//add(command);
 			add(dot);
 			
+			super.create();
+			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		override public function update():void {
@@ -149,7 +150,7 @@ package {
 			dot.visible = false;
 			dotsLeft.visible = false;
 			sketchpad.visible = false;
-			command.visible = false;
+			//command.visible = false;
 			var answer:int = 0;
 			
 			var qContent:String
@@ -242,7 +243,7 @@ package {
 			dot.visible = false;
 			dotsLeft.visible = false;
 			sketchpad.visible = false;
-			command.visible = false;
+			//command.visible = false;
 			
 			question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
 			question.setFormat(null, 16, 0, "center");
