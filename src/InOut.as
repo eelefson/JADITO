@@ -32,7 +32,7 @@ package {
 			var mod:Number;
 			switch (level) {
 				case 0:
-					mod = 200;
+					mod = 150;
 					break;
 				case 1:
 					mod = 100;

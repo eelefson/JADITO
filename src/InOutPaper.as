@@ -11,7 +11,7 @@ package
 		
 		public function InOutPaper():void
 		{
-			super (chooseLane(), FlxG.height - 50);
+			super (chooseLane(), FlxG.height - 70);
 			
 			// Change speed depending on game difficutly level
 			if (InOut.level == 0) {

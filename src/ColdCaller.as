@@ -35,13 +35,13 @@ package {
 			
 			goal = generateGoal();
 			
-			goalText = new FlxText(10, FlxG.height - 40, FlxG.width, "");
+			goalText = new FlxText(10, FlxG.height - 60, FlxG.width, "");
 			goalText.color = 0x00FF0000;
 			goalText.size = 20;
 			add(goalText);
 			goalText.text = displayGoal(goal);
 			
-			var arrow:FlxSprite = new FlxSprite(190, FlxG.height - 42);
+			var arrow:FlxSprite = new FlxSprite(190, FlxG.height - 62);
 			arrow.loadGraphic(img);
 			add(arrow);
 			
@@ -49,7 +49,7 @@ package {
 			if (level > 1) {
 				goal2 = generateGoal();
 			
-				goalText2 = new FlxText(10, FlxG.height - 60, FlxG.width, "");
+				goalText2 = new FlxText(10, goalText.y - 20, FlxG.width, "");
 				goalText2.color = 0x00000000;
 				goalText2.size = 20;
 				add(goalText2);
@@ -60,7 +60,7 @@ package {
 			
 			currIndex = 0;
 			
-			answerText = new FlxText(100, 400, FlxG.width);
+			answerText = new FlxText(100, 380, FlxG.width);
 			answerText.color = 0x00800000;
 			answerText.size = 30;
 			add(answerText);

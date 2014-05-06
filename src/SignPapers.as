@@ -128,7 +128,6 @@ package
 					}
 				}
 				FlxG.shuffle(papers, 2);
-				trace(papers);
 				updateText();
 			}
 		
