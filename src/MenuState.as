@@ -56,7 +56,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new DictatorDiction());
 		}
 		
 		public function shuffle(a:Array):void {
