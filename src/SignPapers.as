@@ -72,7 +72,6 @@ package
 						papers.push(line.substring(2));
 					}
 				}
-				trace(papers);
 				FlxG.shuffle(papers, 2);
 				updateText();
 			}
