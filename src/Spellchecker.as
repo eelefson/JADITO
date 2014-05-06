@@ -8,7 +8,7 @@ package
 	
 	public class Spellchecker extends MinigameState
 	{
-		public static var level:Number = 0; // The level of the game's difficulty
+		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
 		
 		public static var TEXT_SIZE:int = 25; // Size of text
 		public static var SPACE_SIZE:int = 10; // Size of spaces
