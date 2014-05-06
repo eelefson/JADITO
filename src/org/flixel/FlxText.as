@@ -297,6 +297,5 @@ package org.flixel
 			return new TextFormat(defaultTextFormat.font,defaultTextFormat.size,defaultTextFormat.color,defaultTextFormat.bold,defaultTextFormat.italic,defaultTextFormat.underline,defaultTextFormat.url,defaultTextFormat.target,defaultTextFormat.align);
 		}
 		
-		public function getRealWidth():int { return _textField.textWidth; }
 	}
 }

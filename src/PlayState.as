@@ -374,11 +374,11 @@ package {
 			var currentMinigame:Dictionary = Registry.pool.shift();
 			Registry.difficultyLevel = currentMinigame["level"];
 			switch(currentMinigame["minigame"]) {
-				case MinigameEnums.MINIGAME_ZERO:
-					minigameState = new Minigame_ZERO();
+				case MinigameEnums.DICTATOR_DICTION:
+					minigameState = new DictatorDiction();
 					break;
-				case MinigameEnums.MINIGAME_ONE:
-					minigameState = new Minigame_ONE();
+				case MinigameEnums.COFFEE_RUN:
+					minigameState = new CoffeeRun();
 					break;
 				case MinigameEnums.COLD_CALLER:
 					minigameState = new ColdCaller();
@@ -391,7 +391,16 @@ package {
 					break;					
 				case MinigameEnums.IN_OUT:
 					minigameState = new InOut();
-					break;					
+					break;
+				case MinigameEnums.BRAINSTORMER:
+					minigameState = new Brainstormer();
+					break;	
+				case MinigameEnums.SPEEDY_STAPLER:
+					minigameState = new SpeedyStapler();
+					break;	
+				case MinigameEnums.SPELL_CHECKER:
+					minigameState = new Spellchecker();
+					break;	
 			}
 			FlxG.switchState(minigameState);
 		}
