@@ -8,7 +8,6 @@ package {
 	public class CoffeeRun extends MinigameState {
 		[Embed(source="image_assets/coffeeCup.png")] private var cup:Class; 
 		[Embed(source = "image_assets/CupsAndTray.png")] private var tray:Class;
-		[Embed(source = "image_assets/pivot.png")] private var pivot:Class;
 		
 		
 		private var command:FlxText;

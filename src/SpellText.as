@@ -29,7 +29,7 @@ package
 						this.size = Spellchecker.TEXT_SIZE - 5;
 						this.color = 0x00FF0000;
 						Spellchecker.numTypos--;
-						misspelled = !misspelled;
+						//misspelled = !misspelled;
 					} else {
 						Spellchecker.hasFailed = true;
 					}
