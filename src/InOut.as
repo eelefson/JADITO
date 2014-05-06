@@ -18,7 +18,7 @@ package {
 			papers = new FlxGroup;
 			super.create();
 			super.setCommandText("Sort Them!");
-			super.setTimer(20000);
+			super.setTimer(15000);
 		}
 		
 		override public function update():void {

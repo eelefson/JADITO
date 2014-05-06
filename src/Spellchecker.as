@@ -5,6 +5,7 @@ package
 	import flash.net.URLRequest;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import flash.utils.ByteArray;
 	
 	public class Spellchecker extends MinigameState
 	{
@@ -20,6 +21,8 @@ package
 		
 		public var ticks:int = 0;
 		
+		[Embed(source="../src/spellchecker.txt",mimeType="application/octet-stream")] private var spellcheckFile:Class;
+		
 		override public function create():void
 		{
 			FlxG.bgColor = 0xffaaaaaa;
@@ -33,15 +36,36 @@ package
 				numTypos = 2;
 			}
 			
-			var url:URLRequest = new URLRequest("../src/spellchecker.txt");
+			loadParagraph();
 			
-			var loader:URLLoader = new URLLoader();
+			super.create();
+			super.setCommandText("Find the Typos!");
+			super.setTimer(20000);
+		}
+		
+		override public function update():void
+		{
+			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
+				ticks++;
+				if (ticks == 40) { // Enough time has passed, end the game!
+					super.success = true;
+				}
+			}
 			
-			loader.addEventListener(Event.COMPLETE, loaderComplete);
+			if (hasFailed) { // The user has failed!
+				ticks++;
+				if (ticks ==  40) {
+					super.timer.abort();
+				}
+			}
 			
-			function loaderComplete(e:Event):void
+			super.update();
+		}
+		
+		private function loadParagraph():void
 			{
-				var data:String = loader.data;
+				var b:ByteArray = new spellcheckFile();
+				var data:String = b.readUTFBytes(b.length)
 				var lines:Array = data.split("\n"); // Holds all lines in text file
 				
 				var possibleParagraphs:Array = new Array();
@@ -111,31 +135,6 @@ package
 					add(text);
 				}
 			}
-			
-			loader.load(url);
-			super.create();
-			super.setCommandText("Find the Typos!");
-			super.setTimer(20000);
-		}
-		
-		override public function update():void
-		{
-			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
-				ticks++;
-				if (ticks == 40) { // Enough time has passed, end the game!
-					super.success = true;
-				}
-			}
-			
-			if (hasFailed) { // The user has failed!
-				ticks++;
-				if (ticks ==  40) {
-					super.timer.abort();
-				}
-			}
-			
-			super.update();
-		}
 		
 
 	}

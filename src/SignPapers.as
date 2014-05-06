@@ -5,6 +5,7 @@ package
 	import flash.net.URLRequest;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import flash.utils.ByteArray;
 	
 	public class SignPapers extends MinigameState
 	{
@@ -26,6 +27,8 @@ package
 		
 		[Embed(source = "/image_assets/signline.png")] private var img:Class;
 		
+		[Embed(source="../src/signpapers.txt",mimeType="application/octet-stream")] private var papersFile:Class;
+		
 		override public function create():void
 		{
 			
@@ -33,20 +36,16 @@ package
 			
 			papers = new Array();
 			
-			var url:URLRequest = new URLRequest("../src/signpapers.txt");
-			
-			var loader:URLLoader = new URLLoader();
-			
-			loader.addEventListener(Event.COMPLETE, loaderComplete);
-			
 			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
 			add(currPaperText);
+			
+			loadPapers();
 			
 			lineSprite = new FlxSprite(30, FlxG.height / 4 + 150);
 			lineSprite.loadGraphic(img);
 			add(lineSprite);
 			
-			numLeft = new FlxText(20, FlxG.height - 60, FlxG.width, "" + NUM_PAPERS);
+			numLeft = new FlxText(20, FlxG.height - 80, FlxG.width, "" + NUM_PAPERS);
 			numLeft.color = 0x00000000;
 			numLeft.size = 50;
 			add(numLeft);
@@ -59,24 +58,6 @@ package
 			passButton.textHighlight.size = 30;
 			add(passButton);
 			
-			function loaderComplete(e:Event):void
-			{
-				var data:String = loader.data;
-				var lines:Array = data.split("\n");
-				
-				for (var i:int; i < lines.length; i++ ) {
-					var line:String = lines[i];
-					
-					var num:String = line.charAt(0);
-					if (num == "" + level) {
-						papers.push(line.substring(2));
-					}
-				}
-				FlxG.shuffle(papers, 2);
-				updateText();
-			}
-			
-			loader.load(url);
 			super.create();
 			super.setCommandText("Sign for money ONLY!");
 			super.setTimer(20000);
@@ -128,6 +109,28 @@ package
 				super.timer.abort();
 			}
 		}
+		
+		private function loadPapers():void
+			{
+				var b:ByteArray = new papersFile();
+				var data:String = b.readUTFBytes(b.length);
+				
+				
+				//var data:String = loader.data;
+				var lines:Array = data.split("\n");
+				
+				for (var i:int; i < lines.length; i++ ) {
+					var line:String = lines[i];
+					
+					var num:String = line.charAt(0);
+					if (num == "" + level) {
+						papers.push(line.substring(2));
+					}
+				}
+				FlxG.shuffle(papers, 2);
+				trace(papers);
+				updateText();
+			}
 		
 		
 	}
