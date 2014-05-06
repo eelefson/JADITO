@@ -1,0 +1,9 @@
+game name: jadito
+game id: 103
+skey: 4453dcb14ff92850b75600e5193f7247
+valid version ids: 1-3
+valid category ids: any number (usually starts at 1)
+
+db host: dev.db.centerforgamescience.com
+db username: jadito_db_user
+db password: 5a0422fe1e
