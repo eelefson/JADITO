@@ -54,13 +54,13 @@ package {
 			clipboard_graphic.y = clipboard_graphic.y - (clipboard_graphic.height / 2);
 			add(clipboard_graphic);
 			
-			var x:int = clipboard_graphic.x + 79;
-			var y:int = clipboard_graphic.y + 115;
+			var x:int = clipboard_graphic.x + 40;
+			var y:int = clipboard_graphic.y + 60;
 			// Generates ROWS of black boxes
 			for (i = 0; i < 4; i++) {
 				// Generates COLUMNS of black boxes
 				for (var j:int = 0; j < 3; j++) {
-					box_graphic = new FlxSprite(x + (100 * j), y + (100 * i), BlackBoxImage);
+					box_graphic = new FlxSprite(x + (50 * j), y + (50 * i), BlackBoxImage);
 					checkBoxes.add(box_graphic);
 				}
 			}
@@ -70,10 +70,10 @@ package {
 			for (var k:int = 0; k < Registry.taskStatuses.length; k++) {
 				var box:FlxSprite = checkBoxes.members[k];
 				if (Registry.taskStatuses[k] == TaskStatuses.SUCCESS) {
-					check_graphic = new FlxSprite(box.x + 3, box.y - 10, CheckMarkImage);
+					check_graphic = new FlxSprite(box.x + 3, box.y - 6, CheckMarkImage);
 					add(check_graphic);
 				} else if (Registry.taskStatuses[k] == TaskStatuses.FAILURE) {
-					x_graphic = new FlxSprite(box.x - 6, box.y - 4, XImage);
+					x_graphic = new FlxSprite(box.x - 3, box.y - 2, XImage);
 					add(x_graphic);					
 				}
 			}
