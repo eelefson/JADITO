@@ -75,7 +75,7 @@ package {
 			goodBound.makeGraphic(bin.width, 1, 0x00ffffff);
 			
 			ceiling = new FlxSprite(0, 0);
-			ceiling.makeGraphic(FlxG.width, 26, 0x00ffffff);
+			ceiling.makeGraphic(FlxG.width, 25, 0x00ffffff);
 			ceiling.immovable = true;
 			
 			add(ceiling);
@@ -94,7 +94,7 @@ package {
 			if (FlxG.mouse.justPressed() && FlxG.mouse.screenX <= mouseBound.width) {
 				idea = new FlxExtendedSprite(FlxG.mouse.screenX - 12, FlxG.mouse.screenY - 12);
 				idea.loadGraphic(crumpledPaper, false, false, 24, 24);
-				idea.enableMouseThrow(25, 60);
+				idea.enableMouseThrow(30, 60);
 				idea.boundsRect = mouseBound;
 				idea.setGravity(0, 200);
 				idea.draggable = true;
