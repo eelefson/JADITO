@@ -13,6 +13,7 @@ package {
 		private var ideasLeft:FlxText;
 		private var help:FlxText;
 		
+		private var ceiling:FlxSprite;
 		private var idea:FlxExtendedSprite;
 		private var bin:FlxExtendedSprite;
 		private var ideas:FlxGroup;
@@ -20,7 +21,7 @@ package {
 		private var badBound:FlxSprite;
 		private var goodBound:FlxSprite;
 		private var mouseBound:FlxRect;
-
+		
 		private var difficulty:int;
 		private var numIdeas:int;
 		
@@ -50,26 +51,34 @@ package {
 			
 			ideas = new FlxGroup();
 			add(ideas);
-			if (difficulty < 3) {
+			if (difficulty < 2) {
 				var xpos:int = FlxG.width / 3 + (FlxG.width * 2 / 3 - recycleWidth) / 2 * difficulty;
 				
-				bin = new MovingSprite(xpos, FlxG.height - recycleHeight,0,0,FlxG.width);
-				badBound = new MovingSprite(xpos, FlxG.height - recycleHeight + 1, 0, 0, FlxG.width);
-				goodBound = new MovingSprite(xpos, FlxG.height - recycleHeight, 0, 0, FlxG.width);
+				bin = new MovingSprite(xpos, FlxG.height - recycleHeight - 25,0,0,FlxG.width);
+				badBound = new MovingSprite(xpos, FlxG.height - recycleHeight + 1 - 25, 0, 0, FlxG.width);
+				goodBound = new MovingSprite(xpos, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				add(help);
 			}else {
-				var minx:int = FlxG.width / 2;
+				var minx:int = FlxG.width / 3;
+				if (difficulty >= 3) {
+					minx = FlxG.width / 2;
+				}
 				var maxx:int = FlxG.width - recycleWidth;
-				var velocity:Number = 300;
+				var velocity:Number = 100 * difficulty;
 				
-				bin = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight, velocity, minx, maxx);
-				badBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight + 1, velocity, minx, maxx);
-				goodBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight, velocity, minx, maxx);
+				bin = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
+				badBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight + 1 - 25, velocity, minx, maxx);
+				goodBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 			}
 			bin.loadGraphic(recycleBin);
 			badBound.makeGraphic(1, bin.height + 1, 0x00ffffff);
 			goodBound.makeGraphic(bin.width, 1, 0x00ffffff);
 			
+			ceiling = new FlxSprite(0, 0);
+			ceiling.makeGraphic(FlxG.width, 26, 0x00ffffff);
+			ceiling.immovable = true;
+			
+			add(ceiling);
 			add(bin);
 			add(goodBound);
 			add(badBound);
@@ -89,8 +98,10 @@ package {
 				idea.boundsRect = mouseBound;
 				idea.setGravity(0, 200);
 				idea.draggable = true;
+				idea.elasticity = .75;
 				ideas.add(idea);
 			}
+			FlxG.collide(ideas, ceiling);
 			FlxG.overlap(ideas, badBound, miss);
 			FlxG.overlap(ideas, goodBound, thrownAway);
 			ideasLeft.text = "Bad Ideas Left: " + numIdeas.toString();
