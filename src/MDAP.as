@@ -50,15 +50,11 @@ package {
 			finalQuestion = false;
 			
 			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
+			var y:int = FlxU.round(Math.random() * (FlxG.height - (25*2 + 16)) + 25);
 			lastX = 0;
 			lastY = 0;
 			dot = new FlxExtendedSprite(x, y);
-			dot.loadGraphic(Ball, true, true, 8, 8, true);
-			dot.width = 16;
-			dot.height = 16;
-			dot.offset.x = -4;
-			dot.offset.y = -4;
+			dot.loadGraphic(Ball, true, true, 16, 16, true);
 			dot.enableMouseClicks(false);
 			dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
@@ -108,7 +104,7 @@ package {
 			}
 			
 			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
+			var y:int = FlxU.round(Math.random() * (FlxG.height - (25*2 + 16)) + 25);
 			dot.reset(x, y);
 			dots--;
 			dotsLeft.text = dots.toString() + " dots";

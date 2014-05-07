@@ -40,7 +40,7 @@ package {
 			command.setFormat(null, 16, 0, "center");
 			add(command);
 			
-			ideasLeft = new FlxText(0, 0, FlxG.width, "Bad Ideas Left: " + numIdeas.toString());
+			ideasLeft = new FlxText(0, 25, FlxG.width, "Bad Ideas Left: " + numIdeas.toString());
 			ideasLeft.setFormat(null, 16, 0, "right");
 			add(ideasLeft);
 			
