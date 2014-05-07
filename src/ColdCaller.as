@@ -7,7 +7,7 @@ package {
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		[Embed(source = "image_assets/arrow-left.png")] private var img:Class;
 		
-		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		public static var level:Number; // The level of the game's difficulty
 		
 		private var another:Boolean = false; // If there is another phone number to input after the current one
 		private var justStarted:Boolean = true; // If the game has just started
@@ -27,6 +27,8 @@ package {
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
+			
+			level = Registry.difficultyLevel;
 			
 			Nums = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 0, 10);
 			NumRefs = new FlxGroup(12);
