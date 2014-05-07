@@ -134,6 +134,8 @@ package {
 		// Update when a button is clicked
 		public function clicked(obj:Num, x:int, y:int):void
 		{
+			obj.changeFrame(1);
+			
 			// Correct, increment the digit and update the result
 			if (obj.number == goal[currIndex]) {
 				FlxG.play(inputSound);
