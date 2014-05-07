@@ -59,7 +59,7 @@ package
 			add(passButton);
 			
 			super.create();
-			super.setCommandText("Sign for money ONLY!");
+			super.setCommandText("Sign for money gain ONLY!");
 			super.setTimer(20000);
 		}
 		
