@@ -236,14 +236,14 @@ package {
 		}
 		
 		public function timeout():void {
-			dot.visible = false;
-			dotsLeft.visible = false;
-			sketchpad.visible = false;
+			//dot.visible = false;
+			//dotsLeft.visible = false;
+			//sketchpad.visible = false;
 			//command.visible = false;
 			
-			question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
-			question.setFormat(null, 16, 0, "center");
-			add(question);
+			//question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
+			//question.setFormat(null, 16, 0, "center");
+			//add(question);
 			
 			super.success = false;
 			super.timer.abort();

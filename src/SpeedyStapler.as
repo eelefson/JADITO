@@ -80,12 +80,12 @@ package
 		
 		public function timeout():void {
 			//command.kill();
-			staplesLeft.kill();
-			midLine.visible = false;
+			//staplesLeft.kill();
+			//midLine.visible = false;
 			
-			var outOfTime:FlxText = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
-			outOfTime.setFormat(null, 16, 0, "center");
-			add(outOfTime);
+			//var outOfTime:FlxText = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
+			//outOfTime.setFormat(null, 16, 0, "center");
+			//add(outOfTime);
 
 			super.success = false;
 			super.timer.abort();
