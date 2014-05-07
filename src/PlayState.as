@@ -12,11 +12,19 @@ package {
 		[Embed(source="image_assets/box.jpg")] private var BlackBoxImage:Class;
 		[Embed(source = "image_assets/checkmark.png")] private var CheckMarkImage:Class;
 		[Embed(source = "image_assets/red-x.png")] private var XImage:Class;
+		[Embed(source = "image_assets/calendar.png")] private var CalanderImage:Class;
+		[Embed(source = "image_assets/red_circle.png")] private var CircleImage:Class;
+		[Embed(source = "image_assets/scribble.png")] private var ScribbleImage:Class;
+		[Embed(source = "image_assets/beginDayButton.png")] private var BeginDayButton:Class;
 		
 		private var clipboard_graphic:FlxSprite;
 		private var box_graphic:FlxSprite;
 		private var check_graphic:FlxSprite;
 		private var x_graphic:FlxSprite;
+		private var calander_graphic:FlxSprite;
+		private var cirle_graphic:FlxSprite;
+		private var scribble_graphic:FlxSprite;
+		private var begin_day_button:FlxSprite;
 		
 		private var checkBoxes:FlxGroup = new FlxGroup();
 		
@@ -48,6 +56,49 @@ package {
 			// CAMERA
 			zoomCam = new ZoomCamera(0, 0, FlxG.width, FlxG.height);
 			FlxG.resetCameras(zoomCam);
+			
+			if (Registry.pool.length == 0) {
+				if (Registry.day == DaysOfTheWeek.SATURDAY) {
+					FlxG.switchState(new WinState());
+				}
+				
+				if (Registry.playCurrentDay) {
+					Registry.day++;
+				}
+				Registry.playCurrentDay = false;
+				var s:int;
+				if (Registry.day == DaysOfTheWeek.SATURDAY) {
+					//for (i = 0; i < 10; i++) { TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
+					for (s = 0; s < 6; s++) {
+						Registry.taskStatuses[s] = TaskStatuses.EMPTY;
+					}
+				} else {
+					for (s = 0; s < 6; s++) {
+						Registry.taskStatuses[s] = TaskStatuses.EMPTY;
+					}
+				}
+			}
+			
+			if (!Registry.playCurrentDay) {
+				begin_day_button = new FlxButton(FlxG.width, FlxG.height / 2, null, clickBeginButton);
+				begin_day_button.loadGraphic(BeginDayButton);
+				begin_day_button.x = begin_day_button.x - (begin_day_button.width * 1.35);
+				begin_day_button.y = begin_day_button.y - (begin_day_button.height / 2);
+				add(begin_day_button);
+			}
+			
+			calander_graphic = new FlxSprite(FlxG.width / 2, 0, CalanderImage);
+			calander_graphic.x = calander_graphic.x - (calander_graphic.width / 2);
+			add(calander_graphic);
+			
+			var day:int = Registry.day - 1;
+			cirle_graphic = new FlxSprite(((FlxG.width / 2) - (calander_graphic.width / 2) + 6) + (Registry.day * (calander_graphic.width / 6)), 22, CircleImage);
+			add(cirle_graphic);
+			
+			for (var n:int = 0; n < Registry.day; n++) {
+				scribble_graphic = new FlxSprite(((FlxG.width / 2) - (calander_graphic.width / 2)) + (n * (calander_graphic.width / 6)), 0, ScribbleImage);
+				add(scribble_graphic)				
+			}
 			
 			clipboard_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, ClipboardImage);
 			clipboard_graphic.x = clipboard_graphic.x - (clipboard_graphic.width / 2);
@@ -104,7 +155,7 @@ package {
 		override public function update():void {
 			super.update();
 			var i:int;
-			if (Registry.pool.length == 0 || go) {
+			/*if (Registry.pool.length == 0 || go) {
 				if (!go) {
 					if (Registry.day == DaysOfTheWeek.SATURDAY) {
 						//for (i = 0; i < 10; i++) { TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
@@ -126,8 +177,8 @@ package {
 						Registry.day++;
 						FlxG.switchState(new PlayState());
 					}
-				}
-			} else {
+				}*/
+			if (Registry.playCurrentDay) {
 				var box:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
 				
 				// Calculates the x and y distances between the camera center and the next unfilled black box
@@ -155,6 +206,12 @@ package {
 					pickMinigame();
 				}
 			}
+		}
+		
+		public function clickBeginButton():void {
+			Registry.playCurrentDay = true;
+			generatePool();
+			FlxG.switchState(new PlayState());		
 		}
 		
 		public function generatePool():void {
