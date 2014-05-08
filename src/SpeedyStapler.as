@@ -62,7 +62,7 @@ package
 		}
 		
 		override public function update():void {
-			if (FlxG.mouse.justPressed() && staples > 0) {
+			if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
 				stapleGroup.add(new Staple());
 				staples--;
 				staplesLeft.text = "Staples left: " + staples.toString();

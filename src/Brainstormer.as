@@ -14,12 +14,14 @@ package {
 		private var help:FlxText;
 		
 		private var ceiling:FlxSprite;
+		private var backWall:FlxSprite;
 		private var idea:FlxExtendedSprite;
 		private var bin:FlxExtendedSprite;
 		private var ideas:FlxGroup;
 		private var throwingLine:FlxSprite;
 		
 		private var badBound:FlxSprite;
+		private var backBound:FlxSprite;
 		private var goodBound:FlxSprite;
 		private var mouseBound:FlxRect;
 		
@@ -57,6 +59,7 @@ package {
 				
 				bin = new MovingSprite(xpos, FlxG.height - recycleHeight - 25,0,0,FlxG.width);
 				badBound = new MovingSprite(xpos, FlxG.height - recycleHeight + 1 - 25, 0, 0, FlxG.width);
+				backBound = new MovingSprite(xpos + recycleWidth, FlxG.height - recycleHeight + 1 - 25, 0, 0, FlxG.width);
 				goodBound = new MovingSprite(xpos, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				add(help);
 			}else {
@@ -69,6 +72,7 @@ package {
 				
 				bin = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 				badBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight + 1 - 25, velocity, minx, maxx);
+				backBound = new MovingSprite(FlxG.width / 2 + recycleWidth, FlxG.height - recycleHeight +  - 25, velocity, minx, maxx);
 				goodBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 			}
 			bin.loadGraphic(recycleBin);
@@ -78,6 +82,10 @@ package {
 			ceiling = new FlxSprite(0, 0);
 			ceiling.makeGraphic(FlxG.width, 25, 0x00ffffff);
 			ceiling.immovable = true;
+			
+			backWall = new FlxSprite(FlxG.width - 1, 0);
+			backWall.makeGraphic(1, FlxG.height, 0x00ffffff);
+			backWall.immovable = true;
 			
 			throwingLine = new FlxSprite(FlxG.width / 4, 25);
 			throwingLine.makeGraphic(1, FlxG.height - 50);
@@ -97,7 +105,7 @@ package {
 		}
 		
 		override public function update():void {
-			if (FlxG.mouse.justPressed() && FlxG.mouse.screenX <= mouseBound.width) {
+			if (FlxG.mouse.justPressed() && FlxG.mouse.screenX <= mouseBound.width && !FlxG.paused) {
 				idea = new FlxExtendedSprite(FlxG.mouse.screenX - 12, FlxG.mouse.screenY - 12);
 				idea.loadGraphic(crumpledPaper, false, false, 24, 24);
 				idea.enableMouseThrow(30, 60);
@@ -108,6 +116,8 @@ package {
 				ideas.add(idea);
 			}
 			FlxG.collide(ideas, ceiling);
+			FlxG.collide(ideas, backWall);
+			FlxG.overlap(ideas, backBound, miss);
 			FlxG.overlap(ideas, badBound, miss);
 			FlxG.overlap(ideas, goodBound, thrownAway);
 			ideasLeft.text = "Bad Ideas Left: " + numIdeas.toString();
