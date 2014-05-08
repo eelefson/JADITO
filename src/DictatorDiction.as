@@ -100,24 +100,33 @@ package   {
 			FlxG.shuffle(text, 2);
 			var spacing:int = 20;
 			var curHeight:int = 0;
-			var widthAndHeight:Dictionary = totalWidthOfMultipleButtons(4, 1, 50);
-			var totalWidth:int = widthAndHeight["totalWidth"];
-			var totalHeight:int = widthAndHeight["totalHeight"];
 			for (var i:int = 0; i < numberOfLines; i++) {
-				var widthAndHeight:Dictionary = totalWidthOfMultipleTextBoxes(i*numberToSelect, numberToSelect, numberOfLines, spacing, text);
+				var widthAndHeight:Dictionary = totalWidthOfMultipleButtons(4, 1, 50);
 				var totalWidth:int = widthAndHeight["totalWidth"];
 				var totalHeight:int = widthAndHeight["totalHeight"];
-				var command:DictatorDictionText;
+				var button:FlxButton;
 				var curWidth:int = 0;
-				for (var j:int = 0; j < numberToSelect; j++) {
-					command = new DictatorDictionText((FlxG.width / 2) - (totalWidth / 2), (FlxG.height / 2) - (totalHeight / 2), FlxG.width, text[(numberToSelect * i)+j]);
-					command.setFormat(null, 32, colors[(numberToSelect * i)+j], "left");
-					command.x = (command.x + curWidth) + (j * spacing);
-					command.y = (command.y + curHeight);
-					curWidth += command.getRealWidth();
-					bossCommands.add(command);	
+				var temp:Array = new Array();
+				for (var j:int = 0; j < numberOfButtons; j++) {
+					if (colorsToText) {
+						temp[0] = colors[i];
+						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, colors_to_text[colors[i]], checkIfCorrectColor, temp);
+						button.scale.x = 1.25;
+						button.scale.y = 1.25;
+						button.x = (button.x + curWidth) + (i * 50);
+						button.color = 0xffffffff;
+					} else {
+						temp[0] = text[i];
+						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, null, checkIfCorrectText, temp);
+						button.scale.x = 1.25;
+						button.scale.y = 1.25;
+						button.x = (button.x + curWidth) + (i * 50);
+						button.color = text_to_colors[text[i]];
+					}
+					curWidth += button.width;
+					add(button);	
 				}
-				curHeight += command.height;
+				curHeight += button.height;
 			}
 		}
 		
