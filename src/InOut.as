@@ -49,7 +49,7 @@ package {
 					break;
 			}
 			
-			if (ticks % mod == 0) {
+			if (!FlxG.paused && ticks % mod == 0) {
 				addPaper();
 			}
 			
