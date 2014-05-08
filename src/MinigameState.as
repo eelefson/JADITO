@@ -147,7 +147,7 @@ package  {
 					} else {
 						FlxG.play(FailureSFX);
 					}
-					totalTime = 2;
+					totalTime = 2; //CONTROLS THE DELAY
 					playEndSound = false;
 					timer.abort();
 				}
