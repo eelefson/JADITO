@@ -6,10 +6,9 @@ package {
 	 * @author Connor
 	 */
 	public class MDAP extends MinigameState {
-		[Embed(source="image_assets/ball.png")] private var Ball:Class; 
 		[Embed(source="sound_assets/startup.mp3")] private var Startup:Class;
 		
-		private var dot:FlxExtendedSprite;
+		private var dot:Dot;
 		private var sketchpad:FlxSprite;
 		
 		private var dotsLeft:FlxText;
@@ -49,12 +48,9 @@ package {
 			
 			finalQuestion = false;
 			
-			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - (25*2 + 16)) + 25);
 			lastX = 0;
 			lastY = 0;
-			dot = new FlxExtendedSprite(x, y);
-			dot.loadGraphic(Ball, true, true, 16, 16, true);
+			dot = new Dot();
 			dot.enableMouseClicks(false);
 			dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
@@ -91,21 +87,19 @@ package {
 			super.update();
 		}
 		
-		public function moveDot(dot:FlxExtendedSprite, currentx:int, currenty:int):void {
+		public function moveDot(d:FlxExtendedSprite, currentx:int, currenty:int):void {
 			if (lastX != 0) {
 				drawLine();
 			}
-			lastX = dot.x + 8;
-			lastY = dot.y + 8;
+			lastX = dot.x + dot.width / 2;
+			lastY = dot.y + dot.height / 2;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
 			if (words > speak) {
 				addWord();
 			}
 			
-			var x:int =  FlxU.round(Math.random() * (FlxG.width - 12));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - (25*2 + 16)) + 25);
-			dot.reset(x, y);
+			dot.move();
 			dots--;
 			dotsLeft.text = dots.toString() + " dots";
 			if (dots == 0) {
@@ -114,7 +108,7 @@ package {
 		}
 		
 		public function drawLine():void {
-			sketchpad.drawLine(lastX, lastY, dot.x + 8, dot.y + 8, 0);
+			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {
