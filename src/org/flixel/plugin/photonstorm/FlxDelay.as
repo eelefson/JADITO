@@ -113,7 +113,7 @@ package org.flixel.plugin.photonstorm
 			return int((expires - getTimer()) / 1000);
 		}
 		
-		private function update(event:Event):void
+		public function update(event:Event):void
 		{
 			//	Has the game been paused?
 			if (pausedTimerRunning == true && FlxG.paused == false)

@@ -16,6 +16,7 @@ package {
 		[Embed(source = "image_assets/red_circle.png")] private var CircleImage:Class;
 		[Embed(source = "image_assets/scribble.png")] private var ScribbleImage:Class;
 		[Embed(source = "image_assets/beginDayButton.png")] private var BeginDayButton:Class;
+		[Embed(source = "sound_assets/whoosh2.mp3")] private var WhooshSFX:Class;
 		
 		private var clipboard_graphic:FlxSprite;
 		private var box_graphic:FlxSprite;
@@ -47,6 +48,8 @@ package {
 		private var yDistance:Number;
 		
 		private var increment:int = 0;
+		
+		private var playWhoosh:Boolean = true;
 		
 		override public function create():void {
 			var i:int;
@@ -190,6 +193,10 @@ package {
 				
 				// Begins panning over to and zooming into the next unfilled black box
 				if (timer.secondsElapsed > 2) {
+					if (playWhoosh) {
+						FlxG.play(WhooshSFX);
+						playWhoosh = false;
+					}
 				//if (timer.secondsElapsed > 1) { CHANGED TO MAKE TESTING FASTER
 					zoomCam.focusOn(new FlxPoint(cameraX, cameraY));
 					if (increment != 50) {

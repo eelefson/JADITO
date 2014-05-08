@@ -8,7 +8,6 @@ package  {
 	 */
 	public class MenuState extends FlxState {
 		[Embed(source = "image_assets/start-button.png")] private var ImageButton:Class // This is a sprite of the button
-		[Embed(source = "sound_assets/Elevator musicTEST.mp3")] private var Song:Class;
 		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
 		
@@ -47,7 +46,6 @@ package  {
 			add(instructions);
 			
 			super.create();
-			//FlxG.playMusic(Elevatormusic);
 		}
 		
 		override public function update():void {

@@ -27,20 +27,17 @@ package   {
 			FlxG.shuffle(colors, 2);
 			FlxG.shuffle(text, 2);
 			
-			super.create();
 			
 			bossCommands = new FlxGroup();
-			var level:int = 0;
+			var level:int = Registry.difficultyLevel;
 			if (level == 0) {
 				placeText(4, 1, text, colors);
 				placeButtons(text.slice(0, 4), colors.slice(0, 4), true);
 				answers = colors.slice(0, 4);
-				super.setCommandText("Text COLOR!");
 			} else if (level == 1) {
 				placeText(4, 1, text, colors);
 				placeButtons(text.slice(0, 4), colors.slice(0, 4), false);
 				answers = text.slice(0, 4);
-				super.setCommandText("Text MEANING!");
 			} else if (level == 2) { //WONT WORK CORRECTLY ATM
 				//placeText(3, 2, text, colors);
 				//placeButtons(text.slice(0, 4), colors.slice(0, 4), false);
@@ -51,6 +48,18 @@ package   {
 				//answers = text.slice(0, 4);	
 			}
 			add(bossCommands);
+			
+			super.create();
+			
+			if (level == 0) {
+				super.setCommandText("Text COLOR!");
+			} else if (level == 1) {
+				super.setCommandText("Text MEANING!");
+			} else if (level == 2) {
+				
+			} else if (level == 3) {
+				
+			}
 			super.setTimer(20000);
 		}
 		

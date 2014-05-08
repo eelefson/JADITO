@@ -10,7 +10,7 @@ package
 		[Embed(source="image_assets/red-x.png")] private var ClipboardImage:Class;
 		override public function create():void
 		{
-			FlxG..load(ClipboardImage);
+			FlxG.mouse.mouse.load(ClipboardImage);
 		}
 		
 	}
