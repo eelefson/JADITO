@@ -8,10 +8,17 @@ package  {
 	 */
 	public class MenuState extends FlxState {
 		[Embed(source = "image_assets/start-button.png")] private var ImageButton:Class // This is a sprite of the button
+		[Embed(source = "sound_assets/Elevator musicTEST.mp3")] private var Song:Class;
+		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
+		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
 		
 		public var start_button:FlxButton;
+		public var mute_button:FlxButton;
+		public var musicText:FlxText;
+		public var bool:Boolean = true;
 		
 		override public function create():void {
+			
 			var title:FlxText;
 			title = new FlxText(0, 16, FlxG.width, "Just Another Day In The Office");
 			title.setFormat(null, 50, 0xFFFFFFFF, "center");
@@ -23,6 +30,16 @@ package  {
 			start_button.y = start_button.y - (start_button.height / 2);
 			add(start_button);
 			
+			mute_button = new FlxButton(0, FlxG.height, null, mute);
+			mute_button.loadGraphic(PlayButton);
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
+			
+			musicText = new FlxText(0, FlxG.height - mute_button.height, FlxG.width, "Music:");
+			musicText.setFormat(null, 16, 0xFFFFFFFF, "left");
+			musicText.y = musicText.y - (musicText.height / 2);
+			add(musicText);
+			
 			var instructions:FlxText;
 			instructions = new FlxText(0, FlxG.height - 128, FlxG.width, "Instructions:\n" + 
 				"Use the mouse throughout the game.\n");
@@ -30,10 +47,33 @@ package  {
 			add(instructions);
 			
 			super.create();
+			//FlxG.playMusic(Elevatormusic);
 		}
 		
 		override public function update():void {
 			super.update();
+			if (bool) {
+				bool = false;
+				FlxG.playMusic(Elevatormusic7);
+			}
+		}
+		
+		public function mute():void {
+			FlxG.music.pause();
+			mute_button.kill();
+			mute_button = new FlxButton(0, FlxG.height, null, play);
+			mute_button.loadGraphic(MuteButton);
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
+		}
+		
+		public function play():void {
+			FlxG.music.resume();
+			mute_button.kill();
+			mute_button = new FlxButton(0, FlxG.height, null, mute);
+			mute_button.loadGraphic(PlayButton);
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
 		}
 		
 		public function clickStartButton():void {

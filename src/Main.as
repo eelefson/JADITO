@@ -6,7 +6,7 @@ package  {
 	/**
 	 * ...
 	 * @author Elijah Elefson
-	 * Test the changes part ii
+	 *
 	 */
 	public class Main extends FlxGame{
 		
