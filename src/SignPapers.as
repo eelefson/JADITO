@@ -31,6 +31,8 @@ package
 		
 		override public function create():void
 		{
+			super.create();
+			
 			FlxG.bgColor = 0xffaaaaaa;
 			
 			level = Registry.difficultyLevel;
@@ -38,12 +40,14 @@ package
 			papers = new Array();
 			
 			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
-			if (level == 1) {
-				currPaperText.size = 10;
+			if (level == 0) {
+				currPaperText.size = 30;
+			} else if (level == 1) {
+				currPaperText.size = 30;
 			} else if (level == 2) {
-				currPaperText.size = 6;
+				currPaperText.size = 23;
 			} else if (level == 3) {
-				currPaperText.size = 5;
+				currPaperText.size = 19;
 			}
 			add(currPaperText);
 			
@@ -66,7 +70,6 @@ package
 			passButton.textHighlight.size = 30;
 			add(passButton);
 			
-			super.create();
 			super.setCommandText("Sign for money gain ONLY!");
 			super.setTimer(20000);
 		}
@@ -97,7 +100,6 @@ package
 		public function updateText():void
 		{
 			var text:String = papers.shift();
-			currPaperText.size = 30;
 			currPaperText.color = 0x00000000;
 			currPaperText.text = text.substring(2);
 			currPaperAnswer = text.charAt(0) == "Y";
