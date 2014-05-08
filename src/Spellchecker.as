@@ -19,6 +19,8 @@ package
 		public static var numTypos:int; // Number of typos left to find
 		public static var hasFailed:Boolean = false; // Has the player failed?
 		
+		private var hasLoaded:Boolean = false;
+		
 		public var ticks:int = 0;
 		
 		[Embed(source="../src/spellchecker.txt",mimeType="application/octet-stream")] private var spellcheckFile:Class;
@@ -38,7 +40,7 @@ package
 				numTypos = 2;
 			}
 			
-			loadParagraph();
+			//loadParagraph();
 			
 			super.create();
 			super.setCommandText("Find the Typos!");
@@ -47,6 +49,8 @@ package
 		
 		override public function update():void
 		{
+			super.update();
+			
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
 				if (ticks == 40) { // Enough time has passed, end the game!
@@ -61,7 +65,12 @@ package
 				}
 			}
 			
-			super.update();
+			if (!hasLoaded && !FlxG.paused) {
+				loadParagraph();
+				hasLoaded = true;
+			}
+			
+			
 		}
 		
 		private function loadParagraph():void
