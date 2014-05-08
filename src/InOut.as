@@ -3,7 +3,7 @@ package {
 	import org.flixel.plugin.photonstorm.*;
 	
 	public class InOut extends MinigameState {
-		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		public static var level:Number; // The level of the game's difficulty
 		
 		//public static var counter:Number;
 		//private var counterText:FlxText;
@@ -14,6 +14,8 @@ package {
 		override public function create():void {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
+			
+			level = Registry.difficultyLevel;
 			
 			papers = new FlxGroup;
 			super.create();

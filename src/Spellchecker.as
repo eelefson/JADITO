@@ -9,7 +9,7 @@ package
 	
 	public class Spellchecker extends MinigameState
 	{
-		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		public static var level:Number; // The level of the game's difficulty
 		
 		public static var TEXT_SIZE:int = 25; // Size of text
 		public static var SPACE_SIZE:int = 10; // Size of spaces
@@ -26,6 +26,8 @@ package
 		override public function create():void
 		{
 			FlxG.bgColor = 0xffaaaaaa;
+			
+			level = Registry.difficultyLevel;
 			
 			super.setTimer(20000);
 			

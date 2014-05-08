@@ -69,11 +69,11 @@ package
 			}
 		}
 		
-		/*
+		
 		public function changeFrame(f:int):void
 		{
 			frame = f;
-		}*/
+		}
 		
 	}
 

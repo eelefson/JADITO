@@ -9,5 +9,6 @@ package  {
 		public static var taskStatuses:Array;
 		public static var difficultyLevel:int;
 		public static var minigames:Array;
+		public static var playCurrentDay:Boolean;
 	}
 }

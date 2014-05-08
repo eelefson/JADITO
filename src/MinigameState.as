@@ -14,11 +14,13 @@ package  {
 		public var timer:FlxDelay;
 		protected var timerText:FlxText;
 		protected var commandText:FlxText;
+		private var skipButton:FlxButton;
 		
 		public var success:Boolean = false;
 		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);
+			
 			topWall = new FlxTileblock(0, 0, FlxG.width, 25);
 			topWall.makeGraphic(FlxG.width, 25, 0xff000000);
 			add(topWall);
@@ -26,6 +28,12 @@ package  {
 			bottomWall = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
 			bottomWall.makeGraphic(FlxG.width, 25, 0xff000000);
 			add(bottomWall);
+			
+			skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
+			skipButton.x = skipButton.x - skipButton.width;
+			skipButton.y = skipButton.y - skipButton.height;
+			skipButton.color = 0xff000000;
+			add(skipButton);
 		}
 		
 		override public function update():void {
@@ -43,11 +51,14 @@ package  {
 			}
 		}
 		
+		private function skip():void {
+			success = true;
+		}
+		
 		protected function setTimer(runFor:int):void {
 			timer = new FlxDelay(runFor);
 			
 			timerText = new FlxText(0, FlxG.height - 25, FlxG.width, "Time left: " + timer.secondsRemaining.toString());
-			//timerText.setFormat(null, 16, 0x00000000, "center");
 			timerText.setFormat(null, 16, 0xffffffff, "center");
 			add(timerText);
 			

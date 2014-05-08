@@ -9,7 +9,7 @@ package
 	
 	public class SignPapers extends MinigameState
 	{
-		public static var level:Number = Registry.difficultyLevel; // The level of the game's difficulty
+		public static var level:Number; // The level of the game's difficulty
 		
 		private var papers:Array; // An array containing all of then valid papers to sign for the current level
 		private var seenPapers:Array; // An array of paper indexes that have already been seen
@@ -31,12 +31,20 @@ package
 		
 		override public function create():void
 		{
-			
 			FlxG.bgColor = 0xffaaaaaa;
+			
+			level = Registry.difficultyLevel;
 			
 			papers = new Array();
 			
 			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
+			if (level == 1) {
+				currPaperText.size = 10;
+			} else if (level == 2) {
+				currPaperText.size = 6;
+			} else if (level == 3) {
+				currPaperText.size = 5;
+			}
 			add(currPaperText);
 			
 			loadPapers();
