@@ -29,7 +29,7 @@ package   {
 			
 			
 			bossCommands = new FlxGroup();
-			var level:int = Registry.difficultyLevel;
+			var level:int = 2;//Registry.difficultyLevel;
 			if (level == 0) {
 				placeText(4, 1, text, colors);
 				placeButtons(text.slice(0, 4), colors.slice(0, 4), true);
@@ -39,13 +39,13 @@ package   {
 				placeButtons(text.slice(0, 4), colors.slice(0, 4), false);
 				answers = text.slice(0, 4);
 			} else if (level == 2) { //WONT WORK CORRECTLY ATM
-				//placeText(3, 2, text, colors);
-				//placeButtons(text.slice(0, 4), colors.slice(0, 4), false);
-				//answers = text.slice(0, 4);		
+				placeText(3, 2, text, colors);
+				placeButtons2(3, 2, text.slice(0, 6), colors.slice(0, 6), false);
+				answers = colors.slice(0, 6);		
 			} else if (level == 3) { //WONT WORK CORRECTLY ATM
-				//placeText(3, 2, text, colors);
-				//placeButtons(text.slice(0, 4), colors.slice(0, 4), false);
-				//answers = text.slice(0, 4);	
+				placeText(3, 2, text, colors);
+				placeButtons(text.slice(0, 6), colors.slice(0, 6), false);
+				answers = text.slice(0, 6);	
 			}
 			add(bossCommands);
 			
@@ -92,6 +92,32 @@ package   {
 				// incorrect!
 				super.success = false;
 				super.timer.abort();	
+			}
+		}
+		
+		private function placeButtons2(numberOfButtons:int, numberOfLines:int, text:Array, colors:Array, colorsToText:Boolean):void {
+			FlxG.shuffle(colors, 2);
+			FlxG.shuffle(text, 2);
+			var spacing:int = 20;
+			var curHeight:int = 0;
+			var widthAndHeight:Dictionary = totalWidthOfMultipleButtons(4, 1, 50);
+			var totalWidth:int = widthAndHeight["totalWidth"];
+			var totalHeight:int = widthAndHeight["totalHeight"];
+			for (var i:int = 0; i < numberOfLines; i++) {
+				var widthAndHeight:Dictionary = totalWidthOfMultipleTextBoxes(i*numberToSelect, numberToSelect, numberOfLines, spacing, text);
+				var totalWidth:int = widthAndHeight["totalWidth"];
+				var totalHeight:int = widthAndHeight["totalHeight"];
+				var command:DictatorDictionText;
+				var curWidth:int = 0;
+				for (var j:int = 0; j < numberToSelect; j++) {
+					command = new DictatorDictionText((FlxG.width / 2) - (totalWidth / 2), (FlxG.height / 2) - (totalHeight / 2), FlxG.width, text[(numberToSelect * i)+j]);
+					command.setFormat(null, 32, colors[(numberToSelect * i)+j], "left");
+					command.x = (command.x + curWidth) + (j * spacing);
+					command.y = (command.y + curHeight);
+					curWidth += command.getRealWidth();
+					bossCommands.add(command);	
+				}
+				curHeight += command.height;
 			}
 		}
 		
