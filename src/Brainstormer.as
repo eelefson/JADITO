@@ -17,6 +17,7 @@ package {
 		private var idea:FlxExtendedSprite;
 		private var bin:FlxExtendedSprite;
 		private var ideas:FlxGroup;
+		private var throwingLine:FlxSprite;
 		
 		private var badBound:FlxSprite;
 		private var goodBound:FlxSprite;
@@ -78,10 +79,15 @@ package {
 			ceiling.makeGraphic(FlxG.width, 25, 0x00ffffff);
 			ceiling.immovable = true;
 			
+			throwingLine = new FlxSprite(FlxG.width / 4, 25);
+			throwingLine.makeGraphic(1, FlxG.height - 50);
+			throwingLine.drawLine(0, 0, 0, FlxG.height - 50, 0xaaaaaa);
+			
 			add(ceiling);
 			add(bin);
 			add(goodBound);
 			add(badBound);
+			add(throwingLine);
 			
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
 			super.create();

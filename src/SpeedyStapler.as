@@ -16,7 +16,6 @@ package
 		private var staplesLeft:FlxText;
 		private var midLine:FlxSprite;
 		
-		private var papersLeft:int;
 		private var staples:int;
 		
 		private var paperGroup:FlxGroup;
@@ -29,9 +28,9 @@ package
 			FlxG.bgColor = 0xffffffff;
 			
 			var difficulty:int = Registry.difficultyLevel;
-			papersLeft = 1 + 2 * difficulty;
+			var papersLeft:int = 2 * (difficulty + 1);
 			var time:int = 20 + 5 * difficulty;
-			staples = 3;
+			staples = Math.max(3, (papersLeft + 6) / 3);
 			
 			midLine = new FlxSprite(0, 0);
 			midLine.makeGraphic(FlxG.width, FlxG.height);
@@ -47,17 +46,17 @@ package
 			add(staplesLeft);
 			
 			
-			paperGroup = new FlxGroup(papersLeft + 1);
-			for (var i:int = 0; i <= papersLeft; i++) {
+			paperGroup = new FlxGroup(papersLeft);
+			for (var i:int = 0; i < papersLeft; i++) {
 				var paper:StaplerPaper = new StaplerPaper();
+				add(paper);
 				paperGroup.add(paper);
 			}
-			add(paperGroup);
 			
 			stapleGroup = new FlxGroup(staples);
 			add(stapleGroup);
 			super.create();
-			super.setCommandText("Staple the Papers !");
+			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
 		}
@@ -69,7 +68,7 @@ package
 				staplesLeft.text = "Staples left: " + staples.toString();
 			}
 			FlxG.overlap(stapleGroup, paperGroup, staplePaper);
-			if (paperGroup.countLiving() == 1) {
+			if (paperGroup.length == 0) {
 				super.success = true;
 			}else if (stapleGroup.countLiving() == 0 && staples == 0) {
 				super.success = false;
@@ -95,14 +94,8 @@ package
 			var tempStaple:Staple = s as Staple;
 			var tempPaper:StaplerPaper = p as StaplerPaper;
 			
-			if (tempStaple.hit == null) {
-				tempStaple.hit = tempPaper;
-			}else if (tempStaple.hit == tempPaper) {
-				//do nothing, this is the first paper still
-			}else {
-				paperGroup.remove(tempPaper);
-				tempPaper.kill();
-			}
+			paperGroup.remove(tempPaper, true);
+			tempPaper.stapled();
 		}
 	}
 
