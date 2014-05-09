@@ -16,7 +16,7 @@ package  {
 		public var bottomWall:FlxTileblock;
 		
 		public var timer:FlxDelay;
-		protected var timerText:FlxText;
+		public var timerText:FlxText;
 		protected var commandText:FlxText;
 		private var skipButton:FlxButton;
 		
