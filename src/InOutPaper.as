@@ -5,13 +5,15 @@ package
 	
 	public class InOutPaper extends FlxExtendedSprite
 	{	
-		private static var DIST_FROM_EDGE:Number = 50; // Distance from side of screen
+		public static var DIST_FROM_EDGE:Number = 50; // Distance from side of screen
+		
+		public var minigame_super:InOut;
 		
 		public var left:Boolean; // If the paper is in the left lan (false means right)
 		
-		public function InOutPaper():void
+		public function InOutPaper(x:int):void
 		{
-			super (chooseLane(), FlxG.height - 70);
+			super (x, FlxG.height - 70);
 			
 			// Change speed depending on game difficutly level
 			if (InOut.level == 0) {
@@ -60,16 +62,6 @@ package
 				}
 				left = !left;
 			//}
-		}
-		
-		// Randomly choose a lane for the paper to spawn in
-		public function chooseLane():int
-		{
-			if (Math.floor(Math.random() * 2) < 1) {
-				return DIST_FROM_EDGE;
-			} else {
-				return FlxG.width - 2 * DIST_FROM_EDGE;
-			}
 		}
 		
 	}

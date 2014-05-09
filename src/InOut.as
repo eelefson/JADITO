@@ -11,6 +11,9 @@ package {
 		private var papers:FlxGroup; // References to the papers
 		private var ticks:Number = 0; // Used to control paper creation rate, counts "ticks" of update
 		
+		public var numRightLane:int = 0;
+		public var numWrongLane:int = 0;
+		
 		override public function create():void {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
@@ -54,6 +57,8 @@ package {
 			}
 			
 			ticks++;
+			
+			//trace(numRightLane + ", " + numWrongLane);
 		}
 		
 		// Add a random new paper to the screen
@@ -61,9 +66,9 @@ package {
 			var newPaper:InOutPaper;
 			
 			if (Math.floor(Math.random() * 2) < 1) {
-				newPaper = new InPaper(super);
+				newPaper = new InPaper(this);
 			} else {
-				newPaper = new OutPaper(super);
+				newPaper = new OutPaper(this);
 			}
 			papers.add(newPaper);
 			add(newPaper);
