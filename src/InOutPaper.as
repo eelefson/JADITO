@@ -50,17 +50,16 @@ package
 			}
 		}
 		public function clicked(obj:InOutPaper, x:int, y:int):void
-		//public function clicked():void
 		{
 			obj.frame = 1;
-			if (obj.velocity.x == 0) {
+			//if (obj.velocity.x == 0) {
 				if (left) {
-					obj.velocity.x = 500;
+					obj.velocity.x = 800;
 				} else {
-					obj.velocity.x = -500;
+					obj.velocity.x = -800;
 				}
 				left = !left;
-			}
+			//}
 		}
 		
 		// Randomly choose a lane for the paper to spawn in
