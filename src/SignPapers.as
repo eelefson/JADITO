@@ -31,7 +31,6 @@ package
 		
 		override public function create():void
 		{
-			super.create();
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -70,28 +69,31 @@ package
 			passButton.textHighlight.size = 30;
 			add(passButton);
 			
+			super.create();
 			super.setCommandText("Sign for money gain ONLY!");
 			super.setTimer(20000);
 		}
 		
 		override public function update():void
 		{
-			// Easier to create rectangle bounding box than a sprite in this case
-			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
-				FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
-					if (currPaperAnswer) {
-						numAnswered++;
-						
-						// CHECKS IF VICTORY CONDITIONS ARE MET
-						if (numAnswered == NUM_PAPERS) {
-							super.success = true;
+			if (!FlxG.paused) {
+				// Easier to create rectangle bounding box than a sprite in this case
+				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
+					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
+						if (currPaperAnswer) {
+							numAnswered++;
+							
+							// CHECKS IF VICTORY CONDITIONS ARE MET
+							if (numAnswered == NUM_PAPERS) {
+								super.success = true;
+							}
+							updateText();
+							numLeft.text = "" + (NUM_PAPERS - numAnswered);
+							
+						} else {
+							super.timer.abort();
 						}
-						updateText();
-						numLeft.text = "" + (NUM_PAPERS - numAnswered);
-						
-					} else {
-						super.timer.abort();
-					}
+				}
 			}
 			
 			super.update();
