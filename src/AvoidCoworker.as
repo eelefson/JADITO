@@ -64,9 +64,10 @@ package
 			
 			add(cubicles);
 			
+			super.create();
+			super.setCommandText("Avoid Him!");
 			super.setTimer(20 * 1000);
 			super.timer.callback = timeout;
-			super.create();
 		}
 		
 		override public function update():void {

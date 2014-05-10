@@ -108,14 +108,32 @@ package {
 			clipboard_graphic.y = clipboard_graphic.y - (clipboard_graphic.height / 2);
 			add(clipboard_graphic);
 			
-			var x:int = clipboard_graphic.x + 40;
-			var y:int = clipboard_graphic.y + 60;
-			// Generates ROWS of black boxes
-			for (i = 0; i < 4; i++) {
-				// Generates COLUMNS of black boxes
-				for (var j:int = 0; j < 3; j++) {
-					box_graphic = new FlxSprite(x + (50 * j), y + (50 * i), BlackBoxImage);
-					checkBoxes.add(box_graphic);
+			var x:int;
+			var y:int;
+			var j:int;
+			if (Registry.day != DaysOfTheWeek.SATURDAY) {
+				x = clipboard_graphic.x + 53;
+				y = clipboard_graphic.y + 70;
+				// Generates ROWS of black boxes
+				for (i = 0; i < 3; i++) {
+					// Generates COLUMNS of black boxes
+					for (j = 0; j < 2; j++) {
+						box_graphic = new FlxSprite(x + (75 * j), y + (58 * i), BlackBoxImage);
+						checkBoxes.add(box_graphic);
+					}
+				}
+			} else {
+				x = clipboard_graphic.x + 40;
+				y = clipboard_graphic.y + 60;
+				// Generates ROWS of black boxes
+				for (i = 0; i < 4; i++) {
+					// Generates COLUMNS of black boxes
+					for (j = 0; j < 3; j++) {
+						if (i != 3 || j == 1) {
+							box_graphic = new FlxSprite(x + (50 * j), y + (50 * i), BlackBoxImage);
+							checkBoxes.add(box_graphic);
+						}
+					}
 				}
 			}
 			add(checkBoxes);
@@ -464,7 +482,19 @@ package {
 					break;	
 				case MinigameEnums.SPELL_CHECKER:
 					minigameState = new Spellchecker();
-					break;	
+					break;
+				case MinigameEnums.AVOID_THE_COWORKER:
+					minigameState = new AvoidCoworker();
+					break;
+				case MinigameEnums.CATCH_PENCIL:
+					minigameState = new CatchPencil();
+					break;
+				case MinigameEnums.PICK_UP_PAPERS:
+					minigameState = new PickUpPapers();
+					break;
+				case MinigameEnums.CLOCK_IN:
+					minigameState = new TimeClock();
+					break;
 			}
 			FlxG.switchState(minigameState);
 		}

@@ -211,24 +211,26 @@ package {
 		// Called after the "STOP!" button is pressed
 		public function stopClock():void {
 			stopped = true;
-			this.remove(stopButton); // Make sure it can't be pressed again
-			
-			// Make the numbers visible again
-			secones.alpha = 1;
-			sectens.alpha = 1;
-			minones.alpha = 1;
-			mintens.alpha = 1;
-			hrsall.alpha = 1;
-			colon1.alpha = 1;
-			colon2.alpha = 1;
-			
-			super.timerText.visible = true; // Bring back the timer!
-			
-			// Timer must read 8:00:XX
-			if (hrs == 8 && mins == 0) { // Success!
-				super.success = true;
-			} else { // Failure!
-				super.timer.abort();
+			if (!FlxG.paused) {
+				//this.remove(stopButton); // Make sure it can't be pressed again
+				
+				// Make the numbers visible again
+				secones.alpha = 1;
+				sectens.alpha = 1;
+				minones.alpha = 1;
+				mintens.alpha = 1;
+				hrsall.alpha = 1;
+				colon1.alpha = 1;
+				colon2.alpha = 1;
+				
+				//super.timerText.visible = true; // Bring back the timer!
+				
+				// Timer must read 8:00:XX
+				if (hrs == 8 && mins == 0) { // Success!
+					super.success = true;
+				} else { // Failure!
+					super.timer.abort();
+				}
 			}
 		}
 		

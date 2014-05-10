@@ -42,7 +42,7 @@ package  {
 			for (var i:int = 0; i < papersCount; i++) {
 				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
 				var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
-				var paper = new FlxExtendedSprite(x, y);
+				var paper:FlxExtendedSprite = new FlxExtendedSprite(x, y);
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
 				paper.enableMouseDrag();
 				papers.add(paper);
