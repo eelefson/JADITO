@@ -117,9 +117,11 @@ package  {
 					timer.abort();
 				}
 				if (success && FlxU.ceil(totalTime) < 0) {
+					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;
 					FlxG.switchState(new PlayState());
 				} else if (FlxU.ceil(totalTime) < 0) {
+					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
 					FlxG.switchState(new PlayState());
 				}
