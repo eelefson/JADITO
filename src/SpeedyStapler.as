@@ -20,6 +20,7 @@ package
 		
 		private var paperGroup:FlxGroup;
 		private var stapleGroup:FlxGroup;
+		private var tempPaperGroup:FlxGroup;
 		
 		override public function create():void {
 			FlxG.play(Startup);
@@ -45,12 +46,13 @@ package
 			staplesLeft.setFormat(null, 16, 0, "right");
 			add(staplesLeft);
 			
-			
+			tempPaperGroup = new FlxGroup();
 			paperGroup = new FlxGroup(papersLeft);
 			for (var i:int = 0; i < papersLeft; i++) {
 				var paper:StaplerPaper = new StaplerPaper();
 				add(paper);
 				paperGroup.add(paper);
+				tempPaperGroup.add(paper);
 			}
 			
 			stapleGroup = new FlxGroup(staples);
@@ -62,17 +64,22 @@ package
 		}
 		
 		override public function update():void {
-			if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
-				stapleGroup.add(new Staple());
-				staples--;
-				staplesLeft.text = "Staples left: " + staples.toString();
-			}
-			FlxG.overlap(stapleGroup, paperGroup, staplePaper);
-			if (paperGroup.length == 0) {
-				super.success = true;
-			}else if (stapleGroup.countLiving() == 0 && staples == 0) {
-				super.success = false;
-				super.timer.abort();
+			if (!FlxG.paused) {
+				if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
+					stapleGroup.add(new Staple());
+					staples--;
+					staplesLeft.text = "Staples left: " + staples.toString();
+				}
+				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
+				if (tempPaperGroup.length == 0) {
+					super.success = true;
+				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+					super.success = false;
+					super.timer.abort();
+				}
+			} else {
+				stapleGroup.update();
+				paperGroup.update();
 			}
 			super.update();
 		}
@@ -94,7 +101,7 @@ package
 			var tempStaple:Staple = s as Staple;
 			var tempPaper:StaplerPaper = p as StaplerPaper;
 			
-			paperGroup.remove(tempPaper, true);
+			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
 		}
 	}
