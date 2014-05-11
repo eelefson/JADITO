@@ -52,6 +52,12 @@ package {
 			help.setFormat(null, 16, 0);
 			help.alpha = .5;
 			
+			if (difficulty == 0) {
+				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click Drag Release!");
+				helpb.setFormat(null, 16, 0, "center");
+				helpb.alpha = .5;
+				add(helpb);
+			}
 			ideas = new FlxGroup();
 			add(ideas);
 			
