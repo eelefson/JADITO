@@ -42,7 +42,7 @@ package {
 			FlxG.bgColor = 0xffffffff;
 			
 			difficulty = Registry.difficultyLevel;
-			dots = 5 + 5 * difficulty;
+			dots = 7 + 5 * difficulty;
 			words = 20 + 10 * difficulty;
 			var seconds:int = 10 + 5 * difficulty;
 			
@@ -64,12 +64,15 @@ package {
 			sketchpad = new FlxSprite();
 			sketchpad.makeGraphic(FlxG.width, FlxG.height);
 			
-			hazePhrases = [ "Intern!!!", "You shouldn't be proud!", "You missed a spot!", "Go to college for that?", "Just quit!", 
-			":(", "That is bad!", "You will never make it!" ];
+			hazePhrases = ["Just quit!"];
+			//[ "Intern!!!", "You shouldn't be proud!", "You missed a spot!", "Go to college for that?", "Just quit!", 
+			//":(", "That is bad!", "You will never make it!" ];
 			haze = 0;
 			
-			praisePhrases = [ "Nice job!", "Hang in there!", "That looks really good!", "You are my hero!", "Nice artwork!",
-			"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
+			praisePhrases = ["Nice job!"];
+			
+			//[ "Nice job!", "Hang in there!", "That looks really good!", "You are my hero!", "Nice artwork!",
+			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
 			add(sketchpad);
@@ -95,7 +98,7 @@ package {
 			lastY = dot.y + dot.height / 2;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
-			if (words > speak) {
+			if (words > speak && dots >= 2) {
 				addWord();
 			}
 			
@@ -148,10 +151,10 @@ package {
 			question.setFormat(null, 16, 0, "center");
 			
 			if (Math.random() >= .5) {
-				qContent = "How many times were you given support?";
+				qContent = "How many times were you told you did a good job?";
 				answer = praise;
 			}else {
-				qContent = "How many times were your coworkers non-supportive?";
+				qContent = "How many times were you told to quit?";
 				answer = haze;
 			}
 			question.text = qContent;
@@ -207,6 +210,15 @@ package {
 			} else {
 				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), wrong);
 			}
+			
+			b1.scale.x = 1.5;
+			b1.scale.y = 1.5;
+			b2.scale.x = 1.5;
+			b2.scale.y = 1.5;
+			b3.scale.x = 1.5;
+			b3.scale.y = 1.5;
+			b4.scale.x = 1.5;
+			b4.scale.y = 1.5;
 			
 			add(question);
 			add(b1);

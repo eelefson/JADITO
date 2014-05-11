@@ -78,7 +78,9 @@ package  {
 			// Array storing all the possible minigames available to play
 			var a:Array = new Array(MinigameEnums.DICTATOR_DICTION, MinigameEnums.COFFEE_RUN, MinigameEnums.COLD_CALLER,
 				MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER, MinigameEnums.IN_OUT,
-				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, MinigameEnums.SPELL_CHECKER);
+				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, MinigameEnums.SPELL_CHECKER,
+				MinigameEnums.AVOID_THE_COWORKER, MinigameEnums.CATCH_PENCIL, MinigameEnums.PICK_UP_PAPERS,
+				MinigameEnums.CLOCK_IN);
 			shuffle(a);
 			var levelZeroMinigames:Array = new Array();
 			// Adds 10 minigames at difficulty level 0 from the overall pool of minigames
@@ -97,7 +99,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new DictatorDiction());
+			FlxG.switchState(new PlayState());
 		}
 		
 		public function shuffle(a:Array):void {

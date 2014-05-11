@@ -52,14 +52,21 @@ package {
 			help.setFormat(null, 16, 0);
 			help.alpha = .5;
 			
+			if (difficulty == 0) {
+				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click Drag Release!");
+				helpb.setFormat(null, 16, 0, "center");
+				helpb.alpha = .5;
+				add(helpb);
+			}
 			ideas = new FlxGroup();
 			add(ideas);
+			
 			if (difficulty < 2) {
 				var xpos:int = FlxG.width / 3 + (FlxG.width * 2 / 3 - recycleWidth) / 2 * difficulty;
 				
 				bin = new MovingSprite(xpos, FlxG.height - recycleHeight - 25,0,0,FlxG.width);
-				badBound = new MovingSprite(xpos, FlxG.height - recycleHeight + 1 - 25, 0, 0, FlxG.width);
-				backBound = new MovingSprite(xpos + recycleWidth, FlxG.height - recycleHeight + 1 - 25, 0, 0, FlxG.width);
+				badBound = new MovingSprite(xpos, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
+				backBound = new MovingSprite(xpos + recycleWidth, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				goodBound = new MovingSprite(xpos, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				add(help);
 			}else {
@@ -71,12 +78,13 @@ package {
 				var velocity:Number = 100 * difficulty;
 				
 				bin = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
-				badBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight + 1 - 25, velocity, minx, maxx);
-				backBound = new MovingSprite(FlxG.width / 2 + recycleWidth, FlxG.height - recycleHeight +  - 25, velocity, minx, maxx);
-				goodBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
+				badBound = new MovingSprite(FlxG.width / 2, FlxG.height - recycleHeight - 25, velocity, minx, maxx);
+				backBound = new MovingSprite(FlxG.width / 2 + recycleWidth, FlxG.height - recycleHeight - 25, velocity, minx + recycleWidth, maxx + recycleWidth);
+				goodBound = new MovingSprite(FlxG.width / 2 , FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 			}
 			bin.loadGraphic(recycleBin);
-			badBound.makeGraphic(1, bin.height + 1, 0x00ffffff);
+			badBound.makeGraphic(1, bin.height, 0x00ffffff);
+			backBound.makeGraphic(1, bin.height, 0x00ffffff);
 			goodBound.makeGraphic(bin.width, 1, 0x00ffffff);
 			
 			ceiling = new FlxSprite(0, 0);
@@ -92,9 +100,11 @@ package {
 			throwingLine.drawLine(0, 0, 0, FlxG.height - 50, 0xaaaaaa);
 			
 			add(ceiling);
+			add(backWall);
 			add(bin);
 			add(goodBound);
 			add(badBound);
+			add(backBound);
 			add(throwingLine);
 			
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);

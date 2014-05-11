@@ -31,6 +31,7 @@ package
 		
 		override public function create():void
 		{
+			
 			FlxG.bgColor = 0xffaaaaaa;
 			
 			level = Registry.difficultyLevel;
@@ -38,12 +39,14 @@ package
 			papers = new Array();
 			
 			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
-			if (level == 1) {
-				currPaperText.size = 10;
+			if (level == 0) {
+				currPaperText.size = 30;
+			} else if (level == 1) {
+				currPaperText.size = 30;
 			} else if (level == 2) {
-				currPaperText.size = 6;
+				currPaperText.size = 23;
 			} else if (level == 3) {
-				currPaperText.size = 5;
+				currPaperText.size = 19;
 			}
 			add(currPaperText);
 			
@@ -73,22 +76,24 @@ package
 		
 		override public function update():void
 		{
-			// Easier to create rectangle bounding box than a sprite in this case
-			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
-				FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
-					if (currPaperAnswer) {
-						numAnswered++;
-						
-						// CHECKS IF VICTORY CONDITIONS ARE MET
-						if (numAnswered == NUM_PAPERS) {
-							super.success = true;
+			if (!FlxG.paused) {
+				// Easier to create rectangle bounding box than a sprite in this case
+				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
+					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
+						if (currPaperAnswer) {
+							numAnswered++;
+							
+							// CHECKS IF VICTORY CONDITIONS ARE MET
+							if (numAnswered == NUM_PAPERS) {
+								super.success = true;
+							}
+							updateText();
+							numLeft.text = "" + (NUM_PAPERS - numAnswered);
+							
+						} else {
+							super.timer.abort();
 						}
-						updateText();
-						numLeft.text = "" + (NUM_PAPERS - numAnswered);
-						
-					} else {
-						super.timer.abort();
-					}
+				}
 			}
 			
 			super.update();
@@ -97,7 +102,6 @@ package
 		public function updateText():void
 		{
 			var text:String = papers.shift();
-			currPaperText.size = 30;
 			currPaperText.color = 0x00000000;
 			currPaperText.text = text.substring(2);
 			currPaperAnswer = text.charAt(0) == "Y";

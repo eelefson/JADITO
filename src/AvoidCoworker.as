@@ -117,10 +117,8 @@ package
 			add(cubicles);
 			super.create();
 			super.setCommandText("Avoid Coworker!");
-			
 			super.setTimer(20 * 1000);
 			super.timer.callback = timeout;
-			
 		}
 		
 		override public function update():void {

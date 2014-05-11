@@ -16,7 +16,7 @@ package  {
 		public var bottomWall:FlxTileblock;
 		
 		public var timer:FlxDelay;
-		protected var timerText:FlxText;
+		public var timerText:FlxText;
 		protected var commandText:FlxText;
 		private var skipButton:FlxButton;
 		
@@ -44,7 +44,7 @@ package  {
 		
 		private var playEndSound:Boolean = true;
 		
-		public var endDelay:FlxDelay;
+		//public var endDelay:FlxDelay;
 		
 		private var totalTime:Number;
 		
@@ -104,42 +104,6 @@ package  {
 				pauseMenu.update();
 			}
 			
-			if (FlxU.ceil(timeRemaining) > 1) {
-				if (FlxU.ceil(timeRemaining) < 4) {
-					introCommandText.y -= 10;
-					introCommandText.size -= 1;
-					//countDownText.visible = true;
-					//countDownText.text = FlxU.ceil(timeRemaining).toFixed(0).toString();
-					if (FlxU.ceil(timeRemaining) == 3) {
-						goText.visible = true;
-					} else if (FlxU.ceil(timeRemaining) == 2) {
-						goText.text = "SET!";
-					} else if (FlxU.ceil(timeRemaining) == 1) {
-						goText.text = "GO!";
-					}
-					
-					if (playSound) {
-						FlxG.play(ReadySetGoSFX);
-						playSound = false;
-					}
-					
-					if (introCommandText.y <= 0) {
-						commandText.visible = true;
-					}
-				}
-				timeRemaining -= FlxG.elapsed;
-			} else {
-				if (goBool) {
-					goText.text = "GO!";
-				}
-				if (timeRemaining < 0.5) {
-					goText.kill();
-					FlxG.paused = false;
-				}
-				countDownText.kill();
-				timeRemaining -= FlxG.elapsed;
-			}
-			
 			if (timer.hasExpired || success) {
 				if (playEndSound) {
 					if (success) {
@@ -148,15 +112,54 @@ package  {
 						FlxG.play(FailureSFX);
 					}
 					totalTime = 2; //CONTROLS THE DELAY
+					FlxG.paused = true;
 					playEndSound = false;
 					timer.abort();
 				}
 				if (success && FlxU.ceil(totalTime) < 0) {
+					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;
 					FlxG.switchState(new PlayState());
 				} else if (FlxU.ceil(totalTime) < 0) {
+					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
 					FlxG.switchState(new PlayState());
+				}
+			} else {
+				if (FlxU.ceil(timeRemaining) > 1) {
+					if (FlxU.ceil(timeRemaining) < 4) {
+						introCommandText.y -= 10;
+						introCommandText.size -= 1;
+						//countDownText.visible = true;
+						//countDownText.text = FlxU.ceil(timeRemaining).toFixed(0).toString();
+						if (FlxU.ceil(timeRemaining) == 3) {
+							goText.visible = true;
+						} else if (FlxU.ceil(timeRemaining) == 2) {
+							goText.text = "SET!";
+						} else if (FlxU.ceil(timeRemaining) == 1) {
+							goText.text = "GO!";
+						}
+						
+						if (playSound) {
+							FlxG.play(ReadySetGoSFX);
+							playSound = false;
+						}
+						
+						if (introCommandText.y <= 0) {
+							commandText.visible = true;
+						}
+					}
+					timeRemaining -= FlxG.elapsed;
+				} else {
+					if (goBool) {
+						goText.text = "GO!";
+					}
+					if (timeRemaining < 0.5) {
+						goText.kill();
+						FlxG.paused = false;
+					}
+					countDownText.kill();
+					timeRemaining -= FlxG.elapsed;
 				}
 			}
 			totalTime -= FlxG.elapsed;

@@ -6,7 +6,7 @@ package   {
 	 * ...
 	 * @author Elijah Elefson
 	 */
-	public class DictatorDiction extends MinigameState {
+	public class DictatorDiction2 extends MinigameState {
 		//public static var level:Number = Registry.difficultyLevel;
 		private var answers:Array;
 		private var orderOfAnswers:Array; // DO NOT MODIFY
