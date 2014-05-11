@@ -1,5 +1,5 @@
 package  {
-	import flash.utils.Dictionary;
+	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
@@ -9,11 +9,16 @@ package  {
 	 */
 	public class MinigameState extends FlxState {
 		[Embed(source = "sound_assets/ready_set_go.mp3")] private var ReadySetGoSFX:Class;
-		[Embed(source = "sound_assets/success.mp3")] private var SuccessSFX:Class;
-		[Embed(source = "sound_assets/failure.mp3")] private var FailureSFX:Class;
+		[Embed(source="sound_assets/correct-answer.mp3")] private var SuccessSFX:Class;
+		[Embed(source = "sound_assets/buzzer.mp3")] private var FailureSFX:Class;
+		[Embed(source="image_assets/big_check_mark3.png")] private var CheckMarkImage:Class;
+		[Embed(source="image_assets/x_mark_red_big.png")] private var XMarkImage:Class;
 		
 		public var topWall:FlxTileblock;
 		public var bottomWall:FlxTileblock;
+		
+		private var check_graphic:FlxSprite;
+		private var x_graphic:FlxSprite;
 		
 		public var timer:FlxDelay;
 		public var timerText:FlxText;
@@ -44,9 +49,9 @@ package  {
 		
 		private var playEndSound:Boolean = true;
 		
-		//public var endDelay:FlxDelay;
-		
 		private var totalTime:Number;
+		
+		private var blink:Boolean = true;
 		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);
@@ -78,6 +83,18 @@ package  {
 			goText.visible = false;
 			add(goText);			
 			
+			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
+			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
+			check_graphic.y = ((FlxG.height - check_graphic.height) / 2);
+			check_graphic.visible = false;
+			add(check_graphic);
+			
+			x_graphic = new FlxSprite(0, 0, XMarkImage);
+			x_graphic.x = ((FlxG.width - x_graphic.width) / 2);
+			x_graphic.y = ((FlxG.height - x_graphic.height) / 2);
+			x_graphic.visible = false;
+			add(x_graphic);
+			
 			timeRemaining = 5;
 			
 		}
@@ -108,14 +125,19 @@ package  {
 				if (playEndSound) {
 					if (success) {
 						FlxG.play(SuccessSFX);
+						blinkSuccess();
+						setInterval(blinkSuccess, 500);
 					} else {
 						FlxG.play(FailureSFX);
+						blinkFailure();
+						setInterval(blinkFailure, 500);
 					}
 					totalTime = 2; //CONTROLS THE DELAY
 					FlxG.paused = true;
 					playEndSound = false;
 					timer.abort();
 				}
+				
 				if (success && FlxU.ceil(totalTime) < 0) {
 					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;
@@ -165,17 +187,37 @@ package  {
 			totalTime -= FlxG.elapsed;
 		}
 		
+		private function blinkSuccess():void {
+			if (blink) {
+				check_graphic.visible = true;
+				blink = false;
+			} else {
+				check_graphic.visible = false;
+				blink = true;
+			}
+		}
+		
+		private function blinkFailure():void {
+			if (blink) {
+				x_graphic.visible = true;
+				blink = false;
+			} else {
+				x_graphic.visible = false;
+				blink = true;
+			}
+		}
+		
 		private function skip():void {
 			success = true;
 		}
 		
 		protected function setTimer(runFor:int):void {
-			timer = new FlxDelay(runFor);
+			timer = new FlxDelay(runFor+1);
 			timerText = new FlxText(0, FlxG.height - 25, FlxG.width, "Time left: " + timer.secondsRemaining.toString());
 			timerText.setFormat(null, 16, 0xffffffff, "center");
 			add(timerText);
 			// +3 for end time, +5 for start time
-			totalTime = runFor + 2 + 5;
+			totalTime = runFor + 1 + 2 + 5;
 			
 			timer.start();
 		}

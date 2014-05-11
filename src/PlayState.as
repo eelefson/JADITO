@@ -10,13 +10,15 @@ package {
 	public class PlayState extends FlxState {
 		[Embed(source = "image_assets/Clipboard_Background.png")] private var ClipboardImage:Class;
 		[Embed(source="image_assets/box.jpg")] private var BlackBoxImage:Class;
-		[Embed(source = "image_assets/checkmark.png")] private var CheckMarkImage:Class;
-		[Embed(source = "image_assets/red-x.png")] private var XImage:Class;
+		[Embed(source="image_assets/check_mark_green.png")] private var CheckMarkImage:Class;
+		[Embed(source="image_assets/x_mark_red.png")] private var XImage:Class;
 		[Embed(source = "image_assets/calendar.png")] private var CalanderImage:Class;
 		[Embed(source = "image_assets/red_circle.png")] private var CircleImage:Class;
 		[Embed(source = "image_assets/scribble.png")] private var ScribbleImage:Class;
 		[Embed(source = "image_assets/beginDayButton.png")] private var BeginDayButton:Class;
 		[Embed(source = "sound_assets/whoosh2.mp3")] private var WhooshSFX:Class;
+		[Embed(source = "sound_assets/begin_game.mp3")] private var BeginSFX:Class;
+		[Embed(source = "sound_assets/are-you-ready.mp3")] private var AreYouReadySFX:Class;
 		
 		private var clipboard_graphic:FlxSprite;
 		private var box_graphic:FlxSprite;
@@ -28,6 +30,9 @@ package {
 		private var begin_day_button:FlxSprite;
 		
 		private var checkBoxes:FlxGroup = new FlxGroup();
+		private var mostRecentMark:FlxSprite;
+		
+		private var beginDayText:BorderedText;
 		
 		private var zoomCam:ZoomCamera;
 		
@@ -50,6 +55,8 @@ package {
 		private var increment:int = 0;
 		
 		private var playWhoosh:Boolean = true;
+		
+		private var blink:Boolean = true;
 		
 		override public function create():void {
 			var i:int;
@@ -83,6 +90,9 @@ package {
 			}
 			
 			if (!Registry.playCurrentDay) {
+				if (Registry.day == DaysOfTheWeek.MONDAY) {
+					FlxG.play(BeginSFX);
+				}
 				begin_day_button = new FlxButton(FlxG.width, FlxG.height / 2, null, clickBeginButton);
 				begin_day_button.loadGraphic(BeginDayButton);
 				begin_day_button.x = begin_day_button.x - (begin_day_button.width * 1.35);
@@ -142,10 +152,18 @@ package {
 			for (var k:int = 0; k < Registry.taskStatuses.length; k++) {
 				var box:FlxSprite = checkBoxes.members[k];
 				if (Registry.taskStatuses[k] == TaskStatuses.SUCCESS) {
-					check_graphic = new FlxSprite(box.x + 3, box.y - 6, CheckMarkImage);
+					check_graphic = new FlxSprite(box.x + 2, box.y - 6, CheckMarkImage);
+					if (k == (Registry.taskStatuses.indexOf(TaskStatuses.EMPTY) - 1) || k == (Registry.taskStatuses.length - 1)) {
+						check_graphic.alpha = 0;
+						mostRecentMark = check_graphic;
+					}
 					add(check_graphic);
 				} else if (Registry.taskStatuses[k] == TaskStatuses.FAILURE) {
 					x_graphic = new FlxSprite(box.x - 3, box.y - 2, XImage);
+					if (k == (Registry.taskStatuses.indexOf(TaskStatuses.EMPTY) - 1) || k == (Registry.taskStatuses.length - 1)) {
+						x_graphic.alpha = 0;
+						mostRecentMark = x_graphic;
+					}
 					add(x_graphic);					
 				}
 			}
@@ -165,6 +183,18 @@ package {
 			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
+			
+			if (Registry.beginningOfDay) {
+				Registry.beginningOfDay = false;
+				beginDayText = new BorderedText(0, FlxG.height, FlxG.width, "Get Ready To Begin!");
+				beginDayText.setFormat(null, 32, 0xffffffff, "center", 30);
+				beginDayText.y = beginDayText.y - beginDayText.height - 35;
+				beginDayText.visible = false;
+				add(beginDayText);
+				blinkText();
+				setInterval(blinkText, 500);
+				FlxG.play(AreYouReadySFX);
+			}
 			
 			timer = new FlxDelay(5000);
 			//timer = new FlxDelay(2000); changed to speed up testing
@@ -225,6 +255,8 @@ package {
 					zoomCam.fade(0xffffffff, 2);
 					
 					zoomCam.targetZoom = 5;
+				} else if (mostRecentMark != null) {
+					mostRecentMark.alpha += 0.02;
 				}
 				
 				if (timer.hasExpired) {
@@ -233,8 +265,19 @@ package {
 			}
 		}
 		
+		private function blinkText():void {
+			if (blink) {
+				beginDayText.visible = true;
+				blink = false;
+			} else {
+				beginDayText.visible = false;
+				blink = true;
+			}
+		}
+		
 		public function clickBeginButton():void {
 			Registry.playCurrentDay = true;
+			Registry.beginningOfDay = true;
 			generatePool();
 			FlxG.switchState(new PlayState());		
 		}

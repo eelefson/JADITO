@@ -1,6 +1,7 @@
 package  {
 	import org.flixel.*;
 	import flash.utils.*;
+	import org.flixel.plugin.photonstorm.*;
 	
 	/**
 	 * ...
@@ -15,6 +16,7 @@ package  {
 		public var mute_button:FlxButton;
 		public var musicText:FlxText;
 		public var bool:Boolean = true;
+		public var startingGame:Boolean = false;
 		
 		override public function create():void {
 			

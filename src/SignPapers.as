@@ -86,9 +86,12 @@ package
 							// CHECKS IF VICTORY CONDITIONS ARE MET
 							if (numAnswered == NUM_PAPERS) {
 								super.success = true;
+								currPaperText.text = "Good work!";
+								numLeft.text = "0";
+							} else {
+								updateText();
+								numLeft.text = "" + (NUM_PAPERS - numAnswered);
 							}
-							updateText();
-							numLeft.text = "" + (NUM_PAPERS - numAnswered);
 							
 						} else {
 							super.timer.abort();
