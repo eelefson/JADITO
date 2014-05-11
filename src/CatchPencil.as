@@ -12,6 +12,8 @@ package
 	{
 		
 		[Embed(source = "image_assets/pencil.png")] private var pencilPic:Class;
+		[Embed(source = "image_assets/smallerPencil.png")] private var smallerPencil:Class;
+		[Embed(source = "image_assets/tinyPencil.png")] private var tinyPencil:Class;
 		[Embed(source = "image_assets/openhand.png")] private var handPic:Class;
 		
 		
@@ -30,19 +32,28 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
-			var pencilWidth:int = 20;
-			
-			var handHeight:int = 150;
-			var handWidth:int = 160;
-			
 			difficulty = Registry.difficultyLevel;
+			difficulty = 3;
 			
-			hand = new FlxExtendedSprite((FlxG.width/2) - (handWidth/2), FlxG.height - handHeight);
+			//hand = new FlxExtendedSprite((FlxG.width/2) - (handWidth/2), FlxG.height - handHeight);
+			hand = new FlxExtendedSprite(0, 0);
 			hand.loadGraphic(handPic);
+			hand.x = (FlxG.width / 2) - (hand.width / 2);
+			hand.y = FlxG.height - hand.height - 25;
 			add(hand);
 			
-			pencil = new FlxExtendedSprite((FlxG.width/2) - (pencilWidth/2), 20);
-			pencil.loadGraphic(pencilPic);
+			//pencil = new FlxExtendedSprite((FlxG.width/2) - (pencilWidth/2), 20);
+			pencil = new FlxExtendedSprite(0, 0);
+			
+			if (difficulty < 2) {
+				pencil.loadGraphic(pencilPic);
+			} else if (difficulty == 2) {
+				pencil.loadGraphic(smallerPencil);
+			} else {
+				pencil.loadGraphic(tinyPencil);
+			}
+			pencil.x = (FlxG.width / 2) - (pencil.width / 2);
+			pencil.y = 30;			
 			add(pencil);
 			
 
@@ -71,6 +82,7 @@ package
 				}
 				
 				if (FlxG.mouse.justPressed() && moving) {
+					pencil.velocity.y = 0;
 					if (FlxG.overlap(pencil, hand)) {
 						super.success = true;
 						super.timer.abort();

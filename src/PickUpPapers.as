@@ -41,7 +41,7 @@ package  {
 			
 			for (var i:int = 0; i < papersCount; i++) {
 				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
-				var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
+				var y:int = FlxU.round(Math.random() * ((FlxG.height - 32 - 25) + 25));
 				var paper = new FlxExtendedSprite(x, y);
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
 				paper.enableMouseDrag();
