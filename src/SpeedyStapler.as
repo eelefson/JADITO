@@ -43,7 +43,7 @@ package
 			//add(command);
 			
 			staplesLeft = new FlxText(0, 25, FlxG.width, "Staples left: " + staples.toString());
-			staplesLeft.setFormat(null, 16, 0, "right");
+			staplesLeft.setFormat(null, 32, 0, "right");
 			add(staplesLeft);
 			
 			tempPaperGroup = new FlxGroup();
