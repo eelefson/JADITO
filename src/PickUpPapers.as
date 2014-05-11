@@ -41,13 +41,11 @@ package  {
 			
 			for (var i:int = 0; i < papersCount; i++) {
 				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
-<<<<<<< HEAD
-				var y:int = FlxU.round(Math.random() * ((FlxG.height - 32 - 25) + 25));
-				var paper = new FlxExtendedSprite(x, y);
-=======
-				var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
+				var y:int = FlxU.round((Math.random() * (FlxG.height - paper.height - 50)) + 25);
+				
+				//var y:int = FlxU.round(Math.random() * (FlxG.height - 32) + 20);
 				var paper:FlxExtendedSprite = new FlxExtendedSprite(x, y);
->>>>>>> c9f8cbacc4d5a16915d11c3d0eec1451c0621cfc
+
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
 				paper.enableMouseDrag();
 				papers.add(paper);
