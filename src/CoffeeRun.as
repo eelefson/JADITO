@@ -75,15 +75,16 @@ package {
 					help.visible = false;
 				}
 			}
-			if (Math.random() < .01 * difficulty) {
-				traySprite.angularVelocity *= -(.6 + .1*difficulty);
-			}else {
-				if (Math.random() < .02 * (difficulty + 1)) {
-					if(traySprite.angularVelocity < 0) {
-						traySprite.angularVelocity--;
-					}else {
-						traySprite.angularVelocity++;
-					}
+			if (Math.random() < ((difficulty == 0) ? 0 : .01)) {
+				if((traySprite.angle < 0 && traySprite.angularVelocity > 0) || (traySprite.angle > 0 && traySprite.angularVelocity < 0)) {
+					traySprite.angularVelocity *= -(1 + .1 * difficulty);
+				}
+			}
+			if (Math.random() < .04 * (difficulty + 1)) {
+				if(traySprite.angularVelocity < 0) {
+					traySprite.angularVelocity -= 1;
+				}else {
+					traySprite.angularVelocity += 1;
 				}
 			}
 			if (Math.abs(traySprite.angle) > 60) {
@@ -94,11 +95,11 @@ package {
 		}
 		
 		public function adjustTrayLeft(obj:FlxExtendedSprite, x:int, y:int):void {
-			traySprite.angularVelocity += 10;
+			traySprite.angularVelocity += (10 + 3 * difficulty);
 		}
 		
 		public function adjustTrayRight(obj:FlxExtendedSprite, x:int, y:int):void {
-			traySprite.angularVelocity -= 10;
+			traySprite.angularVelocity -= (10 + 3 * difficulty);
 		}
 		
 		public function timeout():void {
