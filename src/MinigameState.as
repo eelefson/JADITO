@@ -81,19 +81,7 @@ package  {
 			goText.x = goText.x - (goText.width / 2);
 			goText.y = goText.y - (goText.height / 2);
 			goText.visible = false;
-			add(goText);			
-			
-			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
-			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
-			check_graphic.y = ((FlxG.height - check_graphic.height) / 2);
-			check_graphic.visible = false;
-			add(check_graphic);
-			
-			x_graphic = new FlxSprite(0, 0, XMarkImage);
-			x_graphic.x = ((FlxG.width - x_graphic.width) / 2);
-			x_graphic.y = ((FlxG.height - x_graphic.height) / 2);
-			x_graphic.visible = false;
-			add(x_graphic);
+			add(goText);
 			
 			timeRemaining = 5;
 			
@@ -125,10 +113,12 @@ package  {
 				if (playEndSound) {
 					if (success) {
 						FlxG.play(SuccessSFX);
+						placeSuccessGraphic();
 						blinkSuccess();
 						setInterval(blinkSuccess, 500);
 					} else {
 						FlxG.play(FailureSFX);
+						placeFailureGraphic();
 						blinkFailure();
 						setInterval(blinkFailure, 500);
 					}
@@ -205,6 +195,22 @@ package  {
 				x_graphic.visible = false;
 				blink = true;
 			}
+		}
+		
+		public function placeSuccessGraphic():void {
+			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
+			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
+			check_graphic.y = ((FlxG.height - check_graphic.height) / 2);
+			check_graphic.visible = false;
+			add(check_graphic);
+		}
+		
+		public function placeFailureGraphic():void {
+			x_graphic = new FlxSprite(0, 0, XMarkImage);
+			x_graphic.x = ((FlxG.width - x_graphic.width) / 2);
+			x_graphic.y = ((FlxG.height - x_graphic.height) / 2);
+			x_graphic.visible = false;
+			add(x_graphic);
 		}
 		
 		private function skip():void {
