@@ -117,6 +117,8 @@ package
 				
 				if (numAnswered == NUM_PAPERS) {
 					super.success = true;
+					currPaperText.text = "Good work!";
+					numLeft.text = "0";
 				}
 				updateText();
 				numLeft.text = "" + (NUM_PAPERS - numAnswered);

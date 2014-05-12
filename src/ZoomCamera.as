@@ -46,5 +46,21 @@ package  {
 			// update camera zoom
 			zoom += (targetZoom - zoom) / 2 * (FlxG.elapsed) * zoomSpeed;
 		}
+		
+		public function getX():Number {
+			return super.x;
+		}
+		
+		public function getY():Number {
+			return super.y;
+		}
+		
+		public function getWidth():uint {
+			return super.width;
+		}
+		
+		public function getHeight():uint {
+			return super.height;
+		}
 	}
 }

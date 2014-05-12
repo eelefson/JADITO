@@ -46,7 +46,7 @@ package  {
 				var paper:FlxExtendedSprite = new FlxExtendedSprite(x, y);
 
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
-				paper.enableMouseDrag();
+				paper.enableMouseDrag(true, true, 255, new FlxRect(0, 25, FlxG.width, FlxG.height - 50));
 				papers.add(paper);
 			}
 			
