@@ -67,11 +67,7 @@ package {
 			zoomCam = new ZoomCamera(0, 0, FlxG.width, FlxG.height);
 			FlxG.resetCameras(zoomCam);
 			
-			if (Registry.pool.length == 0) {
-				if (Registry.day == DaysOfTheWeek.SATURDAY) {
-					FlxG.switchState(new WinState());
-				}
-				
+			if (Registry.pool.length == 0) {		
 				if (Registry.playCurrentDay) {
 					Registry.day++;
 				}

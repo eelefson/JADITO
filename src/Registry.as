@@ -11,5 +11,6 @@ package  {
 		public static var minigames:Array;
 		public static var playCurrentDay:Boolean;
 		public static var beginningOfDay:Boolean;
+		public static var titles:Array;
 	}
 }

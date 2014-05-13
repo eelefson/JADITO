@@ -77,6 +77,17 @@ package  {
 		}
 		
 		public function clickStartButton():void {
+			Registry.titles = new Array("Lead Pencil Pusher",
+										"King of the Cubicles",
+										"Director of Menial Tasks",
+										"Senior Productivity Engineer",
+										"Water Cooler Warrior",
+										"Assistant to the Regional Manager",
+										"Assistant Regional Manager",
+										"Employee of the Month Week",
+										"Lord of the Lunch Break");
+			shuffle(Registry.titles);
+			
 			// Array storing all the possible minigames available to play
 			var a:Array = new Array(MinigameEnums.DICTATOR_DICTION, MinigameEnums.COFFEE_RUN, MinigameEnums.COLD_CALLER,
 				MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER, MinigameEnums.IN_OUT,

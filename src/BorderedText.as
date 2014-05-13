@@ -55,26 +55,30 @@ package  {
 				//Render a single pixel shadow beneath the text
 				if(_shadow > 0)
 				{
+					var n:int = 1;
+					if (_shadow == 30) {
+						n = 4;
+					}
 					// WERE ORIGINALLY ALL 1's, changed to 3s to increased border width
 					_textField.setTextFormat(new TextFormat(formatAdjusted.font,formatAdjusted.size,_shadow,null,null,null,null,null,formatAdjusted.align));                
-					_matrix.translate(4, 4);
+					_matrix.translate(n, n);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(0, -4);
+					_matrix.translate(0, -n);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(0, -4);
+					_matrix.translate(0, -n);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate( -4, 0);
+					_matrix.translate( -n, 0);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(-4, 0);
+					_matrix.translate(-n, 0);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(0, 4);
+					_matrix.translate(0, n);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(0, 4);
+					_matrix.translate(0, n);
 					_pixels.draw(_textField, _matrix, _colorTransform);
-					_matrix.translate(4, 0);
+					_matrix.translate(n, 0);
 					_pixels.draw(_textField, _matrix, _colorTransform);
 
-					_matrix.translate(0,-4);
+					_matrix.translate(0,-n);
 					_textField.setTextFormat(new TextFormat(formatAdjusted.font,formatAdjusted.size,formatAdjusted.color,null,null,null,null,null,formatAdjusted.align));
 				}
 				//Actually draw the text onto the buffer
