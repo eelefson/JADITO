@@ -93,13 +93,19 @@ package  {
 				MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER, MinigameEnums.IN_OUT,
 				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, MinigameEnums.SPELL_CHECKER,
 				MinigameEnums.AVOID_THE_COWORKER, MinigameEnums.CATCH_PENCIL, MinigameEnums.PICK_UP_PAPERS,
-				MinigameEnums.CLOCK_IN, MinigameEnums.WATER_BREAK);
+				MinigameEnums.CLOCK_IN, MinigameEnums.WATER_BREAK/*, MinigameEnums.WHAT_DID_THE_BOSS_SAY*/);
 			shuffle(a);
+			
+			Registry.usingWhatDidTheBossSay = false;
+			
 			var levelZeroMinigames:Array = new Array();
 			// Adds 10 minigames at difficulty level 0 from the overall pool of minigames
 			var numMinigamesToSelect:int = 6;
 			for (var i:int = 0; i < numMinigamesToSelect; i++) {
 				levelZeroMinigames[i] = a[i];
+				if (a[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+					Registry.usingWhatDidTheBossSay = true;
+				}
 			}
 			
 			// Array containing arrays of the minigames at each difficulty level(0-3)

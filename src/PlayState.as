@@ -275,7 +275,11 @@ package {
 			Registry.playCurrentDay = true;
 			Registry.beginningOfDay = true;
 			generatePool();
-			FlxG.switchState(new PlayState());		
+			if (Registry.usingWhatDidTheBossSay) {
+				FlxG.switchState(new WhatDidTheBossSayQuestion());
+			} else {
+				FlxG.switchState(new PlayState());
+			}
 		}
 		
 		public function generatePool():void {
@@ -286,12 +290,18 @@ package {
 			
 			var i:int;
 			var pair:Dictionary;
+			var temp:String;
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
 					shuffle(levelZeroMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelZeroMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelZeroMinigames.splice(i, 1);
+							levelZeroMinigames.push(temp);
+						}
 						pair["minigame"] = levelZeroMinigames[i];
 						pair["level"] = 0;
 						Registry.pool[i] = pair;
@@ -312,6 +322,11 @@ package {
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelOneMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelOneMinigames.splice(i, 1);
+							levelOneMinigames.push(temp);
+						}
 						pair["minigame"] = levelOneMinigames[i];
 						pair["level"] = 1;
 						Registry.pool[i] = pair;
@@ -358,6 +373,11 @@ package {
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelTwoMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelTwoMinigames.splice(i, 1);
+							levelTwoMinigames.push(temp);
+						}
 						pair["minigame"] = levelTwoMinigames[i];
 						pair["level"] = 2;
 						Registry.pool[i] = pair;
@@ -391,6 +411,11 @@ package {
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelThreeMinigames.splice(i, 1);
+							levelThreeMinigames.push(temp);
+						}
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
@@ -433,6 +458,11 @@ package {
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelThreeMinigames.splice(i, 1);
+							levelThreeMinigames.push(temp);
+						}
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
@@ -462,6 +492,11 @@ package {
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						// Puts "What Did The Boss Say" minigame at the end of the day
+						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelThreeMinigames.splice(i, 1);
+							levelThreeMinigames.push(temp);
+						}
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
@@ -484,7 +519,7 @@ package {
 					trace("Level 3: " + Registry.minigames[3]);
 					break;*/
 			}
-			shuffle(Registry.pool);
+			//shuffle(Registry.pool);
 		}
 		
 		public function pickMinigame():void {
@@ -536,6 +571,9 @@ package {
 					break;
 				case MinigameEnums.WATER_BREAK:
 					minigameState = new WaterBreak();
+					break;
+				case MinigameEnums.WHAT_DID_THE_BOSS_SAY:
+					minigameState = new WhatDidTheBossSay();
 					break;
 			}
 			FlxG.switchState(minigameState);

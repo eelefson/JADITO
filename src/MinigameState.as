@@ -37,7 +37,7 @@ package  {
 		
 		private var pauseMenu:PauseMenu = new PauseMenu(0, 0);
 		
-		private var countDownText:BorderedText;
+		//private var countDownText:BorderedText;
 		
 		private var timeRemaining:Number;
 		
@@ -70,11 +70,11 @@ package  {
 			skipButton.color = 0xff000000;
 			add(skipButton);
 			
-			countDownText = new BorderedText(0, FlxG.height / 2, FlxG.width, "3");
+			/*countDownText = new BorderedText(0, FlxG.height / 2, FlxG.width, "3");
 			countDownText.setFormat(null, 32, 0xffffffff, "center", 30);
 			countDownText.y = countDownText.y - (countDownText.height / 2);
 			countDownText.visible = false;
-			add(countDownText);
+			add(countDownText);*/
 			
 			goText = new BorderedText(FlxG.width / 2, FlxG.height / 2, FlxG.width, "READY!");
 			goText.setFormat(null, 36, 0xffffffff, "center", 30);
@@ -179,7 +179,7 @@ package  {
 						goText.kill();
 						FlxG.paused = false;
 					}
-					countDownText.kill();
+					//countDownText.kill();
 					timeRemaining -= FlxG.elapsed;
 				}
 			}

@@ -12,5 +12,6 @@ package  {
 		public static var playCurrentDay:Boolean;
 		public static var beginningOfDay:Boolean;
 		public static var titles:Array;
+		public static var usingWhatDidTheBossSay:Boolean;
 	}
 }
