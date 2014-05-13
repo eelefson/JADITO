@@ -82,7 +82,7 @@ package  {
 				MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER, MinigameEnums.IN_OUT,
 				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, MinigameEnums.SPELL_CHECKER,
 				MinigameEnums.AVOID_THE_COWORKER, MinigameEnums.CATCH_PENCIL, MinigameEnums.PICK_UP_PAPERS,
-				MinigameEnums.CLOCK_IN);
+				MinigameEnums.CLOCK_IN, MinigameEnums.WATER_BREAK);
 			shuffle(a);
 			var levelZeroMinigames:Array = new Array();
 			// Adds 10 minigames at difficulty level 0 from the overall pool of minigames

@@ -17,5 +17,6 @@ package  {
 		public static const CATCH_PENCIL:String = "Catch The Pencil";
 		public static const PICK_UP_PAPERS:String = "Pick Up The Papers";
 		public static const CLOCK_IN:String = "Clock In";
+		public static const WATER_BREAK:String = "Water Break";
 	}
 }

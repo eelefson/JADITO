@@ -538,6 +538,9 @@ package {
 				case MinigameEnums.CLOCK_IN:
 					minigameState = new TimeClock();
 					break;
+				case MinigameEnums.WATER_BREAK:
+					minigameState = new WaterBreak();
+					break;
 			}
 			FlxG.switchState(minigameState);
 		}
