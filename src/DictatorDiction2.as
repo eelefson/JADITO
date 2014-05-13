@@ -28,7 +28,7 @@ package   {
 				colors_to_text[colors[i]] = text[i];
 			}
 			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 2);
+			FlxG.shuffle(text, 20);
 			
 			
 			bossCommands = new FlxGroup();

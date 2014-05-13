@@ -85,7 +85,11 @@ package  {
 										"Assistant to the Regional Manager",
 										"Assistant Regional Manager",
 										"Employee of the Month Week",
-										"Lord of the Lunch Break");
+										"Lord of the Lunch Break",
+										"Good at Something",
+										"Clicked a Mouse, Hurray",
+										"Duke of the Dunces",
+										"Assistant Suck-Up");
 			shuffle(Registry.titles);
 			
 			// Array storing all the possible minigames available to play
