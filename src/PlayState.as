@@ -276,7 +276,7 @@ package {
 			Registry.beginningOfDay = true;
 			generatePool();
 			if (Registry.usingWhatDidTheBossSay) {
-				FlxG.switchState(new WhatDidTheBossSayQuestion());
+				FlxG.switchState(new WhatDidTheBossSayCommand());
 			} else {
 				FlxG.switchState(new PlayState());
 			}
