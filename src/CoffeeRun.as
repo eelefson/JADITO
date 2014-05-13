@@ -26,7 +26,7 @@ package {
 			FlxG.bgColor = 0xffffffff;
 			
 			difficulty = Registry.difficultyLevel;
-			var seconds:int = 20;
+			var seconds:int = 12;
 			
 			traySprite = new FlxExtendedSprite(FlxG.width/2, FlxG.height * 3 / 4, tray);
 			traySprite.x = traySprite.x - traySprite.width/2;

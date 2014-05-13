@@ -17,7 +17,7 @@ package  {
 		private var papersCount:int;
 		private var papersLeft:int;
 		
-		private var seconds:int = 30;
+		private var seconds:int = 10;
 		
 		private var bin:FlxExtendedSprite;
 		private var papers:FlxGroup;
@@ -53,7 +53,11 @@ package  {
 			add(papers);
 			super.create();
 			super.setCommandText("Pick them up!");
-			super.setTimer(seconds * 1000);
+			if (Registry.difficultyLevel == 0) {
+				super.setTimer(10 * 1000);
+			} else {
+				super.setTimer((seconds * Registry.difficultyLevel) * 1000);
+			}
 			super.timer.callback = timeout;
 		}
 		

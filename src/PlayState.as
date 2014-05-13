@@ -74,9 +74,8 @@ package {
 				Registry.playCurrentDay = false;
 				var s:int;
 				if (Registry.day == DaysOfTheWeek.SATURDAY) {
-					//for (i = 0; i < 10; i++) { TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
-					for (s = 0; s < 6; s++) {
-						Registry.taskStatuses[s] = TaskStatuses.EMPTY;
+					for (i = 0; i < 10; i++) { //TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
+						Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 					}
 				} else {
 					for (s = 0; s < 6; s++) {
@@ -192,7 +191,7 @@ package {
 				FlxG.play(AreYouReadySFX);
 			}
 			
-			timer = new FlxDelay(5000);
+			timer = new FlxDelay(3000);
 			//timer = new FlxDelay(2000); changed to speed up testing
 			timer.start();
 			
@@ -236,7 +235,7 @@ package {
 				}
 				
 				// Begins panning over to and zooming into the next unfilled black box
-				if (timer.secondsElapsed > 2) {
+				if (timer.secondsElapsed > 1) {
 					if (playWhoosh) {
 						FlxG.play(WhooshSFX);
 						playWhoosh = false;
@@ -319,7 +318,7 @@ package {
 				case DaysOfTheWeek.TUESDAY:
 					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
 					// SELECT 6 LEVEL 1 GAMES
-					shuffle(levelOneMinigames);
+					/*shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						// Puts "What Did The Boss Say" minigame at the end of the day
@@ -334,10 +333,10 @@ package {
 						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelOneMinigames.splice(0, 6);
+					levelOneMinigames.splice(0, 6);*/
 					
 					// SELECT 2 LEVEL 1 GAMES
-					/*shuffle(levelOneMinigames);
+					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
 						pair["minigame"] = levelOneMinigames[i];
@@ -360,7 +359,7 @@ package {
 						Registry.minigames[1].push(levelZeroMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelZeroMinigames.splice(0, 4);*/
+					levelZeroMinigames.splice(0, 4);
 
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
@@ -370,7 +369,7 @@ package {
 				case DaysOfTheWeek.WEDNESDAY:
 					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
 					// SELECT 6 LEVEL 2 GAMES
-					shuffle(levelTwoMinigames);
+					/*shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						// Puts "What Did The Boss Say" minigame at the end of the day
@@ -385,10 +384,10 @@ package {
 						Registry.minigames[3].push(levelTwoMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelTwoMinigames.splice(0, 6);
+					levelTwoMinigames.splice(0, 6);*/
 					
 					// SELECT 6 LEVEL 1 GAMES
-					/*shuffle(levelOneMinigames);
+					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						pair["minigame"] = levelOneMinigames[i];
@@ -398,7 +397,7 @@ package {
 						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelOneMinigames.splice(0, 6);*/
+					levelOneMinigames.splice(0, 6);
 					
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
@@ -408,7 +407,7 @@ package {
 				case DaysOfTheWeek.THURSDAY:
 					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
 					// SELECT 6 LEVEL 3 GAMES
-					shuffle(levelThreeMinigames);
+					/*shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						// Puts "What Did The Boss Say" minigame at the end of the day
@@ -419,10 +418,10 @@ package {
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
-					}
+					}*/
 					
 					// SELECT 4 LEVEL 2 GAMES
-					/*shuffle(levelTwoMinigames);
+					shuffle(levelTwoMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
 						pair["minigame"] = levelTwoMinigames[i];
@@ -445,7 +444,7 @@ package {
 						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelOneMinigames.splice(0, 2);*/
+					levelOneMinigames.splice(0, 2);
 					
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
@@ -455,7 +454,7 @@ package {
 				case DaysOfTheWeek.FRIDAY:
 					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
 					// SELECT 6 LEVEL 3 GAMES
-					shuffle(levelThreeMinigames);
+					/*shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						// Puts "What Did The Boss Say" minigame at the end of the day
@@ -466,10 +465,10 @@ package {
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
-					}
+					}*/
 					
 					// SELECT 6 LEVEL 2 GAMES
-					/*shuffle(levelTwoMinigames);
+					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						pair["minigame"] = levelTwoMinigames[i];
@@ -479,7 +478,7 @@ package {
 						Registry.minigames[3].push(levelTwoMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
-					levelTwoMinigames.splice(0, 6);*/
+					levelTwoMinigames.splice(0, 6);
 					
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
@@ -489,7 +488,7 @@ package {
 				case DaysOfTheWeek.SATURDAY:
 					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
 					// SELECT 6 LEVEL 3 GAMES
-					shuffle(levelThreeMinigames);
+					/*shuffle(levelThreeMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
 						// Puts "What Did The Boss Say" minigame at the end of the day
@@ -500,10 +499,10 @@ package {
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
-					}
+					}*/
 					
 					// SELECT 10 LEVEL 3 GAMES
-					/*shuffle(levelThreeMinigames);
+					shuffle(levelThreeMinigames);
 					for (i = 0; i < 10; i++) {
 						pair = new Dictionary();
 						pair["minigame"] = levelThreeMinigames[i];
@@ -517,7 +516,7 @@ package {
 					trace("Level 1: " + Registry.minigames[1]);
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
-					break;*/
+					break;
 			}
 			//shuffle(Registry.pool);
 		}
