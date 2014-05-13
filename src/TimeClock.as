@@ -28,7 +28,7 @@ package {
 		
 		private var hrs:int;
 		private var mins:int;
-		private var secs:int;
+		private var secs:Number;
 		private var ticks:int = 0;
 		
 		private var stopped:Boolean = false; // If the button to stop has been clicked
@@ -52,10 +52,18 @@ package {
 			hrs = 7;
 			mins = 53;
 			
+			if (level == 3) {
+				mins = 45;
+			}
+			
 			if (level == 0) { // The timer moves faster after level 0
-				mod = 100;
+				mod = 1;
+			} else if (level == 1){
+				mod = 1;
+			} else if (level == 2) {
+				mod = 1;
 			} else {
-				mod = 60;
+				mod = 1;
 			}
 			
 			// Place all the sprites
@@ -124,15 +132,22 @@ package {
 		
 		override public function update():void {
 			super.update();
-			
-			if (ticks % mod >= 0 && !stopped && !FlxG.paused) {
-				secs++;
+			trace(ticks % mod);
+			if (ticks % mod == 0 && !stopped && !FlxG.paused) {
+				
+				if (level == 0 || level == 1) {
+					secs++;
+				} else if (level == 2) {
+					secs += 1.5;
+				} else {
+					secs += 2;
+				}
 				
 				if (secs >= 60) {
 					secs = 0;
 					mins++;
 					
-					if (level != 3 || mins < 58) { // Level 3 has the tick sound stop
+					if (level < 2 || level == 2 && mins < 58 || level == 3 && mins < 55) { // Levels 2 & 3 have the tick sound stop
 						FlxG.play(tickSound);
 					}
 				}
@@ -145,8 +160,10 @@ package {
 				changeImages();
 			}
 			
+			ticks++;
+			
 			// Have the numbers fade away above level 0
-			if (level >= 1 && mins >= 57 || level >= 2 && mins >= 56) {
+			if (!stopped && level >= 1 && mins >= 55 || !stopped && level == 3 && mins >= 53) {
 				var sub:Number = 0.01;
 				
 				secones.alpha -= sub;
@@ -226,7 +243,7 @@ package {
 				//super.timerText.visible = true; // Bring back the timer!
 				
 				// Timer must read 8:00:XX
-				if (hrs == 8 && mins == 0) { // Success!
+				if (hrs == 8 && mins == 0|| hrs == 7 && mins == 59) { // Success!
 					super.success = true;
 				} else { // Failure!
 					super.timer.abort();

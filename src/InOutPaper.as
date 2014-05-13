@@ -5,7 +5,7 @@ package
 	
 	public class InOutPaper extends FlxExtendedSprite
 	{	
-		public static var DIST_FROM_EDGE:Number = 50; // Distance from side of screen
+		public static var DIST_FROM_EDGE:Number = 80; // Distance from side of screen
 		
 		public var minigame_super:InOut;
 		
@@ -44,10 +44,10 @@ package
 			
 			
 			// Stop moving papers when they reach the edges
-			if (this.velocity.x > 0 && this.x > FlxG.width - 2 * DIST_FROM_EDGE) {
+			if (this.velocity.x > 0 && this.x >= FlxG.width - 2 * DIST_FROM_EDGE - 10) {
 				this.velocity.x = 0;
 			}
-			if (this.velocity.x < 0 && this.x < DIST_FROM_EDGE) {
+			if (this.velocity.x < 0 && this.x <= DIST_FROM_EDGE + 10) {
 				this.velocity.x = 0;
 			}
 		}

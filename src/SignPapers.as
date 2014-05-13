@@ -38,15 +38,15 @@ package
 			
 			papers = new Array();
 			
-			currPaperText = new FlxText(FlxG.width / 4 + 50, FlxG.height / 4, FlxG.width / 2);
+			currPaperText = new FlxText(FlxG.width / 8, FlxG.height / 4, 3 * (FlxG.width / 4));
+			currPaperText.font = "Arial";
 			if (level == 0) {
-				currPaperText.size = 30;
+				currPaperText.size = 40;
 			} else if (level == 1) {
-				currPaperText.size = 30;
-			} else if (level == 2) {
+				currPaperText.size = 35;
+			} else {
 				currPaperText.size = 23;
-			} else if (level == 3) {
-				currPaperText.size = 19;
+				currPaperText.y -= 40;
 			}
 			add(currPaperText);
 			
@@ -56,7 +56,7 @@ package
 			lineSprite.loadGraphic(img);
 			add(lineSprite);
 			
-			numLeft = new FlxText(20, FlxG.height - 80, FlxG.width, "" + NUM_PAPERS);
+			numLeft = new FlxText(20, FlxG.height - 85, FlxG.width, "" + NUM_PAPERS);
 			numLeft.color = 0x00000000;
 			numLeft.size = 50;
 			add(numLeft);
@@ -71,7 +71,11 @@ package
 			
 			super.create();
 			super.setCommandText("Sign for money gain ONLY!");
-			super.setTimer(20000);
+			if (level < 2) {
+				super.setTimer(21000);
+			} else {
+				super.setTimer(26000);
+			}
 		}
 		
 		override public function update():void
@@ -84,7 +88,7 @@ package
 							numAnswered++;
 							
 							// CHECKS IF VICTORY CONDITIONS ARE MET
-							if (numAnswered == NUM_PAPERS) {
+							if (numAnswered >= NUM_PAPERS) {
 								super.success = true;
 								currPaperText.text = "Good work!";
 								numLeft.text = "0";
@@ -115,13 +119,14 @@ package
 			if (!currPaperAnswer) {
 				numAnswered++;
 				
-				if (numAnswered == NUM_PAPERS) {
+				if (numAnswered >= NUM_PAPERS) {
 					super.success = true;
 					currPaperText.text = "Good work!";
 					numLeft.text = "0";
+				} else {
+					updateText();
+					numLeft.text = "" + (NUM_PAPERS - numAnswered);
 				}
-				updateText();
-				numLeft.text = "" + (NUM_PAPERS - numAnswered);
 			} else {
 				super.timer.abort();
 			}
@@ -144,7 +149,7 @@ package
 						papers.push(line.substring(2));
 					}
 				}
-				FlxG.shuffle(papers, 2);
+				FlxG.shuffle(papers, 30);
 				updateText();
 			}
 		

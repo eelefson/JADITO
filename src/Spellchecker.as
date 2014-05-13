@@ -17,6 +17,7 @@ package
 		public static var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
 		
 		public static var numTypos:int; // Number of typos left to find
+		public var typoCounter:FlxText; // Counter for typos left
 		public static var hasFailed:Boolean = false; // Has the player failed?
 		
 		private var hasLoaded:Boolean = false;
@@ -29,21 +30,30 @@ package
 		{
 			FlxG.bgColor = 0xffaaaaaa;
 			
-			level = Registry.difficultyLevel;
+			level = 3;
 			
-			super.setTimer(20000);
+			super.setTimer(16000);
 			
 			// Difficulty 3 has two typos to find
-			if (level < 3) {
+			if (level < 2) {
 				numTypos = 1;
 			} else {
 				numTypos = 2;
 			}
 			
+			typoCounter = new FlxText(10, FlxG.height - 65, FlxG.width / 2, "" + numTypos);
+			typoCounter.size = 30;
+			typoCounter.color = 0xff000000;
+			add(typoCounter);
+			
 			//loadParagraph();
 			
 			super.create();
-			super.setCommandText("Find the Typos!");
+			if (level < 2) {
+				super.setCommandText("Find the Typo!");
+			} else {
+				super.setCommandText("Find the Typos!");
+			}
 			super.setTimer(20000);
 		}
 		
@@ -57,7 +67,7 @@ package
 			
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
-				if (ticks == 40) { // Enough time has passed, end the game!
+				if (ticks == 20) { // Enough time has passed, end the game!
 					super.success = true;
 				}
 			}
@@ -74,7 +84,7 @@ package
 				hasLoaded = true;
 			}
 			
-			
+			typoCounter.text = "" + numTypos;
 		}
 		
 		private function loadParagraph():void
@@ -91,8 +101,8 @@ package
 					if (currLine != "") {
 						var lineLevel:int = lines[j].charAt(0);
 						
-						// This triggers if the difficutly levels match OR if the level is 3 and the line is 2
-						if (lineLevel == level || level == 3 && lineLevel == 2) {
+						// This triggers if the difficutly levels match OR if the level is 2 and the line is 1
+						if (lineLevel == level || level == 2 && lineLevel == 1) {
 							possibleParagraphs.push(lines[j].substring(2));
 						}
 					}
@@ -111,7 +121,7 @@ package
 				// A random index into misspellings
 				var replaceIndex:int = Math.floor(Math.random() * misspellings.length) + 1;
 				var replaceIndex2:int = -1;
-				if (level == 3) { // We need a second one if the difficulty is 3
+				if (level >= 2) { // We need a second one if the difficulty is 2 or 3
 					replaceIndex2 = Math.floor(Math.random() * misspellings.length) + 1
 				}
 				

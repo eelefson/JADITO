@@ -37,21 +37,21 @@ package {
 			
 			goal = generateGoal();
 			
-			goalText = new FlxText(10, FlxG.height - 60, FlxG.width, "");
+			goalText = new FlxText(10, 40, FlxG.width, "");
 			goalText.color = 0x00FF0000;
 			goalText.size = 20;
 			add(goalText);
 			goalText.text = displayGoal(goal);
 			
-			var arrow:FlxSprite = new FlxSprite(190, FlxG.height - 62);
+			var arrow:FlxSprite = new FlxSprite(190, 38);
 			arrow.loadGraphic(img);
 			add(arrow);
 			
 			// Generate a second goal number if the level is 2 or 3
-			if (level > 1) {
+			if (level > 2) {
 				goal2 = generateGoal();
 			
-				goalText2 = new FlxText(10, goalText.y - 20, FlxG.width, "");
+				goalText2 = new FlxText(10, goalText.y + 20, FlxG.width, "");
 				goalText2.color = 0x00000000;
 				goalText2.size = 20;
 				add(goalText2);
@@ -68,7 +68,12 @@ package {
 			add(answerText);
 			super.create();
 			super.setCommandText("Dial the Numbers!");
-			super.setTimer(20000);
+			
+			if (level <= 2) {
+				super.setTimer(21000);
+			} else {
+				super.setTimer(26000);
+			}
 		}
 		
 		override public function update():void {
@@ -153,7 +158,7 @@ package {
 			}
 			
 			// Jumble buttons after every click at level 3
-			if (level == 3) {
+			if (level >= 2) {
 				jumbleNums();
 			}
 			

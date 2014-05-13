@@ -23,7 +23,7 @@ package {
 			papers = new FlxGroup;
 			super.create();
 			super.setCommandText("Sort Them!");
-			super.setTimer(15000);
+			super.setTimer(16000);
 		}
 		
 		override public function update():void {
@@ -37,10 +37,10 @@ package {
 			var mod:Number;
 			switch (level) {
 				case 0:
-					mod = 150;
+					mod = 120;
 					break;
 				case 1:
-					mod = 100;
+					mod = 80;
 					break;
 				case 2:
 					mod = 50;

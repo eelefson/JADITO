@@ -3,10 +3,10 @@
 0 Most of the @1money will come from @2the @3investors @4themselves, so there is no need to @5worry. | 1mney 2teh 3invetosrs 4themslevs, 5wrry.
 0 There is no @1way to @2determine the exact amount, but I @3estimate @4upwards of a @5million. | 1awy 2detrmne 3etimaste 4uwords 5mllon.
 1 Our @1secretary will be in @2touch. @3Please wire the @4remaining debt into the @5account by next week. | 1secretray 2toch. 3Plaese 4remanng 5acount
-1 Can we @1trust this @2organization moving @3forward? There is a great deal at stake here and we don’t need @4another @5disaster. | 1trost 2orgenizatoin 3forwrad? 4anohter 5dissaster.
-1 I see no @1reason why we can’t come to an amicable @2agreement. We can both come out @3richer men if we @4handle things @5right. | 1reaason 2agrreement. 3richre 4handel 5rigt.
+1 Can we @1trust this @2organization moving @3forward? There is a great deal at stake here and we do not need @4another @5disaster. | 1trost 2orgenizatoin 3forwrad? 4anohter 5dissaster.
+1 I see no @1reason why we cannot come to an amicable @2agreement. We can both come out @3richer men if we @4handle things @5right. | 1reaason 2agrreement. 3richre 4handel 5rigt.
 1 I am afraid I will have to @1cancel the @2meeting @3tonight. Personal @4matters are demanding my @5attention. | 1cancle 2meetiing 3tonnight. 4maters 5atention.
-2 The @1attitude of your @2employees @3astounds me. How you deal with them on a @4daily basis is beyond my @5imagination. | 1atittude 2employes 3astuonds 4dialy 5imagenation.
-2 I cannot @1understate how much I have @2enjoyed our @3contact. You have been an @4excellent partner and have @5propelled both of us to @6success. Please accept this gift as a token of our @7appreciation. | 1understat 2enojyed 3contoct. 4exellent 5propolled 6sucess. 7apreciation.
-2 I am @honestly rather @2confused as to why you have @3declined our offer. We have @4reviewed @5carefully and decided that it was very @6generous. You should be @7grateful. | 1honastly 2connfused 3diclined 4reveiwed 5carefuly 6generuos. 7gratefull.
-2 Never before have you @1doubted our @2loyalty. Why do you bring these @3issues to us now? We are @4rather @5offended that you would @6associate us with such @7practices. | 1dowted 2loyelty. 3isues 4rathar 5ofended 6assocaite 7pratices.
+3 The @1attitude of your @2employees @3astounds me. How you deal with them on a @4daily basis is beyond my @5imagination. | 1atittude 2employes 3astuonds 4dialy 5imagenation.
+3 I cannot @1understate how much I have @2enjoyed our @3contact. You have been an @4excellent partner and have @5propelled both of us to @6success. Please accept this gift as a token of our @7appreciation. | 1understat 2enojyed 3contoct. 4exellent 5propolled 6sucess. 7apreciation.
+3 I am @honestly rather @2confused as to why you have @3declined our offer. We have @4reviewed @5carefully and decided that it was very @6generous. You should be @7grateful. | 1honastly 2connfused 3diclined 4reveiwed 5carefuly 6generuos. 7gratefull.
+3 Never before have you @1doubted our @2loyalty. Why do you bring these @3issues to us now? We are @4rather @5offended that you would @6associate us with such @7practices. | 1dowted 2loyelty. 3isues 4rathar 5ofended 6assocaite 7pratices.
