@@ -53,7 +53,11 @@ package  {
 			add(papers);
 			super.create();
 			super.setCommandText("Pick them up!");
-			super.setTimer(seconds * 1000);
+			if (Registry.difficultyLevel == 0) {
+				super.setTimer(10 * 1000);
+			} else {
+				super.setTimer((seconds * Registry.difficultyLevel) * 1000);
+			}
 			super.timer.callback = timeout;
 		}
 		

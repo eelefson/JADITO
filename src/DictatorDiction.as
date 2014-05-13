@@ -65,7 +65,7 @@ package   {
 			} else if (level == 3) {
 				super.setCommandText("Text MEANING!");
 			}
-			super.setTimer(20000);
+			super.setTimer(12000);
 		}
 		
 		override public function update():void {
