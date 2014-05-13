@@ -191,7 +191,7 @@ package {
 				FlxG.play(AreYouReadySFX);
 			}
 			
-			timer = new FlxDelay(5000);
+			timer = new FlxDelay(3000);
 			//timer = new FlxDelay(2000); changed to speed up testing
 			timer.start();
 			
@@ -235,7 +235,7 @@ package {
 				}
 				
 				// Begins panning over to and zooming into the next unfilled black box
-				if (timer.secondsElapsed > 2) {
+				if (timer.secondsElapsed > 1) {
 					if (playWhoosh) {
 						FlxG.play(WhooshSFX);
 						playWhoosh = false;

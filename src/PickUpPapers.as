@@ -17,7 +17,7 @@ package  {
 		private var papersCount:int;
 		private var papersLeft:int;
 		
-		private var seconds:int = 30;
+		private var seconds:int = 10;
 		
 		private var bin:FlxExtendedSprite;
 		private var papers:FlxGroup;

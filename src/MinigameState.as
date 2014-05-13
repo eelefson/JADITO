@@ -37,8 +37,6 @@ package  {
 		
 		private var pauseMenu:PauseMenu = new PauseMenu(0, 0);
 		
-		//private var countDownText:BorderedText;
-		
 		private var timeRemaining:Number;
 		
 		private var goText:BorderedText;
@@ -70,12 +68,6 @@ package  {
 			skipButton.color = 0xff000000;
 			add(skipButton);
 			
-			/*countDownText = new BorderedText(0, FlxG.height / 2, FlxG.width, "3");
-			countDownText.setFormat(null, 32, 0xffffffff, "center", 30);
-			countDownText.y = countDownText.y - (countDownText.height / 2);
-			countDownText.visible = false;
-			add(countDownText);*/
-			
 			goText = new BorderedText(FlxG.width / 2, FlxG.height / 2, FlxG.width, "READY!");
 			goText.setFormat(null, 36, 0xffffffff, "center", 30);
 			goText.x = goText.x - (goText.width / 2);
@@ -93,14 +85,6 @@ package  {
 				if (!timer.hasExpired) {
 					timerText.text = "Time left: " + timer.secondsRemaining.toString();
 				}
-				/*if (timer.hasExpired || success) {
-					if (success) {
-						Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;	
-					} else {
-						Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
-					}
-					FlxG.switchState(new PlayState());
-				}*/
 				
 				if (timeRemaining > 0) {
 					FlxG.paused = true;
@@ -122,7 +106,7 @@ package  {
 						blinkFailure();
 						setInterval(blinkFailure, 500);
 					}
-					totalTime = 2; //CONTROLS THE DELAY
+					totalTime = 0; //CONTROLS THE DELAY
 					FlxG.paused = true;
 					playEndSound = false;
 					timer.abort();
@@ -151,8 +135,6 @@ package  {
 					if (FlxU.ceil(timeRemaining) < 4) {
 						introCommandText.y -= 10;
 						introCommandText.size -= 1;
-						//countDownText.visible = true;
-						//countDownText.text = FlxU.ceil(timeRemaining).toFixed(0).toString();
 						if (FlxU.ceil(timeRemaining) == 3) {
 							goText.visible = true;
 						} else if (FlxU.ceil(timeRemaining) == 2) {
@@ -179,7 +161,6 @@ package  {
 						goText.kill();
 						FlxG.paused = false;
 					}
-					//countDownText.kill();
 					timeRemaining -= FlxG.elapsed;
 				}
 			}
