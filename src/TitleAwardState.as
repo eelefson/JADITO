@@ -12,10 +12,31 @@ package  {
 		private var award_graphic:FlxSprite;
 		private var awardText:FlxText;
 		
+		public var topWall:FlxTileblock;
+		public var bottomWall:FlxTileblock;
+		public var leftWall:FlxTileblock;
+		public var rightWall:FlxTileblock;
+		
 		private var delay:FlxDelay;
 		
 		override public function create():void {
 			FlxG.bgColor = 0xffffffff;
+			
+			topWall = new FlxTileblock(0, 0, FlxG.width, 2);
+			topWall.makeGraphic(FlxG.width, 2, 0xff000000);
+			add(topWall);
+			
+			bottomWall = new FlxTileblock(0, FlxG.height - 2, FlxG.width, 2);
+			bottomWall.makeGraphic(FlxG.width, 2, 0xff000000);
+			add(bottomWall);
+			
+			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
+			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(leftWall);
+			
+			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
+			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(rightWall);
 			
 			award_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, AwardImage);
 			award_graphic.x = award_graphic.x - (award_graphic.width / 2);

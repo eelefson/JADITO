@@ -16,6 +16,8 @@ package  {
 		
 		public var topWall:FlxTileblock;
 		public var bottomWall:FlxTileblock;
+		public var leftWall:FlxTileblock;
+		public var rightWall:FlxTileblock;
 		
 		private var check_graphic:FlxSprite;
 		private var x_graphic:FlxSprite;
@@ -61,6 +63,14 @@ package  {
 			bottomWall = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
 			bottomWall.makeGraphic(FlxG.width, 25, 0xff000000);
 			add(bottomWall);
+			
+			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
+			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(leftWall);
+			
+			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
+			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(rightWall);
 			
 			skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
 			skipButton.x = skipButton.x - skipButton.width;
