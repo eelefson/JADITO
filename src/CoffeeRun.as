@@ -25,8 +25,6 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
-			Registry.loggingControl.logLevelStart(4, null);
-			
 			difficulty = Registry.difficultyLevel;
 			var seconds:int = 12;
 			
@@ -63,6 +61,7 @@ package {
 			super.setCommandText("Balance It!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(4, null);
 		}
 		
 		override public function update():void {
@@ -90,8 +89,8 @@ package {
 				}
 			}
 			if (Math.abs(traySprite.angle) > 60) {
-				var data1:Object = { "completed":"failure" };
-				Registry.loggingControl.logLevelEnd(data1);
+				//var data1:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data1);
 				super.success = false;
 				super.timer.abort();
 			}
@@ -109,8 +108,8 @@ package {
 		public function timeout():void {
 			command.visible = false;
 			
-			var data1:Object = { "completed":"success" };
-			Registry.loggingControl.logLevelEnd(data1);
+			//var data1:Object = { "completed":"success" };
+			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 			super.timer.abort();
 		}

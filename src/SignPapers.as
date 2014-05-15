@@ -34,8 +34,6 @@ package
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
-			Registry.loggingControl.logLevelStart(10, null);
-			
 			level = Registry.difficultyLevel;
 			
 			papers = new Array();
@@ -78,6 +76,8 @@ package
 			} else {
 				super.setTimer(26000);
 			}
+			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(10, null);
 		}
 		
 		override public function update():void
@@ -91,8 +91,8 @@ package
 							
 							// CHECKS IF VICTORY CONDITIONS ARE MET
 							if (numAnswered >= NUM_PAPERS) {
-								var data1:Object = { "completed":"success" };
-								Registry.loggingControl.logLevelEnd(data1);
+								//var data1:Object = { "completed":"success" };
+								//Registry.loggingControl.logLevelEnd(data1);
 								super.success = true;
 								currPaperText.text = "Good work!";
 								numLeft.text = "0";
@@ -102,6 +102,8 @@ package
 							}
 							
 						} else {
+							//var data2:Object = { "completed":"failure" };
+							//Registry.loggingControl.logLevelEnd(data2);
 							super.timer.abort();
 						}
 				}
@@ -124,6 +126,8 @@ package
 				numAnswered++;
 				
 				if (numAnswered >= NUM_PAPERS) {
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 					currPaperText.text = "Good work!";
 					numLeft.text = "0";
@@ -132,6 +136,8 @@ package
 					numLeft.text = "" + (NUM_PAPERS - numAnswered);
 				}
 			} else {
+				//var data2:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data2);
 				super.timer.abort();
 			}
 		}
@@ -156,8 +162,13 @@ package
 				FlxG.shuffle(papers, 30);
 				updateText();
 			}
+			
+		public function timeout():void {
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 		
 		
+		}
 	}
 
 }

@@ -33,8 +33,6 @@ package  {
 		
 		override public function create():void {
 			
-			Registry.loggingControl.logLevelStart(14, null);
-			
 			water_cooler_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, WaterCoolerImage);
 			water_cooler_graphic.x = water_cooler_graphic.x - (water_cooler_graphic.width / 2);
 			water_cooler_graphic.y = water_cooler_graphic.y - (water_cooler_graphic.height / 2);
@@ -96,6 +94,8 @@ package  {
 			
 			super.setCommandText("Time It!");
 			super.setTimer(20000);
+			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(14, null);
 		}
 		
 		override public function update():void {
@@ -124,20 +124,27 @@ package  {
 				red_cursor_graphic.visible = false;
 				white_cursor_graphic.visible = true;
 				if (FlxG.mouse.justPressed()) {
-					var data1:Object = { "completed":"success" };
-					Registry.loggingControl.logLevelEnd(data1);
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 				}
 			} else {
 				red_cursor_graphic.visible = true;
 				white_cursor_graphic.visible = false;
 				if (FlxG.mouse.justPressed()) {
-					var data1:Object = { "completed":"failure" };
-					Registry.loggingControl.logLevelEnd(data1);
+					//var data2:Object = { "completed":"failure" };
+					//Registry.loggingControl.logLevelEnd(data2);
 					super.success = false;
 					super.timer.abort();
 				}
 			}
+			
+			
+		}
+		
+		public function timeout():void {
+				//var data1:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data1);
 		}
 	}
 

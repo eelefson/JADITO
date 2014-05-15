@@ -34,8 +34,8 @@ package
 				
 				if (!left) {
 					// Fail condition
-					var data1:Object = { "completed":"failure" };
-					Registry.loggingControl.logLevelEnd(data1);
+					//var data1:Object = { "completed":"failure" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					minigame_super.timer.abort();
 				}
 			}

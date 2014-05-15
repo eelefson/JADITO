@@ -19,7 +19,6 @@ package   {
 		
 		override public function create():void {
 			
-			Registry.loggingControl.logLevelStart(30, null);
 			// RED, GREEN, BLUE, PURPLE, ORANGE, PINK
 			var colors:Array = new Array(0xFFFF0000, 0xFF00CC00, 0xFF0000FF, 0xCC00CC, 0xFFFF7519, 0xFFFFFF00);
 			var text:Array = new Array("RED", "GREEN", "BLUE", "PURPLE", "ORANGE", "YELLOW");
@@ -68,6 +67,8 @@ package   {
 				super.setCommandText("Text MEANING!");
 			}
 			super.setTimer(20000);
+			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(30, null);
 		}
 		
 		override public function update():void {
@@ -82,8 +83,8 @@ package   {
 				bossCommands.getFirstAlive().visible = false;
 				bossCommands.getFirstAlive().alive = false;
 				if (answers.length == 0) {
-					var data1:Object = { "completed":"success" };
-					Registry.loggingControl.logLevelEnd(data1);
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 					return;
 				}
@@ -93,8 +94,8 @@ package   {
 				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(orderOfAnswers.indexOf(answers.slice(0, 1)[0]));
 				
-				var data1:Object = { "completed":"failure" };
-				Registry.loggingControl.logLevelEnd(data1);
+				//var data2:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data2);
 				super.success = false;
 				super.timer.abort();	
 			}
@@ -108,6 +109,8 @@ package   {
 				bossCommands.getFirstAlive().visible = false;
 				bossCommands.getFirstAlive().alive = false;
 				if (answers.length == 0) {
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 					return;
 				}
@@ -117,6 +120,8 @@ package   {
 				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(answers.indexOf(answers.slice(0, 1)[0]));
 				
+				//var data2:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data2);
 				super.success = false;
 				super.timer.abort();	
 			}
@@ -270,6 +275,12 @@ package   {
 			dict["totalHeight"] = textBox.height * numberOfLines;
 			return dict;
 		}
+		
+		public function timeout():void {
+			//var data1:Object = { "completed":"failure" };
+			//Registry.loggingControl.logLevelEnd(data1);
+		}
+		
 	}
 
 }

@@ -29,8 +29,6 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
-			Registry.loggingControl.logLevelStart(5, null);
-			
 			level = Registry.difficultyLevel;
 			
 			Nums = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 0, 10);
@@ -82,6 +80,7 @@ package {
 				super.setTimer(26000);
 			}
 			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(5, null);
 		}
 		
 		override public function update():void {
@@ -182,6 +181,8 @@ package {
 					
 					another = false;
 				} else {
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 				}
 			}
@@ -214,8 +215,8 @@ package {
 		}
 		
 		public function timeout():void {
-			var data1:Object = { "completed":"failure" };
-			Registry.loggingControl.logLevelEnd(data1);
+			//var data1:Object = { "completed":"failure" };
+			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 		}
 		

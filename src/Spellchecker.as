@@ -30,8 +30,6 @@ package
 		{
 			FlxG.bgColor = 0xffaaaaaa;
 			
-			Registry.loggingControl.logLevelStart(12, null);
-			
 			level = 3;
 			
 			super.setTimer(16000);
@@ -57,6 +55,7 @@ package
 				super.setCommandText("Find the Typos!");
 			}
 			super.setTimer(20000);
+			//Registry.loggingControl.logLevelStart(12, null);
 		}
 		
 		override public function update():void
@@ -70,15 +69,15 @@ package
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
 				if (ticks == 20) { // Enough time has passed, end the game!
-					var data1:Object = { "completed":"success" };
-					Registry.loggingControl.logLevelEnd(data1);
+					//var data1:Object = { "completed":"success" };
+					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 				}
 			}
 			
 			if (hasFailed) { // The user has failed!
-				var data1:Object = { "completed":"failure" };
-				Registry.loggingControl.logLevelEnd(data1);
+				//var data2:Object = { "completed":"failure" };
+				//Registry.loggingControl.logLevelEnd(data2);
 				ticks++;
 				if (ticks ==  40) {
 					super.timer.abort();

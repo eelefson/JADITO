@@ -44,8 +44,6 @@ package
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
 			
-			Registry.loggingControl.logLevelStart(1,null);
-			
 			difficulty = Registry.difficultyLevel;
 			
 			if (difficulty < 2) {
@@ -139,6 +137,7 @@ package
 			super.setCommandText("Avoid Coworker!");
 			super.setTimer(6 * 1000);
 			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(1,null);
 		}
 		
 		override public function update():void {
@@ -243,8 +242,8 @@ package
 		}
 		
 		public function failure(me:FlxObject, them:FlxObject):void {
-			var data1:Object = { "completed":"failure" };
-			Registry.loggingControl.logLevelEnd(data1);
+			//var data1:Object = { "completed":"failure" };
+			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 			you.visible = false;
@@ -252,8 +251,8 @@ package
 		}
 		
 		public function timeout():void {
-			var data1:Object = { "completed":"success" };
-			Registry.loggingControl.logLevelEnd(data1);
+			//var data1:Object = { "completed":"success" };
+			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 			super.timer.abort();
 			you.visible = false;

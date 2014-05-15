@@ -18,20 +18,20 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
-			Registry.loggingControl.logLevelStart(7, null);
-			
 			level = Registry.difficultyLevel;
 			
 			papers = new FlxGroup;
 			super.create();
 			super.setCommandText("Sort Them!");
 			super.setTimer(12000);
+			super.timer.callback = timeout;
+			//Registry.loggingControl.logLevelStart(7, null);
 		}
 		
 		override public function update():void {
 			if (super.timer.hasExpired) {
-				var data1:Object = { "completed":"success" };
-				Registry.loggingControl.logLevelEnd(data1);
+				//var data1:Object = { "completed":"success" };
+				//Registry.loggingControl.logLevelEnd(data1);
 				super.success = true;
 			}
 			
@@ -76,6 +76,11 @@ package {
 			}
 			papers.add(newPaper);
 			add(newPaper);
+		}
+		
+		public function timeout():void {
+			//var data1:Object = { "completed":"success" };
+			//Registry.loggingControl.logLevelEnd(data1);
 		}
 	}
 }
