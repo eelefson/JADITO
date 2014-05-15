@@ -8,7 +8,7 @@ package {
 	public class CoffeeRun extends MinigameState {
 		[Embed(source="image_assets/coffeeCup.png")] private var cup:Class; 
 		[Embed(source = "image_assets/CupsAndTray.png")] private var tray:Class;
-		
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var command:FlxText;
 		private var help:FlxText;
@@ -23,7 +23,10 @@ package {
 		override public function create():void {
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			difficulty = Registry.difficultyLevel;
 			var seconds:int = 12;
