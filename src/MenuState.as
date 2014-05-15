@@ -125,6 +125,10 @@ package  {
 										"Clicked a Mouse, Hurray",
 										"Duke of the Office Drones",
 										"Assistant Suck-Up");
+										/*"Good at Something",
+										"Clicked a Mouse, Hurray", // Need these to be more positive
+										"Duke of the Dunces",
+										"Assistant Suck-Up"*/
 			shuffle(Registry.titles);
 			
 			// Array storing all the possible minigames available to play
