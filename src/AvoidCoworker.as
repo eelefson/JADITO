@@ -44,6 +44,8 @@ package
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
 			
+			Registry.loggingControl.logLevelStart(1,null);
+			
 			difficulty = Registry.difficultyLevel;
 			
 			if (difficulty < 2) {
@@ -241,6 +243,8 @@ package
 		}
 		
 		public function failure(me:FlxObject, them:FlxObject):void {
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 			you.visible = false;
@@ -248,6 +252,8 @@ package
 		}
 		
 		public function timeout():void {
+			var data1:Object = { "completed":"success" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 			super.timer.abort();
 			you.visible = false;

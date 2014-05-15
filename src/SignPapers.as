@@ -34,6 +34,8 @@ package
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
+			Registry.loggingControl.logLevelStart(10, null);
+			
 			level = Registry.difficultyLevel;
 			
 			papers = new Array();
@@ -89,6 +91,8 @@ package
 							
 							// CHECKS IF VICTORY CONDITIONS ARE MET
 							if (numAnswered >= NUM_PAPERS) {
+								var data1:Object = { "completed":"success" };
+								Registry.loggingControl.logLevelEnd(data1);
 								super.success = true;
 								currPaperText.text = "Good work!";
 								numLeft.text = "0";

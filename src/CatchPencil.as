@@ -32,6 +32,8 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			Registry.loggingControl.logLevelStart(3, null);
+			
 			difficulty = Registry.difficultyLevel;
 			difficulty = 3;
 			
@@ -77,6 +79,8 @@ package
 				}
 				
 				if (pencil.y > FlxG.height) {
+					var data1:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data1);
 					super.success = false;
 					super.timer.abort();
 				}
@@ -84,9 +88,13 @@ package
 				if (FlxG.mouse.justPressed() && moving) {
 					pencil.velocity.y = 0;
 					if (FlxG.overlap(pencil, hand)) {
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
 						super.success = true;
 						super.timer.abort();
 					} else {
+						var data1:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data1);
 						super.success = false;
 						super.timer.abort();
 					}

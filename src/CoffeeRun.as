@@ -25,6 +25,8 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			Registry.loggingControl.logLevelStart(4, null);
+			
 			difficulty = Registry.difficultyLevel;
 			var seconds:int = 12;
 			
@@ -88,6 +90,8 @@ package {
 				}
 			}
 			if (Math.abs(traySprite.angle) > 60) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
 				super.success = false;
 				super.timer.abort();
 			}
@@ -105,6 +109,8 @@ package {
 		public function timeout():void {
 			command.visible = false;
 			
+			var data1:Object = { "completed":"success" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 			super.timer.abort();
 		}

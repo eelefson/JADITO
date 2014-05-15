@@ -13,5 +13,6 @@ package  {
 		public static var beginningOfDay:Boolean;
 		public static var titles:Array;
 		public static var usingWhatDidTheBossSay:Boolean;
+		public static var loggingControl:Logger;
 	}
 }

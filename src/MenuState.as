@@ -30,10 +30,14 @@ package  {
 		
 		override public function create():void {
 			
+			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			
+			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
 			add(splash_screen_graphic);
 			
 			/*var title:FlxText;
+>>>>>>> d240771ba609a916af38ab5535f581b6c3438b89
 			title = new FlxText(0, 16, FlxG.width, "Just Another Day In The Office");
 			title.setFormat(null, 50, 0xFFFFFFFF, "center");
 			add(title);*/

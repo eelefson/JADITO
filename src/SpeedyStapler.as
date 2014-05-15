@@ -28,6 +28,8 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			Registry.loggingControl.logLevelStart(11, null);
+			
 			var difficulty:int = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
 			var time:int = 20 + 5 * difficulty;
@@ -72,8 +74,12 @@ package
 				}
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
 				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+					var data1:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data1);
 					super.success = false;
 					super.timer.abort();
 				}
@@ -92,7 +98,9 @@ package
 			//var outOfTime:FlxText = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
 			//outOfTime.setFormat(null, 16, 0, "center");
 			//add(outOfTime);
-
+			
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}
