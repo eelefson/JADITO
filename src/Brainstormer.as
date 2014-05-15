@@ -7,7 +7,7 @@ package {
 	 */
 	public class Brainstormer extends MinigameState {
 		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
-		[Embed(source="image_assets/RecycleBin.png")] private var recycleBin:Class;
+		[Embed(source="image_assets/recycle_bin2.png")] private var recycleBin:Class;
 		
 		private var command:FlxText;
 		private var ideasLeft:FlxText;

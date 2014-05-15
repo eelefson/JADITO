@@ -15,6 +15,7 @@ package
 		[Embed(source = "image_assets/coworkerArrow.png")] private var rightArrow:Class;
 		[Embed(source = "image_assets/curveArrow.png")] private var curveArrow:Class;
 		[Embed(source = "image_assets/curveArrowFlip.png")] private var curveArrowFlip:Class;
+		[Embed(source = "image_assets/work_station.png")] private var workStationImage:Class;
 		
 		private var difficulty:int;
 		private var speed:int;
@@ -32,6 +33,7 @@ package
 		private var runTimer:FlxDelay;
 		
 		private var cubicles:FlxGroup;
+		private var workstations:FlxGroup;
 		
 		private var you:FlxExtendedSprite;
 		private var coworker:FlxExtendedSprite;
@@ -104,8 +106,23 @@ package
 			add(you);			
 			
 			cubicles = new FlxGroup();
+			workstations = new FlxGroup();
 			
 			for (var i:int = 0; i < 4; i++) {
+				var work_station_graphic:FlxSprite;
+				if (i == 0 || i == 2) {
+					work_station_graphic = new FlxSprite(Xcoords[i], Ycoords[i] - 25);
+					work_station_graphic.loadGraphic(workStationImage);
+					workstations.add(work_station_graphic);
+				} else {
+					work_station_graphic = new FlxSprite(Xcoords[i], Ycoords[i] - 40);
+					work_station_graphic.loadGraphic(workStationImage);
+					workstations.add(work_station_graphic);
+				}
+				/*var work_station_graphic:FlxSprite = new FlxSprite(Xcoords[i], Ycoords[i] - 25);
+				work_station_graphic.loadGraphic(workStationImage);
+				workstations.add(work_station_graphic);*/
+				
 				var testRect:FlxExtendedSprite = new FlxExtendedSprite(Xcoords[i], Ycoords[i]);
 				testRect.loadGraphic(cubicle);
 				testRect.immovable = true;
@@ -115,6 +132,7 @@ package
 			}
 			
 			add(cubicles);
+			add(workstations);
 			super.create();
 			super.setCommandText("Avoid Coworker!");
 			super.setTimer(6 * 1000);
@@ -215,6 +233,7 @@ package
 				you.y = FlxG.mouse.screenY;
 				
 				FlxG.collide(cubicles, you);
+				FlxG.collide(super.walls, you);
 				FlxG.overlap(you, enemies, failure);
 			}
 			

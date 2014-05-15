@@ -9,42 +9,70 @@ package  {
 	 */
 	public class MenuState extends FlxState {
 		[Embed(source = "image_assets/start-button.png")] private var ImageButton:Class // This is a sprite of the button
+		[Embed(source = "image_assets/DesktopBackground.jpg")] private var background:Class;
 		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
+		[Embed(source = "image_assets/SplashScreen.jpg")] private var SplashScreenImage:Class;
+		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
 		
 		public var start_button:FlxButton;
 		public var mute_button:FlxButton;
 		public var musicText:FlxText;
+		public var splash_screen_graphic:FlxSprite;
+		
+		public var topWall:FlxTileblock;
+		public var bottomWall:FlxTileblock;
+		public var leftWall:FlxTileblock;
+		public var rightWall:FlxTileblock;
+		
 		public var bool:Boolean = true;
 		public var startingGame:Boolean = false;
 		
 		override public function create():void {
 			
-			var title:FlxText;
+			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
+			add(splash_screen_graphic);
+			
+			/*var title:FlxText;
 			title = new FlxText(0, 16, FlxG.width, "Just Another Day In The Office");
 			title.setFormat(null, 50, 0xFFFFFFFF, "center");
-			add(title);
+			add(title);*/
 			
-			start_button = new FlxButton(FlxG.width / 2, FlxG.height / 2, null, clickStartButton);
+			/*start_button = new FlxButton(FlxG.width / 2, FlxG.height / 2, null, clickStartButton);
 			start_button.loadGraphic(ImageButton);
 			start_button.x = start_button.x - (start_button.width / 2);
 			start_button.y = start_button.y - (start_button.height / 2);
-			add(start_button);
+			add(start_button);*/
 			
-			mute_button = new FlxButton(0, FlxG.height, null, mute);
+			mute_button = new FlxButton(10, FlxG.height, null, mute);
 			mute_button.loadGraphic(PlayButton);
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
 			
-			musicText = new FlxText(0, FlxG.height - mute_button.height, FlxG.width, "Music:");
-			musicText.setFormat(null, 16, 0xFFFFFFFF, "left");
+			musicText = new FlxText(5, FlxG.height - mute_button.height, FlxG.width, "Music:");
+			musicText.setFormat("Typewriter", 24, 0xFF000000, "left");
 			musicText.y = musicText.y - (musicText.height / 2);
 			add(musicText);
 			
+			topWall = new FlxTileblock(0, 0, FlxG.width, 2);
+			topWall.makeGraphic(FlxG.width, 2, 0xff000000);
+			add(topWall);
+			
+			bottomWall = new FlxTileblock(0, FlxG.height - 2, FlxG.width, 2);
+			bottomWall.makeGraphic(FlxG.width, 2, 0xff000000);
+			add(bottomWall);
+			
+			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
+			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(leftWall);
+			
+			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
+			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
+			add(rightWall);
+			
 			var instructions:FlxText;
-			instructions = new FlxText(0, FlxG.height - 128, FlxG.width, "Instructions:\n" + 
-				"Use the mouse throughout the game.\n");
-			instructions.setFormat(null, 16, 0xFFFFFFFF, "center");
+			instructions = new FlxText(0, FlxG.height - 120, FlxG.width, "Click SPACE to start!");
+			instructions.setFormat("Typewriter", 24, 0xFF000000, "center");
 			add(instructions);
 			
 			super.create();
@@ -56,12 +84,15 @@ package  {
 				bool = false;
 				FlxG.playMusic(Elevatormusic7);
 			}
+			if (FlxG.keys.justPressed("SPACE")) {
+				clickStartButton();
+			}
 		}
 		
 		public function mute():void {
 			FlxG.music.pause();
 			mute_button.kill();
-			mute_button = new FlxButton(0, FlxG.height, null, play);
+			mute_button = new FlxButton(10, FlxG.height, null, play);
 			mute_button.loadGraphic(MuteButton);
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
@@ -70,7 +101,7 @@ package  {
 		public function play():void {
 			FlxG.music.resume();
 			mute_button.kill();
-			mute_button = new FlxButton(0, FlxG.height, null, mute);
+			mute_button = new FlxButton(10, FlxG.height, null, mute);
 			mute_button.loadGraphic(PlayButton);
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
