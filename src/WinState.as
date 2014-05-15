@@ -36,6 +36,10 @@ package  {
 			add(winText);
 			setInterval(blinkText, 500);
 			
+			var timer:FlxDelay = new FlxDelay(5000);
+			timer.callback = switchToEnd;
+			timer.start();
+			
 			FlxG.playMusic(Song);
 		}
 		
@@ -47,6 +51,10 @@ package  {
 				winText.visible = true;
 				blink = true;
 			}
-		}		
+		}
+		
+		public function switchToEnd():void {
+			FlxG.switchState(new EndStory);
+		}
 	}
 }
