@@ -38,7 +38,7 @@ package {
 			
 			var phone:FlxSprite = new FlxSprite(30, 30);
 			phone.loadGraphic(phoneImg);
-			add(phone);
+			//add(phone);
 			
 			createNums();
 			
