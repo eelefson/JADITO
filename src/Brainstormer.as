@@ -7,7 +7,7 @@ package {
 	 */
 	public class Brainstormer extends MinigameState {
 		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
-		[Embed(source="image_assets/recycle_bin2.png")] private var recycleBin:Class;
+		[Embed(source="image_assets/recycle_bin3.png")] private var recycleBin:Class;
 		
 		private var command:FlxText;
 		private var ideasLeft:FlxText;
@@ -33,8 +33,8 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
-			var recycleHeight:int = 80;
-			var recycleWidth:int = 150;
+			var recycleHeight:int = 86;
+			var recycleWidth:int = 148;
 			
 			difficulty = Registry.difficultyLevel;
 			numIdeas = difficulty + 1;
@@ -83,8 +83,8 @@ package {
 				goodBound = new MovingSprite(FlxG.width / 2 , FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 			}
 			bin.loadGraphic(recycleBin);
-			badBound.makeGraphic(1, bin.height, 0x00ffffff);
-			backBound.makeGraphic(1, bin.height, 0x00ffffff);
+			badBound.makeGraphic(1, recycleHeight, 0x00ffffff);
+			backBound.makeGraphic(1, recycleHeight, 0x00ffffff);
 			goodBound.makeGraphic(bin.width, 1, 0x00ffffff);
 			
 			ceiling = new FlxSprite(0, 0);
