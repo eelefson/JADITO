@@ -35,7 +35,6 @@ package {
 		private var lastY:int;
 		
 		override public function create():void {
-			
 			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
 			FlxG.play(Startup);
 			
@@ -81,11 +80,13 @@ package {
 			//add(command);
 			add(dot);
 			
+			if (difficulty == 0) {
+				addWord();
+			}
 			super.create();
 			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(8, null);
 		}
 		
 		override public function update():void {
@@ -139,7 +140,7 @@ package {
 		}
 		
 		public function bossQuestion():void {
-			super.timer.reset(6000);
+			super.setTimer(5000);
 			
 			finalQuestion = true;
 			dot.visible = false;
@@ -233,8 +234,6 @@ package {
 			question.text = "You are wrong!";
 			correctAnswer.flicker(1);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}
@@ -242,8 +241,6 @@ package {
 		public function correct():void {
 			question.text = "You are correct!";
 			
-			//var data1:Object = { "completed":"success" };
-			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 		}
 		
@@ -257,8 +254,6 @@ package {
 			//question.setFormat(null, 16, 0, "center");
 			//add(question);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}
