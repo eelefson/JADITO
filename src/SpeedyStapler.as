@@ -22,6 +22,8 @@ package
 		private var stapleGroup:FlxGroup;
 		private var tempPaperGroup:FlxGroup;
 		
+		private var stapleMoving:Boolean;
+		
 		override public function create():void {
 			FlxG.play(Startup);
 			
@@ -57,6 +59,9 @@ package
 			
 			stapleGroup = new FlxGroup(staples);
 			add(stapleGroup);
+			
+			stapleMoving = false;
+			
 			super.create();
 			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
@@ -66,17 +71,21 @@ package
 		
 		override public function update():void {
 			if (!FlxG.paused) {
-				if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
-					stapleGroup.add(new Staple());
-					staples--;
-					staplesLeft.text = "Staples left: " + staples.toString();
+				if (!stapleMoving) {
+					if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
+						stapleGroup.add(new Staple());
+						staples--;
+						staplesLeft.text = "Staples left: " + staples.toString();
+						stapleMoving = true;
+					}
 				}
+				FlxG.overlap(stapleGroup, super.walls, removeStaple);
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
 					//var data1:Object = { "completed":"success" };
 					//Registry.loggingControl.logLevelEnd(data1);
 					super.success = true;
-				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
 					//var data2:Object = { "completed":"failure" };
 					//Registry.loggingControl.logLevelEnd(data2);
 					super.success = false;
@@ -104,12 +113,21 @@ package
 			super.timer.abort();
 		}
 		
+		public function removeStaple(s:FlxObject, p:FlxObject):void {
+			var tempStaple:Staple = s as Staple;
+			
+			stapleGroup.remove(tempStaple, true);
+			
+			stapleMoving = false;
+		}
+		
 		public function staplePaper(s:FlxObject, p:FlxObject):void {
 			var tempStaple:Staple = s as Staple;
 			var tempPaper:StaplerPaper = p as StaplerPaper;
 			
 			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
+			stapleMoving = false;
 		}
 	}
 

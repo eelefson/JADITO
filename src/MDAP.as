@@ -6,7 +6,9 @@ package {
 	 * @author Connor
 	 */
 	public class MDAP extends MinigameState {
-		[Embed(source="sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "image_assets/crayon_dot.png")] private var DotImage:Class;
+		[Embed(source = "image_assets/CrayonRed.png")] private var crayon:Class;
 		
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
@@ -34,6 +36,12 @@ package {
 		private var lastX:int;
 		private var lastY:int;
 		
+		// Eli added for line draw
+		private var crayon_graphic:FlxExtendedSprite;
+		private var dot_graphic:FlxExtendedSprite;
+		private var previousPoint:FlxPoint;
+		private var ballGroup:FlxGroup;
+		
 		override public function create():void {
 			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
 			FlxG.play(Startup);
@@ -51,8 +59,8 @@ package {
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
-			dot.enableMouseClicks(false);
-			dot.mousePressedCallback = moveDot;
+			//dot.enableMouseClicks(false);
+			//dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
 			
 			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
@@ -76,6 +84,16 @@ package {
 			praise = 0;
 			
 			add(sketchpad);
+			
+			// Eli added for line draw
+			ballGroup = new FlxGroup();
+			crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
+			crayon_graphic.enableMouseDrag();
+			dot_graphic = new FlxExtendedSprite(crayon_graphic.x + crayon_graphic.width, crayon_graphic.y + crayon_graphic.height, DotImage);
+			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			add(ballGroup);
+			add(crayon_graphic);
+			
 			add(dotsLeft);
 			//add(command);
 			add(dot);
@@ -91,9 +109,27 @@ package {
 		
 		override public function update():void {
 			super.update();
+			
+			FlxG.collide(super.walls, crayon_graphic);
+			
+			dot_graphic.x = crayon_graphic.x + crayon_graphic.width;
+			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
+
+			if (crayon_graphic.isDragged) {
+				var line:FlxSprite = new FlxSprite();
+				line.makeGraphic(640, 430, 0x00000000);
+				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, 0xFFFF0000, 16);
+				ballGroup.add(line);
+					
+				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			}
+			
+			if (FlxG.overlap(dot_graphic, dot)) {
+				moveDot();
+			}
 		}
 		
-		public function moveDot(d:FlxExtendedSprite, currentx:int, currenty:int):void {
+		public function moveDot():void {
 			if (lastX != 0) {
 				drawLine();
 			}
@@ -114,7 +150,7 @@ package {
 		}
 		
 		public function drawLine():void {
-			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
+			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {
@@ -140,7 +176,8 @@ package {
 		}
 		
 		public function bossQuestion():void {
-			super.setTimer(5000);
+			crayon_graphic.disableMouseDrag();
+			super.timer.reset(5000);
 			
 			finalQuestion = true;
 			dot.visible = false;
