@@ -37,14 +37,11 @@ package {
 			
 			super.gameOver = false;
 			
-			var recycleHeight:int = 80;
-			var recycleWidth:int = 150;
+			var recycleHeight:int = 86;
+			var recycleWidth:int = 148;
 			var wallpaper:FlxSprite = new FlxSprite(0, 0);
 			wallpaper.loadGraphic(wall);
 			add(wallpaper);
-			
-			var recycleHeight:int = 86;
-			var recycleWidth:int = 148;
 			
 			difficulty = Registry.difficultyLevel;
 			numIdeas = difficulty + 1;
