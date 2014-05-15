@@ -18,6 +18,8 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
+			gameOver = true;
+			
 			level = Registry.difficultyLevel;
 			
 			papers = new FlxGroup;
@@ -25,13 +27,17 @@ package {
 			super.setCommandText("Sort Them!");
 			super.setTimer(12000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(7, null);
+			var data5:Object = { "difficulty":level };
+			Registry.loggingControl.logLevelStart(7, data5);
 		}
 		
 		override public function update():void {
 			if (super.timer.hasExpired) {
-				//var data1:Object = { "completed":"success" };
-				//Registry.loggingControl.logLevelEnd(data1);
+				if(!gameOver) {
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
 				super.success = true;
 			}
 			
@@ -79,8 +85,11 @@ package {
 		}
 		
 		public function timeout():void {
-			//var data1:Object = { "completed":"success" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver){
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 		}
 	}
 }

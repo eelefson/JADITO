@@ -44,6 +44,10 @@ package
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
 			
+			super.gameOver = false;
+			
+			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			
 			difficulty = Registry.difficultyLevel;
 			
 			if (difficulty < 2) {
@@ -137,7 +141,8 @@ package
 			super.setCommandText("Avoid Coworker!");
 			super.setTimer(6 * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(1,null);
+			var data3:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(1, null);
 		}
 		
 		override public function update():void {
@@ -242,8 +247,11 @@ package
 		}
 		
 		public function failure(me:FlxObject, them:FlxObject):void {
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 			you.visible = false;
@@ -251,8 +259,11 @@ package
 		}
 		
 		public function timeout():void {
-			//var data1:Object = { "completed":"success" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver) {
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = true;
 			super.timer.abort();
 			you.visible = false;

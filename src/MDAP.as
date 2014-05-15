@@ -42,6 +42,8 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			gameOver = false;
+			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 5 * difficulty;
 			words = 20 + 10 * difficulty;
@@ -85,7 +87,8 @@ package {
 			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(8, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(8, data5);
 		}
 		
 		override public function update():void {
@@ -233,8 +236,11 @@ package {
 			question.text = "You are wrong!";
 			correctAnswer.flicker(1);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}
@@ -242,8 +248,11 @@ package {
 		public function correct():void {
 			question.text = "You are correct!";
 			
-			//var data1:Object = { "completed":"success" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver) {
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = true;
 		}
 		
@@ -257,8 +266,11 @@ package {
 			//question.setFormat(null, 16, 0, "center");
 			//add(question);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}

@@ -32,8 +32,9 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			gameOver = false;
+			
 			difficulty = Registry.difficultyLevel;
-			difficulty = 3;
 			
 			//hand = new FlxExtendedSprite((FlxG.width/2) - (handWidth/2), FlxG.height - handHeight);
 			hand = new FlxExtendedSprite(0, 0);
@@ -60,7 +61,8 @@ package
 			super.create();
 			super.setCommandText("Catch!");
 			super.setTimer(10 * 1000);
-			//Registry.loggingControl.logLevelStart(3, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(3, data5);
 		}
 		
 		override public function update():void {
@@ -78,8 +80,11 @@ package
 				}
 				
 				if (pencil.y > FlxG.height) {
-					//var data1:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if (!gameOver) {
+						var data1:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = false;
 					super.timer.abort();
 				}
@@ -87,13 +92,19 @@ package
 				if (FlxG.mouse.justPressed() && moving) {
 					pencil.velocity.y = 0;
 					if (FlxG.overlap(pencil, hand)) {
-						//var data2:Object = { "completed":"success" };
-						//Registry.loggingControl.logLevelEnd(data2);
+						if (!gameOver) {
+							var data2:Object = { "completed":"success" };
+							Registry.loggingControl.logLevelEnd(data2);
+						}
+						gameOver = true;
 						super.success = true;
 						super.timer.abort();
 					} else {
-						//var data3:Object = { "completed":"failure" };
-						//Registry.loggingControl.logLevelEnd(data3);
+						if (!gameOver) {
+							var data3:Object = { "completed":"failure" };
+							Registry.loggingControl.logLevelEnd(data3);
+						}
+						gameOver = true;
 						super.success = false;
 						super.timer.abort();
 					}
