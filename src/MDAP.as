@@ -6,10 +6,15 @@ package {
 	 * @author Connor
 	 */
 	public class MDAP extends MinigameState {
-		[Embed(source="sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "image_assets/drawing1.png")] private var drawing1:Class;
+		[Embed(source = "image_assets/drawing2.png")] private var drawing2:Class;
+		[Embed(source = "image_assets/drawing3.png")] private var drawing3:Class;
+		[Embed(source = "image_assets/sketchpad.png")] private var sketchpadImage:Class;
 		
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
+		private var drawing:FlxSprite;
 		
 		private var dotsLeft:FlxText;
 		//private var command:FlxText;
@@ -62,7 +67,9 @@ package {
 			//command.setFormat(null, 16, 0, "center");
 			
 			sketchpad = new FlxSprite();
-			sketchpad.makeGraphic(FlxG.width, FlxG.height);
+			//sketchpad.makeGraphic(FlxG.width, FlxG.height);
+			sketchpad.loadGraphic(sketchpadImage);
+			add(sketchpad);
 			
 			hazePhrases = ["Just quit!"];
 			//[ "Intern!!!", "You shouldn't be proud!", "You missed a spot!", "Go to college for that?", "Just quit!", 
@@ -75,7 +82,23 @@ package {
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
-			add(sketchpad);
+			drawing = new FlxSprite(30, 70);
+			drawing.alpha = 0.5;
+			var randNum:int = Math.floor(Math.random() * 3);
+			if (randNum == 0) {
+				drawing.loadGraphic(drawing1);
+				drawing.x = (FlxG.width / 2) - 80;
+			} else if (randNum == 1) {
+				drawing.loadGraphic(drawing2);
+				drawing.x = (FlxG.width / 2) - 160;
+				drawing.y = 50;
+			} else {
+				drawing.loadGraphic(drawing3);
+				drawing.x = (FlxG.width / 2) - 130;
+				drawing.y = 60;
+			}
+			add(drawing);
+			
 			add(dotsLeft);
 			//add(command);
 			add(dot);
@@ -114,7 +137,7 @@ package {
 		}
 		
 		public function drawLine():void {
-			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
+			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0, 3);
 		}
 		
 		public function addWord():void {
@@ -140,7 +163,9 @@ package {
 		}
 		
 		public function bossQuestion():void {
-			super.setTimer(5000);
+			super.timer.reset(6000);
+			
+			remove(drawing);
 			
 			finalQuestion = true;
 			dot.visible = false;

@@ -123,7 +123,7 @@ package  {
 										"Lord of the Lunch Break",
 										"Good at Something",
 										"Clicked a Mouse, Hurray",
-										"Duke of the Dunces",
+										"Duke of the Office Drones",
 										"Assistant Suck-Up");
 			shuffle(Registry.titles);
 			
@@ -157,7 +157,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new MDAP());
 		}
 		
 		public function shuffle(a:Array):void {

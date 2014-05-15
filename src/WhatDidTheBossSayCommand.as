@@ -17,6 +17,13 @@ package  {
 		public var leftWall:FlxTileblock;
 		public var rightWall:FlxTileblock;
 		
+		public var level0Array:Array = new Array("Steve", "John", "Ted", "Bob", "Frank", "Tim", "Pete");
+		public var level1Array:Array = new Array("fluffy123", "password77", "princess1983", "america987",
+												"ilovecoffee4");
+		public var level2Array:Array = new Array("spoofsandgoofs.com/984", "employeetrainer.com/ref", "funny-r-us.net/list",
+												 "mybossisa.com/devil");
+		public var level3Array:Array = new Array("67823", "28532", "38759", "08236", "64238", "47476");
+		
 		private var delay:FlxDelay;
 		
 		override public function create():void {
