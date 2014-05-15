@@ -6,6 +6,7 @@ package {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		[Embed(source = "image_assets/arrow-left.png")] private var img:Class;
+		[Embed(source = "image_assets/InOutBasket.png")] private var phoneImg:Class;
 		
 		public static var level:Number; // The level of the game's difficulty
 		
@@ -34,6 +35,10 @@ package {
 			
 			Nums = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 0, 10);
 			NumRefs = new FlxGroup(12);
+			
+			var phone:FlxSprite = new FlxSprite(30, 30);
+			phone.loadGraphic(phoneImg);
+			add(phone);
 			
 			createNums();
 			
