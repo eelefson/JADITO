@@ -107,6 +107,9 @@ package {
 			add(backBound);
 			add(throwingLine);
 			
+			// When the Sprite leaves this zone you can no longer control it!
+			FlxMouseControl.mouseZone = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
+			
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
 			super.create();
 			super.setCommandText("Throw ideas away!");
@@ -120,12 +123,13 @@ package {
 				idea = new FlxExtendedSprite(FlxG.mouse.screenX - 12, FlxG.mouse.screenY - 12);
 				idea.loadGraphic(crumpledPaper, false, false, 24, 24);
 				idea.enableMouseThrow(30, 60);
-				idea.boundsRect = mouseBound;
+				//idea.boundsRect = mouseBound;
 				idea.setGravity(0, 200);
 				idea.draggable = true;
 				idea.elasticity = .75;
 				ideas.add(idea);
 			}
+			
 			FlxG.collide(ideas, ceiling);
 			FlxG.collide(ideas, backWall);
 			FlxG.overlap(ideas, backBound, miss);
