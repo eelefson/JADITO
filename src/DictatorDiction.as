@@ -7,9 +7,17 @@ package   {
 	 * @author Elijah Elefson
 	 */
 	public class DictatorDiction extends MinigameState {
-		//public static var level:Number = Registry.difficultyLevel;
+		[Embed(source = "image_assets/dictating_boss2.png")] private var BossImage:Class;
+		[Embed(source = "image_assets/dictating_speech_bubble.png")] private var SpeechImage:Class;
+		
 		private var answers:Array;
 		private var orderOfAnswers:Array; // DO NOT MODIFY
+		
+		private var commands:int;
+		private var commandsLeft:FlxText;
+		
+		private var boss_graphic:FlxSprite;
+		private var speech_graphic:FlxSprite;
 		
 		private var text_to_colors:Dictionary;
 		private var colors_to_text:Dictionary;
@@ -18,6 +26,7 @@ package   {
 		private var currentTextIndex:int = 0;
 		
 		override public function create():void {
+			FlxG.bgColor = 0xffffffff;
 			// RED, GREEN, BLUE, PURPLE, ORANGE, PINK
 			var colors:Array = new Array(0xFFFF0000, 0xFF00CC00, 0xFF0000FF, 0xCC00CC, 0xFFFF7519, 0xFFFFFF00);
 			var text:Array = new Array("RED", "GREEN", "BLUE", "PURPLE", "ORANGE", "YELLOW");
@@ -30,6 +39,8 @@ package   {
 			FlxG.shuffle(colors, 2);
 			FlxG.shuffle(text, 2);
 			
+			speech_graphic = new FlxSprite(20, (FlxG.height / 2) - 50, SpeechImage);
+			add(speech_graphic);
 			
 			bossCommands = new FlxGroup();
 			buttonGroup = new FlxGroup();
@@ -38,21 +49,33 @@ package   {
 				placeText(4, 1, text, colors);
 				placeButtons(4, 1, text.slice(0, 4), colors.slice(0, 4), true);
 				answers = colors.slice(0, 4);
+				commands = 4;
 			} else if (level == 1) {
 				placeText(4, 1, text, colors);
 				placeButtons(4, 1, text.slice(0, 4), colors.slice(0, 4), false);
 				answers = text.slice(0, 4);
+				commands = 4;
 			} else if (level == 2) {
 				placeText(3, 2, text, colors);
 				placeButtons(3, 2, text.slice(0, 6), colors.slice(0, 6), true);
 				answers = colors.slice(0, 6);
+				commands = 6;
 			} else if (level == 3) {
 				placeText(3, 2, text, colors);
 				placeButtons(3, 2, text.slice(0, 6), colors.slice(0, 6), false);
-				answers = text.slice(0, 6);	
+				answers = text.slice(0, 6);
+				commands = 6;
 			}
 			add(bossCommands);
 			add(buttonGroup);
+			
+			commandsLeft = new FlxText(0, 150, FlxG.width, "Commands Remaining: " + commands.toString());
+			commandsLeft.setFormat(null, 16, 0xff000000, "center");
+			add(commandsLeft);
+			
+			boss_graphic = new FlxSprite(-120, FlxG.height / 2, BossImage);
+			boss_graphic.y = boss_graphic.y - (boss_graphic.height / 2) + 25;
+			add(boss_graphic);
 			
 			super.create();
 			
@@ -75,6 +98,8 @@ package   {
 		private function checkIfCorrectColor(color:Array):void {
 			if (answers.slice(0, 1)[0] == color[0]) {
 				//correct!
+				commands--;
+				commandsLeft.text = "Commands Left: " + commands.toString();
 				answers.shift();
 				currentTextIndex++;
 				bossCommands.getFirstAlive().visible = false;
@@ -97,6 +122,8 @@ package   {
 		private function checkIfCorrectText(text:Array):void {
 			if (answers.slice(0, 1)[0] == text[0]) {
 				//correct!
+				commands--;
+				commandsLeft.text = "Commands Left: " + commands.toString();
 				answers.shift();
 				currentTextIndex++;
 				bossCommands.getFirstAlive().visible = false;
@@ -228,17 +255,17 @@ package   {
 		}
 		
 		private function placeText(numberToSelect:int, numberOfLines:int, text:Array, colors:Array):void {
-			var spacing:int = 20;
-			var curHeight:int = 0;
+			/*var spacing:int = 20;
+			var curHeight:int = 4;
 			for (var i:int = 0; i < numberOfLines; i++) {
 				var widthAndHeight:Dictionary = totalWidthOfMultipleTextBoxes(i*numberToSelect, numberToSelect, numberOfLines, spacing, text);
 				var totalWidth:int = widthAndHeight["totalWidth"];
 				var totalHeight:int = widthAndHeight["totalHeight"];
 				var command:DictatorDictionText;
-				var curWidth:int = 0;
+				var curWidth:int = 25;
 				for (var j:int = 0; j < numberToSelect; j++) {
 					command = new DictatorDictionText((FlxG.width / 2) - (totalWidth / 2), (FlxG.height / 2) - (totalHeight / 2), FlxG.width, text[(numberToSelect * i)+j]);
-					command.setFormat(null, 32, colors[(numberToSelect * i)+j], "left");
+					command.setFormat(null, 36, colors[(numberToSelect * i)+j], "left", 1);
 					command.x = (command.x + curWidth) + (j * spacing);
 					command.y = (command.y + curHeight);
 					command.width = command.getRealWidth();
@@ -249,6 +276,21 @@ package   {
 					bossCommands.add(command);	
 				}
 				curHeight += command.height;
+			}*/
+			for (var i:int = 0; i < numberOfLines; i++) {
+				var command:DictatorDictionText;
+				for (var j:int = 0; j < numberToSelect; j++) {
+					command = new DictatorDictionText(0, (FlxG.height) / 2 - 17, FlxG.width, text[(numberToSelect * i)+j]);
+					command.setFormat(null, 36, colors[(numberToSelect * i)+j], "center", 1);
+					//command.x = (command.x + curWidth) + (j * spacing);
+					//command.y = (command.y + curHeight);
+					//command.width = command.getRealWidth();
+					//curWidth += command.getRealWidth();
+					if (((numberToSelect * i) + j) != 0) {
+						command.visible = false;
+					}
+					bossCommands.add(command);
+				}
 			}
 		}
 		

@@ -4,7 +4,7 @@ package  {
 	 * ...
 	 * @author Elijah Elefson
 	 */
-	public class DictatorDictionText extends FlxText {
+	public class DictatorDictionText extends BorderedText {
 		
 		public function DictatorDictionText(X:Number, Y:Number, Width:uint, Text:String = null, EmbeddedFont:Boolean = true) {
 			super(X, Y, Width, Text, EmbeddedFont);	

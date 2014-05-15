@@ -7,7 +7,7 @@ package  {
 	 */
 	public class WaterBreak extends MinigameState {
 		[Embed(source = "image_assets/watercooler2.png")] private var WaterCoolerImage:Class;
-		[Embed(source = "image_assets/cup2.png")] private var CupImage:Class;
+		[Embed(source = "image_assets/WaterCup.png")] private var CupImage:Class;
 		[Embed(source = "image_assets/level_zero_gauge.png")] private var LevelZeroGauge:Class;
 		[Embed(source = "image_assets/level_one_gauge.png")] private var LevelOneGauge:Class;
 		[Embed(source = "image_assets/level_two_gauge.png")] private var LevelTwoGauge:Class;

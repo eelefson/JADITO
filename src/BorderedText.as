@@ -55,7 +55,7 @@ package  {
 				//Render a single pixel shadow beneath the text
 				if(_shadow > 0)
 				{
-					var n:int = 1;
+					var n:int = 2;
 					if (_shadow == 30) {
 						n = 4;
 					}
