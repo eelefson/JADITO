@@ -30,7 +30,7 @@ package  {
 		
 		override public function create():void {
 			
-			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
 			
 			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
@@ -120,11 +120,15 @@ package  {
 										"Assistant to the Regional Manager",
 										"Assistant Regional Manager",
 										"Employee of the Month Week",
-										"Lord of the Lunch Break"
+										"Lord of the Lunch Break",
+										"Good at Something",
+										"Clicked a Mouse, Hurray",
+										"Duke of the Office Drones",
+										"Assistant Suck-Up");
 										/*"Good at Something",
 										"Clicked a Mouse, Hurray", // Need these to be more positive
 										"Duke of the Dunces",
-										"Assistant Suck-Up"*/);
+										"Assistant Suck-Up"*/
 			shuffle(Registry.titles);
 			
 			// Array storing all the possible minigames available to play

@@ -32,6 +32,8 @@ package
 			
 			level = 3;
 			
+			gameOver = false;
+			
 			super.setTimer(16000);
 			
 			// Difficulty 3 has two typos to find
@@ -55,7 +57,8 @@ package
 				super.setCommandText("Find the Typos!");
 			}
 			super.setTimer(20000);
-			//Registry.loggingControl.logLevelStart(12, null);
+			var data5:Object = { "difficulty":level };
+			Registry.loggingControl.logLevelStart(12, data5);
 		}
 		
 		override public function update():void
@@ -69,15 +72,21 @@ package
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
 				if (ticks == 20) { // Enough time has passed, end the game!
-					//var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
 				}
 			}
 			
 			if (hasFailed) { // The user has failed!
-				//var data2:Object = { "completed":"failure" };
-				//Registry.loggingControl.logLevelEnd(data2);
+				if(!gameOver){
+					var data2:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data2);
+				}
+				gameOver = true;
 				ticks++;
 				if (ticks ==  40) {
 					super.timer.abort();

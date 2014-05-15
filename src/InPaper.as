@@ -29,13 +29,16 @@ package
 				frame = 0;
 			}
 			
-			if (this.y <= 20) {
+			if (this.y <= 28) {
 				this.kill();
 				
 				if (!left) {
 					// Fail condition
-					//var data1:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if (!minigame_super.gameOver) {
+						var data1:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					minigame_super.gameOver = true;
 					minigame_super.timer.abort();
 				}
 			}

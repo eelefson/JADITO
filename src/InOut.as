@@ -5,8 +5,8 @@ package {
 	public class InOut extends MinigameState {
 		public static var level:Number; // The level of the game's difficulty
 		
-		//public static var counter:Number;
-		//private var counterText:FlxText;
+		[Embed(source = "image_assets/inbasket.png")] private var inBasketImg:Class;
+		[Embed(source = "image_assets/outbasket.png")] private var outBasketImg:Class;
 		
 		private var papers:FlxGroup; // References to the papers
 		private var ticks:Number = 0; // Used to control paper creation rate, counts "ticks" of update
@@ -18,20 +18,35 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
+			gameOver = true;
+			
 			level = Registry.difficultyLevel;
+			level = 3;
+			
+			var inBasket:FlxSprite = new FlxSprite(55, 28);
+			inBasket.loadGraphic(inBasketImg);
+			add(inBasket);
+			
+			var outBasket:FlxSprite = new FlxSprite(FlxG.width - 80 - 110, 28);
+			outBasket.loadGraphic(outBasketImg);
+			add(outBasket);
 			
 			papers = new FlxGroup;
 			super.create();
 			super.setCommandText("Sort Them!");
-			super.setTimer(12000);
+			super.setTimer(13000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(7, null);
+			var data5:Object = { "difficulty":level };
+			Registry.loggingControl.logLevelStart(7, data5);
 		}
 		
 		override public function update():void {
 			if (super.timer.hasExpired) {
-				//var data1:Object = { "completed":"success" };
-				//Registry.loggingControl.logLevelEnd(data1);
+				if(!gameOver) {
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
 				super.success = true;
 			}
 			
@@ -79,8 +94,11 @@ package {
 		}
 		
 		public function timeout():void {
-			//var data1:Object = { "completed":"success" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver){
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 		}
 	}
 }

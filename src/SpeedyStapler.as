@@ -30,6 +30,8 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			gameOver = false;
+			
 			var difficulty:int = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
 			var time:int = 20 + 5 * difficulty;
@@ -66,7 +68,8 @@ package
 			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(11, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(11, data5);
 		}
 		
 		override public function update():void {
@@ -82,12 +85,19 @@ package
 				FlxG.overlap(stapleGroup, super.walls, removeStaple);
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
-					//var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
-				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
-					//var data2:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data2);
+
+				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+					if(!gameOver){
+						var data2:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data2);
+					}
+					gameOver = true;
 					super.success = false;
 					super.timer.abort();
 				}
@@ -107,8 +117,11 @@ package
 			//outOfTime.setFormat(null, 16, 0, "center");
 			//add(outOfTime);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver){
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}

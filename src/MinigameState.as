@@ -55,6 +55,8 @@ package  {
 		
 		private var blink:Boolean = true;
 		
+		public var gameOver:Boolean = false;
+		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);
 			

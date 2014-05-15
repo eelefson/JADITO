@@ -7,6 +7,8 @@ package   {
 	 * @author Elijah Elefson
 	 */
 	public class DictatorDiction2 extends MinigameState {
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		
 		//public static var level:Number = Registry.difficultyLevel;
 		private var answers:Array;
 		private var orderOfAnswers:Array; // DO NOT MODIFY
@@ -18,6 +20,11 @@ package   {
 		private var currentTextIndex:int = 0;
 		
 		override public function create():void {
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
+			
+			gameOver = false;
 			
 			// RED, GREEN, BLUE, PURPLE, ORANGE, PINK
 			var colors:Array = new Array(0xFFFF0000, 0xFF00CC00, 0xFF0000FF, 0xCC00CC, 0xFFFF7519, 0xFFFFFF00);
@@ -28,8 +35,8 @@ package   {
 				text_to_colors[text[i]] = colors[i];
 				colors_to_text[colors[i]] = text[i];
 			}
-			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 20);
+			FlxG.shuffle(colors, 10);
+			FlxG.shuffle(text, 10);
 			
 			
 			bossCommands = new FlxGroup();
@@ -68,7 +75,8 @@ package   {
 			}
 			super.setTimer(20000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(30, null);
+			var data5:Object = { "difficulty":level };
+			Registry.loggingControl.logLevelStart(30, data5);
 		}
 		
 		override public function update():void {
@@ -83,8 +91,11 @@ package   {
 				bossCommands.getFirstAlive().visible = false;
 				bossCommands.getFirstAlive().alive = false;
 				if (answers.length == 0) {
-					//var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if (!gameOver) {
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
 					return;
 				}
@@ -94,8 +105,11 @@ package   {
 				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(orderOfAnswers.indexOf(answers.slice(0, 1)[0]));
 				
-				//var data2:Object = { "completed":"failure" };
-				//Registry.loggingControl.logLevelEnd(data2);
+				if(!gameOver) {
+					var data2:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data2);
+				}
+				gameOver = true;
 				super.success = false;
 				super.timer.abort();	
 			}
@@ -109,8 +123,11 @@ package   {
 				bossCommands.getFirstAlive().visible = false;
 				bossCommands.getFirstAlive().alive = false;
 				if (answers.length == 0) {
-					//var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
 					return;
 				}
@@ -120,8 +137,11 @@ package   {
 				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(answers.indexOf(answers.slice(0, 1)[0]));
 				
-				//var data2:Object = { "completed":"failure" };
-				//Registry.loggingControl.logLevelEnd(data2);
+				if(!gameOver) {
+					var data2:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data2);
+				}
+				gameOver = true;
 				super.success = false;
 				super.timer.abort();	
 			}
@@ -277,8 +297,11 @@ package   {
 		}
 		
 		public function timeout():void {
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 		}
 		
 	}

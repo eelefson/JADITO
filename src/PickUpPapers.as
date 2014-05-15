@@ -26,6 +26,8 @@ package  {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			gameOver = false;
+			
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
 			
@@ -59,14 +61,18 @@ package  {
 				super.setTimer((seconds * Registry.difficultyLevel) * 1000);
 			}
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(9, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(9, data5);
 		}
 		
 		public function timeout():void {
 			//command.visible = false;
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver){
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}
@@ -74,8 +80,11 @@ package  {
 		override public function update():void {
 			FlxG.overlap(papers, bin, collect);
 			if (papersLeft <= 0) {
-				//var data1:Object = { "completed":"success" };
-				//Registry.loggingControl.logLevelEnd(data1);
+				if(!gameOver){
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
 				super.success = true;
 				super.timer.abort();
 			}

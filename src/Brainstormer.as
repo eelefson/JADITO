@@ -1,4 +1,5 @@
 package {
+	import mx.core.FlexSprite;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 
@@ -7,7 +8,8 @@ package {
 	 */
 	public class Brainstormer extends MinigameState {
 		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
-		[Embed(source="image_assets/recycle_bin3.png")] private var recycleBin:Class;
+		[Embed(source = "image_assets/recycle_bin3.png")] private var recycleBin:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var command:FlxText;
 		private var ideasLeft:FlxText;
@@ -31,7 +33,15 @@ package {
 		override public function create():void {
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
+			
+			super.gameOver = false;
+			
+			var recycleHeight:int = 80;
+			var recycleWidth:int = 150;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			var recycleHeight:int = 86;
 			var recycleWidth:int = 148;
@@ -50,12 +60,12 @@ package {
 			
 			help = new FlxText(10, FlxG.height / 2, FlxG.width, "Click Me!");
 			help.setFormat(null, 16, 0);
-			help.alpha = .5;
+			help.alpha = .7;
 			
 			if (difficulty == 0) {
-				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click Drag Release!");
+				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click, Drag, Release!");
 				helpb.setFormat(null, 16, 0, "center");
-				helpb.alpha = .5;
+				helpb.alpha = .7;
 				add(helpb);
 			}
 			ideas = new FlxGroup();
@@ -115,7 +125,8 @@ package {
 			super.setCommandText("Throw ideas away!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(2, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(2, data5);
 		}
 		
 		override public function update():void {
@@ -137,8 +148,11 @@ package {
 			FlxG.overlap(ideas, goodBound, thrownAway);
 			ideasLeft.text = "Bad Ideas Left: " + numIdeas.toString();
 			if (numIdeas <= 0) {
-				//var data1:Object = { "completed":"success" };
-				//Registry.loggingControl.logLevelEnd(data1);
+				if (!gameOver) {
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
 				super.success = true;
 				super.timer.abort();
 			}
@@ -148,8 +162,11 @@ package {
 		public function timeout():void {
 			command.visible = false;
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}
