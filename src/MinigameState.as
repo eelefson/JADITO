@@ -14,6 +14,8 @@ package  {
 		[Embed(source="image_assets/big_check_mark3.png")] private var CheckMarkImage:Class;
 		[Embed(source="image_assets/x_mark_red_big.png")] private var XMarkImage:Class;
 		
+		
+		public var walls:FlxGroup;
 		public var topWall:FlxTileblock;
 		public var bottomWall:FlxTileblock;
 		public var leftWall:FlxTileblock;
@@ -56,21 +58,37 @@ package  {
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);
 			
+			walls = new FlxGroup();
+			
 			topWall = new FlxTileblock(0, 0, FlxG.width, 25);
 			topWall.makeGraphic(FlxG.width, 25, 0xff000000);
-			add(topWall);
+			topWall.immovable = true;
+			topWall.elasticity = 0;
+			topWall.solid = true;
+			walls.add(topWall);
 			
 			bottomWall = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
 			bottomWall.makeGraphic(FlxG.width, 25, 0xff000000);
-			add(bottomWall);
+			bottomWall.immovable = true;
+			bottomWall.elasticity = 0;
+			bottomWall.solid = true;
+			walls.add(bottomWall);
 			
 			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
 			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
-			add(leftWall);
+			leftWall.immovable = true;
+			leftWall.elasticity = 0;
+			leftWall.solid = true;
+			walls.add(leftWall);
 			
 			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
-			add(rightWall);
+			rightWall.immovable = true;
+			rightWall.elasticity = 0;
+			rightWall.solid = true;
+			walls.add(rightWall);
+			
+			add(walls);
 			
 			skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
 			skipButton.x = skipButton.x - skipButton.width;

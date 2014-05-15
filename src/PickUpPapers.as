@@ -11,7 +11,7 @@ package  {
 	{
 		
 		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
-		[Embed(source = "image_assets/RecycleBin.png")] private var recycleBin:Class;
+		[Embed(source = "image_assets/recycle_bin2.png")] private var recycleBin:Class;
 		
 		private var difficulty:int;
 		private var papersCount:int;
@@ -31,7 +31,7 @@ package  {
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
 			
-			bin = new FlxExtendedSprite(FlxG.width - recycleWidth, FlxG.height - recycleHeight);
+			bin = new FlxExtendedSprite(FlxG.width - recycleWidth, FlxG.height - 25 - recycleHeight);
 			bin.loadGraphic(recycleBin);
 			add(bin);
 			
@@ -48,7 +48,7 @@ package  {
 				var paper:FlxExtendedSprite = new FlxExtendedSprite(x, y);
 
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
-				paper.enableMouseDrag(true, true, 255, new FlxRect(0, 25, FlxG.width, FlxG.height - 50));
+				paper.enableMouseDrag(true, false, 255, new FlxRect(0, 25, FlxG.width, FlxG.height - 50));
 				papers.add(paper);
 			}
 			

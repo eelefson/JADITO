@@ -9,16 +9,20 @@ package {
 	 */
 	public class PlayState extends FlxState {
 		[Embed(source = "image_assets/Clipboard_Background.png")] private var ClipboardImage:Class;
+		[Embed(source = "image_assets/DesktopBackground.jpg")] private var BackgroundImage:Class;
 		[Embed(source="image_assets/box.jpg")] private var BlackBoxImage:Class;
 		[Embed(source="image_assets/check_mark_green.png")] private var CheckMarkImage:Class;
 		[Embed(source="image_assets/x_mark_red.png")] private var XImage:Class;
 		[Embed(source = "image_assets/calendar.png")] private var CalanderImage:Class;
 		[Embed(source = "image_assets/red_circle.png")] private var CircleImage:Class;
-		[Embed(source = "image_assets/scribble.png")] private var ScribbleImage:Class;
+		[Embed(source = "image_assets/scribble2.png")] private var ScribbleImage:Class;
 		[Embed(source = "image_assets/beginDayButton.png")] private var BeginDayButton:Class;
 		[Embed(source = "sound_assets/whoosh2.mp3")] private var WhooshSFX:Class;
 		[Embed(source = "sound_assets/begin_game.mp3")] private var BeginSFX:Class;
 		[Embed(source = "sound_assets/are-you-ready.mp3")] private var AreYouReadySFX:Class;
+		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+		[Embed(source = "image_assets/computerStart2.png")] private var ComputerTextImage:Class;
+		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
 		
 		private var clipboard_graphic:FlxSprite;
 		private var box_graphic:FlxSprite;
@@ -28,6 +32,8 @@ package {
 		private var cirle_graphic:FlxSprite;
 		private var scribble_graphic:FlxSprite;
 		private var begin_day_button:FlxSprite;
+		private var computerScreenText:FlxSprite;
+		private var computer_screen_graphic:FlxButton;
 		
 		private var checkBoxes:FlxGroup = new FlxGroup();
 		private var mostRecentMark:FlxSprite;
@@ -35,6 +41,9 @@ package {
 		private var beginDayText:BorderedText;
 		
 		private var zoomCam:ZoomCamera;
+		
+		private var background_graphic:FlxSprite;
+		private var toDoText:DictatorDictionText;
 		
 		public var topWall:FlxTileblock;
 		public var bottomWall:FlxTileblock;
@@ -46,8 +55,8 @@ package {
 		
 		private var go:Boolean = false;
 		
-		private var cameraX:Number = FlxG.width / 2;
-		private var cameraY:Number = FlxG.height / 2;
+		private var cameraX:Number = FlxG.width / 2; //consider 161 (midpoint of clipboard)
+		private var cameraY:Number = FlxG.height / 2; //consider 348 (midpoint of clipboard);
 		
 		private var xDistance:Number;
 		private var yDistance:Number;
@@ -56,7 +65,8 @@ package {
 		
 		private var playWhoosh:Boolean = true;
 		
-		private var blink:Boolean = true;
+		private var blink1:Boolean = true;
+		private var blink2:Boolean = true;
 		
 		override public function create():void {
 			var i:int;
@@ -66,6 +76,9 @@ package {
 			// CAMERA
 			zoomCam = new ZoomCamera(0, 0, FlxG.width, FlxG.height);
 			FlxG.resetCameras(zoomCam);
+			
+			background_graphic = new FlxSprite(0, 0, BackgroundImage);
+			add(background_graphic);
 			
 			if (Registry.pool.length == 0) {		
 				if (Registry.playCurrentDay) {
@@ -88,54 +101,64 @@ package {
 				if (Registry.day == DaysOfTheWeek.MONDAY) {
 					FlxG.play(BeginSFX);
 				}
-				begin_day_button = new FlxButton(FlxG.width, FlxG.height / 2, null, clickBeginButton);
+				computerScreenText = new FlxSprite(365, 60, ComputerTextImage);
+				computerScreenText.visible = false;
+				add(computerScreenText);
+				blinkSprite();
+				setInterval(blinkSprite, 1000);
+				
+				computer_screen_graphic = new FlxButton(365, 51, null, clickBeginButton);
+				computer_screen_graphic.loadGraphic(ComputerScreenImage);
+				add(computer_screen_graphic);
+				
+				/*begin_day_button = new FlxButton(233, 186, null, clickBeginButton);
 				begin_day_button.loadGraphic(BeginDayButton);
-				begin_day_button.x = begin_day_button.x - (begin_day_button.width * 1.35);
-				begin_day_button.y = begin_day_button.y - (begin_day_button.height / 2);
-				add(begin_day_button);
+				begin_day_button.x = 365;
+				begin_day_button.y = 51;
+				add(begin_day_button);*/
 			}
 			
-			calander_graphic = new FlxSprite(FlxG.width / 2, 0, CalanderImage);
-			calander_graphic.x = calander_graphic.x - (calander_graphic.width / 2);
-			add(calander_graphic);
-			
 			var day:int = Registry.day - 1;
-			cirle_graphic = new FlxSprite(((FlxG.width / 2) - (calander_graphic.width / 2) + 6) + (Registry.day * (calander_graphic.width / 6)), 22, CircleImage);
+			cirle_graphic = new FlxSprite(32 + (Registry.day * 48), 61, CircleImage);
 			add(cirle_graphic);
 			
 			for (var n:int = 0; n < Registry.day; n++) {
-				scribble_graphic = new FlxSprite(((FlxG.width / 2) - (calander_graphic.width / 2)) + (n * (calander_graphic.width / 6)), 0, ScribbleImage);
-				add(scribble_graphic)				
+				scribble_graphic = new FlxSprite(32 + (n * 48), 64, ScribbleImage);
+				add(scribble_graphic);				
 			}
 			
-			clipboard_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, ClipboardImage);
-			clipboard_graphic.x = clipboard_graphic.x - (clipboard_graphic.width / 2);
-			clipboard_graphic.y = clipboard_graphic.y - (clipboard_graphic.height / 2);
-			add(clipboard_graphic);
+			toDoText = new DictatorDictionText(95, 257 + 10, 132, "To Do:");
+			toDoText.setFormat("Typewriter", 18, 0xff000000, "center");
+			add(toDoText);
+			
+			var underline:FlxTileblock = new FlxTileblock(95 + ((toDoText.width - toDoText.getRealWidth()) / 2), 257 + 6 + toDoText.height, toDoText.getRealWidth(), 1);
+			underline.makeGraphic(toDoText.getRealWidth(), 1, 0xff000000);
+			add(underline);
 			
 			var x:int;
 			var y:int;
 			var j:int;
+			//Registry.day = DaysOfTheWeek.SATURDAY;
 			if (Registry.day != DaysOfTheWeek.SATURDAY) {
-				x = clipboard_graphic.x + 53;
-				y = clipboard_graphic.y + 70;
+				x = 95 + 23;
+				y = 257 + 30 + 6;
 				// Generates ROWS of black boxes
 				for (i = 0; i < 3; i++) {
 					// Generates COLUMNS of black boxes
 					for (j = 0; j < 2; j++) {
-						box_graphic = new FlxSprite(x + (75 * j), y + (58 * i), BlackBoxImage);
+						box_graphic = new FlxSprite(x + (60 * j), y + (50 * i), BlackBoxImage);
 						checkBoxes.add(box_graphic);
 					}
 				}
 			} else {
-				x = clipboard_graphic.x + 40;
-				y = clipboard_graphic.y + 60;
+				x = 95 + 13;
+				y = 257 + 20 + 12;
 				// Generates ROWS of black boxes
 				for (i = 0; i < 4; i++) {
 					// Generates COLUMNS of black boxes
 					for (j = 0; j < 3; j++) {
 						if (i != 3 || j == 1) {
-							box_graphic = new FlxSprite(x + (50 * j), y + (50 * i), BlackBoxImage);
+							box_graphic = new FlxSprite(x + (40 * j), y + (38 * i), BlackBoxImage);
 							checkBoxes.add(box_graphic);
 						}
 					}
@@ -154,7 +177,7 @@ package {
 					}
 					add(check_graphic);
 				} else if (Registry.taskStatuses[k] == TaskStatuses.FAILURE) {
-					x_graphic = new FlxSprite(box.x - 3, box.y - 2, XImage);
+					x_graphic = new FlxSprite(box.x - 2, box.y - 2, XImage);
 					if (k == (Registry.taskStatuses.indexOf(TaskStatuses.EMPTY) - 1) || k == (Registry.taskStatuses.length - 1)) {
 						x_graphic.alpha = 0;
 						mostRecentMark = x_graphic;
@@ -229,8 +252,8 @@ package {
 				
 				// Calculates the x and y distances between the camera center and the next unfilled black box
 				if (flag) {
-					xDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(cameraX, box.y + (box.height / 2))) / 50;
-					yDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(box.x + (box.width / 2), cameraY)) / 50;
+					xDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(cameraX, box.y + (box.height / 2))) / 40;
+					yDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(box.x + (box.width / 2), cameraY)) / 40;
 					flag = false;
 				}
 				
@@ -242,14 +265,14 @@ package {
 					}
 				//if (timer.secondsElapsed > 1) { CHANGED TO MAKE TESTING FASTER
 					zoomCam.focusOn(new FlxPoint(cameraX, cameraY));
-					if (increment != 50) {
+					if (increment != 40) {
 						cameraX += xDistance;
 						cameraY += yDistance;
 						increment++;
 					}
 					zoomCam.fade(0xffffffff, 2);
 					
-					zoomCam.targetZoom = 5;
+					zoomCam.targetZoom = 7;
 				} else if (mostRecentMark != null) {
 					mostRecentMark.alpha += 0.02;
 				}
@@ -260,13 +283,23 @@ package {
 			}
 		}
 		
+		private function blinkSprite():void {
+			if (blink1) {
+				computerScreenText.visible = true;
+				blink1 = false;
+			} else {
+				computerScreenText.visible = false;
+				blink1 = true;
+			}
+		}
+		
 		private function blinkText():void {
-			if (blink) {
+			if (blink2) {
 				beginDayText.visible = true;
-				blink = false;
+				blink2 = false;
 			} else {
 				beginDayText.visible = false;
-				blink = true;
+				blink2 = true;
 			}
 		}
 		
