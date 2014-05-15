@@ -6,7 +6,7 @@ package {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		[Embed(source = "image_assets/arrow-left.png")] private var img:Class;
-		[Embed(source = "image_assets/InOutBasket.png")] private var phoneImg:Class;
+		[Embed(source = "image_assets/Phone.png")] private var phoneImg:Class;
 		
 		public static var level:Number; // The level of the game's difficulty
 		

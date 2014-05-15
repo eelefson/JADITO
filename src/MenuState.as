@@ -75,7 +75,7 @@ package  {
 			add(rightWall);
 			
 			var instructions:FlxText;
-			instructions = new FlxText(0, FlxG.height - 120, FlxG.width, "Click SPACE to start!");
+			instructions = new FlxText(0, FlxG.height - 120, FlxG.width, "Click to start!");
 			instructions.setFormat("Typewriter", 24, 0xFF000000, "center");
 			add(instructions);
 			
@@ -88,7 +88,7 @@ package  {
 				bool = false;
 				FlxG.playMusic(Elevatormusic7);
 			}
-			if (FlxG.keys.justPressed("SPACE")) {
+			if (FlxG.mouse.justReleased()) {
 				clickStartButton();
 			}
 		}
