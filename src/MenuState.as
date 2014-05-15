@@ -88,7 +88,7 @@ package  {
 				bool = false;
 				FlxG.playMusic(Elevatormusic7);
 			}
-			if (FlxG.mouse.justReleased()) {
+			if (FlxG.mouse.justReleased() && FlxG.mouse.y < mute_button.y && FlxG.mouse.x > 10 + mute_button.width) {
 				clickStartButton();
 			}
 		}
