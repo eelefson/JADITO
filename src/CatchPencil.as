@@ -88,13 +88,13 @@ package
 				if (FlxG.mouse.justPressed() && moving) {
 					pencil.velocity.y = 0;
 					if (FlxG.overlap(pencil, hand)) {
-						var data1:Object = { "completed":"success" };
-						Registry.loggingControl.logLevelEnd(data1);
+						var data2:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data2);
 						super.success = true;
 						super.timer.abort();
 					} else {
-						var data1:Object = { "completed":"failure" };
-						Registry.loggingControl.logLevelEnd(data1);
+						var data3:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data3);
 						super.success = false;
 						super.timer.abort();
 					}
