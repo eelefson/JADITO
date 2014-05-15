@@ -38,14 +38,14 @@ package {
 			traySprite.antialiasing = true;
 			add(traySprite);
 			
-			leftClickBox = new FlxExtendedSprite(0, FlxG.height * 3 / 4);
-			leftClickBox.makeGraphic(FlxG.width / 2, FlxG.height / 4, 0x00ffffff);
+			leftClickBox = new FlxExtendedSprite(0, FlxG.height * 1 / 2);
+			leftClickBox.makeGraphic(FlxG.width / 2, FlxG.height / 2, 0x00ffffff);
 			leftClickBox.enableMouseClicks(false);
 			leftClickBox.mousePressedCallback = adjustTrayLeft;
 			add(leftClickBox);
 			
-			rightClickBox = new FlxExtendedSprite(FlxG.width/2, FlxG.height * 3 / 4);
-			rightClickBox.makeGraphic(FlxG.width / 2, FlxG.height / 4, 0x00ffffff);
+			rightClickBox = new FlxExtendedSprite(FlxG.width/2, FlxG.height * 1 / 2);
+			rightClickBox.makeGraphic(FlxG.width / 2, FlxG.height / 2, 0x00ffffff);
 			rightClickBox.enableMouseClicks(false);
 			rightClickBox.mousePressedCallback = adjustTrayRight;
 			add(rightClickBox);
