@@ -100,8 +100,6 @@ package {
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
-			add(sketchpad);
-			
 			drawing = new FlxSprite(30, 70);
 			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
@@ -181,11 +179,10 @@ package {
 			
 			dot_graphic.x = crayon_graphic.x;
 			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
-			trace(crayon_graphic.height);
 
 			if (crayon_graphic.isDragged) {
 				var line:FlxSprite = new FlxSprite();
-				line.makeGraphic(640, 430, 0x00000000);
+				line.makeGraphic(640, 480, 0x00000000);
 				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
 				ballGroup.add(line);
 					
