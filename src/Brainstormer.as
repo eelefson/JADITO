@@ -33,6 +33,8 @@ package {
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
+			Registry.loggingControl.logLevelStart(2, null);
+			
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
 			
@@ -132,6 +134,8 @@ package {
 			FlxG.overlap(ideas, goodBound, thrownAway);
 			ideasLeft.text = "Bad Ideas Left: " + numIdeas.toString();
 			if (numIdeas <= 0) {
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
 				super.success = true;
 				super.timer.abort();
 			}
@@ -141,6 +145,8 @@ package {
 		public function timeout():void {
 			command.visible = false;
 			
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}

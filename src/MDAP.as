@@ -35,6 +35,9 @@ package {
 		private var lastY:int;
 		
 		override public function create():void {
+			
+			Registry.loggingControl.logLevelStart(8, null);
+			
 			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
 			FlxG.play(Startup);
 			
@@ -231,6 +234,8 @@ package {
 			question.text = "You are wrong!";
 			correctAnswer.flicker(1);
 			
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}
@@ -238,6 +243,8 @@ package {
 		public function correct():void {
 			question.text = "You are correct!";
 			
+			var data1:Object = { "completed":"success" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = true;
 		}
 		
@@ -251,6 +258,8 @@ package {
 			//question.setFormat(null, 16, 0, "center");
 			//add(question);
 			
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
 			super.success = false;
 			super.timer.abort();
 		}

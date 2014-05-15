@@ -28,6 +28,8 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
+			Registry.loggingControl.logLevelStart(5, null);
+			
 			level = Registry.difficultyLevel;
 			
 			Nums = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 0, 10);
@@ -74,6 +76,7 @@ package {
 			} else {
 				super.setTimer(26000);
 			}
+			super.timer.callback = timeout;
 		}
 		
 		override public function update():void {
@@ -203,6 +206,12 @@ package {
 							g[5] + "-" + g[6] + g[7] + g[8] + g[9];
 							
 			return res
+		}
+		
+		public function timeout():void {
+			var data1:Object = { "completed":"failure" };
+			Registry.loggingControl.logLevelEnd(data1);
+			super.success = false;
 		}
 		
 	}

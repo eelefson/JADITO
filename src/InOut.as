@@ -18,6 +18,8 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
+			Registry.loggingControl.logLevelStart(7, null);
+			
 			level = Registry.difficultyLevel;
 			
 			papers = new FlxGroup;
@@ -28,6 +30,8 @@ package {
 		
 		override public function update():void {
 			if (super.timer.hasExpired) {
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
 				super.success = true;
 			}
 			

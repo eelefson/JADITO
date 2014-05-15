@@ -20,6 +20,8 @@ package  {
 		
 		override public function create():void {
 			
+			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			
 			var title:FlxText;
 			title = new FlxText(0, 16, FlxG.width, "Just Another Day In The Office");
 			title.setFormat(null, 50, 0xFFFFFFFF, "center");

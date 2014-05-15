@@ -1,0 +1,8 @@
+Here are the Version IDs for our game.
+They are technically the Category IDs (CID), but
+they function as the Version IDs for our game.
+
+Version IDs:
+1 - Debugging. This should be used when testing our
+	game so that they don't corrupt stats.
+2 - First release (May 16th, 2014).

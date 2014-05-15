@@ -1,0 +1,24 @@
+Here are the Quest IDs for all our minigames.
+Each minigame gets a unique Quest ID.
+
+Quest IDs:
+1	: AvoidCoworker
+2	: Brainstormer
+3	: CatchPencil
+4	: CoffeeRun
+5	: ColdCaller
+6	: DictatorDictation
+7	: InOut
+8	: MDAP
+9	: PickUpPapers
+10	: SignPapers
+11	: SpeedyStapler
+12	: Spellchecker
+13	: TimeClock
+14	: WaterBreak
+
+
+Larger Quest IDs for test/alternate versions of 
+games
+
+30	: DictatorDictation2
