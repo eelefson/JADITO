@@ -140,7 +140,7 @@ package {
 		}
 		
 		public function bossQuestion():void {
-			super.setTimer(5000);
+			super.timer.reset(6000);
 			
 			finalQuestion = true;
 			dot.visible = false;
