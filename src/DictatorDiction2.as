@@ -28,8 +28,8 @@ package   {
 				text_to_colors[text[i]] = colors[i];
 				colors_to_text[colors[i]] = text[i];
 			}
-			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 20);
+			FlxG.shuffle(colors, 10);
+			FlxG.shuffle(text, 10);
 			
 			
 			bossCommands = new FlxGroup();

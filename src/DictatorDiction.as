@@ -36,8 +36,8 @@ package   {
 				text_to_colors[text[i]] = colors[i];
 				colors_to_text[colors[i]] = text[i];
 			}
-			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 2);
+			FlxG.shuffle(colors, 10);
+			FlxG.shuffle(text, 10);
 			
 			speech_graphic = new FlxSprite(20, (FlxG.height / 2) - 50, SpeechImage);
 			add(speech_graphic);
