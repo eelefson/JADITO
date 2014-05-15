@@ -100,18 +100,8 @@ package {
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
-<<<<<<< HEAD
 			add(sketchpad);
 			
-			// Eli added for line draw
-			ballGroup = new FlxGroup();
-			crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
-			crayon_graphic.enableMouseDrag();
-			dot_graphic = new FlxExtendedSprite(crayon_graphic.x + crayon_graphic.width, crayon_graphic.y + crayon_graphic.height, DotImage);
-			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
-			add(ballGroup);
-			add(crayon_graphic);
-=======
 			drawing = new FlxSprite(30, 70);
 			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
@@ -128,11 +118,6 @@ package {
 				drawing.y = 60;
 			}
 			add(drawing);
->>>>>>> 325d0ec6a720f110105881d8877e680ae29bbdc1
-			
-			add(dotsLeft);
-			//add(command);
-			add(dot);
 			
 			var X_OFFSET:int = 0;
 			var Y_OFFSET:int = -80;
@@ -140,30 +125,43 @@ package {
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					FlxG.mouse.load(crayonRedImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					FlxG.mouse.load(crayonBlueImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					FlxG.mouse.load(crayonGreenImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					FlxG.mouse.load(crayonYellowImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					FlxG.mouse.load(crayonOrangeImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					FlxG.mouse.load(crayonPurpleImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
+			
+			// Eli added for line draw
+			ballGroup = new FlxGroup();
+			//crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
+			crayon_graphic.enableMouseDrag();
+			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
+			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			add(ballGroup);
+			add(crayon_graphic);
+			
+			add(dotsLeft);
+			//add(command);
+			add(dot);
 			
 			if (difficulty == 0) {
 				addWord();
@@ -181,13 +179,14 @@ package {
 			
 			FlxG.collide(super.walls, crayon_graphic);
 			
-			dot_graphic.x = crayon_graphic.x + crayon_graphic.width;
+			dot_graphic.x = crayon_graphic.x;
 			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
+			trace(crayon_graphic.height);
 
 			if (crayon_graphic.isDragged) {
 				var line:FlxSprite = new FlxSprite();
 				line.makeGraphic(640, 430, 0x00000000);
-				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, 0xFFFF0000, 16);
+				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
 				ballGroup.add(line);
 					
 				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
@@ -219,11 +218,7 @@ package {
 		}
 		
 		public function drawLine():void {
-<<<<<<< HEAD
 			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
-=======
-			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, color, 3);
->>>>>>> 325d0ec6a720f110105881d8877e680ae29bbdc1
 		}
 		
 		public function addWord():void {
@@ -249,16 +244,10 @@ package {
 		}
 		
 		public function bossQuestion():void {
-<<<<<<< HEAD
 			crayon_graphic.disableMouseDrag();
-			super.timer.reset(5000);
-=======
 			super.timer.reset(6000);
 			
-			FlxG.mouse.unload();
-			
 			remove(drawing);
->>>>>>> 325d0ec6a720f110105881d8877e680ae29bbdc1
 			
 			finalQuestion = true;
 			dot.visible = false;
