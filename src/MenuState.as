@@ -88,7 +88,7 @@ package  {
 				bool = false;
 				FlxG.playMusic(Elevatormusic7);
 			}
-			if (FlxG.mouse.justReleased()) {
+			if (FlxG.mouse.justReleased() && FlxG.mouse.y < mute_button.y && FlxG.mouse.x > 10 + mute_button.width) {
 				clickStartButton();
 			}
 		}
@@ -123,8 +123,12 @@ package  {
 										"Lord of the Lunch Break",
 										"Good at Something",
 										"Clicked a Mouse, Hurray",
-										"Duke of the Dunces",
+										"Duke of the Office Drones",
 										"Assistant Suck-Up");
+										/*"Good at Something",
+										"Clicked a Mouse, Hurray", // Need these to be more positive
+										"Duke of the Dunces",
+										"Assistant Suck-Up"*/
 			shuffle(Registry.titles);
 			
 			// Array storing all the possible minigames available to play

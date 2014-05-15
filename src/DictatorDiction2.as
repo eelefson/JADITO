@@ -7,6 +7,8 @@ package   {
 	 * @author Elijah Elefson
 	 */
 	public class DictatorDiction2 extends MinigameState {
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		
 		//public static var level:Number = Registry.difficultyLevel;
 		private var answers:Array;
 		private var orderOfAnswers:Array; // DO NOT MODIFY
@@ -18,6 +20,9 @@ package   {
 		private var currentTextIndex:int = 0;
 		
 		override public function create():void {
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			gameOver = false;
 			
@@ -30,8 +35,8 @@ package   {
 				text_to_colors[text[i]] = colors[i];
 				colors_to_text[colors[i]] = text[i];
 			}
-			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 20);
+			FlxG.shuffle(colors, 10);
+			FlxG.shuffle(text, 10);
 			
 			
 			bossCommands = new FlxGroup();

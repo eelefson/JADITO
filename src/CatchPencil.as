@@ -1,6 +1,7 @@
 package  
 {
 
+	import mx.core.FlexSprite;
 	import org.flixel.*;	
 	import org.flixel.plugin.photonstorm.*;
 	
@@ -15,6 +16,7 @@ package
 		[Embed(source = "image_assets/smallerPencil.png")] private var smallerPencil:Class;
 		[Embed(source = "image_assets/tinyPencil.png")] private var tinyPencil:Class;
 		[Embed(source = "image_assets/openhand.png")] private var handPic:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		
 		private var difficulty:int;
@@ -30,7 +32,10 @@ package
 		override public function create():void {
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			gameOver = false;
 			

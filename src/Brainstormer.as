@@ -1,4 +1,5 @@
 package {
+	import mx.core.FlexSprite;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 
@@ -7,7 +8,8 @@ package {
 	 */
 	public class Brainstormer extends MinigameState {
 		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
-		[Embed(source="image_assets/recycle_bin2.png")] private var recycleBin:Class;
+		[Embed(source = "image_assets/recycle_bin3.png")] private var recycleBin:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var command:FlxText;
 		private var ideasLeft:FlxText;
@@ -31,12 +33,18 @@ package {
 		override public function create():void {
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
 			
 			super.gameOver = false;
 			
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
+			
+			var recycleHeight:int = 86;
+			var recycleWidth:int = 148;
 			
 			difficulty = Registry.difficultyLevel;
 			numIdeas = difficulty + 1;
@@ -52,12 +60,12 @@ package {
 			
 			help = new FlxText(10, FlxG.height / 2, FlxG.width, "Click Me!");
 			help.setFormat(null, 16, 0);
-			help.alpha = .5;
+			help.alpha = .7;
 			
 			if (difficulty == 0) {
-				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click Drag Release!");
+				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click, Drag, Release!");
 				helpb.setFormat(null, 16, 0, "center");
-				helpb.alpha = .5;
+				helpb.alpha = .7;
 				add(helpb);
 			}
 			ideas = new FlxGroup();
@@ -85,8 +93,8 @@ package {
 				goodBound = new MovingSprite(FlxG.width / 2 , FlxG.height - recycleHeight - 25, velocity, minx, maxx);
 			}
 			bin.loadGraphic(recycleBin);
-			badBound.makeGraphic(1, bin.height, 0x00ffffff);
-			backBound.makeGraphic(1, bin.height, 0x00ffffff);
+			badBound.makeGraphic(1, recycleHeight, 0x00ffffff);
+			backBound.makeGraphic(1, recycleHeight, 0x00ffffff);
 			goodBound.makeGraphic(bin.width, 1, 0x00ffffff);
 			
 			ceiling = new FlxSprite(0, 0);
@@ -109,6 +117,9 @@ package {
 			add(backBound);
 			add(throwingLine);
 			
+			// When the Sprite leaves this zone you can no longer control it!
+			FlxMouseControl.mouseZone = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
+			
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
 			super.create();
 			super.setCommandText("Throw ideas away!");
@@ -123,12 +134,13 @@ package {
 				idea = new FlxExtendedSprite(FlxG.mouse.screenX - 12, FlxG.mouse.screenY - 12);
 				idea.loadGraphic(crumpledPaper, false, false, 24, 24);
 				idea.enableMouseThrow(30, 60);
-				idea.boundsRect = mouseBound;
+				//idea.boundsRect = mouseBound;
 				idea.setGravity(0, 200);
 				idea.draggable = true;
 				idea.elasticity = .75;
 				ideas.add(idea);
 			}
+			
 			FlxG.collide(ideas, ceiling);
 			FlxG.collide(ideas, backWall);
 			FlxG.overlap(ideas, backBound, miss);

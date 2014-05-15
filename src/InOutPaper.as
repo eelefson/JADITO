@@ -19,9 +19,9 @@ package
 			if (InOut.level == 0) {
 				this.velocity.y = -80;
 			} else if (InOut.level == 1) {
-				this.velocity.y = -120;
+				this.velocity.y = -145;
 			} else {
-				this.velocity.y = -160;
+				this.velocity.y = -170;
 			}
 			this.left = this.x < FlxG.width / 2;
 			

@@ -28,7 +28,7 @@ package
 				frame = 0;
 			}
 			
-			if (this.y <= 20) {
+			if (this.y <= 28) {
 				this.kill();
 				
 				if (left) {

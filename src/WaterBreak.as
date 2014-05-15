@@ -15,6 +15,7 @@ package  {
 		[Embed(source = "image_assets/white_cursor.png")] private var WhiteCursorImage:Class;
 		[Embed(source = "image_assets/red_cursor.png")] private var RedCursorImage:Class;
 		[Embed(source = "image_assets/green_cursor.png")] private var GreenCursorImage:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var water_cooler_graphic:FlxSprite;
 		private var cup_graphic:FlxSprite;
@@ -32,6 +33,9 @@ package  {
 		
 		
 		override public function create():void {
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			gameOver = false;
 			
