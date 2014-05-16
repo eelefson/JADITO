@@ -42,8 +42,8 @@ package   {
 				text_to_colors[text[i]] = colors[i];
 				colors_to_text[colors[i]] = text[i];
 			}
-			FlxG.shuffle(colors, 10);
-			FlxG.shuffle(text, 10);
+			FlxG.shuffle(colors, colors.length * 4);
+			FlxG.shuffle(text, text.length * 4);
 			
 			speech_graphic = new FlxSprite(20, (FlxG.height / 2) - 50, SpeechImage);
 			add(speech_graphic);
@@ -94,7 +94,7 @@ package   {
 			} else if (level == 3) {
 				super.setCommandText("Text MEANING!");
 			}
-			super.setTimer(13000);
+			super.setTimer(12000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":level };
 			Registry.loggingControl.logLevelStart(6, data5);
@@ -237,8 +237,8 @@ package   {
 		}
 		
 		private function placeButtons(numberOfButtons:int, numberOfLines:int, text:Array, colors:Array, colorsToText:Boolean):void {
-			FlxG.shuffle(colors, 2);
-			FlxG.shuffle(text, 2);
+			FlxG.shuffle(colors, colors.length * 4);
+			FlxG.shuffle(text, text.length * 4);
 			var spacing:int = 20;
 			var curHeight:int = 0;
 			for (var i:int = 0; i < numberOfLines; i++) {
