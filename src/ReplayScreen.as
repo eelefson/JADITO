@@ -23,7 +23,7 @@ package  {
 			story.y = story.y - story.height / 2;
 			add(story);
 			
-			replay = new FlxText(50, FlxG.height * 3 / 4 - moveUp, FlxG.width - 100, "Click to see how the next guy does");
+			replay = new FlxText(50, FlxG.height * 3 / 4 - moveUp, FlxG.width - 100, "Click to see how the next guy does!");
 			replay.setFormat("Typewriter", 24, 0xffffffff, "center");
 			replay.y = replay.y - replay.height / 2;
 			add(replay);
@@ -32,6 +32,7 @@ package  {
 		}
 		
 		override public function update():void {
+			super.update();
 			if (FlxG.mouse.justPressed()) {
 				FlxG.switchState(new MenuState());
 			}

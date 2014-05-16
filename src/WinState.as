@@ -36,7 +36,7 @@ package  {
 			add(dance_graphic);
 			dance_graphic.play("anim");
 			
-			winText = new BorderedText(0, 0, FlxG.width, "You Win!");
+			winText = new BorderedText(0, 0, FlxG.width, "You Are The Boss!");
 			winText.setFormat("Typewriter", 34, 0xffffffff, "center", 1);
 			add(winText);
 			setInterval(blinkText, 500);
@@ -65,6 +65,10 @@ package  {
 			add(no);
 			
 			FlxG.playMusic(Song);
+		}
+		
+		override public function update():void {
+			super.update();
 		}
 		
 		public function blinkText():void {
