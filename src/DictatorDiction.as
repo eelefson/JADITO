@@ -50,7 +50,7 @@ package   {
 			
 			bossCommands = new FlxGroup();
 			buttonGroup = new FlxGroup();
-			var level:int = 1;//Registry.difficultyLevel;
+			var level:int = Registry.difficultyLevel;
 			if (level == 0) {
 				placeText(4, 1, text, colors);
 				placeButtons(4, 1, text.slice(0, 4), colors.slice(0, 4), true);
@@ -125,7 +125,6 @@ package   {
 				bossCommands.getFirstAlive().visible = true;
 			} else {
 				// incorrect!
-				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(orderOfAnswers.indexOf(answers.slice(0, 1)[0]));
 				
 				if (!gameOver) {
@@ -159,7 +158,6 @@ package   {
 				bossCommands.getFirstAlive().visible = true;
 			} else {
 				// incorrect!
-				drawTextErrorBox(currentTextIndex);
 				drawButtonErrorBox(answers.indexOf(answers.slice(0, 1)[0]));
 				
 				if(!gameOver) {
@@ -172,7 +170,7 @@ package   {
 			}
 		}
 		
-		private function drawTextErrorBox(index:int):void {
+		/*private function drawTextErrorBox(index:int):void {
 			if (!FlxG.paused) {
 			// THIS PUTS A BOX AROUND THE TEXT
 				var command:FlxText = bossCommands.members[index];
@@ -202,12 +200,14 @@ package   {
 				add(leftWall);
 				add(rightWall);
 			}
-		}
+		}*/
 		
 		private function drawButtonErrorBox(index:int):void {
 			if (!FlxG.paused) {
-				// THIS PUTS A BOX AROUND THE TEXT
 				var button:FlxButton = buttonGroup.members[index];
+				button.flicker(1);
+				// THIS PUTS A BOX AROUND THE BUTTON
+				/*var button:FlxButton = buttonGroup.members[index];
 				var x:Number = button.x;
 				var y:Number = button.y;
 				var width:Number = button.width;
@@ -232,7 +232,7 @@ package   {
 				add(topWall);
 				add(bottomWall);
 				add(leftWall);
-				add(rightWall);
+				add(rightWall);*/
 			}
 		}
 		
