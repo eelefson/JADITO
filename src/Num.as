@@ -31,40 +31,40 @@ package
 			
 			switch (number) {
 				case 0:
-					this.loadGraphic(imgnum0, true, false, 55, 55);
+					this.loadGraphic(imgnum0, true, false, 44, 44);
 					break;
 				case 1:
-					this.loadGraphic(imgnum1, true, false, 55, 55);
+					this.loadGraphic(imgnum1, true, false, 44, 44);
 					break;
 				case 2:
-					this.loadGraphic(imgnum2, true, false, 55, 55);
+					this.loadGraphic(imgnum2, true, false, 44, 44);
 					break;
 				case 3:
-					this.loadGraphic(imgnum3, true, false, 55, 55);
+					this.loadGraphic(imgnum3, true, false, 44, 44);
 					break;
 				case 4:
-					this.loadGraphic(imgnum4, true, false, 55, 55);
+					this.loadGraphic(imgnum4, true, false, 44, 44);
 					break;
 				case 5:
-					this.loadGraphic(imgnum5, true, false, 55, 55);
+					this.loadGraphic(imgnum5, true, false, 44, 44);
 					break;
 				case 6:
-					this.loadGraphic(imgnum6, true, false, 55, 55);
+					this.loadGraphic(imgnum6, true, false, 44, 44);
 					break;
 				case 7:
-					this.loadGraphic(imgnum7, true, false, 55, 55);
+					this.loadGraphic(imgnum7, true, false, 44, 44);
 					break;
 				case 8:
-					this.loadGraphic(imgnum8, true, false, 55, 55);
+					this.loadGraphic(imgnum8, true, false, 44, 44);
 					break;
 				case 9:
-					this.loadGraphic(imgnum9, true, false, 55, 55);
+					this.loadGraphic(imgnum9, true, false, 44, 44);
 					break;
 				case 10:
-					this.loadGraphic(imgnumpound, true, false, 55, 55);
+					this.loadGraphic(imgnumpound, true, false, 44, 44);
 					break;
 				default:
-					this.loadGraphic(imgnumasterisk, true, false, 55, 55);
+					this.loadGraphic(imgnumasterisk, true, false, 44, 44);
 					break;
 			}
 		}

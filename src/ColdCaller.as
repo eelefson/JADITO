@@ -105,15 +105,15 @@ package {
 		// Create the button sprites according to the Nums array
 		public function createNums():void
 		{
-			var DIST_FROM_SIDE:int = 180;
-			var DIST_FROM_TOP:int = 130;
+			var DIST_FROM_SIDE:int = 185;
+			var DIST_FROM_TOP:int = 135;
 			
 			var index:int = 0;
 			for (var i:int = 0; i < 4; i++) {
 				for (var j:int = 0; j < 3; j++) {
 					var num:Num = new Num();
 					
-					num.scale = new FlxPoint(0.8, 0.8);
+					//num.scale = new FlxPoint(0.8, 0.8);
 					
 					FlxG.addPlugin(new FlxMouseControl);
 					num.enableMouseClicks(false);
