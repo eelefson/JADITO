@@ -85,7 +85,7 @@ package {
 		}
 		
 		override public function update():void {
-			if (difficulty <= 2) {
+			if (difficulty <= 3) {
 				if (traySprite.angularVelocity > 0 && traySprite.angle > 0) {
 					//help.alignment = "right";
 					//help.visible = true;

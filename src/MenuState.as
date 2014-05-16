@@ -109,7 +109,6 @@ package  {
 										"Employee of the Week",
 										"Lord of the Lunch Break",
 										"Good at Something",
-										"Clicked a Mouse, Hurray",
 										"Duke of the Office Drones");
 										/*"Good at Something",
 										"Clicked a Mouse, Hurray", // Need these to be more positive
@@ -138,7 +137,7 @@ package  {
 			}
 			
 			// CHANGES NUMBER OF FAILURES ALLOWED
-			Registry.failures = 7;
+			Registry.failures = 6;
 			Registry.failedMostRecentMinigame = false;
 			
 			// Array containing arrays of the minigames at each difficulty level(0-3)

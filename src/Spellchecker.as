@@ -34,11 +34,7 @@ package
 			
 			gameOver = false;
 			
-			if (level < 2) {
-				super.setTimer(11000);
-			} else {
-				super.setTimer(16000);
-			}
+			
 			
 			// Difficulty 3 has two typos to find
 			if (level < 2) {
@@ -59,6 +55,11 @@ package
 				super.setCommandText("Find the Typo!");
 			} else {
 				super.setCommandText("Find the Typos!");
+			}
+			if (level < 2) {
+				super.setTimer(11000);
+			} else {
+				super.setTimer(16000);
 			}
 			//super.setTimer(21000);
 			var data5:Object = { "difficulty":level };

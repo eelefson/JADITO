@@ -420,7 +420,7 @@ package {
 					}
 					// remove the selected minigames from their original pool of minigames
 					levelZeroMinigames.splice(0, 4);
-
+					FlxG.shuffle(Registry.pool, 10);
 					if (levelWhatDidTheBossSaySeen == 0) {
 						pair = new Dictionary();
 						pair["minigame"] = MinigameEnums.WHAT_DID_THE_BOSS_SAY;
@@ -495,6 +495,8 @@ package {
 					}
 					// remove the selected minigames from their original pool of minigames
 					levelOneMinigames.splice(0, 2);
+					
+					FlxG.shuffle(Registry.pool, 10);
 					
 					if (levelWhatDidTheBossSaySeen == 1) {
 						pair = new Dictionary();
