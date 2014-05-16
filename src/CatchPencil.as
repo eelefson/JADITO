@@ -15,14 +15,18 @@ package
 		[Embed(source = "image_assets/pencil.png")] private var pencilPic:Class;
 		[Embed(source = "image_assets/smallerPencil.png")] private var smallerPencil:Class;
 		[Embed(source = "image_assets/tinyPencil.png")] private var tinyPencil:Class;
-		[Embed(source = "image_assets/openhand.png")] private var handPic:Class;
+		[Embed(source = "image_assets/open_hand.png")] private var OpenHandImage:Class;
+		[Embed(source = "image_assets/closed_hand.png")] private var ClosedHandImage:Class;
+		[Embed(source = "image_assets/thumb6.png")] private var ThumbImage:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		
 		private var difficulty:int;
 		private var speed:int;
 		
-		private var hand:FlxExtendedSprite;
+		private var openHand:FlxExtendedSprite;
+		private var closedHand:FlxExtendedSprite;
+		private var thumb:FlxExtendedSprite;
 		private var pencil:FlxExtendedSprite;
 		private var justStarted:Boolean = true;
 		private var moving:Boolean = false;
@@ -45,11 +49,16 @@ package
 			difficulty = Registry.difficultyLevel;
 			
 			//hand = new FlxExtendedSprite((FlxG.width/2) - (handWidth/2), FlxG.height - handHeight);
-			hand = new FlxExtendedSprite(0, 0);
-			hand.loadGraphic(handPic);
-			hand.x = (FlxG.width / 2) - (hand.width / 2);
-			hand.y = FlxG.height - hand.height - 25;
-			add(hand);
+			openHand = new FlxExtendedSprite(0, 0, OpenHandImage);
+			openHand.x = (FlxG.width / 2) - (openHand.width / 2);
+			openHand.y = FlxG.height - openHand.height - 27;
+			add(openHand);
+			
+			closedHand = new FlxExtendedSprite(0, 0, ClosedHandImage);
+			closedHand.x = (FlxG.width / 2) - (openHand.width / 2);
+			closedHand.y = FlxG.height - openHand.height - 27;
+			closedHand.visible = false;
+			add(closedHand);
 			
 			//pencil = new FlxExtendedSprite((FlxG.width/2) - (pencilWidth/2), 20);
 			pencil = new FlxExtendedSprite(0, 0);
@@ -65,7 +74,12 @@ package
 			pencil.y = 30;			
 			add(pencil);
 			
-
+			thumb = new FlxExtendedSprite(0, 0, ThumbImage);
+			thumb.x = (FlxG.width / 2) - (openHand.width / 2) + 73;
+			thumb.y = FlxG.height - openHand.height - 27 + 22;
+			thumb.visible = false;
+			add(thumb);
+			
 			super.create();
 			super.setCommandText("Catch!");
 			super.setTimer(10 * 1000);
@@ -99,7 +113,10 @@ package
 				
 				if (FlxG.mouse.justPressed() && moving) {
 					pencil.velocity.y = 0;
-					if (FlxG.overlap(pencil, hand)) {
+					openHand.visible = false;
+					closedHand.visible = true;
+					thumb.visible = true;
+					if (FlxG.overlap(pencil, openHand)) {
 						if (!gameOver) {
 							var data2:Object = { "completed":"success" };
 							Registry.loggingControl.logLevelEnd(data2);
