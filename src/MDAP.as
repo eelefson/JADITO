@@ -126,35 +126,36 @@ package {
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonRedImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonBlueImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonGreenImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonYellowImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonOrangeImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonPurpleImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
 			
 			// Eli added for line draw
 			ballGroup = new FlxGroup();
-			//crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
 			crayon_graphic.enableMouseDrag();
+			crayon_graphic.x = crayon_graphic.x + 16;
+			crayon_graphic.y = crayon_graphic.y - crayon_graphic.height - 16;
 			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
 			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
 			add(ballGroup);
