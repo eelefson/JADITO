@@ -242,6 +242,9 @@ package {
 		
 		public function bossQuestion():void {
 			crayon_graphic.disableMouseDrag();
+			remove(crayon_graphic);
+			remove(dot_graphic);
+			ballGroup.kill();
 			super.timer.reset(6000);
 			
 			remove(drawing);
