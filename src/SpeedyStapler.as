@@ -12,7 +12,8 @@ package
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
 		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
-
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		
 		//private var command:FlxText;
 		private var staplesLeft:FlxText;
 		private var midLine:FlxSprite;
@@ -39,7 +40,7 @@ package
 			staples = Math.max(3, (papersLeft + 6) / 3);
 			
 			midLine = new FlxSprite(0, 0);
-			midLine.makeGraphic(FlxG.width, FlxG.height);
+			midLine.loadGraphic(wall);
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
 			
