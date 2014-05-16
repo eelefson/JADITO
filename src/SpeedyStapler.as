@@ -12,6 +12,7 @@ package
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
 		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
+		[Embed(source="image_assets/officefloor.png")] private var wall:Class; 
 
 		//private var command:FlxText;
 		private var staplesLeft:FlxText;
@@ -33,7 +34,7 @@ package
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
 			
 			gameOver = false;
 			
@@ -43,7 +44,7 @@ package
 			staples = Math.max(3, (papersLeft + 6) / 3);
 			
 			midLine = new FlxSprite(0, 0);
-			midLine.makeGraphic(FlxG.width, FlxG.height);
+			midLine.loadGraphic(wall);
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
 			
@@ -100,7 +101,7 @@ package
 					}
 					gameOver = true;
 					super.success = true;
-				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
+				} else if (staples == 0) {
 					if(!gameOver){
 						var data2:Object = { "completed":"failure" };
 						Registry.loggingControl.logLevelEnd(data2);

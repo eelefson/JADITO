@@ -30,7 +30,7 @@ package
 		{
 			FlxG.bgColor = 0xffaaaaaa;
 			
-			level = 3;
+			level = Registry.difficultyLevel;
 			
 			gameOver = false;
 			

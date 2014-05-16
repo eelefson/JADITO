@@ -5,7 +5,7 @@ package
 	
 	public class StaplerPaper extends FlxExtendedSprite
 	{
-		[Embed(source="image_assets/paper.png")] private var smallPaper:Class; 
+		[Embed(source = "image_assets/paper.png")] private var smallPaper:Class;
 		
 		private var min:int;
 		private var max:int;
@@ -17,7 +17,7 @@ package
 			var imageHeight:int = 66;
 			
 			var x:int = (Math.random() * (FlxG.width - imageWidth * 2)  + imageWidth / 2);
-			var y:int = Math.random() * (FlxG.height - imageHeight - 100) + 90;
+			var y:int = Math.random() * (FlxG.height - 40 - imageHeight - 70) + 130;
 			super(x, y, smallPaper);
 			
 			var boundary1:int = x;
