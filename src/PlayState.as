@@ -320,6 +320,7 @@ package {
 			var i:int;
 			var pair:Dictionary;
 			var temp:String;
+			var levelWhatDidTheBossSaySeen:int = -1;
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
@@ -345,33 +346,18 @@ package {
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
-				case DaysOfTheWeek.TUESDAY:
-					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
-					// SELECT 6 LEVEL 1 GAMES
-					/*shuffle(levelOneMinigames);
-					for (i = 0; i < 6; i++) {
-						pair = new Dictionary();
-						// Puts "What Did The Boss Say" minigame at the end of the day
-						if (levelOneMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
-							temp = levelOneMinigames.splice(i, 1);
-							levelOneMinigames.push(temp);
-						}
-						pair["minigame"] = levelOneMinigames[i];
-						pair["level"] = 1;
-						Registry.pool[i] = pair;
-						// add minigames to next pool of minigames
-						Registry.minigames[2].push(levelOneMinigames[i]);
-					}
-					// remove the selected minigames from their original pool of minigames
-					levelOneMinigames.splice(0, 6);*/
-					
+				case DaysOfTheWeek.TUESDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 2 LEVEL 1 GAMES
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
-						pair["minigame"] = levelOneMinigames[i];
-						pair["level"] = 1;
-						Registry.pool[i] = pair;
+						if (levelOneMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							levelWhatDidTheBossSaySeen = 1;
+						} else {
+							pair["minigame"] = levelOneMinigames[i];
+							pair["level"] = 1;
+							Registry.pool[i] = pair;
+						}
 						// add minigames to next pool of minigames
 						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
@@ -382,44 +368,45 @@ package {
 					shuffle(levelZeroMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
-						pair["minigame"] = levelZeroMinigames[i];
-						pair["level"] = 0;
-						Registry.pool[i+2] = pair;
+						if (levelZeroMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							levelWhatDidTheBossSaySeen = 0;
+						} else {
+							pair["minigame"] = levelZeroMinigames[i];
+							pair["level"] = 0;
+							Registry.pool[i + 2] = pair;
+						}
 						// add minigames to next pool of minigames
 						Registry.minigames[1].push(levelZeroMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
 					levelZeroMinigames.splice(0, 4);
 
+					if (levelWhatDidTheBossSaySeen == 0) {
+						pair = new Dictionary();
+						pair["minigame"] = MinigameEnums.WHAT_DID_THE_BOSS_SAY;
+						pair["level"] = 0;
+						Registry.pool.unshift(pair);
+					} else if (levelWhatDidTheBossSaySeen == 1) {
+						pair = new Dictionary();
+						pair["minigame"] = MinigameEnums.WHAT_DID_THE_BOSS_SAY;
+						pair["level"] = 1;
+						Registry.pool.unshift(pair);
+					}
+					
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
-				case DaysOfTheWeek.WEDNESDAY:
-					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
-					// SELECT 6 LEVEL 2 GAMES
-					/*shuffle(levelTwoMinigames);
-					for (i = 0; i < 6; i++) {
-						pair = new Dictionary();
-						// Puts "What Did The Boss Say" minigame at the end of the day
-						if (levelTwoMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
-							temp = levelTwoMinigames.splice(i, 1);
-							levelTwoMinigames.push(temp);
-						}
-						pair["minigame"] = levelTwoMinigames[i];
-						pair["level"] = 2;
-						Registry.pool[i] = pair;
-						// add minigames to next pool of minigames
-						Registry.minigames[3].push(levelTwoMinigames[i]);
-					}
-					// remove the selected minigames from their original pool of minigames
-					levelTwoMinigames.splice(0, 6);*/
-					
+				case DaysOfTheWeek.WEDNESDAY:				
 					// SELECT 6 LEVEL 1 GAMES
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						if (levelOneMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelOneMinigames.splice(i, 1);
+							levelOneMinigames.push(temp);
+						}
 						pair["minigame"] = levelOneMinigames[i];
 						pair["level"] = 1;
 						Registry.pool[i] = pair;
@@ -434,29 +421,18 @@ package {
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
-				case DaysOfTheWeek.THURSDAY:
-					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
-					// SELECT 6 LEVEL 3 GAMES
-					/*shuffle(levelThreeMinigames);
-					for (i = 0; i < 6; i++) {
-						pair = new Dictionary();
-						// Puts "What Did The Boss Say" minigame at the end of the day
-						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
-							temp = levelThreeMinigames.splice(i, 1);
-							levelThreeMinigames.push(temp);
-						}
-						pair["minigame"] = levelThreeMinigames[i];
-						pair["level"] = 3;
-						Registry.pool[i] = pair;
-					}*/
-					
+				case DaysOfTheWeek.THURSDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 4 LEVEL 2 GAMES
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
-						pair["minigame"] = levelTwoMinigames[i];
-						pair["level"] = 2;
-						Registry.pool[i] = pair;
+						if (levelTwoMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							levelWhatDidTheBossSaySeen = 2;
+						} else {
+							pair["minigame"] = levelTwoMinigames[i];
+							pair["level"] = 2;
+							Registry.pool[i] = pair
+						}
 						// add minigames to next pool of minigames
 						Registry.minigames[3].push(levelTwoMinigames[i]);
 					}
@@ -467,40 +443,45 @@ package {
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
-						pair["minigame"] = levelOneMinigames[i];
-						pair["level"] = 1;
-						Registry.pool[i+4] = pair;
+						if (levelOneMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							levelWhatDidTheBossSaySeen = 1;
+						} else {
+							pair["minigame"] = levelOneMinigames[i];
+							pair["level"] = 1;
+							Registry.pool[i + 4] = pair;
+						}
 						// add minigames to next pool of minigames
 						Registry.minigames[2].push(levelOneMinigames[i]);
 					}
 					// remove the selected minigames from their original pool of minigames
 					levelOneMinigames.splice(0, 2);
 					
+					if (levelWhatDidTheBossSaySeen == 1) {
+						pair = new Dictionary();
+						pair["minigame"] = MinigameEnums.WHAT_DID_THE_BOSS_SAY;
+						pair["level"] = 1;
+						Registry.pool.unshift(pair);
+					} else if (levelWhatDidTheBossSaySeen == 2) {
+						pair = new Dictionary();
+						pair["minigame"] = MinigameEnums.WHAT_DID_THE_BOSS_SAY;
+						pair["level"] = 2;
+						Registry.pool.unshift(pair);
+					}
+					
 					trace("Level 0: " + Registry.minigames[0]);
 					trace("Level 1: " + Registry.minigames[1]);
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
-				case DaysOfTheWeek.FRIDAY:
-					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
-					// SELECT 6 LEVEL 3 GAMES
-					/*shuffle(levelThreeMinigames);
-					for (i = 0; i < 6; i++) {
-						pair = new Dictionary();
-						// Puts "What Did The Boss Say" minigame at the end of the day
-						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
-							temp = levelThreeMinigames.splice(i, 1);
-							levelThreeMinigames.push(temp);
-						}
-						pair["minigame"] = levelThreeMinigames[i];
-						pair["level"] = 3;
-						Registry.pool[i] = pair;
-					}*/
-					
+				case DaysOfTheWeek.FRIDAY:				
 					// SELECT 6 LEVEL 2 GAMES
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
+						if (levelTwoMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelTwoMinigames.splice(i, 1);
+							levelTwoMinigames.push(temp);
+						}
 						pair["minigame"] = levelTwoMinigames[i];
 						pair["level"] = 2;
 						Registry.pool[i] = pair;
@@ -515,26 +496,15 @@ package {
 					trace("Level 2: " + Registry.minigames[2]);
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
-				case DaysOfTheWeek.SATURDAY:
-					// TEMPORARY, FOR DEVELOPMENT AND TESTS (SEE BELOW FOR ACTUAL CODE)
-					// SELECT 6 LEVEL 3 GAMES
-					/*shuffle(levelThreeMinigames);
-					for (i = 0; i < 6; i++) {
-						pair = new Dictionary();
-						// Puts "What Did The Boss Say" minigame at the end of the day
-						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
-							temp = levelThreeMinigames.splice(i, 1);
-							levelThreeMinigames.push(temp);
-						}
-						pair["minigame"] = levelThreeMinigames[i];
-						pair["level"] = 3;
-						Registry.pool[i] = pair;
-					}*/
-					
+				case DaysOfTheWeek.SATURDAY:				
 					// SELECT 10 LEVEL 3 GAMES
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 10; i++) {
 						pair = new Dictionary();
+						if (levelThreeMinigames[i] == MinigameEnums.WHAT_DID_THE_BOSS_SAY) {
+							temp = levelThreeMinigames.splice(i, 1);
+							levelThreeMinigames.push(temp);
+						}
 						pair["minigame"] = levelThreeMinigames[i];
 						pair["level"] = 3;
 						Registry.pool[i] = pair;
@@ -548,7 +518,6 @@ package {
 					trace("Level 3: " + Registry.minigames[3]);
 					break;
 			}
-			//shuffle(Registry.pool);
 		}
 		
 		public function pickMinigame():void {

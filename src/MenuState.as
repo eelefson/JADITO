@@ -29,7 +29,7 @@ package  {
 		
 		override public function create():void {
 			
-			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
 			
 			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
@@ -147,7 +147,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new CoffeeRun());
+			FlxG.switchState(new PlayState());
 		}
 		
 		public function shuffle(a:Array):void {
