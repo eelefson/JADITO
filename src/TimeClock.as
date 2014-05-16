@@ -129,13 +129,13 @@ package {
 			
 			changeImages();
 			
-			/*stopButton = new FlxButtonPlus(50, FlxG.height - 100, stopClock, null, "STOP!", 200, 40);
+			stopButton = new FlxButtonPlus(50, FlxG.height - 100, stopClock, null, "STOP!", 200, 40);
 			stopButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			stopButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			stopButton.screenCenter();
 			stopButton.textNormal.size = 30;
 			stopButton.textHighlight.size = 30;
-			add(stopButton);*/
+			add(stopButton);
 			
 			super.create();
 			super.setCommandText("Clock in at 8:00!");
@@ -147,9 +147,9 @@ package {
 		
 		override public function update():void {
 			super.update();
-			if (FlxG.mouse.justReleased()) {
+			/*if (FlxG.mouse.justReleased()) {
 				stopClock();
-			}
+			}*/
 			if (ticks % mod == 0 && !stopped && !FlxG.paused) {
 				
 				if (level == 0 || level == 1) {
