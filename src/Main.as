@@ -13,7 +13,6 @@ package  {
 		public function Main() {
 			super(640, 480, MenuState, 1, 60, 60);
 			FlxG.mouse.show();
-			//FlxG.addPlugin(new FlxMouseControl);
 		}
 	}
 }

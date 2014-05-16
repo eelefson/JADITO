@@ -25,7 +25,7 @@ package {
 			}
 			
 			FlxG.mouse.show();
-			//FlxG.bgColor = 0xffffffff;
+			
 			var wallpaper:FlxSprite = new FlxSprite(0, 0);
 			wallpaper.loadGraphic(wall);
 			add(wallpaper);
