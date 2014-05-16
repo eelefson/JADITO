@@ -12,6 +12,7 @@ package  {
 		
 		[Embed(source = "image_assets/crumpled_paper2.png")] private var crumpledPaper:Class;
 		[Embed(source = "sound_assets/crumpling_paper.mp3")] private var PickupSFX:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var difficulty:int;
 		private var papersCount:int;
@@ -28,7 +29,11 @@ package  {
 			}
 			
 			FlxG.mouse.show();
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
+			
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			gameOver = false;
 			

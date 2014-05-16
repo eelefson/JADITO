@@ -6,8 +6,9 @@ package  {
 	 * @author Elijah Elefson
 	 */
 	public class TitleAwardState extends FlxState {
-		[Embed(source = "image_assets/award.jpg")] private var AwardImage:Class;
-		[Embed(source="sound_assets/title_award.mp3")] private var RewardSFX:Class;
+		[Embed(source = "image_assets/award.png")] private var AwardImage:Class;
+		[Embed(source = "sound_assets/title_award.mp3")] private var RewardSFX:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var award_graphic:FlxSprite;
 		private var awardText:FlxText;
@@ -20,7 +21,11 @@ package  {
 		private var delay:FlxDelay;
 		
 		override public function create():void {
-			FlxG.bgColor = 0xffffffff;
+			//FlxG.bgColor = 0xffffffff;
+			
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			topWall = new FlxTileblock(0, 0, FlxG.width, 2);
 			topWall.makeGraphic(FlxG.width, 2, 0xff000000);
