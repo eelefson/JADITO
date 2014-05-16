@@ -48,6 +48,7 @@ package {
 			var stapler:FlxSprite = new FlxSprite(FlxG.width / 2 - 23, 25);
 			stapler.loadGraphic(staplerImg);
 			add(stapler);
+			trace(stapler.y + stapler.height);
 			
 			tempPaperGroup = new FlxGroup();
 			paperGroup = new FlxGroup(papersLeft);
