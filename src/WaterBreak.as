@@ -6,7 +6,7 @@ package  {
 	 * @author Elijah Elefson
 	 */
 	public class WaterBreak extends MinigameState {
-		[Embed(source = "image_assets/watercooler2.png")] private var WaterCoolerImage:Class;
+		[Embed(source = "image_assets/water_cooler4.png")] private var WaterCoolerImage:Class;
 		[Embed(source = "image_assets/WaterCup.png")] private var CupImage:Class;
 		[Embed(source = "image_assets/level_zero_gauge.png")] private var LevelZeroGauge:Class;
 		[Embed(source = "image_assets/level_one_gauge.png")] private var LevelOneGauge:Class;
@@ -46,7 +46,7 @@ package  {
 			
 			cup_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, CupImage);
 			cup_graphic.x = cup_graphic.x - (cup_graphic.width / 2);
-			cup_graphic.y = cup_graphic.y - (cup_graphic.height / 2) + 100;
+			cup_graphic.y = cup_graphic.y - (cup_graphic.height / 2) + 110;
 			add(cup_graphic);
 			
 			if (Registry.difficultyLevel == 0) {
@@ -99,7 +99,7 @@ package  {
 			super.create();
 			
 			super.setCommandText("Time It!");
-			super.setTimer(20000);
+			super.setTimer(21000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":Registry.difficultyLevel };
 			Registry.loggingControl.logLevelStart(14, data5);

@@ -123,7 +123,7 @@ package {
 			mouseBound = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
 			super.create();
 			super.setCommandText("Throw ideas away!");
-			super.setTimer(seconds * 1000);
+			super.setTimer(seconds * 1000 + 1000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":difficulty };
 			Registry.loggingControl.logLevelStart(2, data5);

@@ -94,7 +94,7 @@ package   {
 			} else if (level == 3) {
 				super.setCommandText("Text MEANING!");
 			}
-			super.setTimer(12000);
+			super.setTimer(13000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":level };
 			Registry.loggingControl.logLevelStart(6, data5);

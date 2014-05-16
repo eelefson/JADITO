@@ -67,7 +67,7 @@ package {
 			command.setFormat(null, 16, 0, "center");
 			super.create();
 			super.setCommandText("Balance It!");
-			super.setTimer(seconds * 1000);
+			super.setTimer(seconds * 1000 + 1000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":difficulty };
 			Registry.loggingControl.logLevelStart(4, data5);
