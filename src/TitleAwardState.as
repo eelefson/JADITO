@@ -56,7 +56,7 @@ package  {
 			awardText.y = awardText.y - (awardText.height / 2);
 			add(awardText);
 			
-			delay = new FlxDelay(5000);
+			delay = new FlxDelay(3000);
 			delay.start();
 			
 			FlxG.play(RewardSFX);
