@@ -106,7 +106,7 @@ package  {
 										"Water Cooler Warrior",
 										"Assistant to the Regional Manager",
 										"Assistant Regional Manager",
-										"Employee of the Month Week",
+										"Employee of the Week",
 										"Lord of the Lunch Break",
 										"Good at Something",
 										"Clicked a Mouse, Hurray",

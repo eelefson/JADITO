@@ -204,7 +204,7 @@ package  {
 								playSound2 = false;
 							}
 						}
-						if (FlxU.ceil(timeRemaining) == 1) {
+						if (timeRemaining < 0.45) {
 							goText.visible = true;
 							goText.text = "GO!";
 						}
