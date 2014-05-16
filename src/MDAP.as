@@ -46,6 +46,9 @@ package {
 		private var finalQuestion:Boolean;
 		private var correctAnswer:FlxButton;
 		
+		private var lastX:int;
+		private var lastY:int;
+		
 		// Eli added for line draw
 		private var crayon_graphic:FlxExtendedSprite;
 		private var dot_graphic:FlxExtendedSprite;
@@ -53,10 +56,7 @@ package {
 		private var ballGroup:FlxGroup;
 		
 		override public function create():void {
-			if (FlxG.getPlugin(FlxMouseControl) == null) {
-				FlxG.addPlugin(new FlxMouseControl);
-			}
-			
+			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
@@ -71,12 +71,21 @@ package {
 			
 			finalQuestion = false;
 			
+			lastX = 0;
+			lastY = 0;
 			dot = new Dot();
+			//dot.enableMouseClicks(false);
+			//dot.mousePressedCallback = moveDot;
+			//dot.clickable = true;
 			
 			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
 			dotsLeft.setFormat(null, 16, 0, "right");
 			
+			//command = new FlxText(0, 0, FlxG.width, "Click the dots!");
+			//command.setFormat(null, 16, 0, "center");
+			
 			sketchpad = new FlxSprite();
+			//sketchpad.makeGraphic(FlxG.width, FlxG.height);
 			sketchpad.loadGraphic(sketchpadImage);
 			add(sketchpad);
 			
@@ -91,20 +100,21 @@ package {
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
+			drawing = new FlxSprite(30, 70);
+			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
 			if (randNum == 0) {
-				drawing = new FlxSprite(30, 70, drawing1);
+				drawing.loadGraphic(drawing1);
 				drawing.x = (FlxG.width / 2) - 80;
 			} else if (randNum == 1) {
-				drawing = new FlxSprite(30, 70, drawing2);
+				drawing.loadGraphic(drawing2);
 				drawing.x = (FlxG.width / 2) - 160;
 				drawing.y = 50;
 			} else {
-				drawing = new FlxSprite(30, 70, drawing3);
+				drawing.loadGraphic(drawing3);
 				drawing.x = (FlxG.width / 2) - 130;
 				drawing.y = 60;
 			}
-			drawing.alpha = 0.5;
 			add(drawing);
 			
 			var X_OFFSET:int = 0;
@@ -113,42 +123,42 @@ package {
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonRedImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonBlueImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonGreenImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonYellowImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonOrangeImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonPurpleImage);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
 			
 			// Eli added for line draw
 			ballGroup = new FlxGroup();
+			//crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
 			crayon_graphic.enableMouseDrag();
-			crayon_graphic.x = crayon_graphic.x + 16;
-			crayon_graphic.y = crayon_graphic.y - crayon_graphic.height - 16;
 			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
 			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
 			add(ballGroup);
 			add(crayon_graphic);
 			
 			add(dotsLeft);
+			//add(command);
 			add(dot);
 			
 			if (difficulty == 0) {
@@ -188,6 +198,12 @@ package {
 		}
 		
 		public function moveDot():void {
+			if (lastX != 0) {
+				drawLine();
+			}
+			lastX = dot.x + dot.width / 2;
+			lastY = dot.y + dot.height / 2;
+			
 			var speak:int = FlxU.round(Math.random() * 100);
 			if (words > speak && dots >= 2) {
 				addWord();
@@ -199,6 +215,10 @@ package {
 			if (dots == 0) {
 				bossQuestion();
 			}
+		}
+		
+		public function drawLine():void {
+			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {
@@ -229,8 +249,8 @@ package {
 			remove(dot_graphic);
 			ballGroup.kill();
 			super.timer.reset(6000);
-			drawing.kill();
-			//remove(drawing);
+			
+			remove(drawing);
 			
 			finalQuestion = true;
 			dot.visible = false;
@@ -303,15 +323,26 @@ package {
 			} else {
 				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), wrong);
 			}
+			var scale:Number = 1.5;
+			b1.scale.x = scale;
+			b1.scale.y = scale;
+			b1.label.offset.y = (scale - 1) / 2 * b1.label.size;
+			b1.label.size = b1.label.size * scale;
 			
-			b1.scale.x = 1.5;
-			b1.scale.y = 1.5;
-			b2.scale.x = 1.5;
-			b2.scale.y = 1.5;
-			b3.scale.x = 1.5;
-			b3.scale.y = 1.5;
-			b4.scale.x = 1.5;
-			b4.scale.y = 1.5;
+			b2.scale.x = scale;
+			b2.scale.y = scale;
+			b2.label.offset.y = (scale - 1) / 2 * b2.label.size;
+			b2.label.size = b2.label.size * scale;
+			
+			b3.scale.x = scale;
+			b3.scale.y = scale;
+			b3.label.offset.y = (scale - 1) / 2 * b3.label.size;
+			b3.label.size = b3.label.size * scale;
+			
+			b4.scale.x = scale;
+			b4.scale.y = scale;
+			b4.label.offset.y = (scale - 1) / 2 * b4.label.size;
+			b4.label.size = b4.label.size * scale;
 			
 			add(question);
 			add(b1);
@@ -361,13 +392,6 @@ package {
 			gameOver = true;
 			super.success = false;
 			super.timer.abort();
-		}
-		
-		override public function destroy():void {
-			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
-			FlxMouseControl.clear();
-
-			super.destroy();
 		}
 	}
 }
