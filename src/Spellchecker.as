@@ -34,7 +34,11 @@ package
 			
 			gameOver = false;
 			
-			super.setTimer(16000);
+			if (level < 2) {
+				super.setTimer(11000);
+			} else {
+				super.setTimer(16000);
+			}
 			
 			// Difficulty 3 has two typos to find
 			if (level < 2) {

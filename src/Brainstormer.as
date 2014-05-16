@@ -47,7 +47,7 @@ package {
 			
 			difficulty = Registry.difficultyLevel;
 			numIdeas = difficulty + 1;
-			var seconds:int = 20;
+			var seconds:int = difficulty * 2 + 10;
 			
 			command = new FlxText(0, 0, FlxG.width, "Throw bad ideas away!");
 			command.setFormat(null, 16, 0, "center");

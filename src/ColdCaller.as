@@ -79,10 +79,12 @@ package {
 			super.create();
 			super.setCommandText("Dial the Numbers!");
 			
-			if (level <= 2) {
-				super.setTimer(21000);
+			if (level < 2) {
+				super.setTimer(11000);
+			} else if (level == 2) {
+				super.setTimer(16000);
 			} else {
-				super.setTimer(26000);
+				super.setTimer(21000);
 			}
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":level };
