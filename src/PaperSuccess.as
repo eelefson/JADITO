@@ -3,13 +3,13 @@ package
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
-	public class PaperFail extends FlxExtendedSprite
+	public class PaperSuccess extends FlxExtendedSprite
 	{			
-		[Embed(source = "image_assets/crumpled_paper_small_fail.png")] private var fail:Class;
+		[Embed(source = "image_assets/crumpled_paper_small_success.png")] private var success:Class;
 
-		public function PaperFail(x:int, y:int):void
+		public function PaperSuccess(x:int, y:int):void
 		{
-			super (x, y, fail);
+			super (x, y, success);
 			var lifeTime:FlxDelay = new FlxDelay(250);
 			lifeTime.callback = this.kill;
 			lifeTime.start();

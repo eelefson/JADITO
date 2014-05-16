@@ -7,7 +7,7 @@ package {
 	 * @author Connor
 	 */
 	public class Brainstormer extends MinigameState {
-		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
+		[Embed(source = "image_assets/crumpled_paper_small.png")] private var crumpledPaper:Class;
 		[Embed(source = "image_assets/recycle_bin3.png")] private var recycleBin:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
@@ -69,7 +69,7 @@ package {
 				add(helpb);
 			}
 			ideas = new FlxGroup();
-			add(ideas);
+			
 			
 			if (difficulty < 2) {
 				var xpos:int = FlxG.width / 3 + (FlxG.width * 2 / 3 - recycleWidth) / 2 * difficulty;
@@ -113,14 +113,15 @@ package {
 			throwArea.makeGraphic(FlxG.width / 4, FlxG.height - 40, 0xFF00CC00);
 			throwArea.alpha = 0.2;
 			
+			add(throwArea);
+			add(throwingLine);
+			add(ideas);
 			add(ceiling);
 			add(backWall);
 			add(bin);
 			add(goodBound);
 			add(badBound);
 			add(backBound);
-			add(throwingLine);
-			add(throwArea);
 			
 			// When the Sprite leaves this zone you can no longer control it!
 			FlxMouseControl.mouseZone = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
@@ -177,8 +178,10 @@ package {
 		}
 		
 		public function thrownAway(i:FlxObject, r:FlxObject):void {
-			numIdeas--;
 			i.kill();
+			var crum:PaperSuccess = new PaperSuccess(i.x, i.y);
+			add(crum);
+			numIdeas--;
 		}
 		
 		public function miss(i:FlxObject, r:FlxObject):void {
