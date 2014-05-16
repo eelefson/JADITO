@@ -185,6 +185,9 @@ package {
 				line.makeGraphic(640, 480, 0x00000000);
 				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
 				ballGroup.add(line);
+				if (ballGroup.length > 3) {
+					ballGroup.getFirstAlive().kill();
+				}
 					
 				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
 			}
