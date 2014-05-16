@@ -9,6 +9,7 @@ package  {
 	 */
 	public class MinigameState extends FlxState {
 		[Embed(source = "sound_assets/ready_set_go.mp3")] private var ReadySetGoSFX:Class;
+		[Embed(source = "sound_assets/go.mp3")] private var GoSFX:Class;
 		[Embed(source="sound_assets/correct-answer.mp3")] private var SuccessSFX:Class;
 		[Embed(source = "sound_assets/buzzer.mp3")] private var FailureSFX:Class;
 		[Embed(source="image_assets/big_check_mark3.png")] private var CheckMarkImage:Class;
@@ -48,6 +49,7 @@ package  {
 		private var goBool:Boolean = true;
 		
 		private var playSound:Boolean = true;
+		private var playSound2:Boolean = true;
 		
 		private var playEndSound:Boolean = true;
 		
@@ -56,6 +58,8 @@ package  {
 		private var blink:Boolean = true;
 		
 		public var gameOver:Boolean = false;
+		
+		public var levelZero:Boolean;
 		
 		override public function create():void {
 			FlxG.camera.flash(0xffffffff, 1);
@@ -104,8 +108,14 @@ package  {
 			goText.y = goText.y - (goText.height / 2);
 			goText.visible = false;
 			add(goText);
-			
-			timeRemaining = 5;
+			 
+			if (Registry.difficultyLevel == 0) {
+				timeRemaining = 5;
+				levelZero = true;
+			} else {
+				timeRemaining = 1;
+				levelZero = false;
+			}
 			
 		}
 		
@@ -169,9 +179,9 @@ package  {
 							goText.visible = true;
 						} else if (FlxU.ceil(timeRemaining) == 2) {
 							goText.text = "SET!";
-						} else if (FlxU.ceil(timeRemaining) == 1) {
-							goText.text = "GO!";
-						}
+						}// else if (FlxU.ceil(timeRemaining) == 1) {
+						//	goText.text = "GO!";
+						//}
 						
 						if (playSound) {
 							FlxG.play(ReadySetGoSFX);
@@ -184,12 +194,38 @@ package  {
 					}
 					timeRemaining -= FlxG.elapsed;
 				} else {
-					if (goBool) {
-						goText.text = "GO!";
-					}
-					if (timeRemaining < 0.5) {
-						goText.kill();
-						FlxG.paused = false;
+					if (!levelZero) {
+						if (timeRemaining < 0.5) {
+							introCommandText.y -= 10;
+							introCommandText.size -= 1;
+							
+							if (playSound2) {
+								FlxG.play(GoSFX);
+								playSound2 = false;
+							}
+						}
+						if (FlxU.ceil(timeRemaining) == 1) {
+							goText.visible = true;
+							goText.text = "GO!";
+						}
+						
+						if (introCommandText.y <= 0) {
+							commandText.visible = true;
+						}
+						
+						if (timeRemaining < 0) {
+							goText.kill();
+							FlxG.paused = false;
+						}
+						
+					} else {
+						if (goBool) {
+							goText.text = "GO!";
+						}
+						if (timeRemaining < 0.5) {
+							goText.kill();
+							FlxG.paused = false;
+						}
 					}
 					timeRemaining -= FlxG.elapsed;
 				}
