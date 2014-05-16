@@ -1,5 +1,4 @@
-package 
-{
+package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	
@@ -7,14 +6,12 @@ package
 	 * ...
 	 * @author Connor
 	 */
-	public class SpeedyStapler extends MinigameState
-	{
+	public class SpeedyStapler extends MinigameState {
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
 		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
-		//private var command:FlxText;
 		private var staplesLeft:FlxText;
 		private var midLine:FlxSprite;
 		
@@ -43,10 +40,6 @@ package
 			midLine.loadGraphic(wall);
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
-			
-			//command = new FlxText(0, 0, FlxG.width, "Staple into one!");
-			//command.setFormat(null, 16, 0, "center");
-			//add(command);
 			
 			staplesLeft = new FlxText(0, 25, FlxG.width, "Staples left: " + staples.toString());
 			staplesLeft.setFormat(null, 32, 0, "right");
@@ -94,7 +87,7 @@ package
 					gameOver = true;
 					super.success = true;
 
-				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
 					if(!gameOver){
 						var data2:Object = { "completed":"failure" };
 						Registry.loggingControl.logLevelEnd(data2);
@@ -103,19 +96,14 @@ package
 					super.success = false;
 					super.timer.abort();
 				}
+			} else {
+				paperGroup.update();
+				stapleGroup.update();
 			}
 			super.update();
 		}
 		
-		public function timeout():void {
-			//command.kill();
-			//staplesLeft.kill();
-			//midLine.visible = false;
-			
-			//var outOfTime:FlxText = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
-			//outOfTime.setFormat(null, 16, 0, "center");
-			//add(outOfTime);
-			
+		public function timeout():void {		
 			if(!gameOver){
 				var data1:Object = { "completed":"failure" };
 				Registry.loggingControl.logLevelEnd(data1);
