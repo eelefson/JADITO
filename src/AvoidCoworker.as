@@ -17,6 +17,7 @@ package
 		[Embed(source = "image_assets/curveArrowFlip.png")] private var curveArrowFlip:Class;
 		[Embed(source = "image_assets/work_station2.png")] private var workStationImage:Class;
 		[Embed(source = "image_assets/skull2.png")] private var skullImage:Class;
+		//[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		private var difficulty:int;
 		private var speed:int;
@@ -49,6 +50,10 @@ package
 			
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
+			
+			/*var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);*/
 			
 			super.gameOver = false;
 			
