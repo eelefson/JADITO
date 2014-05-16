@@ -34,7 +34,11 @@ package {
 			var difficulty:int = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
 			var time:int = 10 + 5 * difficulty;
-			staples = Math.max(3, (papersLeft + 6) / 3);
+			if (difficulty < 1) {
+				staples = 4;
+			} else {
+				staples = Math.max(3, (papersLeft + 6) / 3);
+			}
 			
 			midLine = new FlxSprite(0, 0);
 			midLine.loadGraphic(wall);

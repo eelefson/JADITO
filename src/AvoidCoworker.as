@@ -56,6 +56,8 @@ package
 			
 			difficulty = Registry.difficultyLevel;
 			
+			difficulty = 3;
+			
 			if (difficulty < 2) {
 				route = routes[Math.floor(Math.random() * 4)];
 			} else {
@@ -65,9 +67,9 @@ package
 			if (difficulty == 0) {
 				speed = 200;
 			} else if (difficulty == 3) {
-				speed = 400; 
+				speed = 600; 
 			} else {
-				speed = 300;
+				speed = 400;
 			}
 			
 			preview = new FlxExtendedSprite(0, 0);
@@ -153,7 +155,13 @@ package
 			add(workstations);
 			super.create();
 			super.setCommandText("Avoid Coworker!");
-			super.setTimer(6 * 1000);
+			if (difficulty < 2) {
+				super.setTimer(5 * 1000);
+			} else if (difficulty == 2) {
+				super.setTimer(4 * 1000);
+			} else {
+				super.setTimer(3 * 1000);
+			}
 			super.timer.callback = timeout;
 			var data3:Object = { "difficulty":difficulty };
 			Registry.loggingControl.logLevelStart(1, null);
@@ -222,7 +230,7 @@ package
 						if (route == 10) {
 							coworker.velocity.y = speed;
 						} else {
-							coworker.velocity.y = -200;
+							coworker.velocity.y = -speed;
 						}
 						coworker.velocity.x = 0;
 					}

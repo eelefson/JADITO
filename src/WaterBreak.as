@@ -99,7 +99,7 @@ package  {
 			super.create();
 			
 			super.setCommandText("Time It!");
-			super.setTimer(21000);
+			super.setTimer(11000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":Registry.difficultyLevel };
 			Registry.loggingControl.logLevelStart(14, data5);
