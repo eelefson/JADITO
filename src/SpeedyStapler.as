@@ -12,7 +12,6 @@ package
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
 		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
-		[Embed(source="image_assets/officefloor.png")] private var wall:Class; 
 
 		//private var command:FlxText;
 		private var staplesLeft:FlxText;
@@ -27,14 +26,10 @@ package
 		private var stapleMoving:Boolean;
 		
 		override public function create():void {
-			if (FlxG.getPlugin(FlxMouseControl) == null) {
-				FlxG.addPlugin(new FlxMouseControl);
-			}
-			
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
-			//FlxG.bgColor = 0xffffffff;
+			FlxG.bgColor = 0xffffffff;
 			
 			gameOver = false;
 			
@@ -44,7 +39,7 @@ package
 			staples = Math.max(3, (papersLeft + 6) / 3);
 			
 			midLine = new FlxSprite(0, 0);
-			midLine.loadGraphic(wall);
+			midLine.makeGraphic(FlxG.width, FlxG.height);
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
 			
@@ -56,7 +51,7 @@ package
 			staplesLeft.setFormat(null, 32, 0, "right");
 			add(staplesLeft);
 			
-			var stapler:FlxSprite = new FlxSprite(FlxG.width / 2 - 23, 20);
+			var stapler:FlxSprite = new FlxSprite(FlxG.width / 2 - 23, 25);
 			stapler.loadGraphic(staplerImg);
 			add(stapler);
 			
@@ -76,7 +71,7 @@ package
 			
 			super.create();
 			super.setCommandText("Staple the Papers!");
-			super.setTimer(time * 1000 + 1000);
+			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":difficulty };
 			Registry.loggingControl.logLevelStart(11, data5);
@@ -84,15 +79,11 @@ package
 		
 		override public function update():void {
 			if (!FlxG.paused) {
-				if (!stapleMoving) {
-					if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
-						stapleGroup.add(new Staple());
-						staples--;
-						staplesLeft.text = "Staples left: " + staples.toString();
-						stapleMoving = true;
-					}
+				if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
+					stapleGroup.add(new Staple());
+					staples--;
+					staplesLeft.text = "Staples left: " + staples.toString();
 				}
-				FlxG.overlap(stapleGroup, super.walls, removeStaple);
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
 					if(!gameOver){
@@ -101,7 +92,8 @@ package
 					}
 					gameOver = true;
 					super.success = true;
-				} else if (staples == 0) {
+
+				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
 					if(!gameOver){
 						var data2:Object = { "completed":"failure" };
 						Registry.loggingControl.logLevelEnd(data2);
@@ -110,9 +102,6 @@ package
 					super.success = false;
 					super.timer.abort();
 				}
-			} else {
-				stapleGroup.update();
-				paperGroup.update();
 			}
 			super.update();
 		}
@@ -135,14 +124,6 @@ package
 			super.timer.abort();
 		}
 		
-		public function removeStaple(s:FlxObject, p:FlxObject):void {
-			var tempStaple:Staple = s as Staple;
-			
-			stapleGroup.remove(tempStaple, true);
-			
-			stapleMoving = false;
-		}
-		
 		public function staplePaper(s:FlxObject, p:FlxObject):void {
 			var tempStaple:Staple = s as Staple;
 			var tempPaper:StaplerPaper = p as StaplerPaper;
@@ -150,13 +131,6 @@ package
 			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
 			stapleMoving = false;
-		}
-		
-		override public function destroy():void {
-			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
-			FlxMouseControl.clear();
-
-			super.destroy();
 		}
 	}
 

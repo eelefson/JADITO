@@ -17,7 +17,7 @@ package
 			var imageHeight:int = 66;
 			
 			var x:int = (Math.random() * (FlxG.width - imageWidth * 2)  + imageWidth / 2);
-			var y:int = Math.random() * (FlxG.height - 40 - imageHeight - 70) + 130;
+			var y:int = Math.random() * (FlxG.height - 50 - imageHeight - 143) + 143 + 25;
 			super(x, y, smallPaper);
 			
 			var boundary1:int = x;
