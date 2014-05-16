@@ -21,8 +21,6 @@ package {
 			level = Registry.difficultyLevel;
 			gameOver = true;
 			
-			level = Registry.difficultyLevel;
-			
 			var inBasket:FlxSprite = new FlxSprite(55, 28);
 			inBasket.loadGraphic(inBasketImg);
 			add(inBasket);
