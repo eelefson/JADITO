@@ -8,7 +8,7 @@ package {
 		private static var NUM_WIDTH:int = 40; // The width of the number sprites
 		private static var NUM_HEIGHT:int = 60; // The hight of the number sprites
 		private static var COLON_WIDTH:int = 20; // The width of the colon sprite
-		private static var DIST_BETWEEN_DIGITS:int = 5; // How far separated the numbers are
+		private static var DIST_BETWEEN_DIGITS:int = 0; // How far separated the numbers are
 		
 		public static var level:Number; // The level of the game's difficulty
 		
@@ -23,6 +23,8 @@ package {
 		[Embed(source = "image_assets/dignum8.png")] private var imgnum8:Class;
 		[Embed(source = "image_assets/dignum9.png")] private var imgnum9:Class;
 		[Embed(source = "image_assets/digcolon.png")] private var imgcolon:Class;
+		[Embed(source = "image_assets/TimePunchLarge.png")] private var imgclock:Class;
+		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		[Embed(source = "sound_assets/tick.mp3")] private var tickSound:Class;
 		
@@ -48,6 +50,15 @@ package {
 		override public function create():void {
 			level = Registry.difficultyLevel;
 			
+			//FlxG.bgColor = 0xFFFFFFFF;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
+			
+			var clock:FlxSprite = new FlxSprite(FlxG.width - 480, FlxG.height - 450);
+			clock.loadGraphic(imgclock);
+			add(clock);
+			
 			gameOver = false;
 			
 			secs = 0;
@@ -71,7 +82,7 @@ package {
 			// Place all the sprites
 			
 			var x:int = (FlxG.width / 2) - ((5 * NUM_WIDTH + 5 * DIST_BETWEEN_DIGITS) / 2) - (COLON_WIDTH);
-			var y:int = (FlxG.height / 2) - (NUM_HEIGHT / 2) - 50;
+			var y:int = (FlxG.height / 2) - (NUM_HEIGHT / 2) - 50 + 100;
 			
 			hrsall = new FlxSprite();
 			hrsall.x = x;
@@ -118,13 +129,13 @@ package {
 			
 			changeImages();
 			
-			stopButton = new FlxButtonPlus(50, (FlxG.height / 2), stopClock, null, "STOP!", 200, 40);
+			/*stopButton = new FlxButtonPlus(50, FlxG.height - 100, stopClock, null, "STOP!", 200, 40);
 			stopButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			stopButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			stopButton.screenCenter();
 			stopButton.textNormal.size = 30;
 			stopButton.textHighlight.size = 30;
-			add(stopButton);
+			add(stopButton);*/
 			
 			super.create();
 			super.setCommandText("Clock in at 8:00!");
@@ -136,6 +147,9 @@ package {
 		
 		override public function update():void {
 			super.update();
+			if (FlxG.mouse.justReleased()) {
+				stopClock();
+			}
 			if (ticks % mod == 0 && !stopped && !FlxG.paused) {
 				
 				if (level == 0 || level == 1) {
