@@ -53,7 +53,6 @@ package
 			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
 			
 			difficulty = Registry.difficultyLevel;
-			difficulty = 3;
 			
 			if (difficulty < 2) {
 				route = routes[Math.floor(Math.random() * 4)];

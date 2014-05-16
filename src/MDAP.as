@@ -122,27 +122,27 @@ package {
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonRedImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonBlueImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonGreenImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonYellowImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonOrangeImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					crayon_graphic = new FlxExtendedSprite(0, 25, crayonPurpleImage);
+					crayon_graphic = new FlxExtendedSprite(100, 100, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
