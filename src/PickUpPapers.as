@@ -12,6 +12,7 @@ package  {
 		
 		[Embed(source = "image_assets/crumpled_paper2.png")] private var crumpledPaper:Class;
 		[Embed(source = "image_assets/recycle_bin2.png")] private var recycleBin:Class;
+		[Embed(source = "sound_assets/crumpling_paper.mp3")] private var PickupSFX:Class;
 		
 		private var difficulty:int;
 		private var papersCount:int;
@@ -94,6 +95,7 @@ package  {
 		}
 		
 		public function collect(trash:FlxExtendedSprite, x:int, y:int):void {
+			FlxG.play(PickupSFX);
 			papersLeft--;
 			trash.kill();
 		}
