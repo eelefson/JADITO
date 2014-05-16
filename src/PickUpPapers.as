@@ -38,7 +38,7 @@ package  {
 			
 			papers = new FlxGroup();
 			
-			difficulty = 3;
+			difficulty = Registry.difficultyLevel;
 			papersCount = (difficulty * 5) + 5;
 			papersLeft = papersCount;
 			
