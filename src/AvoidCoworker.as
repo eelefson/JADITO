@@ -11,11 +11,14 @@ package
 	{
 		
 		[Embed(source = "image_assets/stickfigure.png")] private var person:Class;
+		[Embed(source = "image_assets/coworker.png")] private var coworkerImg:Class;
+		[Embed(source = "image_assets/you.png")] private var youImg:Class;
 		[Embed(source = "image_assets/cubicleSimple.png")] private var cubicle:Class;
 		[Embed(source = "image_assets/coworkerArrow.png")] private var rightArrow:Class;
 		[Embed(source = "image_assets/curveArrow.png")] private var curveArrow:Class;
 		[Embed(source = "image_assets/curveArrowFlip.png")] private var curveArrowFlip:Class;
 		[Embed(source = "image_assets/work_station.png")] private var workStationImage:Class;
+		[Embed(source = "image_assets/skull2.png")] private var skullImage:Class;
 		
 		private var difficulty:int;
 		private var speed:int;
@@ -39,6 +42,7 @@ package
 		private var coworker:FlxExtendedSprite;
 		private var enemies:FlxGroup;
 		private var preview:FlxExtendedSprite;
+		private var skull:FlxSprite;
 		
 		override public function create():void {
 			FlxG.mouse.hide();
@@ -88,19 +92,27 @@ package
 			} else if (route == 3 || route == 9 || route == 10) {
 				preview.angle = 180;
 			}
-			
 
 			preview.visible = false;
 			add(preview);
 			
+			skull = new FlxSprite(FlxG.width / 2 - 15, FlxG.height / 2 - 12);
+			skull.loadGraphic(skullImage);
+			skull.visible = false;
+			add(skull);
+			
 			enemies = new FlxGroup();
 			coworker = new FlxExtendedSprite(0, 0);
+			coworker.loadGraphic(coworkerImg, true, true, 60, 98);
+			coworker.addAnimation("Walking Right", new Array(0, 1), 10);
+			coworker.addAnimation("Walking Left", new Array(2, 3), 10);
+			coworker.play("Walking Right");
 			coworker.visible = false;
 			enemies.add(coworker);
 			add(enemies);
 			
 			you = new FlxExtendedSprite(x, y);
-			you.loadGraphic(person);
+			you.loadGraphic(youImg);
 			you.elasticity = 0;
 			you.solid = true;
 			add(you);			
@@ -150,39 +162,38 @@ package
 					runTimer.start();
 					justStarted = false;
 					preview.visible = true;
+					skull.visible = true;
 				}
 				
 				if (runTimer.hasExpired) {
 					preview.visible = false;
+					skull.visible = false;
 					if (nowRunning == false) {
 						if (route == 0 || route == 4 || route == 5) {
 							//coworker = new FlxExtendedSprite(FlxG.width / 2, -100);
 							coworker.x = (FlxG.width / 2) - 20;
 							coworker.y = -100;
 							coworker.visible = true;
-							coworker.loadGraphic(person);
 							coworker.velocity.y = 200;
 						} else if (route == 1 || route == 6 || route == 7) {
 							//coworker = new FlxExtendedSprite(FlxG.width / 2, FlxG.height + 100);
 							coworker.x = (FlxG.width / 2) - 20;
 							coworker.y = FlxG.height + 100;
 							coworker.visible = true;
-							coworker.loadGraphic(person);
 							coworker.velocity.y = -200;
 						} else if (route == 2 || route == 8 || route == 9) {
 							//coworker = new FlxExtendedSprite(0, FlxG.height / 2);
 							coworker.x = 0;
 							coworker.y = (FlxG.height / 2) - 49;
 							coworker.visible = true;
-							coworker.loadGraphic(person);
 							coworker.velocity.x = 200;
 						} else if (route == 3 || route == 10 || route == 11) {
 							//coworker = new FlxExtendedSprite(FlxG.width + 100, FlxG.height / 2);
 							coworker.x = FlxG.width + 100;
 							coworker.y = (FlxG.height / 2) - 49;
 							coworker.visible = true;
-							coworker.loadGraphic(person);
 							coworker.velocity.x = -200;
+							coworker.play("Walking Left");
 						}
 
 						nowRunning = true;
@@ -230,8 +241,8 @@ package
 					}
 				}
 				
-				you.x = FlxG.mouse.screenX;
-				you.y = FlxG.mouse.screenY;
+				you.x = FlxG.mouse.screenX - 20;
+				you.y = FlxG.mouse.screenY - 30;
 				
 				FlxG.collide(cubicles, you);
 				FlxG.collide(super.walls, you);

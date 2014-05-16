@@ -133,7 +133,6 @@ package {
 		
 		override public function update():void {
 			super.update();
-			trace(ticks % mod);
 			if (ticks % mod == 0 && !stopped && !FlxG.paused) {
 				
 				if (level == 0 || level == 1) {

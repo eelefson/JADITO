@@ -10,7 +10,8 @@ package
 	public class SpeedyStapler extends MinigameState
 	{
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
-		[Embed(source="sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
 
 		//private var command:FlxText;
 		private var staplesLeft:FlxText;
@@ -30,7 +31,7 @@ package
 			
 			var difficulty:int = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
-			var time:int = 20 + 5 * difficulty;
+			var time:int = 10 + 5 * difficulty;
 			staples = Math.max(3, (papersLeft + 6) / 3);
 			
 			midLine = new FlxSprite(0, 0);
@@ -45,6 +46,10 @@ package
 			staplesLeft = new FlxText(0, 25, FlxG.width, "Staples left: " + staples.toString());
 			staplesLeft.setFormat(null, 32, 0, "right");
 			add(staplesLeft);
+			
+			var stapler:FlxSprite = new FlxSprite(FlxG.width / 2 - 23, 20);
+			stapler.loadGraphic(staplerImg);
+			add(stapler);
 			
 			tempPaperGroup = new FlxGroup();
 			paperGroup = new FlxGroup(papersLeft);

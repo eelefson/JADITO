@@ -123,8 +123,7 @@ package  {
 										"Lord of the Lunch Break",
 										"Good at Something",
 										"Clicked a Mouse, Hurray",
-										"Duke of the Office Drones",
-										"Assistant Suck-Up");
+										"Duke of the Office Drones");
 										/*"Good at Something",
 										"Clicked a Mouse, Hurray", // Need these to be more positive
 										"Duke of the Dunces",

@@ -14,7 +14,7 @@ package
 			var imageHeight:int = 15;
 			
 			var x:int = (FlxG.width / 2 - imageWidth / 2);
-			var y:int = 20;
+			var y:int = 40;
 			super(x, y, staple);
 			
 			this.velocity.y = 500;

@@ -61,7 +61,7 @@ package
 			numLeft.size = 50;
 			add(numLeft);
 			
-			passButton = new FlxButtonPlus(50, (FlxG.height / 4) * 3, pass, null, "PASS", 200, 40);
+			passButton = new FlxButtonPlus(50, (FlxG.height / 4) * 3, pass, null, "SKIP", 200, 40);
 			passButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			passButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			passButton.screenCenter();
