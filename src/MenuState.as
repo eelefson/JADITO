@@ -8,7 +8,6 @@ package  {
 	 * @author Elijah Elefson
 	 */
 	public class MenuState extends FlxState {
-		[Embed(source = "image_assets/start-button.png")] private var ImageButton:Class // This is a sprite of the button
 		[Embed(source = "image_assets/DesktopBackground.jpg")] private var background:Class;
 		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
@@ -148,7 +147,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new CoffeeRun());
 		}
 		
 		public function shuffle(a:Array):void {

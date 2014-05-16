@@ -8,15 +8,12 @@ package {
 	 * @author Elijah Elefson
 	 */
 	public class PlayState extends FlxState {
-		[Embed(source = "image_assets/Clipboard_Background.png")] private var ClipboardImage:Class;
 		[Embed(source = "image_assets/DesktopBackground.jpg")] private var BackgroundImage:Class;
 		[Embed(source="image_assets/box.jpg")] private var BlackBoxImage:Class;
 		[Embed(source="image_assets/check_mark_green.png")] private var CheckMarkImage:Class;
 		[Embed(source="image_assets/x_mark_red.png")] private var XImage:Class;
-		[Embed(source = "image_assets/calendar.png")] private var CalanderImage:Class;
 		[Embed(source = "image_assets/red_circle.png")] private var CircleImage:Class;
 		[Embed(source = "image_assets/scribble2.png")] private var ScribbleImage:Class;
-		[Embed(source = "image_assets/beginDayButton.png")] private var BeginDayButton:Class;
 		[Embed(source = "sound_assets/whoosh2.mp3")] private var WhooshSFX:Class;
 		[Embed(source = "sound_assets/begin_game.mp3")] private var BeginSFX:Class;
 		[Embed(source = "sound_assets/are-you-ready.mp3")] private var AreYouReadySFX:Class;

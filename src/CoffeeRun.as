@@ -6,7 +6,6 @@ package {
 	 * @author Connor
 	 */
 	public class CoffeeRun extends MinigameState {
-		[Embed(source="image_assets/coffeeCup.png")] private var cup:Class; 
 		[Embed(source = "image_assets/cupsAndTray2.png")] private var tray:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
