@@ -56,7 +56,7 @@ package
 			} else {
 				super.setCommandText("Find the Typos!");
 			}
-			super.setTimer(20000);
+			super.setTimer(21000);
 			var data5:Object = { "difficulty":level };
 			Registry.loggingControl.logLevelStart(12, data5);
 		}

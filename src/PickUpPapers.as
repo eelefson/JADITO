@@ -38,7 +38,7 @@ package  {
 			
 			papers = new FlxGroup();
 			
-			difficulty = Registry.difficultyLevel;
+			difficulty = 3;
 			papersCount = (difficulty * 5) + 5;
 			papersLeft = papersCount;
 			
@@ -57,10 +57,10 @@ package  {
 			add(papers);
 			super.create();
 			super.setCommandText("Pick them up!");
-			if (Registry.difficultyLevel == 0) {
-				super.setTimer(10 * 1000);
+			if (difficulty < 3) {
+				super.setTimer(11000);
 			} else {
-				super.setTimer((seconds * Registry.difficultyLevel) * 1000);
+				super.setTimer(16000);
 			}
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":difficulty };
