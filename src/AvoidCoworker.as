@@ -163,7 +163,7 @@ package
 			
 			if (!FlxG.paused) {
 				if (justStarted) {
-					runTimer = new FlxDelay(1000);
+					runTimer = new FlxDelay(500);
 					runTimer.start();
 					justStarted = false;
 					preview.visible = true;
