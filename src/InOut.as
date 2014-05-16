@@ -49,7 +49,7 @@ package {
 					Registry.loggingControl.logLevelEnd(data1);
 				}
 				gameOver = true;
-				super.success = true;
+				//super.success = true;
 			}
 			
 			super.update();
