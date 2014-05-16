@@ -53,19 +53,20 @@ package
 			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
 			
 			difficulty = Registry.difficultyLevel;
+			difficulty = 3;
 			
 			if (difficulty < 2) {
 				route = routes[Math.floor(Math.random() * 4)];
 			} else {
-				route = routes[Math.floor(Math.random() * 12)];
+				route = routes[Math.floor(Math.random() * 8) + 4];
 			}
 			
 			if (difficulty == 0) {
-				speed = 100;
-			} else if (difficulty == 4) {
-				speed = 300; 
-			} else {
 				speed = 200;
+			} else if (difficulty == 3) {
+				speed = 400; 
+			} else {
+				speed = 300;
 			}
 			
 			preview = new FlxExtendedSprite(0, 0);
@@ -179,25 +180,25 @@ package
 							coworker.x = (FlxG.width / 2) - 20;
 							coworker.y = -100;
 							coworker.visible = true;
-							coworker.velocity.y = 200;
+							coworker.velocity.y = speed;
 						} else if (route == 1 || route == 6 || route == 7) {
 							//coworker = new FlxExtendedSprite(FlxG.width / 2, FlxG.height + 100);
 							coworker.x = (FlxG.width / 2) - 20;
 							coworker.y = FlxG.height + 100;
 							coworker.visible = true;
-							coworker.velocity.y = -200;
+							coworker.velocity.y = -speed;
 						} else if (route == 2 || route == 8 || route == 9) {
 							//coworker = new FlxExtendedSprite(0, FlxG.height / 2);
 							coworker.x = 0;
 							coworker.y = (FlxG.height / 2) - 49;
 							coworker.visible = true;
-							coworker.velocity.x = 200;
+							coworker.velocity.x = speed;
 						} else if (route == 3 || route == 10 || route == 11) {
 							//coworker = new FlxExtendedSprite(FlxG.width + 100, FlxG.height / 2);
 							coworker.x = FlxG.width + 100;
 							coworker.y = (FlxG.height / 2) - 49;
 							coworker.visible = true;
-							coworker.velocity.x = -200;
+							coworker.velocity.x = -speed;
 							coworker.play("Walking Left");
 						}
 
@@ -208,9 +209,9 @@ package
 				if ((coworker.x >= (gameWidth / 2) - 20) && nowRunning) {
 					if (route == 8 || route == 9) {
 						if (route == 8) {
-							coworker.velocity.y = - 200;
+							coworker.velocity.y = - speed;
 						} else {
-							coworker.velocity.y = 200;
+							coworker.velocity.y = speed;
 						}
 						coworker.velocity.x = 0;
 					}
@@ -218,7 +219,7 @@ package
 				if ((coworker.x <= (gameWidth / 2) - 20) && nowRunning) {
 					if (route == 10 || route == 11) {
 						if (route == 10) {
-							coworker.velocity.y = 200;
+							coworker.velocity.y = speed;
 						} else {
 							coworker.velocity.y = -200;
 						}
@@ -228,9 +229,9 @@ package
 				if ((coworker.y >= (gameHeight / 2) - 49) && nowRunning) {
 					if (route == 4 || route == 5) {
 						if (route == 4) {
-							coworker.velocity.x = 200;
+							coworker.velocity.x = speed;
 						} else {
-							coworker.velocity.x = -200;
+							coworker.velocity.x = -speed;
 						}
 						coworker.velocity.y = 0;
 					}
@@ -238,9 +239,9 @@ package
 				if ((coworker.y <= (gameHeight / 2) - 49) && nowRunning) {
 					if (route == 6 || route == 7) {
 						if (route == 6) {
-							coworker.velocity.x = - 200;
+							coworker.velocity.x = - speed;
 						} else {
-							coworker.velocity.x = 200;
+							coworker.velocity.x = speed;
 						}
 						coworker.velocity.y = 0;
 					}
