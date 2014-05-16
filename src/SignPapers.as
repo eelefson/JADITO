@@ -23,14 +23,19 @@ package
 		private var lineSprite:FlxSprite; // The "Sign here: ___" image
 		private var passButton:FlxButtonPlus; // The button to pass on singing a paper
 		
+		private var signature_graphic:FlxExtendedSprite
+		
 		private static var NUM_PAPERS:int = 4; // How many papers the player must sign per game
 		
 		[Embed(source = "/image_assets/signline.png")] private var img:Class;
+		[Embed(source = "image_assets/Signature2.png")] private var SignatureImage:Class;
 		
 		[Embed(source="../src/signpapers.txt",mimeType="application/octet-stream")] private var papersFile:Class;
 		
-		override public function create():void
-		{
+		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -58,6 +63,10 @@ package
 			lineSprite.loadGraphic(img);
 			add(lineSprite);
 			
+			signature_graphic = new FlxExtendedSprite(205, FlxG.height / 4 + 120, SignatureImage);
+			signature_graphic.visible = false;
+			add(signature_graphic);
+			
 			numLeft = new FlxText(20, FlxG.height - 85, FlxG.width, "" + NUM_PAPERS);
 			numLeft.color = 0x00000000;
 			numLeft.size = 50;
@@ -83,8 +92,8 @@ package
 			Registry.loggingControl.logLevelStart(10, data5);
 		}
 		
-		override public function update():void
-		{
+		override public function update():void {
+			super.update();
 			if (!FlxG.paused) {
 				// Easier to create rectangle bounding box than a sprite in this case
 				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
@@ -116,9 +125,13 @@ package
 							super.timer.abort();
 						}
 				}
+				if (FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
+					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
+					signature_graphic.visible = true;
+				} else {
+					signature_graphic.visible = false;
+				}
 			}
-			
-			super.update();
 		}
 		
 		public function updateText():void
@@ -184,6 +197,13 @@ package
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 
