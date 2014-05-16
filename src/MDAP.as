@@ -46,9 +46,6 @@ package {
 		private var finalQuestion:Boolean;
 		private var correctAnswer:FlxButton;
 		
-		private var lastX:int;
-		private var lastY:int;
-		
 		// Eli added for line draw
 		private var crayon_graphic:FlxExtendedSprite;
 		private var dot_graphic:FlxExtendedSprite;
@@ -71,21 +68,12 @@ package {
 			
 			finalQuestion = false;
 			
-			lastX = 0;
-			lastY = 0;
 			dot = new Dot();
-			//dot.enableMouseClicks(false);
-			//dot.mousePressedCallback = moveDot;
-			//dot.clickable = true;
 			
 			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
 			dotsLeft.setFormat(null, 16, 0, "right");
 			
-			//command = new FlxText(0, 0, FlxG.width, "Click the dots!");
-			//command.setFormat(null, 16, 0, "center");
-			
 			sketchpad = new FlxSprite();
-			//sketchpad.makeGraphic(FlxG.width, FlxG.height);
 			sketchpad.loadGraphic(sketchpadImage);
 			add(sketchpad);
 			
@@ -122,42 +110,42 @@ package {
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonRedImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonBlueImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonGreenImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonYellowImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonOrangeImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					crayon_graphic = new FlxExtendedSprite(100, 100, crayonPurpleImage);
+					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
 			
 			// Eli added for line draw
 			ballGroup = new FlxGroup();
-			//crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
 			crayon_graphic.enableMouseDrag();
+			crayon_graphic.x = crayon_graphic.x + 16;
+			crayon_graphic.y = crayon_graphic.y - crayon_graphic.height - 16;
 			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
 			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
 			add(ballGroup);
 			add(crayon_graphic);
 			
 			add(dotsLeft);
-			//add(command);
 			add(dot);
 			
 			if (difficulty == 0) {
@@ -197,12 +185,6 @@ package {
 		}
 		
 		public function moveDot():void {
-			if (lastX != 0) {
-				drawLine();
-			}
-			lastX = dot.x + dot.width / 2;
-			lastY = dot.y + dot.height / 2;
-			
 			var speak:int = FlxU.round(Math.random() * 100);
 			if (words > speak && dots >= 2) {
 				addWord();
@@ -214,10 +196,6 @@ package {
 			if (dots == 0) {
 				bossQuestion();
 			}
-		}
-		
-		public function drawLine():void {
-			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {

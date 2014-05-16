@@ -37,10 +37,10 @@ package
 		}
 		
 		public function move():void {
-			var x:int =  FlxU.round(Math.random() * (FlxG.width - this.width - 83));
-			var y:int = FlxU.round(Math.random() * (FlxG.height - (25 * 2 + this.height + 114)) + 25 + 114);
+			this.x =  FlxU.round(Math.random() * (FlxG.width - this.width - 83));
+			this.y = FlxU.round(Math.random() * (FlxG.height - (25 * 2 + this.height + 114)) + 25 + 114);
 			
-			this.reset(x, y);
+			//this.reset(x, y);
 		}
 	}
 

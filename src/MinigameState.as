@@ -222,6 +222,7 @@ package  {
 			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
 			check_graphic.y = ((FlxG.height - check_graphic.height) / 2);
 			check_graphic.visible = false;
+			check_graphic.immovable = true;
 			add(check_graphic);
 		}
 		
@@ -230,6 +231,7 @@ package  {
 			x_graphic.x = ((FlxG.width - x_graphic.width) / 2);
 			x_graphic.y = ((FlxG.height - x_graphic.height) / 2);
 			x_graphic.visible = false;
+			x_graphic.immovable = true;
 			add(x_graphic);
 		}
 		
