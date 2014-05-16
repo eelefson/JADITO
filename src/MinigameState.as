@@ -96,11 +96,11 @@ package  {
 			
 			add(walls);
 			
-			skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
+			/*skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
 			skipButton.x = skipButton.x - skipButton.width;
 			skipButton.y = skipButton.y - skipButton.height;
 			skipButton.color = 0xff000000;
-			add(skipButton);
+			add(skipButton);*/
 			
 			goText = new BorderedText(FlxG.width / 2, FlxG.height / 2, FlxG.width, "READY!");
 			goText.setFormat(null, 36, 0xffffffff, "center", 30);
@@ -179,9 +179,7 @@ package  {
 							goText.visible = true;
 						} else if (FlxU.ceil(timeRemaining) == 2) {
 							goText.text = "SET!";
-						}// else if (FlxU.ceil(timeRemaining) == 1) {
-						//	goText.text = "GO!";
-						//}
+						}
 						
 						if (playSound) {
 							FlxG.play(ReadySetGoSFX);
