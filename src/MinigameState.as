@@ -252,6 +252,7 @@ package  {
 		}
 		
 		public function placeSuccessGraphic():void {
+			Registry.failedMostRecentMinigame = false;
 			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
 			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
 			check_graphic.y = ((FlxG.height - check_graphic.height) / 2);

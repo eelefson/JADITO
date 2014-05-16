@@ -21,15 +21,9 @@ package  {
 		private var delay:FlxDelay;
 		
 		override public function create():void {
-			//FlxG.bgColor = 0xffffffff;
-			
 			var wallpaper:FlxSprite = new FlxSprite(0, 0);
 			wallpaper.loadGraphic(wall);
 			add(wallpaper);
-			
-			//var wallpaper:FlxSprite = new FlxSprite(0, 0);
-			//wallpaper.loadGraphic(wall);
-			//add(wallpaper);
 			
 			topWall = new FlxTileblock(0, 0, FlxG.width, 2);
 			topWall.makeGraphic(FlxG.width, 2, 0xff000000);
