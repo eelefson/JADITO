@@ -8,9 +8,12 @@ package {
 	public class CoffeeRun extends MinigameState {
 		[Embed(source = "image_assets/cupsAndTray2.png")] private var tray:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		[Embed(source = "image_assets/click_me_left.png")] private var ClickMeLeftImage:Class;
+		[Embed(source = "image_assets/click_me_right.png")] private var ClickMeRightImage:Class;
 		
-		private var command:FlxText;
 		private var help:FlxText;
+		private var help_left_graphic:FlxExtendedSprite;
+		private var help_right_graphic:FlxExtendedSprite;
 		
 		private var traySprite:FlxExtendedSprite;
 		private var leftClickBox:FlxExtendedSprite;
@@ -57,13 +60,22 @@ package {
 			rightClickBox.mousePressedCallback = adjustTrayRight;
 			add(rightClickBox);
 			
-			help = new FlxText(FlxG.width / 4, FlxG.height * 5 / 6, FlxG.width / 2, "Click me!");
+			//help = new FlxText(FlxG.width / 4, FlxG.height * 5 / 6, FlxG.width / 2, "Click me!");
+			/*help = new FlxText(FlxG.width / 4 + 25, FlxG.height * 5 / 6, FlxG.width / 2 - 50, "Click\n me!");
 			help.setFormat(null, 16, 0);
 			help.visible = false;
-			add(help);
+			add(help);*/
 			
-			command = new FlxText(0, 0, FlxG.width, "Don't spill the coffee!");
-			command.setFormat(null, 16, 0, "center");
+			help_left_graphic = new FlxExtendedSprite(traySprite.x, traySprite.y, ClickMeLeftImage);
+			help_left_graphic.angularVelocity = traySprite.angularVelocity;
+			help_left_graphic.antialiasing = true;
+			add(help_left_graphic);
+			
+			help_right_graphic = new FlxExtendedSprite(traySprite.x, traySprite.y, ClickMeRightImage);
+			help_right_graphic.angularVelocity = traySprite.angularVelocity;
+			help_right_graphic.antialiasing = true;
+			add(help_right_graphic);
+			
 			super.create();
 			super.setCommandText("Balance It!");
 			super.setTimer(seconds * 1000 + 1000);
@@ -75,14 +87,24 @@ package {
 		override public function update():void {
 			if (difficulty <= 2) {
 				if (traySprite.angularVelocity > 0 && traySprite.angle > 0) {
-					help.alignment = "right";
-					help.visible = true;
-				}else if (traySprite.angularVelocity < 0 && traySprite.angle < 0) {
-					help.alignment = "left";
-					help.visible = true;
-				}else {
-					help.visible = false;
+					//help.alignment = "right";
+					//help.visible = true;
+					help_right_graphic.visible = true;
+				} else if (traySprite.angularVelocity < 0 && traySprite.angle < 0) {
+					//help.alignment = "left";
+					//help.visible = true;
+					help_left_graphic.visible = true;
+				} else {
+					//help.visible = false;
+					help_right_graphic.visible = false;
+					help_left_graphic.visible = false;
 				}
+				//help.angle = traySprite.angle;
+				help_right_graphic.angle  = traySprite.angle;
+				help_left_graphic.angle  = traySprite.angle;
+				
+				help_right_graphic.angularVelocity = traySprite.angularVelocity;
+				help_left_graphic.angularVelocity = traySprite.angularVelocity;
 			}
 			if (Math.random() < ((difficulty == 0) ? 0 : .01)) {
 				if((traySprite.angle < 0 && traySprite.angularVelocity > 0) || (traySprite.angle > 0 && traySprite.angularVelocity < 0)) {
@@ -92,7 +114,7 @@ package {
 			if (Math.random() < .04 * (difficulty + 1)) {
 				if(traySprite.angularVelocity < 0) {
 					traySprite.angularVelocity -= 1;
-				}else {
+				} else {
 					traySprite.angularVelocity += 1;
 				}
 			}
@@ -117,8 +139,6 @@ package {
 		}
 		
 		public function timeout():void {
-			command.visible = false;
-			
 			if (!gameOver) {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);

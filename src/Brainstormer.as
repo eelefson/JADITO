@@ -36,7 +36,6 @@ package {
 			}
 			
 			FlxG.mouse.show();
-			//FlxG.bgColor = 0xffffffff;
 			
 			super.gameOver = false;
 			
@@ -58,16 +57,16 @@ package {
 			ideasLeft.setFormat(null, 16, 0, "right");
 			add(ideasLeft);
 			
-			help = new FlxText(10, FlxG.height / 2, FlxG.width, "Click Me!");
-			help.setFormat(null, 16, 0);
+			help = new FlxText(0, FlxG.height / 2, FlxG.width / 4, "Click, Drag, Release!");
+			help.setFormat(null, 16, 0, "center");
 			help.alpha = .7;
 			
-			if (difficulty == 0) {
+			/*if (difficulty == 0) {
 				var helpb:FlxText = new FlxText(0, FlxG.height / 2 - 50, FlxG.width, "Click, Drag, Release!");
 				helpb.setFormat(null, 16, 0, "center");
 				helpb.alpha = .7;
 				add(helpb);
-			}
+			}*/
 			ideas = new FlxGroup();
 			
 			
@@ -79,7 +78,7 @@ package {
 				backBound = new MovingSprite(xpos + recycleWidth, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				goodBound = new MovingSprite(xpos, FlxG.height - recycleHeight - 25, 0, 0, FlxG.width);
 				add(help);
-			}else {
+			} else {
 				var minx:int = FlxG.width / 3;
 				if (difficulty >= 3) {
 					minx = FlxG.width / 2;
