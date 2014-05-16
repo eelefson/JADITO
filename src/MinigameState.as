@@ -195,7 +195,7 @@ package  {
 					timeRemaining -= FlxG.elapsed;
 				} else {
 					if (!levelZero) {
-						if (timeRemaining < 0.5) {
+						if (timeRemaining < 0.2) {
 							introCommandText.y -= 10;
 							introCommandText.size -= 1;
 							
@@ -204,7 +204,7 @@ package  {
 								playSound2 = false;
 							}
 						}
-						if (timeRemaining < 0.45) {
+						if (timeRemaining < 0.1) {
 							goText.visible = true;
 							goText.text = "GO!";
 						}
@@ -213,7 +213,7 @@ package  {
 							commandText.visible = true;
 						}
 						
-						if (timeRemaining < 0) {
+						if (timeRemaining < -0.5) {
 							goText.kill();
 							FlxG.paused = false;
 						}
