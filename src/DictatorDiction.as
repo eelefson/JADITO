@@ -247,25 +247,34 @@ package   {
 				var totalHeight:int = widthAndHeight["totalHeight"];
 				var button:FlxButton;
 				var curWidth:int = 0;
+				var scale:Number = 1.5;
 				for (var j:int = 0; j < numberOfButtons; j++) {
 					var temp:Array = new Array();
 					if (colorsToText) {
 						orderOfAnswers = colors;
 						temp[0] = colors[(numberOfButtons * i) + j];
 						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, colors_to_text[colors[(numberOfButtons * i)+j]], checkIfCorrectColor, temp);
-						//button.scale.x = 1.25;
-						//button.scale.y = 1.25;
 						button.x = (button.x + curWidth) + (j * 50);
 						button.y = (button.y + curHeight + (i * 20));
+						
+						button.scale.x = scale;
+						button.scale.y = scale;
+						button.label.offset.y = (scale - 1) / 2 * button.label.size;
+						button.label.size = button.label.size * scale;
+						
 						button.color = 0xffffffff;
 					} else {
 						orderOfAnswers = text;
 						temp[0] = text[(numberOfButtons * i)+j];
 						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, null, checkIfCorrectText, temp);
-						//button.scale.x = 1.25;
-						//button.scale.y = 1.25;
 						button.x = (button.x + curWidth) + (j * 50);
 						button.y = (button.y + curHeight + (i * 20));
+						
+						button.scale.x = scale;
+						button.scale.y = scale;
+						button.label.offset.y = (scale - 1) / 2 * button.label.size;
+						button.label.size = button.label.size * scale;
+						
 						button.color = text_to_colors[text[(numberOfButtons * i)+j]];
 					}
 					curWidth += button.width;
