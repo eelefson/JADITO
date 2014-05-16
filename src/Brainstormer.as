@@ -109,6 +109,10 @@ package {
 			throwingLine.makeGraphic(1, FlxG.height - 50);
 			throwingLine.drawLine(0, 0, 0, FlxG.height - 50, 0xaaaaaa);
 			
+			var throwArea:FlxSprite = new FlxSprite(0, 20);
+			throwArea.makeGraphic(FlxG.width / 4, FlxG.height - 40, 0xFF00CC00);
+			throwArea.alpha = 0.2;
+			
 			add(ceiling);
 			add(backWall);
 			add(bin);
@@ -116,6 +120,7 @@ package {
 			add(badBound);
 			add(backBound);
 			add(throwingLine);
+			add(throwArea);
 			
 			// When the Sprite leaves this zone you can no longer control it!
 			FlxMouseControl.mouseZone = new FlxRect(0, 0, FlxG.width / 4, FlxG.height);
