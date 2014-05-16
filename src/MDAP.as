@@ -100,21 +100,20 @@ package {
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
-			drawing = new FlxSprite(30, 70);
-			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
 			if (randNum == 0) {
-				drawing.loadGraphic(drawing1);
+				drawing = new FlxSprite(30, 70, drawing1);
 				drawing.x = (FlxG.width / 2) - 80;
 			} else if (randNum == 1) {
-				drawing.loadGraphic(drawing2);
+				drawing = new FlxSprite(30, 70, drawing2);
 				drawing.x = (FlxG.width / 2) - 160;
 				drawing.y = 50;
 			} else {
-				drawing.loadGraphic(drawing3);
+				drawing = new FlxSprite(30, 70, drawing3);
 				drawing.x = (FlxG.width / 2) - 130;
 				drawing.y = 60;
 			}
+			drawing.alpha = 0.5;
 			add(drawing);
 			
 			var X_OFFSET:int = 0;
@@ -243,8 +242,8 @@ package {
 		public function bossQuestion():void {
 			crayon_graphic.disableMouseDrag();
 			super.timer.reset(6000);
-			
-			remove(drawing);
+			drawing.kill();
+			//remove(drawing);
 			
 			finalQuestion = true;
 			dot.visible = false;

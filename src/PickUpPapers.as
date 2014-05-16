@@ -10,7 +10,7 @@ package  {
 	public class PickUpPapers extends MinigameState 
 	{
 		
-		[Embed(source = "image_assets/CrumpledPaper.png")] private var crumpledPaper:Class;
+		[Embed(source = "image_assets/crumpled_paper.png")] private var crumpledPaper:Class;
 		[Embed(source = "image_assets/recycle_bin2.png")] private var recycleBin:Class;
 		
 		private var difficulty:int;
@@ -31,9 +31,9 @@ package  {
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
 			
-			bin = new FlxExtendedSprite(FlxG.width - recycleWidth, FlxG.height - 25 - recycleHeight);
+			/*bin = new FlxExtendedSprite(FlxG.width - recycleWidth, FlxG.height - 25 - recycleHeight);
 			bin.loadGraphic(recycleBin);
-			add(bin);
+			add(bin);*/
 			
 			papers = new FlxGroup();
 			
@@ -42,14 +42,27 @@ package  {
 			papersLeft = papersCount;
 			
 			for (var i:int = 0; i < papersCount; i++) {
-				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
+				/*var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
 				var y:int = FlxU.round((Math.random() * (FlxG.height - 50 - 24))) + 25;
 				
 				var paper:FlxExtendedSprite = new FlxExtendedSprite(x, y);
 
 				paper.loadGraphic(crumpledPaper, false, false, 24, 24);
 				paper.enableMouseDrag(true, false, 255, new FlxRect(0, 25, FlxG.width, FlxG.height - 50));
-				papers.add(paper);
+				papers.add(paper);*/
+				
+				//for (var i:int = 0; i < 32; i++) {
+				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
+				var y:int = FlxU.round((Math.random() * (FlxG.height - 50 - 24))) + 25;
+				var tempBall:FlxExtendedSprite = new FlxExtendedSprite(x, y, crumpledPaper);
+				//tempBall.frame = int(Math.random() * tempBall.frames);
+				tempBall.velocity.x = -100 + Math.random() * 200;
+				tempBall.velocity.y = Math.random() * 100;
+				tempBall.elasticity = 1;
+				tempBall.enableMouseClicks(true, true);
+				tempBall.mousePressedCallback = collect;
+				papers.add(tempBall);
+				//}
 			}
 			
 			add(papers);
@@ -78,7 +91,9 @@ package  {
 		}
 		
 		override public function update():void {
-			FlxG.overlap(papers, bin, collect);
+			//FlxG.overlap(papers, bin, collect);
+			FlxG.collide();
+			//FlxCollision.pixelPerfectCheck(player, spikes)
 			if (papersLeft <= 0) {
 				if(!gameOver){
 					var data1:Object = { "completed":"success" };
@@ -91,7 +106,7 @@ package  {
 			super.update();
 		}
 		
-		public function collect(trash:FlxObject, can:FlxObject):void {
+		public function collect(trash:FlxExtendedSprite, x:int, y:int):void {
 			papersLeft--;
 			trash.kill();
 		}

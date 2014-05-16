@@ -91,8 +91,7 @@ package
 					}
 					gameOver = true;
 					super.success = true;
-
-				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
+				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
 					if(!gameOver){
 						var data2:Object = { "completed":"failure" };
 						Registry.loggingControl.logLevelEnd(data2);
