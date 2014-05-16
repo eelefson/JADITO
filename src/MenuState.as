@@ -160,7 +160,7 @@ package  {
 				Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 			}
 			Registry.minigames = minigames;
-			FlxG.switchState(new PickUpPapers());
+			FlxG.switchState(new PlayState());
 		}
 		
 		public function shuffle(a:Array):void {

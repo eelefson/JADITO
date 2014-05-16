@@ -5,8 +5,8 @@ package {
 	public class ColdCaller extends MinigameState {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
 		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
-		[Embed(source = "image_assets/arrow-left.png")] private var img:Class;
-		[Embed(source = "image_assets/Phone.png")] private var phoneImg:Class;
+		[Embed(source = "image_assets/arrow-right.png")] private var img:Class;
+		[Embed(source = "image_assets/PhoneLarge.png")] private var phoneImg:Class;
 		
 		public static var level:Number; // The level of the game's difficulty
 		
@@ -36,21 +36,21 @@ package {
 			Nums = new Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 0, 10);
 			NumRefs = new FlxGroup(12);
 			
-			var phone:FlxSprite = new FlxSprite(30, 30);
+			var phone:FlxSprite = new FlxSprite(-20, 20);
 			phone.loadGraphic(phoneImg);
-			//add(phone);
+			add(phone);
 			
 			createNums();
 			
 			goal = generateGoal();
 			
-			goalText = new FlxText(10, 40, FlxG.width, "");
+			goalText = new FlxText(FlxG.width - 200, 40, FlxG.width, "");
 			goalText.color = 0x00FF0000;
 			goalText.size = 20;
 			add(goalText);
 			goalText.text = displayGoal(goal);
 			
-			var arrow:FlxSprite = new FlxSprite(190, 38);
+			var arrow:FlxSprite = new FlxSprite(FlxG.width - 250, 38);
 			arrow.loadGraphic(img);
 			add(arrow);
 			
@@ -58,7 +58,7 @@ package {
 			if (level > 2) {
 				goal2 = generateGoal();
 			
-				goalText2 = new FlxText(10, goalText.y + 20, FlxG.width, "");
+				goalText2 = new FlxText(FlxG.width - 200, goalText.y + 20, FlxG.width, "");
 				goalText2.color = 0x00000000;
 				goalText2.size = 20;
 				add(goalText2);
@@ -69,7 +69,7 @@ package {
 			
 			currIndex = 0;
 			
-			answerText = new FlxText(100, 380, FlxG.width);
+			answerText = new FlxText(FlxG.width - 265, 380, FlxG.width);
 			answerText.color = 0x00800000;
 			answerText.size = 30;
 			add(answerText);
@@ -102,20 +102,22 @@ package {
 		// Create the button sprites according to the Nums array
 		public function createNums():void
 		{
-			var DIST_FROM_SIDE:int = 300;
-			var DIST_FROM_TOP:int = 100;
+			var DIST_FROM_SIDE:int = 180;
+			var DIST_FROM_TOP:int = 130;
 			
 			var index:int = 0;
 			for (var i:int = 0; i < 4; i++) {
 				for (var j:int = 0; j < 3; j++) {
 					var num:Num = new Num();
 					
+					num.scale = new FlxPoint(0.8, 0.8);
+					
 					FlxG.addPlugin(new FlxMouseControl);
 					num.enableMouseClicks(false);
 					num.mousePressedCallback = clicked;
 					
 					num.number = Nums[index];
-					num.x = DIST_FROM_SIDE + j * 55;
+					num.x = DIST_FROM_SIDE + j * 50;
 					num.y = DIST_FROM_TOP + i * 55;
 					
 					NumRefs.add(num);
