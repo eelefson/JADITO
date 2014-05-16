@@ -56,8 +56,6 @@ package
 			
 			difficulty = Registry.difficultyLevel;
 			
-			difficulty = 3;
-			
 			if (difficulty < 2) {
 				route = routes[Math.floor(Math.random() * 4)];
 			} else {

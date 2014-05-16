@@ -137,7 +137,7 @@ package {
 			add(underline);
 			
 			if (Registry.failures == 0) {
-				FlxG.switchState(new ReplayScreen());
+				FlxG.switchState(new LoseState());
 			}
 			
 			failuresRemaining = new DictatorDictionText(30, 130, 300, "Failures Remaining: ");
@@ -145,10 +145,12 @@ package {
 			if (Registry.failedMostRecentMinigame) {
 				failuresRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
 				numberOfFailsRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
-				failuresRemaining.visible = false;
-				numberOfFailsRemaining.visible = false;
-				blinkFailures();
-				setInterval(blinkFailures, 500);
+				if (Registry.playCurrentDay) {
+					failuresRemaining.visible = false;
+					numberOfFailsRemaining.visible = false;
+					blinkFailures();
+					setInterval(blinkFailures, 500);
+				}
 				Registry.failedMostRecentMinigame = false;
 			} else {
 				failuresRemaining.setFormat("Typewriter", 28, 0xff000000);
