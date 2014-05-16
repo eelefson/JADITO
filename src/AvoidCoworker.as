@@ -9,8 +9,6 @@ package
 	 */
 	public class AvoidCoworker extends MinigameState 
 	{
-		
-		[Embed(source = "image_assets/stickfigure.png")] private var person:Class;
 		[Embed(source = "image_assets/coworker.png")] private var coworkerImg:Class;
 		[Embed(source = "image_assets/you.png")] private var youImg:Class;
 		[Embed(source = "image_assets/cubicleSimple.png")] private var cubicle:Class;
