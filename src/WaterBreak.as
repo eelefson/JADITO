@@ -107,51 +107,51 @@ package  {
 		
 		override public function update():void {
 			super.update();
-			
-			if (curPosition == 0) {
-				increasing = true;
-			} else if (curPosition == 15) {
-				increasing = false;
-			}
-			
-			if (delay.hasExpired) {
-				if (increasing) {
-					red_cursor_graphic.x += 16;
-					white_cursor_graphic.x += 16;
-					curPosition++;
-				} else {
-					red_cursor_graphic.x -= 16;
-					white_cursor_graphic.x -= 16;
-					curPosition--;
+			if (!FlxG.paused) {
+				if (curPosition == 0) {
+					increasing = true;
+				} else if (curPosition == 15) {
+					increasing = false;
 				}
-				delay.reset(5);
-			}
-			
-			if (curPosition > successStartPosition && curPosition < successEndPosition) {
-				red_cursor_graphic.visible = false;
-				white_cursor_graphic.visible = true;
-				if (FlxG.mouse.justPressed()) {
-					if(!gameOver){
-						var data1:Object = { "completed":"success" };
-						Registry.loggingControl.logLevelEnd(data1);
+				
+				if (delay.hasExpired) {
+					if (increasing) {
+						red_cursor_graphic.x += 16;
+						white_cursor_graphic.x += 16;
+						curPosition++;
+					} else {
+						red_cursor_graphic.x -= 16;
+						white_cursor_graphic.x -= 16;
+						curPosition--;
 					}
-					gameOver = true;
-					super.success = true;
+					delay.reset(5);
 				}
-			} else {
-				red_cursor_graphic.visible = true;
-				white_cursor_graphic.visible = false;
-				if (FlxG.mouse.justPressed()) {
-					if(!gameOver){
-						var data2:Object = { "completed":"failure" };
-						Registry.loggingControl.logLevelEnd(data2);
-					} 
-					gameOver = true;
-					super.success = false;
-					super.timer.abort();
+				
+				if (curPosition > successStartPosition && curPosition < successEndPosition) {
+					red_cursor_graphic.visible = false;
+					white_cursor_graphic.visible = true;
+					if (FlxG.mouse.justPressed()) {
+						if(!gameOver){
+							var data1:Object = { "completed":"success" };
+							Registry.loggingControl.logLevelEnd(data1);
+						}
+						gameOver = true;
+						super.success = true;
+					}
+				} else {
+					red_cursor_graphic.visible = true;
+					white_cursor_graphic.visible = false;
+					if (FlxG.mouse.justPressed()) {
+						if(!gameOver){
+							var data2:Object = { "completed":"failure" };
+							Registry.loggingControl.logLevelEnd(data2);
+						} 
+						gameOver = true;
+						super.success = false;
+						super.timer.abort();
+					}
 				}
 			}
-			
 			
 		}
 		
