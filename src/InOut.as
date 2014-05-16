@@ -18,14 +18,10 @@ package {
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
-<<<<<<< HEAD
 			level = Registry.difficultyLevel;
-=======
 			gameOver = true;
 			
 			level = Registry.difficultyLevel;
-			level = 3;
->>>>>>> bf124a7b7ddc356aebe2cea628a6223f451996a3
 			
 			var inBasket:FlxSprite = new FlxSprite(55, 28);
 			inBasket.loadGraphic(inBasketImg);
