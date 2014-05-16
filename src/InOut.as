@@ -43,14 +43,15 @@ package {
 		}
 		
 		override public function update():void {
-			if (super.timer.hasExpired) {
+			/*if (super.timer.hasExpired) {
 				if(!gameOver) {
 					var data1:Object = { "completed":"success" };
 					Registry.loggingControl.logLevelEnd(data1);
+					super.success = true;
 				}
 				gameOver = true;
-				//super.success = true;
-			}
+				
+			}*/
 			
 			super.update();
 			
@@ -101,6 +102,7 @@ package {
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
+			super.success = true;
 		}
 		
 		override public function destroy():void {
