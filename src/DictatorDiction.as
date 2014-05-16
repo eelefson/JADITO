@@ -50,7 +50,7 @@ package   {
 			
 			bossCommands = new FlxGroup();
 			buttonGroup = new FlxGroup();
-			var level:int = Registry.difficultyLevel;
+			var level:int = 1;//Registry.difficultyLevel;
 			if (level == 0) {
 				placeText(4, 1, text, colors);
 				placeButtons(4, 1, text.slice(0, 4), colors.slice(0, 4), true);
@@ -266,7 +266,7 @@ package   {
 					} else {
 						orderOfAnswers = text;
 						temp[0] = text[(numberOfButtons * i)+j];
-						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, null, checkIfCorrectText, temp);
+						button = new DictatorDictionButton((FlxG.width / 2) - (totalWidth / 2), FlxG.height - 150, "", checkIfCorrectText, temp);
 						button.x = (button.x + curWidth) + (j * 50);
 						button.y = (button.y + curHeight + (i * 20));
 						
