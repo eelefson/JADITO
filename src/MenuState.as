@@ -137,6 +137,10 @@ package  {
 				}
 			}
 			
+			// CHANGES NUMBER OF FAILURES ALLOWED
+			Registry.failures = 7;
+			Registry.failedMostRecentMinigame = false;
+			
 			// Array containing arrays of the minigames at each difficulty level(0-3)
 			var minigames:Array = new Array(levelZeroMinigames, new Array(), new Array(), new Array());
 			Registry.day = DaysOfTheWeek.MONDAY;

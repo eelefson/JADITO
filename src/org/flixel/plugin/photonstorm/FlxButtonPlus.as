@@ -22,7 +22,7 @@ package org.flixel.plugin.photonstorm
 	 * A simple button class that calls a function when clicked by the mouse.
 	 */
 	public class FlxButtonPlus extends FlxGroup
-	{
+	{	
 		static public var NORMAL:uint = 0;
 		static public var HIGHLIGHT:uint = 1;
 		static public var PRESSED:uint = 2;
@@ -148,7 +148,7 @@ package org.flixel.plugin.photonstorm
 			{
 				textNormal = new FlxText(X, Y + 3, Width, Label);
 				textNormal.setFormat(null, 8, 0xffffffff, "center", 0xff000000);
-				
+					
 				textHighlight = new FlxText(X, Y + 3, Width, Label);
 				textHighlight.setFormat(null, 8, 0xffffffff, "center", 0xff000000);
 				

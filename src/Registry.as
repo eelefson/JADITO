@@ -14,5 +14,7 @@ package  {
 		public static var titles:Array;
 		public static var usingWhatDidTheBossSay:Boolean;
 		public static var loggingControl:Logger;
+		public static var failures:int;
+		public static var failedMostRecentMinigame:Boolean;
 	}
 }

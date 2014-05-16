@@ -37,6 +37,9 @@ package {
 		
 		private var beginDayText:BorderedText;
 		
+		private var failuresRemaining:DictatorDictionText;
+		private var numberOfFailsRemaining:FlxText;
+		
 		private var zoomCam:ZoomCamera;
 		
 		private var background_graphic:FlxSprite;
@@ -64,6 +67,7 @@ package {
 		
 		private var blink1:Boolean = true;
 		private var blink2:Boolean = true;
+		private var blink3:Boolean = true;
 		
 		override public function create():void {
 			var i:int;
@@ -131,6 +135,28 @@ package {
 			var underline:FlxTileblock = new FlxTileblock(95 + ((toDoText.width - toDoText.getRealWidth()) / 2), 257 + 6 + toDoText.height, toDoText.getRealWidth(), 1);
 			underline.makeGraphic(toDoText.getRealWidth(), 1, 0xff000000);
 			add(underline);
+			
+			if (Registry.failures == 0) {
+				FlxG.switchState(new ReplayScreen());
+			}
+			
+			failuresRemaining = new DictatorDictionText(30, 130, 300, "Failures Remaining: ");
+			numberOfFailsRemaining = new FlxText(30, 130, 50, Registry.failures.toString());
+			if (Registry.failedMostRecentMinigame) {
+				failuresRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
+				numberOfFailsRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
+				failuresRemaining.visible = false;
+				numberOfFailsRemaining.visible = false;
+				blinkFailures();
+				setInterval(blinkFailures, 500);
+				Registry.failedMostRecentMinigame = false;
+			} else {
+				failuresRemaining.setFormat("Typewriter", 28, 0xff000000);
+				numberOfFailsRemaining.setFormat("Typewriter", 28, 0xff000000);
+			}
+			numberOfFailsRemaining.x += failuresRemaining.getRealWidth();
+			add(numberOfFailsRemaining);
+			add(failuresRemaining);
 			
 			var x:int;
 			var y:int;
@@ -297,6 +323,18 @@ package {
 			} else {
 				beginDayText.visible = false;
 				blink2 = true;
+			}
+		}
+		
+		private function blinkFailures():void {
+			if (blink3) {
+				failuresRemaining.visible = true;
+				numberOfFailsRemaining.visible = true;
+				blink3 = false;
+			} else {
+				failuresRemaining.visible = false;
+				numberOfFailsRemaining.visible = false;
+				blink3 = true;
 			}
 		}
 		

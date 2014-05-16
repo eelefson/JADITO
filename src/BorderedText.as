@@ -56,6 +56,11 @@ package  {
 				if(_shadow > 0)
 				{
 					var n:int = 2;
+					
+					if (_shadow == 10) {
+						n = 1;
+					}
+					
 					if (_shadow == 30) {
 						n = 4;
 					}

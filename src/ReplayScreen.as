@@ -14,7 +14,8 @@ package  {
 		
 		
 		override public function create():void {
-			super.create();
+			FlxG.bgColor = 0xff000000;
+			
 			var moveUp:int = 50;
 			
 			story = new FlxText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "I thought you would say that. Life within the workplace will never change...");
@@ -23,9 +24,11 @@ package  {
 			add(story);
 			
 			replay = new FlxText(50, FlxG.height * 3 / 4 - moveUp, FlxG.width - 100, "Click to see how the next guy does");
-			replay.setFormat("Typewriter", 24, 0xffffff, "center");
+			replay.setFormat("Typewriter", 24, 0xffffffff, "center");
 			replay.y = replay.y - replay.height / 2;
 			add(replay);
+			
+			super.create();
 		}
 		
 		override public function update():void {

@@ -263,6 +263,8 @@ package  {
 		}
 		
 		public function placeFailureGraphic():void {
+			Registry.failures--;
+			Registry.failedMostRecentMinigame = true;
 			x_graphic = new FlxSprite(0, 0, XMarkImage);
 			x_graphic.x = ((FlxG.width - x_graphic.width) / 2);
 			x_graphic.y = ((FlxG.height - x_graphic.height) / 2);

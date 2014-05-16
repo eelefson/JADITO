@@ -7,10 +7,7 @@ package  {
 	 * ...
 	 * @author Elijah Elefson
 	 */
-	public class WinState extends FlxState {
-		[Embed(source = "sound_assets/song.mp3")] private var Song:Class;
-		[Embed(source = "image_assets/BITDANCE.png")]  private var dance_sprites:Class;
-		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+	public class LoseState extends FlxState {
 
 		private var yes:FlxButtonPlus;
 		private var no:FlxButtonPlus;

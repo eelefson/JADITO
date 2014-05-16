@@ -88,14 +88,14 @@ package
 		}
 		
 		override public function update():void {
-			
-			if (justStarted) {
+			super.update();
+			/*if (justStarted) {
 				dropTimer = new FlxDelay(500 + (1500 * Math.random()));
 				dropTimer.start();
 				justStarted = false;
-			}
+			}*/
 			
-			if (dropTimer.hasExpired) {
+			if (!FlxG.paused) {
 				if (!moving) {
 					pencil.velocity.y = 400 + (difficulty * 200);
 					moving = true;
@@ -136,7 +136,7 @@ package
 				}
 			}
 			
-			super.update();
+			//super.update();
 		}
 		
 		override public function destroy():void {
