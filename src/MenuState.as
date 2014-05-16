@@ -36,18 +36,6 @@ package  {
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
 			add(splash_screen_graphic);
 			
-			/*var title:FlxText;
->>>>>>> d240771ba609a916af38ab5535f581b6c3438b89
-			title = new FlxText(0, 16, FlxG.width, "Just Another Day In The Office");
-			title.setFormat(null, 50, 0xFFFFFFFF, "center");
-			add(title);*/
-			
-			/*start_button = new FlxButton(FlxG.width / 2, FlxG.height / 2, null, clickStartButton);
-			start_button.loadGraphic(ImageButton);
-			start_button.x = start_button.x - (start_button.width / 2);
-			start_button.y = start_button.y - (start_button.height / 2);
-			add(start_button);*/
-			
 			mute_button = new FlxButton(10, FlxG.height, null, mute);
 			mute_button.loadGraphic(PlayButton);
 			mute_button.y = mute_button.y - (mute_button.height);
@@ -133,7 +121,7 @@ package  {
 			// Array storing all the possible minigames available to play
 			var a:Array = new Array(MinigameEnums.DICTATOR_DICTION, MinigameEnums.COFFEE_RUN, MinigameEnums.COLD_CALLER,
 				MinigameEnums.MY_DAUGTHERS_ART_PROJECT, MinigameEnums.SIGN_PAPER, MinigameEnums.IN_OUT,
-				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, /*MinigameEnums.SPELL_CHECKER,*/
+				MinigameEnums.BRAINSTORMER, MinigameEnums.SPEEDY_STAPLER, MinigameEnums.SPELL_CHECKER,
 				MinigameEnums.AVOID_THE_COWORKER, MinigameEnums.CATCH_PENCIL, MinigameEnums.PICK_UP_PAPERS,
 				MinigameEnums.CLOCK_IN, MinigameEnums.WATER_BREAK/*, MinigameEnums.WHAT_DID_THE_BOSS_SAY*/);
 			shuffle(a);

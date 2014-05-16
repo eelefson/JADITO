@@ -31,6 +31,9 @@ package {
 		private var numIdeas:int;
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
 			
 			FlxG.mouse.show();
 			//FlxG.bgColor = 0xffffffff;
@@ -177,6 +180,13 @@ package {
 			i.kill();
 			var crum:PaperFail = new PaperFail(i.x, i.y);
 			add(crum);
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 }

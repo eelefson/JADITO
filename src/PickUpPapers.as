@@ -24,6 +24,10 @@ package  {
 		private var papers:FlxGroup;
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
 			
@@ -31,10 +35,6 @@ package  {
 			
 			var recycleHeight:int = 80;
 			var recycleWidth:int = 150;
-			
-			/*bin = new FlxExtendedSprite(FlxG.width - recycleWidth, FlxG.height - 25 - recycleHeight);
-			bin.loadGraphic(recycleBin);
-			add(bin);*/
 			
 			papers = new FlxGroup();
 			
@@ -80,7 +80,8 @@ package  {
 		}
 		
 		override public function update():void {
-			FlxG.collide();
+			FlxG.collide(papers, papers);
+			FlxG.collide(papers, super.walls);
 			//FlxCollision.pixelPerfectCheck(player, spikes);
 			if (papersLeft <= 0) {
 				if(!gameOver){
@@ -100,6 +101,12 @@ package  {
 			trash.kill();
 		}
 		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
+		}
 	}
 
 }

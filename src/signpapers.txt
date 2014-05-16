@@ -3,7 +3,7 @@
 0 Y The net gain is $35,000.
 0 Y We would be delighted to pay as much as $500.
 0 N It will cost you $1.
-0 N Please pay has the required $100.
+0 N Please pay the required $100.
 0 N In the end, you will owe $25,000.
 0 N We are asking for a payment of $40 / month.
 0 N Our service fee is a mere $50.

@@ -15,6 +15,10 @@ package {
 		public var numWrongLane:int = 0;
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			FlxG.bgColor = 0xffaaaaaa;
 			FlxG.mouse.show();
 			
@@ -97,6 +101,13 @@ package {
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 }

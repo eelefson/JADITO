@@ -26,6 +26,10 @@ package
 		private var stapleMoving:Boolean;
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
@@ -145,6 +149,13 @@ package
 			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
 			stapleMoving = false;
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 

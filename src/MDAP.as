@@ -53,7 +53,10 @@ package {
 		private var ballGroup:FlxGroup;
 		
 		override public function create():void {
-			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
@@ -358,6 +361,13 @@ package {
 			gameOver = true;
 			super.success = false;
 			super.timer.abort();
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 }

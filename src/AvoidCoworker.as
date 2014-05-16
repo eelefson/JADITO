@@ -45,6 +45,10 @@ package
 		private var skull:FlxSprite;
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
 			
@@ -279,6 +283,13 @@ package
 			super.timer.abort();
 			you.visible = false;
 			FlxG.mouse.show();
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 		
 	}
