@@ -7,6 +7,8 @@ package {
 	 */
 	public class MDAP extends MinigameState {
 		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
+		[Embed(source = "image_assets/crayon_dot.png")] private var DotImage:Class;
+		[Embed(source = "image_assets/CrayonRed.png")] private var crayon:Class;
 		[Embed(source = "image_assets/drawing1.png")] private var drawing1:Class;
 		[Embed(source = "image_assets/drawing2.png")] private var drawing2:Class;
 		[Embed(source = "image_assets/drawing3.png")] private var drawing3:Class;
@@ -47,12 +49,20 @@ package {
 		private var lastX:int;
 		private var lastY:int;
 		
+		// Eli added for line draw
+		private var crayon_graphic:FlxExtendedSprite;
+		private var dot_graphic:FlxExtendedSprite;
+		private var previousPoint:FlxPoint;
+		private var ballGroup:FlxGroup;
+		
 		override public function create():void {
 			//FlxG.addPlugin(new FlxMouseControl()); must have already been called
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
+			
+			gameOver = false;
 			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 5 * difficulty;
@@ -64,8 +74,8 @@ package {
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
-			dot.enableMouseClicks(false);
-			dot.mousePressedCallback = moveDot;
+			//dot.enableMouseClicks(false);
+			//dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
 			
 			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
@@ -107,40 +117,49 @@ package {
 			}
 			add(drawing);
 			
-			add(dotsLeft);
-			//add(command);
-			add(dot);
-			
 			var X_OFFSET:int = 0;
 			var Y_OFFSET:int = -80;
 			var SCALE:Number = 0.7;
 			randNum = Math.floor(Math.random() * 6);
 			switch (randNum) {
 				case 0:
-					FlxG.mouse.load(crayonRedImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonRedImage);
 					color = 0xFFDB4D4D;
 					break;
 				case 1:
-					FlxG.mouse.load(crayonBlueImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonBlueImage);
 					color = 0xFFA3A3FF;
 					break;
 				case 2:
-					FlxG.mouse.load(crayonGreenImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonGreenImage);
 					color = 0xFF47A347;
 					break;
 				case 3:
-					FlxG.mouse.load(crayonYellowImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonYellowImage);
 					color = 0xFFFFFF00;
 					break;
 				case 4:
-					FlxG.mouse.load(crayonOrangeImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonOrangeImage);
 					color = 0xFFCC6600;
 					break;
 				default:
-					FlxG.mouse.load(crayonPurpleImage, SCALE, X_OFFSET, Y_OFFSET);
+					crayon_graphic = new FlxExtendedSprite(0, 25, crayonPurpleImage);
 					color = 0xFFCC66FF;
 					break;
 			}
+			
+			// Eli added for line draw
+			ballGroup = new FlxGroup();
+			//crayon_graphic = new FlxExtendedSprite(0, 25, crayon);
+			crayon_graphic.enableMouseDrag();
+			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
+			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			add(ballGroup);
+			add(crayon_graphic);
+			
+			add(dotsLeft);
+			//add(command);
+			add(dot);
 			
 			if (difficulty == 0) {
 				addWord();
@@ -149,13 +168,33 @@ package {
 			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(8, data5);
 		}
 		
 		override public function update():void {
 			super.update();
+			
+			FlxG.collide(super.walls, crayon_graphic);
+			
+			dot_graphic.x = crayon_graphic.x;
+			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
+
+			if (crayon_graphic.isDragged) {
+				var line:FlxSprite = new FlxSprite();
+				line.makeGraphic(640, 480, 0x00000000);
+				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
+				ballGroup.add(line);
+					
+				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			}
+			
+			if (FlxG.overlap(dot_graphic, dot)) {
+				moveDot();
+			}
 		}
 		
-		public function moveDot(d:FlxExtendedSprite, currentx:int, currenty:int):void {
+		public function moveDot():void {
 			if (lastX != 0) {
 				drawLine();
 			}
@@ -176,7 +215,7 @@ package {
 		}
 		
 		public function drawLine():void {
-			sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, color, 3);
+			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {
@@ -202,9 +241,8 @@ package {
 		}
 		
 		public function bossQuestion():void {
+			crayon_graphic.disableMouseDrag();
 			super.timer.reset(6000);
-			
-			FlxG.mouse.unload();
 			
 			remove(drawing);
 			
@@ -300,6 +338,11 @@ package {
 			question.text = "You are wrong!";
 			correctAnswer.flicker(1);
 			
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}
@@ -307,6 +350,11 @@ package {
 		public function correct():void {
 			question.text = "You are correct!";
 			
+			if(!gameOver) {
+				var data1:Object = { "completed":"success" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = true;
 		}
 		
@@ -320,6 +368,11 @@ package {
 			//question.setFormat(null, 16, 0, "center");
 			//add(question);
 			
+			if(!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}

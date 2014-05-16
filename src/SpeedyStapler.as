@@ -23,11 +23,15 @@ package
 		private var stapleGroup:FlxGroup;
 		private var tempPaperGroup:FlxGroup;
 		
+		private var stapleMoving:Boolean;
+		
 		override public function create():void {
 			FlxG.play(Startup);
 			
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;
+			
+			gameOver = false;
 			
 			var difficulty:int = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
@@ -62,28 +66,43 @@ package
 			
 			stapleGroup = new FlxGroup(staples);
 			add(stapleGroup);
+			
+			stapleMoving = false;
+			
 			super.create();
 			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(11, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(11, data5);
 		}
 		
 		override public function update():void {
 			if (!FlxG.paused) {
-				if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
-					stapleGroup.add(new Staple());
-					staples--;
-					staplesLeft.text = "Staples left: " + staples.toString();
+				if (!stapleMoving) {
+					if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
+						stapleGroup.add(new Staple());
+						staples--;
+						staplesLeft.text = "Staples left: " + staples.toString();
+						stapleMoving = true;
+					}
 				}
+				FlxG.overlap(stapleGroup, super.walls, removeStaple);
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
-					//var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
+
 				}else if (stapleGroup.countLiving() == 0 && staples == 0) {
-					//var data2:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data2);
+					if(!gameOver){
+						var data2:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data2);
+					}
+					gameOver = true;
 					super.success = false;
 					super.timer.abort();
 				}
@@ -103,10 +122,21 @@ package
 			//outOfTime.setFormat(null, 16, 0, "center");
 			//add(outOfTime);
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if(!gameOver){
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
+		}
+		
+		public function removeStaple(s:FlxObject, p:FlxObject):void {
+			var tempStaple:Staple = s as Staple;
+			
+			stapleGroup.remove(tempStaple, true);
+			
+			stapleMoving = false;
 		}
 		
 		public function staplePaper(s:FlxObject, p:FlxObject):void {
@@ -115,6 +145,7 @@ package
 			
 			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
+			stapleMoving = false;
 		}
 	}
 

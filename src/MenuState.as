@@ -30,7 +30,7 @@ package  {
 		
 		override public function create():void {
 			
-			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
 			
 			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);

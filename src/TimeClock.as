@@ -48,6 +48,8 @@ package {
 		override public function create():void {
 			level = Registry.difficultyLevel;
 			
+			gameOver = false;
+			
 			secs = 0;
 			hrs = 7;
 			mins = 53;
@@ -128,7 +130,8 @@ package {
 			super.setCommandText("Clock in at 8:00!");
 			super.setTimer(11000);
 			super.timerText.visible = false; // Don't show the timer!
-			//Registry.loggingControl.logLevelStart(13, null);
+			var data5:Object = { "difficulty":level };
+			Registry.loggingControl.logLevelStart(13, data5);
 		}
 		
 		override public function update():void {
@@ -244,12 +247,18 @@ package {
 				
 				// Timer must read 8:00:XX
 				if (hrs == 8 && mins == 0 || hrs == 7 && mins == 59) { // Success!
-					////var data1:Object = { "completed":"success" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
 					super.success = true;
 				} else { // Failure!
-					//var data2:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data2);
+					if(!gameOver){
+						var data2:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data2);
+					}
+					gameOver = true;
 					super.timer.abort();
 				}
 			}

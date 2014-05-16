@@ -32,8 +32,11 @@ package
 				this.kill();
 				
 				if (left) {
-					//var data1:Object = { "completed":"failure" };
-					//Registry.loggingControl.logLevelEnd(data1);
+					if(!minigame_super.gameOver) {
+						var data1:Object = { "completed":"failure" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					minigame_super.gameOver = true;
 					minigame_super.timer.abort();
 				}
 			}

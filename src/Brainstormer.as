@@ -35,12 +35,13 @@ package {
 			FlxG.mouse.show();
 			//FlxG.bgColor = 0xffffffff;
 			
-			var wallpaper:FlxSprite = new FlxSprite(0, 0);
-			wallpaper.loadGraphic(wall);
-			add(wallpaper);
+			super.gameOver = false;
 			
 			var recycleHeight:int = 86;
 			var recycleWidth:int = 148;
+			var wallpaper:FlxSprite = new FlxSprite(0, 0);
+			wallpaper.loadGraphic(wall);
+			add(wallpaper);
 			
 			difficulty = Registry.difficultyLevel;
 			numIdeas = difficulty + 1;
@@ -121,7 +122,8 @@ package {
 			super.setCommandText("Throw ideas away!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			//Registry.loggingControl.logLevelStart(2, null);
+			var data5:Object = { "difficulty":difficulty };
+			Registry.loggingControl.logLevelStart(2, data5);
 		}
 		
 		override public function update():void {
@@ -143,8 +145,11 @@ package {
 			FlxG.overlap(ideas, goodBound, thrownAway);
 			ideasLeft.text = "Bad Ideas Left: " + numIdeas.toString();
 			if (numIdeas <= 0) {
-				//var data1:Object = { "completed":"success" };
-				//Registry.loggingControl.logLevelEnd(data1);
+				if (!gameOver) {
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
 				super.success = true;
 				super.timer.abort();
 			}
@@ -154,8 +159,11 @@ package {
 		public function timeout():void {
 			command.visible = false;
 			
-			//var data1:Object = { "completed":"failure" };
-			//Registry.loggingControl.logLevelEnd(data1);
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
 			super.success = false;
 			super.timer.abort();
 		}
