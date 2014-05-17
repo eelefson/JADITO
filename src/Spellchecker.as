@@ -82,7 +82,7 @@ package
 				}
 			}
 			
-			if (super.timer.hasExpired && !super.success &!FlxG.paused) {
+			if (super.timer.hasExpired && !super.success && !FlxG.paused) {
 				hasFailed = true;
 			}
 			
