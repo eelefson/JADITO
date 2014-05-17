@@ -1,2 +1,5 @@
 bin/JADITO.swf
 obj/*
+src/org/flixel/FlxGame.as
+src/org/flixel/FlxText.as
+src/org/flixel/plugin/photonstorm/FlxButtonPlus.as
