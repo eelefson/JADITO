@@ -69,11 +69,7 @@ package
 		override public function update():void
 		{
 			super.update();
-			
-			if (super.timer.hasExpired && !super.success) {
-				hasFailed = true;
-			}
-			
+	
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
 				if (ticks == 20) { // Enough time has passed, end the game!
@@ -84,6 +80,10 @@ package
 					gameOver = true;
 					super.success = true;
 				}
+			}
+			
+			if (super.timer.hasExpired && !super.success &!FlxG.paused) {
+				hasFailed = true;
 			}
 			
 			if (hasFailed) { // The user has failed!
