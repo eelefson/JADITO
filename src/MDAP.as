@@ -1,4 +1,5 @@
 package {
+	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 
@@ -54,6 +55,10 @@ package {
 		private var dot_graphic:FlxExtendedSprite;
 		private var previousPoint:FlxPoint;
 		private var ballGroup:FlxGroup;
+		
+		private var dragMeText:FlxText;
+		private var blink:Boolean;
+		private var intervalID:uint;
 		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
@@ -161,8 +166,15 @@ package {
 			add(ballGroup);
 			add(crayon_graphic);
 			
+			dragMeText = new FlxText(crayon_graphic.x, crayon_graphic.y, 100, "Drag me!");
+			dragMeText.y = dragMeText.y - dragMeText.height - 10;
+			dragMeText.setFormat(null, 16, 0xff000000);
+			dragMeText.visible = false;
+			blinkText();
+			intervalID = setInterval(blinkText, 500);
+			add(dragMeText);
+			
 			add(dotsLeft);
-			//add(command);
 			add(dot);
 			
 			if (difficulty == 0) {
@@ -185,6 +197,8 @@ package {
 			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
 
 			if (crayon_graphic.isDragged) {
+				clearInterval(intervalID);
+				dragMeText.visible = false;
 				var line:FlxSprite = new FlxSprite();
 				line.makeGraphic(640, 480, 0x00000000);
 				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
@@ -198,6 +212,16 @@ package {
 			
 			if (FlxG.overlap(dot_graphic, dot)) {
 				moveDot();
+			}
+		}
+		
+		private function blinkText():void {
+			if (blink) {
+				dragMeText.visible = true;
+				blink = false;
+			} else {
+				dragMeText.visible = false;
+				blink = true;
 			}
 		}
 		
