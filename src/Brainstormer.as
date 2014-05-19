@@ -57,7 +57,7 @@ package {
 			ideasLeft.setFormat(null, 16, 0, "right");
 			add(ideasLeft);
 			
-			help = new FlxText(0, FlxG.height / 2, FlxG.width / 4, "Click, Drag, Release!");
+			help = new FlxText(0, FlxG.height / 2, FlxG.width / 4, "Click Here & Drag!");
 			help.setFormat(null, 16, 0, "center");
 			help.alpha = .7;
 			

@@ -65,7 +65,7 @@ package {
 				FlxG.addPlugin(new FlxMouseControl);
 			}
 			
-			FlxG.play(Startup);
+			//FlxG.play(Startup);
 			
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;

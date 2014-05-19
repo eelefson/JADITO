@@ -109,7 +109,8 @@ package  {
 										"Employee of the Week",
 										"Lord of the Lunch Break",
 										"Good at Something",
-										"Duke of the Office Drones");
+										"Duke of the Office Drones",
+										"Master of Meetings");
 										/*"Good at Something",
 										"Clicked a Mouse, Hurray", // Need these to be more positive
 										"Duke of the Dunces",

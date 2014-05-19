@@ -24,7 +24,7 @@ package {
 		private var stapleMoving:Boolean;
 		
 		override public function create():void {
-			FlxG.play(Startup);
+			//FlxG.play(Startup);
 			
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xffffffff;

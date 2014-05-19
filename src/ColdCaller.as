@@ -84,7 +84,7 @@ package {
 			} else if (level == 2) {
 				super.setTimer(16000);
 			} else {
-				super.setTimer(21000);
+				super.setTimer(23000);
 			}
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":level };
