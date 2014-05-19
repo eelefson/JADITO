@@ -9,16 +9,16 @@ package
 	
 	public class Spellchecker extends MinigameState
 	{
-		public static var level:Number; // The level of the game's difficulty
+		public var level:Number; // The level of the game's difficulty
 		
-		public static var TEXT_SIZE:int = 25; // Size of text
-		public static var SPACE_SIZE:int = 10; // Size of spaces
-		public static var LINE_SPACING:int = 30; // Space between lines
-		public static var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
+		public var TEXT_SIZE:int = 25; // Size of text
+		public var SPACE_SIZE:int = 10; // Size of spaces
+		public var LINE_SPACING:int = 30; // Space between lines
+		public var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
 		
-		public static var numTypos:int; // Number of typos left to find
+		public var numTypos:int; // Number of typos left to find
 		public var typoCounter:FlxText; // Counter for typos left
-		public static var hasFailed:Boolean = false; // Has the player failed?
+		public var hasFailed:Boolean = false; // Has the player failed?
 		
 		private var hasLoaded:Boolean = false;
 		
@@ -156,15 +156,15 @@ package
 					
 					if (word.charAt(0) == "@") { // The current word has a possible substitution
 						if (word.charAt(1) == "" + replaceIndex) { // Replace the current word with the first substitution
-							text = new SpellText(x, y, FlxG.width, misspellings[replaceIndex - 1].substring(1), true, word.substring(2));
+							text = new SpellText(this, x, y, FlxG.width, misspellings[replaceIndex - 1].substring(1), true, word.substring(2));
 						} else if (word.charAt(1) == "" + replaceIndex2) { // Replace the current word with the second substitution
-							text = new SpellText(x, y, FlxG.width, misspellings[replaceIndex2 - 1].substring(1), true, word.substring(2));
+							text = new SpellText(this, x, y, FlxG.width, misspellings[replaceIndex2 - 1].substring(1), true, word.substring(2));
 						} else { // Don't repalce the word, just trim the "@" part of it
 							word = word.substring(2);
-							text = new SpellText(x, y, FlxG.width, word);
+							text = new SpellText(this, x, y, FlxG.width, word);
 						}
 					} else { // The current word has no possible substitution
-						text = new SpellText(x, y, FlxG.width, word);
+						text = new SpellText(this, x, y, FlxG.width, word);
 					}
 					
 					text.size = TEXT_SIZE;

@@ -164,7 +164,7 @@ package  {
 				} else if (FlxU.ceil(totalTime) < 0) {
 					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
-					if (Registry.pool.length == 0) {
+					if (Registry.pool.length == 0 && Registry.failures != 0) {
 						FlxG.switchState(new TitleAwardState());
 					} else {
 						FlxG.switchState(new PlayState());

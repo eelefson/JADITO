@@ -143,13 +143,16 @@ package {
 			failuresRemaining = new DictatorDictionText(30, 130, 300, "Failures Remaining: ");
 			numberOfFailsRemaining = new FlxText(30, 130, 50, Registry.failures.toString());
 			if (Registry.failedMostRecentMinigame) {
-				failuresRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
-				numberOfFailsRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
 				if (Registry.playCurrentDay) {
+					failuresRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
+					numberOfFailsRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
 					failuresRemaining.visible = false;
 					numberOfFailsRemaining.visible = false;
 					blinkFailures();
 					setInterval(blinkFailures, 500);
+				} else {
+					failuresRemaining.setFormat("Typewriter", 28, 0xff000000);
+					numberOfFailsRemaining.setFormat("Typewriter", 28, 0xff000000);
 				}
 				Registry.failedMostRecentMinigame = false;
 			} else {

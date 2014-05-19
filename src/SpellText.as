@@ -8,9 +8,12 @@ package
 		public var misspelled:Boolean;
 		public var correct:String;
 		
-		public function SpellText(X:Number, Y:Number, Width:uint, Text:String=null, Miss:Boolean=false, C:String="")
+		public var minigame_super:Spellchecker;
+		
+		public function SpellText(sup:Spellchecker, X:Number, Y:Number, Width:uint, Text:String=null, Miss:Boolean=false, C:String="")
 		{
 			super(X, Y, Width, Text);
+			minigame_super = sup;
 			correct = C;
 			misspelled = Miss;
 		}
@@ -26,11 +29,11 @@ package
 					
 					if (misspelled) {
 						this.text = correct;
-						this.size = Spellchecker.TEXT_SIZE - 5;
+						this.size = minigame_super.TEXT_SIZE - 5;
 						this.color = 0x00009933;
-						Spellchecker.numTypos--;
+						minigame_super.numTypos--;
 					} else {
-						Spellchecker.hasFailed = true;
+						minigame_super.hasFailed = true;
 					}
 					
 				}
@@ -52,7 +55,7 @@ package
 					
 				}*/
 			
-				if (Spellchecker.hasFailed) {
+				if (minigame_super.hasFailed) {
 					if (misspelled) {
 						this.color = 0x00FF0000;
 					} else {
