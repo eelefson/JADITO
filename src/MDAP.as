@@ -7,7 +7,6 @@ package {
 	 * @author Connor
 	 */
 	public class MDAP extends MinigameState {
-		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/crayon_dot.png")] private var DotImage:Class;
 		[Embed(source = "image_assets/CrayonRed.png")] private var crayon:Class;
 		[Embed(source = "image_assets/drawing1.png")] private var drawing1:Class;

@@ -19,6 +19,7 @@ package
 		public var numTypos:int; // Number of typos left to find
 		public var typoCounter:FlxText; // Counter for typos left
 		public var hasFailed:Boolean = false; // Has the player failed?
+		public var textGroup:FlxGroup;
 		
 		private var hasLoaded:Boolean = false;
 		
@@ -48,6 +49,7 @@ package
 			typoCounter.color = 0xff000000;
 			add(typoCounter);
 			
+			textGroup = new FlxGroup();
 			//loadParagraph();
 			
 			super.create();
@@ -69,7 +71,7 @@ package
 		override public function update():void
 		{
 			super.update();
-	
+			
 			if (numTypos <= 0) { // The user has won! Wait a few moments to continue
 				ticks++;
 				if (ticks == 20) { // Enough time has passed, end the game!
@@ -81,9 +83,16 @@ package
 					super.success = true;
 				}
 			}
-			
-			if (super.timer.hasExpired && !super.success && !FlxG.paused) {
-				hasFailed = true;
+
+			if (super.timer.hasExpired && !super.success) {
+				for (var i:int = 0; i < textGroup.length; i++) {
+					var curr:SpellText = textGroup.members[i];
+					if (curr.misspelled) {
+						curr.color = 0x00FF0000;
+					} else {
+						curr.text = "";
+					}
+				}
 			}
 			
 			if (hasFailed) { // The user has failed!
@@ -152,8 +161,6 @@ package
 					var word:String = paragraph[i];
 					var text:SpellText;
 					
-					//trace(word);
-					
 					if (word.charAt(0) == "@") { // The current word has a possible substitution
 						if (word.charAt(1) == "" + replaceIndex) { // Replace the current word with the first substitution
 							text = new SpellText(this, x, y, FlxG.width, misspellings[replaceIndex - 1].substring(1), true, word.substring(2));
@@ -168,6 +175,7 @@ package
 					}
 					
 					text.size = TEXT_SIZE;
+					//text.font = "Typewriter";
 					
 					if (x + text.getRealWidth() > FlxG.width - TEXT_MARGIN) {
 						text.x = TEXT_MARGIN;
@@ -176,6 +184,7 @@ package
 					} 
 					x += text.getRealWidth() + SPACE_SIZE;
 					
+					textGroup.add(text);
 					add(text);
 				}
 			}

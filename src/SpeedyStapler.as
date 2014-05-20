@@ -8,7 +8,6 @@ package {
 	 */
 	public class SpeedyStapler extends MinigameState {
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
-		[Embed(source = "sound_assets/startup.mp3")] private var Startup:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		

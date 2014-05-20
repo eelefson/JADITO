@@ -38,6 +38,13 @@ package
 					
 				}
 				
+			if (FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height && this.text != correct && !minigame_super.hasFailed) {
+					this.color = 0xFFFFFFFF;
+				} else if (this.text != correct && !minigame_super.hasFailed) {
+					this.color = 0xFF000000;
+				}
+				
 				/*if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
 				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height && misspelled) {
 					corrected = true;
@@ -54,7 +61,7 @@ package
 					trace(this.text + " " + misspelled);
 					
 				}*/
-			
+
 				if (minigame_super.hasFailed) {
 					if (misspelled) {
 						this.color = 0x00FF0000;

@@ -44,7 +44,8 @@ package  {
 			water_cooler_graphic.y = water_cooler_graphic.y - (water_cooler_graphic.height / 2);
 			add(water_cooler_graphic);
 			
-			cup_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, CupImage);
+			cup_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
+			cup_graphic.loadGraphic(CupImage, false, false, 40);
 			cup_graphic.x = cup_graphic.x - (cup_graphic.width / 2);
 			cup_graphic.y = cup_graphic.y - (cup_graphic.height / 2) + 110;
 			add(cup_graphic);
@@ -113,6 +114,13 @@ package  {
 				} else if (curPosition == 15) {
 					increasing = false;
 				}
+				
+				if (FlxG.mouse.screenX >= cup_graphic.x && FlxG.mouse.screenX <= cup_graphic.x + cup_graphic.width &&
+					FlxG.mouse.screenY >= cup_graphic.y && FlxG.mouse.screenY <= cup_graphic.y + cup_graphic.height) {
+						cup_graphic.frame = 1;
+					} else {
+						cup_graphic.frame = 0;
+					}
 				
 				if (delay.hasExpired) {
 					if (increasing) {
