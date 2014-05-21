@@ -25,7 +25,6 @@ package {
 		private var drawing:FlxSprite;
 		
 		private var dotsLeft:FlxText;
-		//private var command:FlxText;
 		private var question:FlxText;
 		
 		private var b1:FlxButton;
@@ -63,16 +62,14 @@ package {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
 			}
-			
-			//FlxG.play(Startup);
-			
-			FlxG.mouse.show();
+						
+			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
 			
 			gameOver = false;
 			
 			difficulty = Registry.difficultyLevel;
-			dots = 7 + 5 * difficulty;
+			dots = 7 + 6 * difficulty;
 			words = 20 + 10 * difficulty;
 			var seconds:int = 10 + 5 * difficulty;
 			
@@ -157,21 +154,21 @@ package {
 			
 			// Eli added for line draw
 			ballGroup = new FlxGroup();
-			crayon_graphic.enableMouseDrag();
-			crayon_graphic.x = crayon_graphic.x + 16;
-			crayon_graphic.y = crayon_graphic.y - crayon_graphic.height - 16;
+			crayon_graphic.x = FlxG.width / 2;
+			crayon_graphic.y = FlxG.height / 2;
 			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
-			previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
+			crayon_graphic.offset.y = crayon_graphic.height;
+			previousPoint = new FlxPoint(-100, -100);
 			add(ballGroup);
 			add(crayon_graphic);
 			
-			dragMeText = new FlxText(crayon_graphic.x, crayon_graphic.y, 100, "Drag me!");
-			dragMeText.y = dragMeText.y - dragMeText.height - 10;
-			dragMeText.setFormat(null, 16, 0xff000000);
-			dragMeText.visible = false;
-			blinkText();
-			intervalID = setInterval(blinkText, 500);
-			add(dragMeText);
+			//dragMeText = new FlxText(crayon_graphic.x, crayon_graphic.y, 100, "Drag me!");
+			//dragMeText.y = dragMeText.y - dragMeText.height - 10;
+			//dragMeText.setFormat(null, 16, 0xff000000);
+			//dragMeText.visible = false;
+			//blinkText();
+			//intervalID = setInterval(blinkText, 500);
+			//add(dragMeText);
 			
 			add(dotsLeft);
 			add(dot);
@@ -189,28 +186,26 @@ package {
 		
 		override public function update():void {
 			super.update();
-			
-			FlxG.collide(super.walls, crayon_graphic);
-			
-			dot_graphic.x = crayon_graphic.x;
-			dot_graphic.y = crayon_graphic.y + crayon_graphic.height;
-
-			if (crayon_graphic.isDragged) {
-				clearInterval(intervalID);
-				dragMeText.visible = false;
-				var line:FlxSprite = new FlxSprite();
-				line.makeGraphic(640, 480, 0x00000000);
-				line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
-				ballGroup.add(line);
+			if(!FlxG.paused) {
+				dot_graphic.x = FlxG.mouse.screenX;
+				dot_graphic.y = FlxG.mouse.screenY;
+				crayon_graphic.x = FlxG.mouse.screenX;
+				crayon_graphic.y = FlxG.mouse.screenY;
+				if (previousPoint.x != -100 && previousPoint.y != -100) {
+					var line:FlxSprite = new FlxSprite();
+					line.makeGraphic(640, 480, 0x00000000);
+					line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
+					ballGroup.add(line);
+				}
 				if (ballGroup.length > 3) {
 					ballGroup.getFirstAlive().kill();
 				}
 					
 				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
-			}
-			
-			if (FlxG.overlap(dot_graphic, dot)) {
-				moveDot();
+				
+				if (FlxG.overlap(dot_graphic, dot)) {
+					moveDot();
+				}
 			}
 		}
 		
@@ -260,24 +255,24 @@ package {
 			var temp:FlxText
 			if (Math.random() >= .5) {
 				temp = new FlxText(0, 0, FlxG.width, word);
-				temp.velocity.y = 100 + 20*difficulty;
+				temp.velocity.y = 100 + (Math.random() * 25*difficulty);
 			}else {
 				temp = new FlxText(0, FlxG.height - 20, 200, word);
-				temp.velocity.y = -100 - 20*difficulty;
+				temp.velocity.y = -100 - (Math.random() * 25*difficulty);
 			}
 			temp.setFormat(null, 16, 0);
-			temp.velocity.x = 130 + 30*difficulty;
+			temp.velocity.x = 130 + (Math.random() *40*difficulty);
 			add(temp);
 		}
 		
 		public function bossQuestion():void {
-			crayon_graphic.disableMouseDrag();
 			remove(crayon_graphic);
 			remove(dot_graphic);
 			ballGroup.kill();
 			super.timer.reset(6000);
 			
 			remove(drawing);
+			FlxG.mouse.show();
 			
 			finalQuestion = true;
 			dot.visible = false;
