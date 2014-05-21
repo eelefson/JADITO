@@ -176,8 +176,18 @@ package
 				textGroup.remove(curr);
 			}
 			
-			var textBlock:String = papers.shift();
-			currPaperAnswer = textBlock.charAt(0) == "Y"; 
+			var textBlock:String;
+			if (level == 0 && numAnswered == 0) {
+				textBlock = "  If you sign here, we will @give @you @$30,000 right away.";
+				currPaperAnswer = true;
+			} else if (level == 0 && numAnswered == 1) {
+				textBlock = "  Our services will @cost @you @$10,000.";
+				currPaperAnswer = false;
+			} else {
+				textBlock = papers.shift();
+				currPaperAnswer = textBlock.charAt(0) == "Y"; 
+			}
+			
 			var paragraph:Array = textBlock.substring(2).split(" ");
 			
 			var x:int = TEXT_MARGIN;
