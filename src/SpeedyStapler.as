@@ -20,9 +20,7 @@ package {
 		private var stapleGroup:FlxGroup;
 		private var tempPaperGroup:FlxGroup;
 		private var lives:FlxGroup;
-		
-		private var stapleMoving:Boolean;
-		
+				
 		override public function create():void {
 			//FlxG.play(Startup);
 			
@@ -70,9 +68,7 @@ package {
 			
 			stapleGroup = new FlxGroup(staples);
 			add(stapleGroup);
-			
-			stapleMoving = false;
-			
+						
 			super.create();
 			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
@@ -108,7 +104,6 @@ package {
 				}
 			} else {
 				paperGroup.update();
-				stapleGroup.update();
 			}
 			super.update();
 		}
@@ -129,7 +124,6 @@ package {
 			
 			tempPaperGroup.remove(tempPaper, true);
 			tempPaper.stapled();
-			stapleMoving = false;
 		}
 	}
 
