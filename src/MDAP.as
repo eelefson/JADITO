@@ -101,7 +101,7 @@ package {
 			//":(", "That is bad!", "You will never make it!" ];
 			haze = 0;
 			
-			praisePhrases = ["Nice job!"];
+			praisePhrases = ["Good job!"];
 			
 			//[ "Nice job!", "Hang in there!", "That looks really good!", "You are my hero!", "Nice artwork!",
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
