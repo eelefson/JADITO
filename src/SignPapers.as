@@ -41,7 +41,7 @@ package
 			
 			gameOver = false;
 			
-			level = Registry.difficultyLevel;
+			level = 3;
 			
 			papers = new Array();
 			
@@ -136,10 +136,20 @@ package
 		
 		public function updateText():void
 		{
-			var text:String = papers.shift();
+			var text:String;
+			if (level == 0 && numAnswered == 0) {
+				text = "If you sign here, we will GIVE YOU the $30,000 immediately.";
+				currPaperAnswer = true;
+			} else if (level == 0 && numAnswered == 1) {
+				text = "Our SERVICE FEE is a mere $50";
+				currPaperAnswer = false;
+			} else {
+				text = papers.shift();
+				currPaperAnswer = text.charAt(0) == "Y";
+				text = text.substring(2);
+			}
 			currPaperText.color = 0x00000000;
-			currPaperText.text = text.substring(2);
-			currPaperAnswer = text.charAt(0) == "Y";
+			currPaperText.text = text;
 		}
 		
 		public function pass():void

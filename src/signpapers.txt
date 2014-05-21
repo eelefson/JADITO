@@ -6,7 +6,6 @@
 0 N Please pay the required $100.
 0 N In the end, you will owe $25,000.
 0 N We are asking for a payment of $40 / month.
-0 N Our service fee is a mere $50.
 
 1 Y We would like to make a large donation.
 1 Y The money will go directly into your bank account.
