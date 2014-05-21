@@ -219,7 +219,7 @@ package
 				x += text.getRealWidth() + SPACE_SIZE;
 
 				textGroup.add(text);
-				add(text);
+				add(textGroup);
 			}
 		}
 		
