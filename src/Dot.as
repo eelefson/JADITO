@@ -37,8 +37,8 @@ package
 		}
 		
 		public function move():void {
-			this.x =  FlxU.round(Math.random() * (FlxG.width - this.width - 83));
-			this.y = FlxU.round(Math.random() * (FlxG.height - (25 * 2 + this.height + 114 + 24)) + 25 + 114);
+			this.x =  FlxU.round(Math.random() * (FlxG.width - this.width));
+			this.y = FlxU.round(Math.random() * (FlxG.height - (25 * 2 + this.height)) + 25);
 			
 			//this.reset(x, y);
 		}
