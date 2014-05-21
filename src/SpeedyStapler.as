@@ -8,10 +8,10 @@ package {
 	 */
 	public class SpeedyStapler extends MinigameState {
 		[Embed(source = "image_assets/staple.png")] private var staple:Class;
+		[Embed(source = "image_assets/staple_large.png")] private var largeStaple:Class;
 		[Embed(source = "image_assets/Staplersmall.png")] private var staplerImg:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
-		private var staplesLeft:FlxText;
 		private var midLine:FlxSprite;
 		
 		private var staples:int;
@@ -19,6 +19,7 @@ package {
 		private var paperGroup:FlxGroup;
 		private var stapleGroup:FlxGroup;
 		private var tempPaperGroup:FlxGroup;
+		private var lives:FlxGroup;
 		
 		private var stapleMoving:Boolean;
 		
@@ -44,9 +45,14 @@ package {
 			midLine.drawLine(FlxG.width / 2, 30, FlxG.width / 2, FlxG.height, 0xaaaaaa);
 			add(midLine);
 			
-			staplesLeft = new FlxText(0, 25, FlxG.width, "Staples left: " + staples.toString());
-			staplesLeft.setFormat(null, 32, 0, "right");
-			add(staplesLeft);
+			lives = new FlxGroup(staples);
+			var largeStapleWidth:int = 40;
+			for (var i:int = staples; i > 0; i--) {
+				var life:FlxSprite = new FlxSprite(FlxG.width - (largeStapleWidth + 10) * i, 30, largeStaple);
+				lives.add(life);
+			}
+			add(lives);
+
 			
 			var stapler:FlxSprite = new FlxSprite(FlxG.width / 2 - 23, 25);
 			stapler.loadGraphic(staplerImg);
@@ -55,7 +61,7 @@ package {
 			
 			tempPaperGroup = new FlxGroup();
 			paperGroup = new FlxGroup(papersLeft);
-			for (var i:int = 0; i < papersLeft; i++) {
+			for (i = 0; i < papersLeft; i++) {
 				var paper:StaplerPaper = new StaplerPaper();
 				add(paper);
 				paperGroup.add(paper);
@@ -80,7 +86,7 @@ package {
 				if (FlxG.mouse.justPressed() && staples > 0 && !FlxG.paused) {
 					stapleGroup.add(new Staple());
 					staples--;
-					staplesLeft.text = "Staples left: " + staples.toString();
+					lives.getFirstAlive().kill();
 				}
 				FlxG.overlap(stapleGroup, tempPaperGroup, staplePaper);
 				if (tempPaperGroup.length == 0) {
