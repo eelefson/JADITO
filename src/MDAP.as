@@ -42,7 +42,6 @@ package {
 		
 		private var color:uint;
 		
-		private var finalQuestion:Boolean;
 		private var correctAnswer:FlxButton;
 		
 		private var lastX:int;
@@ -72,9 +71,7 @@ package {
 			dots = 7 + 6 * difficulty;
 			words = 20 + 10 * difficulty;
 			var seconds:int = 10 + 5 * difficulty;
-			
-			finalQuestion = false;
-			
+						
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
@@ -274,7 +271,6 @@ package {
 			remove(drawing);
 			FlxG.mouse.show();
 			
-			finalQuestion = true;
 			dot.visible = false;
 			dotsLeft.visible = false;
 			sketchpad.visible = false;
