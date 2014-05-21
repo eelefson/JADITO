@@ -11,6 +11,13 @@ package
 	{
 		public static var level:Number; // The level of the game's difficulty
 		
+		public var TEXT_SIZE:int = 25; // Size of text
+		public var SPACE_SIZE:int = 10; // Size of spaces
+		public var LINE_SPACING:int = 30; // Space between lines
+		public var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
+		
+		public var textGroup:FlxGroup;
+		
 		private var papers:Array; // An array containing all of then valid papers to sign for the current level
 		private var seenPapers:Array; // An array of paper indexes that have already been seen
 		
@@ -39,20 +46,27 @@ package
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
+			textGroup = new FlxGroup();
+			
 			gameOver = false;
 			
-			level = 3;
+			level = Registry.difficultyLevel;
 			
 			papers = new Array();
 			
 			currPaperText = new FlxText(FlxG.width / 8, FlxG.height / 4, 3 * (FlxG.width / 4));
 			currPaperText.font = "Arial";
+			currPaperText.size = 40;
+			currPaperText.color = 0xFF000000;
 			if (level == 0) {
-				currPaperText.size = 40;
+				TEXT_SIZE = 40;
+				LINE_SPACING = 45;
 			} else if (level == 1) {
-				currPaperText.size = 35;
+				TEXT_SIZE = 35;
+				LINE_SPACING = 40;
 			} else {
-				currPaperText.size = 23;
+				TEXT_SIZE = 23;
+				SPACE_SIZE = 6;
 				currPaperText.y -= 40;
 			}
 			add(currPaperText);
@@ -109,6 +123,11 @@ package
 								}
 								gameOver = true;
 								super.success = true;
+								for (var i:int = 0; i < textGroup.length; i++) {
+									var curr:SignText = textGroup.members[i];
+									remove(curr);
+									textGroup.remove(curr);
+								}
 								currPaperText.text = "Good work!";
 								numLeft.text = "0";
 							} else {
@@ -136,7 +155,7 @@ package
 		
 		public function updateText():void
 		{
-			var text:String;
+			/*var text:String;
 			if (level == 0 && numAnswered == 0) {
 				text = "If you sign here, we will GIVE YOU the $30,000 immediately.";
 				currPaperAnswer = true;
@@ -149,7 +168,49 @@ package
 				text = text.substring(2);
 			}
 			currPaperText.color = 0x00000000;
-			currPaperText.text = text;
+			currPaperText.text = text;*/
+			
+			for (var i:int = 0; i < textGroup.length; i++) {
+				var curr:SignText = textGroup.members[i];
+				remove(curr);
+				textGroup.remove(curr);
+			}
+			
+			var textBlock:String = papers.shift();
+			currPaperAnswer = textBlock.charAt(0) == "Y"; 
+			var paragraph:Array = textBlock.substring(2).split(" ");
+			
+			var x:int = TEXT_MARGIN;
+			var y:int = TEXT_MARGIN;
+			
+			// Print each word
+			for (var j:int; j < paragraph.length; j++) {
+				var word:String = paragraph[j];
+				var text:SignText = new SignText(x, y, FlxG.width / 2);
+				
+				text.size = TEXT_SIZE;
+				text.font = "Arial";
+				if (level == 0 && word.charAt(0) == '@' && currPaperAnswer) {
+					text.color = 0xFF336600;
+					text.text = word.substring(1);
+				} else if (level == 0 && word.charAt(0) == '@' && !currPaperAnswer) {
+					text.color = 0xFFFF0000;
+					text.text = word.substring(1);
+				} else {
+					text.color = 0xFF000000;
+					text.text = word;
+				}
+				
+				if (x + text.getRealWidth() > FlxG.width - TEXT_MARGIN) {
+					text.x = TEXT_MARGIN;
+					text.y = y = y + LINE_SPACING;
+					x = TEXT_MARGIN;
+				} 
+				x += text.getRealWidth() + SPACE_SIZE;
+
+				textGroup.add(text);
+				add(text);
+			}
 		}
 		
 		public function pass():void
@@ -165,6 +226,11 @@ package
 					gameOver = true;
 					super.success = true;
 					currPaperText.text = "Good work!";
+					for (var i:int = 0; i < textGroup.length; i++) {
+						var curr:SignText = textGroup.members[i];
+						remove(curr);
+						textGroup.remove(curr);
+					}
 					numLeft.text = "0";
 				} else {
 					updateText();

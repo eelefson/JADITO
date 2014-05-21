@@ -1,11 +1,11 @@
-0 Y Therefore, we would like to give $50,000.
-0 Y The $15,000 will be given to you as soon as you sign.
-0 Y The net gain is $35,000.
-0 Y We would be delighted to pay as much as $500.
-0 N It will cost you $1.
-0 N Please pay the required $100.
-0 N In the end, you will owe $25,000.
-0 N We are asking for a payment of $40 / month.
+0 Y Therefore, we would like to @give @$50,000.
+0 Y The $15,000 will be @given @to @you as soon as you sign.
+0 Y The @net @gain is $35,000.
+0 Y We would be @delighted @to @pay as much as $500.
+0 N It will @cost @you @$1.
+0 N @Please @pay the required $100.
+0 N In the end, @you @will @owe @$25,000.
+0 N We are asking for a @payment @of @$40 / month.
 
 1 Y We would like to make a large donation.
 1 Y The money will go directly into your bank account.
