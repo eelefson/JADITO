@@ -23,7 +23,7 @@ package {
 			FlxG.mouse.show();
 			
 			level = Registry.difficultyLevel;
-			gameOver = true;
+			gameOver = false;
 			
 			var inBasket:FlxSprite = new FlxSprite(55, 28);
 			inBasket.loadGraphic(inBasketImg);
