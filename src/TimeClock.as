@@ -82,7 +82,7 @@ package {
 			// Place all the sprites
 			
 			var x:int = (FlxG.width / 2) - ((5 * NUM_WIDTH + 5 * DIST_BETWEEN_DIGITS) / 2) - (COLON_WIDTH);
-			var y:int = (FlxG.height / 2) - (NUM_HEIGHT / 2) - 50 + 100;
+			var y:int = (FlxG.height / 2) - (NUM_HEIGHT / 2);
 			
 			hrsall = new FlxSprite();
 			hrsall.x = x;
@@ -129,7 +129,7 @@ package {
 			
 			changeImages();
 			
-			stopButton = new FlxButtonPlus(50, FlxG.height - 100, stopClock, null, "STOP!", 200, 40);
+			stopButton = new FlxButtonPlus(50, FlxG.height - 130, stopClock, null, "STOP!", 200, 40);
 			stopButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			stopButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			stopButton.screenCenter();

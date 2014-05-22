@@ -23,6 +23,7 @@ package  {
 		private var white_cursor_graphic:FlxSprite;
 		private var red_cursor_graphic:FlxSprite;
 		private var green_cursor_graphic:FlxSprite;
+		private var button:FlxButtonPlus;
 		
 		private var curPosition:int;
 		private var increasing:Boolean;
@@ -41,13 +42,13 @@ package  {
 			
 			water_cooler_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, WaterCoolerImage);
 			water_cooler_graphic.x = water_cooler_graphic.x - (water_cooler_graphic.width / 2);
-			water_cooler_graphic.y = water_cooler_graphic.y - (water_cooler_graphic.height / 2);
+			water_cooler_graphic.y = water_cooler_graphic.y - (water_cooler_graphic.height / 2) - 8;
 			add(water_cooler_graphic);
 			
 			cup_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
 			cup_graphic.loadGraphic(CupImage, false, false, 40);
 			cup_graphic.x = cup_graphic.x - (cup_graphic.width / 2);
-			cup_graphic.y = cup_graphic.y - (cup_graphic.height / 2) + 110;
+			cup_graphic.y = cup_graphic.y - (cup_graphic.height / 2) + 100;
 			add(cup_graphic);
 			
 			if (Registry.difficultyLevel == 0) {
@@ -66,8 +67,16 @@ package  {
 				gauge_graphic = new FlxSprite(FlxG.width / 2, (FlxG.height / 2) + 155, LevelThreeGauge);
 			}
 			gauge_graphic.x = gauge_graphic.x - (gauge_graphic.width / 2);
-			gauge_graphic.y = gauge_graphic.y - (gauge_graphic.height / 2);
+			gauge_graphic.y = gauge_graphic.y - (gauge_graphic.height / 2) - 12;
 			add(gauge_graphic);
+			
+			button = new FlxButtonPlus(50, FlxG.height - 75, clicked, null, "STOP!", 200, 40);
+			button.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
+			button.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
+			button.screenCenter();
+			button.textNormal.size = 30;
+			button.textHighlight.size = 30;
+			add(button);
 			
 			if (Registry.difficultyLevel == 3) {
 				successStartPosition = FlxU.floor(Math.random() * 15);
@@ -138,29 +147,31 @@ package  {
 				if (curPosition > successStartPosition && curPosition < successEndPosition) {
 					red_cursor_graphic.visible = false;
 					white_cursor_graphic.visible = true;
-					if (FlxG.mouse.justPressed()) {
-						if(!gameOver){
-							var data1:Object = { "completed":"success" };
-							Registry.loggingControl.logLevelEnd(data1);
-						}
-						gameOver = true;
-						super.success = true;
-					}
 				} else {
 					red_cursor_graphic.visible = true;
 					white_cursor_graphic.visible = false;
-					if (FlxG.mouse.justPressed()) {
-						if(!gameOver){
-							var data2:Object = { "completed":"failure" };
-							Registry.loggingControl.logLevelEnd(data2);
-						} 
-						gameOver = true;
-						super.success = false;
-						super.timer.abort();
-					}
 				}
 			}
 			
+		}
+		
+		public function clicked():void {
+			if (curPosition > successStartPosition && curPosition < successEndPosition) {
+				if(!gameOver){
+					var data1:Object = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
+				super.success = true;
+			} else {
+				if(!gameOver){
+					var data2:Object = { "completed":"failure" };
+					Registry.loggingControl.logLevelEnd(data2);
+				} 
+				gameOver = true;
+				super.success = false;
+				super.timer.abort();
+			}
 		}
 		
 		public function timeout():void {
