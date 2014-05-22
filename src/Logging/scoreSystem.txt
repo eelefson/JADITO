@@ -1,0 +1,22 @@
+Points = (level + 1) * 100
+
+Monday: 6 games at level 0 (600)
+Tuesday: 4 games at level 0, 2 at level 1 (800)
+Wednesday: 6 games at level 1 (1200)
+Thursday: 2 at level 1, 4 at level 2 (1600)
+Friday: 6 at level 2 (1800)
+Saturday: all 10 at level 3 (4000)
+
+200
+700
+1500
+2900
+4400
+8000
+
+Options:
+Partial Scoring for completing most of the objective.
+Bonus points - finish with time left, getting it exactly or really close to 8:00, swish shots in brainstormer, etc
+	- Will need to cut after each minigame to show how they are getting the points, not just a random +120 instead of +100
+	
+Would need to raise the point thresholds if either of these options are used.
