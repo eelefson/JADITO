@@ -167,7 +167,7 @@ package
 			}
 			super.timer.callback = timeout;
 			var data3:Object = { "difficulty":difficulty };
-			Registry.loggingControl.logLevelStart(1, null);
+			Registry.loggingControl.logLevelStart(1, data3);
 		}
 		
 		override public function update():void {
