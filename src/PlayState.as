@@ -143,10 +143,6 @@ package {
 			underline.makeGraphic(toDoText.getRealWidth(), 1, 0xff000000);
 			add(underline);
 			
-			if (Registry.failures == 0) {
-				FlxG.switchState(new LoseState());
-			}
-			
 			YourScoreText = new DictatorDictionText(70, 113, 300, "Your Score:  ");
 			var prevoiusScore:int;
 			if (!Registry.failedMostRecentMinigame && Registry.playCurrentDay) {
