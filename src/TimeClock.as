@@ -150,7 +150,7 @@ package {
 			/*if (FlxG.mouse.justReleased()) {
 				stopClock();
 			}*/
-			if (ticks % mod == 0 && !stopped && !FlxG.paused) {
+			if (ticks % mod == 0 && !stopped && !FlxG.paused && !super.timer.hasExpired) {
 				
 				if (level == 0 || level == 1) {
 					secs++;
