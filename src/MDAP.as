@@ -266,7 +266,7 @@ package {
 			remove(crayon_graphic);
 			remove(dot_graphic);
 			ballGroup.kill();
-			super.timer.reset(6000);
+			super.resetTimer(6000);
 			
 			remove(drawing);
 			FlxG.mouse.show();

@@ -43,6 +43,8 @@ package  {
 		private var pauseMenu:PauseMenu = new PauseMenu(0, 0);
 		
 		private var timeRemaining:Number;
+		private var timeLeftBar:FlxTileblock;
+		private var startingTime:Number = 0;
 		
 		private var goText:BorderedText;
 		
@@ -74,11 +76,14 @@ package  {
 			walls.add(topWall);
 			
 			bottomWall = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
-			bottomWall.makeGraphic(FlxG.width, 25, 0xff000000);
+			bottomWall.makeGraphic(FlxG.width, 25, 0xFFFF0000);
 			bottomWall.immovable = true;
 			bottomWall.elasticity = 0;
 			bottomWall.solid = true;
 			walls.add(bottomWall);
+			
+			timeLeftBar = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
+			timeLeftBar.makeGraphic(FlxG.width, 25, 0xFF00CC00);
 			
 			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
 			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
@@ -95,7 +100,7 @@ package  {
 			walls.add(rightWall);
 			
 			add(walls);
-			
+			add(timeLeftBar);
 			/*skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
 			skipButton.x = skipButton.x - skipButton.width;
 			skipButton.y = skipButton.y - skipButton.height;
@@ -124,8 +129,11 @@ package  {
 				super.update();
 				if (!timer.hasExpired) {
 					timerText.text = "Time left: " + timer.secondsRemaining.toString();
+					if (startingTime == 0) {
+						startingTime = timer.secondsRemaining;
+					}
+					timeLeftBar.scale.x = timer.secondsRemaining / startingTime;
 				}
-				
 				if (timeRemaining > 0) {
 					FlxG.paused = true;
 				}
@@ -295,8 +303,19 @@ package  {
 			add(timerText);
 			// +3 for end time, +5 for start time
 			totalTime = runFor + 1 + 2 + 5;
-			
 			timer.start();
+		}
+		
+		protected function resetTimer(runFor:int):void {
+			timer.reset(6000);
+			startingTime = timer.secondsRemaining;
+			timeLeftBar.scale.x = 1;
+		}
+		
+		protected function disableTimer():void {
+			remove(timeLeftBar);
+			timer.visible = false;
+			bottomWall.color = 0xFF000000;
 		}
 		
 		protected function setCommandText(command:String):void {
