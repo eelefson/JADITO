@@ -103,6 +103,7 @@ package {
 					super.timer.abort();
 				}
 			} else {
+				stapleGroup.update();
 				paperGroup.update();
 			}
 			super.update();

@@ -18,6 +18,7 @@ package {
 		[Embed(source = "sound_assets/begin_game.mp3")] private var BeginSFX:Class;
 		[Embed(source = "sound_assets/are-you-ready.mp3")] private var AreYouReadySFX:Class;
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+		[Embed(source = "font_assets/pricedown bl.ttf", fontFamily = "Score", embedAsCFF = "false")] private var ScoreFont:String;
 		[Embed(source = "image_assets/computerStart2.png")] private var ComputerTextImage:Class;
 		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
 		
@@ -37,8 +38,13 @@ package {
 		
 		private var beginDayText:BorderedText;
 		
-		private var failuresRemaining:DictatorDictionText;
-		private var numberOfFailsRemaining:FlxText;
+		private var YourScoreText:DictatorDictionText;
+		private var YourScore:DictatorDictionText;
+		
+		private var OtherScoreText:DictatorDictionText;
+		private var OtherScore:DictatorDictionText;
+		
+		private var ScoreReward:DictatorDictionText;
 		
 		private var zoomCam:ZoomCamera;
 		
@@ -69,6 +75,13 @@ package {
 		private var blink2:Boolean = true;
 		private var blink3:Boolean = true;
 		
+		private var computerScreenInterval:uint;
+		
+		private var timeRemaining:Number;
+		private var scoreXDistance:Number;
+		private var scoreYDistance:Number;
+		private var scoreIncrement:int;
+		
 		override public function create():void {
 			var i:int;
 			
@@ -88,7 +101,7 @@ package {
 				Registry.playCurrentDay = false;
 				var s:int;
 				if (Registry.day == DaysOfTheWeek.SATURDAY) {
-					for (i = 0; i < 10; i++) { //TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
+					for (i = 0; i < 10; i++) {
 						Registry.taskStatuses[i] = TaskStatuses.EMPTY;
 					}
 				} else {
@@ -106,17 +119,11 @@ package {
 				computerScreenText.visible = false;
 				add(computerScreenText);
 				blinkSprite();
-				setInterval(blinkSprite, 1000);
+				computerScreenInterval = setInterval(blinkSprite, 1000);
 				
 				computer_screen_graphic = new FlxButton(365, 51, null, clickBeginButton);
 				computer_screen_graphic.loadGraphic(ComputerScreenImage);
 				add(computer_screen_graphic);
-				
-				/*begin_day_button = new FlxButton(233, 186, null, clickBeginButton);
-				begin_day_button.loadGraphic(BeginDayButton);
-				begin_day_button.x = 365;
-				begin_day_button.y = 51;
-				add(begin_day_button);*/
 			}
 			
 			var day:int = Registry.day - 1;
@@ -140,33 +147,45 @@ package {
 				FlxG.switchState(new LoseState());
 			}
 			
-			failuresRemaining = new DictatorDictionText(30, 130, 300, "Failures Remaining: ");
-			numberOfFailsRemaining = new FlxText(30, 130, 50, Registry.failures.toString());
-			if (Registry.failedMostRecentMinigame) {
-				if (Registry.playCurrentDay) {
-					failuresRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
-					numberOfFailsRemaining.setFormat("Typewriter", 28, 0xFFFF0000);
-					failuresRemaining.visible = false;
-					numberOfFailsRemaining.visible = false;
-					blinkFailures();
-					setInterval(blinkFailures, 500);
-				} else {
-					failuresRemaining.setFormat("Typewriter", 28, 0xff000000);
-					numberOfFailsRemaining.setFormat("Typewriter", 28, 0xff000000);
-				}
-				Registry.failedMostRecentMinigame = false;
+			YourScoreText = new DictatorDictionText(70, 113, 300, "Your Score:  ");
+			var prevoiusScore:int;
+			if (!Registry.failedMostRecentMinigame && Registry.playCurrentDay) {
+				prevoiusScore = Registry.score - ((Registry.difficultyLevel + 1) * 100);
 			} else {
-				failuresRemaining.setFormat("Typewriter", 28, 0xff000000);
-				numberOfFailsRemaining.setFormat("Typewriter", 28, 0xff000000);
+				prevoiusScore = Registry.score;
 			}
-			numberOfFailsRemaining.x += failuresRemaining.getRealWidth();
-			add(numberOfFailsRemaining);
-			add(failuresRemaining);
+			YourScore = new DictatorDictionText(70, 113, 75, prevoiusScore.toString());
+			
+			OtherScoreText = new DictatorDictionText(70, 148, 300, "BoB's Score: ");
+			OtherScore = new DictatorDictionText(70, 148, 75, Registry.BobScores[Registry.day]);
+			
+			YourScoreText.setFormat("Score", 28, 0xFF000000);
+			YourScore.setFormat("Score", 28, 0xFF000000);
+			OtherScoreText.setFormat("Score", 28, 0xFF000000);
+			OtherScore.setFormat("Score", 28, 0xFF000000);
+			
+			YourScore.x += YourScoreText.getRealWidth();
+			OtherScore.x += OtherScoreText.getRealWidth();
+			
+			if (!Registry.failedMostRecentMinigame && Registry.playCurrentDay) {
+				var points:int = (Registry.difficultyLevel + 1) * 100;
+				ScoreReward = new DictatorDictionText(FlxG.width / 2, FlxG.height / 2, 275, "+" + points.toString());
+				ScoreReward.setFormat("Score", 128, 0xff00C72A, "center", 30);
+				ScoreReward.x = ScoreReward.x - (ScoreReward.width / 2);
+				ScoreReward.y = ScoreReward.y - (ScoreReward.height / 2);
+				add(ScoreReward);
+				scoreXDistance = distanceBetweenPoints(new FlxPoint(YourScore.x + 25, 0), new FlxPoint(ScoreReward.x, 0)) / 40;
+				scoreYDistance = (distanceBetweenPoints(new FlxPoint(0, YourScore.y), new FlxPoint(0, ScoreReward.y)) + 20) / 40;
+				scoreIncrement = 0;
+			}
+			add(YourScore);
+			add(YourScoreText);
+			add(OtherScore);
+			add(OtherScoreText);
 			
 			var x:int;
 			var y:int;
 			var j:int;
-			//Registry.day = DaysOfTheWeek.SATURDAY;
 			if (Registry.day != DaysOfTheWeek.SATURDAY) {
 				x = 95 + 23;
 				y = 257 + 30 + 6;
@@ -230,21 +249,11 @@ package {
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
 			
-			if (Registry.beginningOfDay) {
-				Registry.beginningOfDay = false;
-				beginDayText = new BorderedText(0, FlxG.height, FlxG.width, "Get Ready To Begin!");
-				beginDayText.setFormat(null, 32, 0xffffffff, "center", 30);
-				beginDayText.y = beginDayText.y - beginDayText.height - 35;
-				beginDayText.visible = false;
-				add(beginDayText);
-				blinkText();
-				setInterval(blinkText, 500);
-				FlxG.play(AreYouReadySFX);
+			if (Registry.playCurrentDay) {
+				timeRemaining = 0.5;
+				timer = new FlxDelay(3000);
+				timer.start();
 			}
-			
-			timer = new FlxDelay(3000);
-			//timer = new FlxDelay(2000); changed to speed up testing
-			timer.start();
 			
 			super.create();
 		}
@@ -252,29 +261,6 @@ package {
 		override public function update():void {
 			super.update();
 			var i:int;
-			/*if (Registry.pool.length == 0 || go) {
-				if (!go) {
-					if (Registry.day == DaysOfTheWeek.SATURDAY) {
-						//for (i = 0; i < 10; i++) { TEMPORARY CHANGE, RETURN TO 10 WHEN FULL SET OF MINIGAMES IMPLEMENTED
-						for (i = 0; i < 6; i++) {
-							Registry.taskStatuses[i] = TaskStatuses.EMPTY;
-						}
-					} else {
-						for (i = 0; i < 6; i++) {
-							Registry.taskStatuses[i] = TaskStatuses.EMPTY;
-						}
-					}
-					go = true;
-				}
-				if (timer.hasExpired) {
-					if (Registry.day > DaysOfTheWeek.SATURDAY) {
-						FlxG.switchState(new WinState());
-					} else {
-						generatePool();
-						Registry.day++;
-						FlxG.switchState(new PlayState());
-					}
-				}*/
 			if (Registry.playCurrentDay) {
 				var box:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
 				
@@ -284,14 +270,23 @@ package {
 					yDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(box.x + (box.width / 2), cameraY)) / 40;
 					flag = false;
 				}
-				
+				if (timeRemaining < 0 && !Registry.failedMostRecentMinigame) {
+					if (scoreIncrement != 40) {
+						ScoreReward.x -= scoreXDistance;
+						ScoreReward.y += scoreYDistance;
+						ScoreReward.size -= 2.99;
+						scoreIncrement++;
+					} else if (scoreIncrement == 40) {
+						ScoreReward.visible = false;
+						YourScore.text = Registry.score.toString();
+					}
+				}
 				// Begins panning over to and zooming into the next unfilled black box
 				if (timer.secondsElapsed > 1) {
 					if (playWhoosh) {
 						FlxG.play(WhooshSFX);
 						playWhoosh = false;
 					}
-				//if (timer.secondsElapsed > 1) { CHANGED TO MAKE TESTING FASTER
 					zoomCam.focusOn(new FlxPoint(cameraX, cameraY));
 					if (increment != 40) {
 						cameraX += xDistance;
@@ -309,6 +304,7 @@ package {
 					pickMinigame();
 				}
 			}
+			timeRemaining -= FlxG.elapsed;
 		}
 		
 		private function blinkSprite():void {
@@ -331,26 +327,26 @@ package {
 			}
 		}
 		
-		private function blinkFailures():void {
-			if (blink3) {
-				failuresRemaining.visible = true;
-				numberOfFailsRemaining.visible = true;
-				blink3 = false;
-			} else {
-				failuresRemaining.visible = false;
-				numberOfFailsRemaining.visible = false;
-				blink3 = true;
-			}
-		}
-		
 		public function clickBeginButton():void {
+			computerScreenText.visible = false;
+			computer_screen_graphic.kill();
 			Registry.playCurrentDay = true;
-			Registry.beginningOfDay = true;
 			generatePool();
+			clearInterval(computerScreenInterval);
+			
+			beginDayText = new BorderedText(0, FlxG.height, FlxG.width, "Get Ready To Begin!");
+			beginDayText.setFormat(null, 32, 0xffffffff, "center", 30);
+			beginDayText.y = beginDayText.y - beginDayText.height - 35;
+			beginDayText.visible = false;
+			add(beginDayText);
+			blinkText();
+			setInterval(blinkText, 500);
+			FlxG.play(AreYouReadySFX);
+			
+			timer = new FlxDelay(3000);
+			timer.start();
 			if (Registry.usingWhatDidTheBossSay) {
 				FlxG.switchState(new WhatDidTheBossSayCommand());
-			} else {
-				FlxG.switchState(new PlayState());
 			}
 		}
 		

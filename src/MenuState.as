@@ -28,8 +28,19 @@ package  {
 		public var startingGame:Boolean = false;
 		
 		override public function create():void {
-			
-			//Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 1);
+			// RESET ALL REGISTRY VALUES TO MAKE SURE NOTHING WEIRD HAPPENS
+			Registry.day = 0;
+			Registry.pool = null;
+			Registry.taskStatuses = null;
+			Registry.difficultyLevel = 0;
+			Registry.minigames = null;
+			Registry.playCurrentDay = false;
+			Registry.titles = null;
+			Registry.usingWhatDidTheBossSay = false;
+			Registry.failures = 0;
+			Registry.failedMostRecentMinigame = false;
+			Registry.score = 0;
+			Registry.BobScores = new Array(200, 700, 1500, 2900, 4400, 8000);
 			
 			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);
