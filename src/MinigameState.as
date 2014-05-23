@@ -75,15 +75,15 @@ package  {
 			topWall.solid = true;
 			walls.add(topWall);
 			
-			bottomWall = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
-			bottomWall.makeGraphic(FlxG.width, 25, 0xFFDB4D4D);
+			bottomWall = new FlxTileblock(2, FlxG.height - 25, FlxG.width - 4, 25);
+			bottomWall.makeGraphic(FlxG.width - 4, 25, 0xFF990000);
 			bottomWall.immovable = true;
 			bottomWall.elasticity = 0;
 			bottomWall.solid = true;
 			walls.add(bottomWall);
 			
 			timeLeftBar = new FlxTileblock(2, FlxG.height - 25, FlxG.width - 4, 25);
-			timeLeftBar.makeGraphic(FlxG.width - 4, 25, 0xFF47A347);
+			timeLeftBar.makeGraphic(FlxG.width - 4, 25, 0xFF006600);
 			
 			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
 			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
