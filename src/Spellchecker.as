@@ -13,7 +13,7 @@ package
 		
 		public var TEXT_SIZE:int = 25; // Size of text
 		public var SPACE_SIZE:int = 10; // Size of spaces
-		public var LINE_SPACING:int = 30; // Space between lines
+		public var LINE_SPACING:int = 34; // Space between lines
 		public var TEXT_MARGIN:int = 80; // Space between text and all edges of screen
 		
 		public var numTypos:int; // Number of typos left to find
