@@ -82,8 +82,8 @@ package  {
 			bottomWall.solid = true;
 			walls.add(bottomWall);
 			
-			timeLeftBar = new FlxTileblock(0, FlxG.height - 25, FlxG.width, 25);
-			timeLeftBar.makeGraphic(FlxG.width, 25, 0xFF00CC00);
+			timeLeftBar = new FlxTileblock(2, FlxG.height - 25, FlxG.width - 4, 25);
+			timeLeftBar.makeGraphic(FlxG.width - 4, 25, 0xFF00CC00);
 			
 			leftWall = new FlxTileblock(0, 0, 2, FlxG.height);
 			leftWall.makeGraphic(2, FlxG.height, 0xff000000);
@@ -101,6 +101,10 @@ package  {
 			
 			add(walls);
 			add(timeLeftBar);
+			
+			var bottomBorder:FlxTileblock = new FlxTileblock(0,  FlxG.height - 2, FlxG.width, 2);
+			bottomBorder.makeGraphic(FlxG.width, 2, 0xff000000);
+			add(bottomBorder);
 			/*skipButton = new FlxButton(FlxG.width, FlxG.height, null, skip);
 			skipButton.x = skipButton.x - skipButton.width;
 			skipButton.y = skipButton.y - skipButton.height;
