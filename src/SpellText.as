@@ -25,7 +25,7 @@ package
 		
 		override public function update():void {
 			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
-				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height ) {
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height - 5 ) {
 					
 					if (misspelled) {
 						this.text = correct;
@@ -39,7 +39,7 @@ package
 				}
 				
 			if (FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
-				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height && this.text != correct && !minigame_super.hasFailed) {
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height - 5 && this.text != correct && !minigame_super.hasFailed) {
 					this.color = 0xFFFFFFFF;
 				} else if (this.text != correct && !minigame_super.hasFailed) {
 					this.color = 0xFF000000;
