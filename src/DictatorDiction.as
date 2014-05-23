@@ -158,7 +158,7 @@ package   {
 				bossCommands.getFirstAlive().visible = true;
 			} else {
 				// incorrect!
-				drawButtonErrorBox(answers.indexOf(answers.slice(0, 1)[0]));
+				drawButtonErrorBox(orderOfAnswers.indexOf(answers.slice(0, 1)[0]));
 				
 				if(!gameOver) {
 					var data2:Object = { "completed":"failure" };
