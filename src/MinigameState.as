@@ -314,7 +314,7 @@ package  {
 		
 		protected function disableTimer():void {
 			remove(timeLeftBar);
-			timer.visible = false;
+			timerText.visible = false;
 			bottomWall.color = 0xFF000000;
 		}
 		
