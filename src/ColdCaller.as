@@ -163,15 +163,18 @@ package {
 				FlxG.play(inputSound);
 				answerText.text += goal[currIndex];
 				currIndex++;
+				
+				// Add phone dashes when appropriate
+				if (currIndex == 3 || currIndex == 6) {
+					answerText.text += "-";
+				}
 			} else { // Incorrect, reset everything
 				FlxG.play(wrongSound);
-				answerText.text = "";
-				currIndex = 0;
-			}
-			
-			// Add phone dashes when appropriate
-			if (currIndex == 3 || currIndex == 6) {
-				answerText.text += "-";
+				//answerText.text = "";
+				//currIndex = 0;
+				if (level >= 1) {
+					jumbleNums();
+				}
 			}
 			
 			// Jumble buttons after every click at level 3
