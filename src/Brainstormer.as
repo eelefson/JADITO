@@ -114,6 +114,12 @@ package {
 			
 			add(throwArea);
 			add(throwingLine);
+			if (difficulty == 0) {
+				var eyeCandy:FlxExtendedSprite = new FlxExtendedSprite(FlxG.width / 8, 0, crumpledPaper);
+				eyeCandy.setGravity(0, 200);
+				eyeCandy.x -= eyeCandy.width / 2;
+				add(eyeCandy);
+			}
 			add(ideas);
 			add(ceiling);
 			add(backWall);
