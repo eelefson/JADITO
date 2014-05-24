@@ -70,10 +70,11 @@ package  {
 			gauge_graphic.y = gauge_graphic.y - (gauge_graphic.height / 2) - 12;
 			add(gauge_graphic);
 			
-			button = new FlxButtonPlus(50, FlxG.height - 75, clicked, null, "STOP!", 200, 40);
+			button = new FlxButtonPlus(FlxG.width / 2, FlxG.height - 75, null, null, "STOP!", 200, 40);
 			button.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
 			button.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
-			button.screenCenter();
+			///button.screenCenter();
+			button.x = button.x - (button.width / 2);
 			button.textNormal.size = 30;
 			button.textHighlight.size = 30;
 			add(button);
@@ -124,32 +125,37 @@ package  {
 					increasing = false;
 				}
 				
-				if (FlxG.mouse.screenX >= cup_graphic.x && FlxG.mouse.screenX <= cup_graphic.x + cup_graphic.width &&
-					FlxG.mouse.screenY >= cup_graphic.y && FlxG.mouse.screenY <= cup_graphic.y + cup_graphic.height) {
-						cup_graphic.frame = 1;
-					} else {
-						cup_graphic.frame = 0;
-					}
-				
-				if (delay.hasExpired) {
-					if (increasing) {
-						red_cursor_graphic.x += 16;
-						white_cursor_graphic.x += 16;
-						curPosition++;
-					} else {
-						red_cursor_graphic.x -= 16;
-						white_cursor_graphic.x -= 16;
-						curPosition--;
-					}
-					delay.reset(5);
-				}
-				
-				if (curPosition > successStartPosition && curPosition < successEndPosition) {
-					red_cursor_graphic.visible = false;
-					white_cursor_graphic.visible = true;
+				//if (FlxG.mouse.screenX >= cup_graphic.x && FlxG.mouse.screenX <= cup_graphic.x + cup_graphic.width &&
+				//	FlxG.mouse.screenY >= cup_graphic.y && FlxG.mouse.screenY <= cup_graphic.y + cup_graphic.height) {
+				//		cup_graphic.frame = 1;
+				//	} else {
+				//		cup_graphic.frame = 0;
+				//	}
+				trace(button.x + button.width);
+				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + button.width &&
+					FlxG.mouse.screenY >= button.y && FlxG.mouse.screenY <= button.y + button.height && FlxG.mouse.justPressed()) {
+					clicked();	
 				} else {
-					red_cursor_graphic.visible = true;
-					white_cursor_graphic.visible = false;
+					if (delay.hasExpired) {
+						if (increasing) {
+							red_cursor_graphic.x += 16;
+							white_cursor_graphic.x += 16;
+							curPosition++;
+						} else {
+							red_cursor_graphic.x -= 16;
+							white_cursor_graphic.x -= 16;
+							curPosition--;
+						}
+						delay.reset(5);
+					}
+					
+					if (curPosition > successStartPosition && curPosition < successEndPosition) {
+						red_cursor_graphic.visible = false;
+						white_cursor_graphic.visible = true;
+					} else {
+						red_cursor_graphic.visible = true;
+						white_cursor_graphic.visible = false;
+					}
 				}
 			}
 			
