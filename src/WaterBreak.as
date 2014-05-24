@@ -118,7 +118,7 @@ package  {
 		
 		override public function update():void {
 			super.update();
-			if (!FlxG.paused) {
+			if (!FlxG.paused && !gameOver) {
 				if (curPosition == 0) {
 					increasing = true;
 				} else if (curPosition == 15) {

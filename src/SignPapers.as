@@ -74,7 +74,10 @@ package
 			loadPapers();
 			
 			lineSprite = new FlxSprite(30, FlxG.height / 4 + 150);
-			lineSprite.loadGraphic(img);
+			lineSprite.loadGraphic(img, false, false, 512, 55);
+			if (level == 0) {
+				lineSprite.frame = 1;
+			}
 			add(lineSprite);
 			
 			signature_graphic = new FlxExtendedSprite(205, FlxG.height / 4 + 120, SignatureImage);

@@ -175,7 +175,7 @@ package
 					}
 					
 					text.size = TEXT_SIZE;
-					//text.font = "Typewriter";
+					text.font = "Typewriter";
 					
 					if (x + text.getRealWidth() > FlxG.width - TEXT_MARGIN) {
 						text.x = TEXT_MARGIN;

@@ -25,7 +25,7 @@ package
 		
 		override public function update():void {
 			if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= this.x && FlxG.mouse.screenX <= this.x + this._textField.textWidth &&
-				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height - 5 ) {
+				FlxG.mouse.screenY >= this.y && FlxG.mouse.screenY <= this.y + this.height - 5 && !minigame_super.gameOver) {
 					
 					if (misspelled) {
 						this.text = correct;

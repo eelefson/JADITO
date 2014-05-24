@@ -22,7 +22,7 @@ package
 		override public function update():void {
 			super.update();
 			
-			if (InOut.level == 0 && left) {
+			if (minigame_super.level == 0 && left) {
 				frame = 1;
 			} else {
 				frame = 0;
@@ -45,6 +45,10 @@ package
 		// Randomly choose a lane for the paper to spawn in
 		public function chooseLane():int
 		{
+			if (minigame_super.level == 0 && minigame_super.ticks == minigame_super.mod) {
+				return DIST_FROM_EDGE;
+			}
+			
 			if (minigame_super.numRightLane >= minigame_super.numWrongLane + 2) {
 				return DIST_FROM_EDGE;
 			} else if (minigame_super.numWrongLane >= minigame_super.numRightLane + 2) {
