@@ -16,9 +16,9 @@ package
 			super (x, FlxG.height - 70);
 			
 			// Change speed depending on game difficutly level
-			if (InOut.level == 0) {
+			if (minigame_super.level == 0) {
 				this.velocity.y = -80;
-			} else if (InOut.level == 1) {
+			} else if (minigame_super.level == 1) {
 				this.velocity.y = -145;
 			} else {
 				this.velocity.y = -170;

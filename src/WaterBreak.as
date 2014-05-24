@@ -117,19 +117,19 @@ package  {
 		
 		override public function update():void {
 			super.update();
-			if (!FlxG.paused) {
+			if (!FlxG.paused && !gameOver) {
 				if (curPosition == 0) {
 					increasing = true;
 				} else if (curPosition == 15) {
 					increasing = false;
 				}
 				
-				if (FlxG.mouse.screenX >= cup_graphic.x && FlxG.mouse.screenX <= cup_graphic.x + cup_graphic.width &&
+				/*if (FlxG.mouse.screenX >= cup_graphic.x && FlxG.mouse.screenX <= cup_graphic.x + cup_graphic.width &&
 					FlxG.mouse.screenY >= cup_graphic.y && FlxG.mouse.screenY <= cup_graphic.y + cup_graphic.height) {
 						cup_graphic.frame = 1;
 					} else {
 						cup_graphic.frame = 0;
-					}
+					}*/
 				
 				if (delay.hasExpired) {
 					if (increasing) {

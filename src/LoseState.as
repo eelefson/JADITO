@@ -16,6 +16,7 @@ package  {
 		private var no:FlxButtonPlus;
 		private var story:BorderedText;
 		private var replay:BorderedText;
+		private var encourage:BorderedText;
 		
 		private var boss_graphic:FlxSprite;
 		
@@ -48,6 +49,11 @@ package  {
 			replay.setFormat("Typewriter", 30, 0xffffffff, "center", 10);
 			replay.y = replay.y - replay.height / 2;
 			add(replay);
+			
+			encourage = new BorderedText(50, FlxG.height + moveUp, FlxG.width - 100, "Your next playthrough might not be the same.");
+			encourage.setFormat("Typewriter", 20, 0xFF66FF66, "center", 10);
+			encourage.y = encourage.y - encourage.height / 2;
+			add(encourage);
 			
 			FlxG.play(YouAreFiredSFX);
 		}
