@@ -254,17 +254,23 @@ package {
 			}
 			var temp:FlxText
 			if (Math.random() >= .5) {
-				temp = new FlxText(0, 0, FlxG.width, word);
-				temp.velocity.y = 100 + (Math.random() * 25*difficulty);
+				temp = new FlxText(0, 25, FlxG.width, word);
+				temp.velocity.y = (75 - difficulty * 25) + (Math.random() * 25 * (2 * difficulty + 1));
 			}else {
-				temp = new FlxText(0, FlxG.height - 20, 200, word);
-				temp.velocity.y = -100 - (Math.random() * 25*difficulty);
+				temp = new FlxText(0, FlxG.height - 45, FlxG.width, word);
+				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
 			temp.setFormat(null, 20, 0);
 			if (difficulty == 0) {
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			}
-			temp.velocity.x = 130 + (Math.random() *40*difficulty);
+			temp.velocity.x = 90 + (Math.random() * 40 * (difficulty + 1));
+			if (difficulty >= 3) {
+				if (Math.random() >= .5) {
+					temp.velocity.x *= -1;
+					temp.alignment = "right";
+				}
+			}
 			add(temp);
 		}
 		
