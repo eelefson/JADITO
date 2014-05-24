@@ -19,6 +19,7 @@ package {
 		[Embed(source = "image_assets/CrayonPurple.png")] private var crayonPurpleImage:Class;
 		[Embed(source = "image_assets/CrayonYellow.png")] private var crayonYellowImage:Class;
 		[Embed(source = "image_assets/CrayonOrange.png")] private var crayonOrangeImage:Class;
+		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
 		
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
@@ -27,10 +28,10 @@ package {
 		private var dotsLeft:FlxText;
 		private var question:FlxText;
 		
-		private var b1:FlxButton;
+		/*private var b1:FlxButton;
 		private var b2:FlxButton;
 		private var b3:FlxButton;
-		private var b4:FlxButton;
+		private var b4:FlxButton;*/
 		
 		private var difficulty:int;
 		private var dots:int;
@@ -242,12 +243,14 @@ package {
 		
 		public function addWord():void {
 			var word:String = "";
+			var praiseTemp:Boolean = true;
 			if (Math.random() >= .5) {
 				word = FlxU.getRandom(praisePhrases) as String;
 				praise++;
 			}else {
 				word = FlxU.getRandom(hazePhrases) as String;
 				haze++;
+				praiseTemp = false;
 			}
 			var temp:FlxText
 			if (Math.random() >= .5) {
@@ -257,7 +260,10 @@ package {
 				temp = new FlxText(0, FlxG.height - 20, 200, word);
 				temp.velocity.y = -100 - (Math.random() * 25*difficulty);
 			}
-			temp.setFormat(null, 16, 0);
+			temp.setFormat(null, 20, 0);
+			if (difficulty == 0) {
+				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
+			}
 			temp.velocity.x = 130 + (Math.random() *40*difficulty);
 			add(temp);
 		}
@@ -267,7 +273,7 @@ package {
 			remove(dot_graphic);
 			ballGroup.kill();
 			super.resetTimer(6000);
-			
+
 			remove(drawing);
 			FlxG.mouse.show();
 			
@@ -277,18 +283,41 @@ package {
 			//command.visible = false;
 			var answer:int = 0;
 			
-			var qContent:String
-			question = new FlxText(0, FlxG.height * 1/2, FlxG.width, "");
-			question.setFormat(null, 16, 0, "center");
-			
-			if (Math.random() >= .5) {
-				qContent = "How many times were you told you did a good job?";
-				answer = praise;
+			if (difficulty == 0) {
+				var q1:FlxText;
+				var q2:FlxText;
+				
+				if (Math.random() >= .5) {
+					q1 = new FlxText(0, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 165, "How many times were you told you did a ");
+					q2 = new FlxText(FlxG.width / 2 + 170, FlxG.height * 1 / 2 - 50, FlxG.width, "good job?");
+					q2.setFormat("Typewriter", 24, 0xFF006600, "left");
+					answer = praise;
+				}else {
+					q1 = new FlxText(0, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
+					q2 = new FlxText(FlxG.width / 2 + 135, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
+					q2.setFormat("Typewriter", 24, 0xFFF00000, "left");
+					answer = haze;
+				}
+				q1.setFormat("Typewriter", 24, 0, "right");
+				
+				add(q1);
+				add(q2);
 			}else {
-				qContent = "How many times were you told to quit?";
-				answer = haze;
+				var qContent:String;
+				question = new FlxText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
+				question.setFormat("Typewriter", 24, 0, "center");
+				
+				if (Math.random() >= .5) {
+					qContent = "How many times were you told you did a good job?";
+					answer = praise;
+				}else {
+					qContent = "How many times were you told to just quit?";
+					answer = haze;
+				}
+				question.text = qContent;
+				
+				add(question);
 			}
-			question.text = qContent;
 			
 			var choices:Array = new Array();
 			var realChoices:Array = new Array();
@@ -310,36 +339,53 @@ package {
 			}
 			FlxU.shuffle(realChoices, 16);
 			
+			for (i = 0; i < 4; i++) {
+				var button:FlxButton;
+				var value:int = realChoices[i] as int;
+				var scale:Number = 1.5;
+
+				if(value == answer) {
+					button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
+					correctAnswer = button;
+				} else {
+					button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
+				}
+				button.scale.x = scale;
+				button.scale.y = scale;
+				button.label.offset.y = (scale - 1) / 2 * button.label.size;
+				button.label.size = button.label.size * scale;
+				add(button);
+			}/*
 			var value:int = realChoices[0] as int;
 			if(value == answer) {
-				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), correct);
+				b1 = new FlxButton(85, FlxG.height*3/4 - 50, value.toString(), correct);
 				correctAnswer = b1;
 			} else {
-				b1 = new FlxButton(85, FlxG.height*3/4, value.toString(), wrong);
+				b1 = new FlxButton(85, FlxG.height*3/4 - 50, value.toString(), wrong);
 			}
 			
 			value = realChoices[1] as int;
 			if(value == answer) {
-				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), correct);
+				b2 = new FlxButton(215, FlxG.height*3/4 - 50, value.toString(), correct);
 				correctAnswer = b2;
 			} else {
-				b2 = new FlxButton(215, FlxG.height*3/4, value.toString(), wrong);
+				b2 = new FlxButton(215, FlxG.height*3/4 - 50, value.toString(), wrong);
 			}
 			
 			value = realChoices[2] as int;
 			if(value == answer) {
-				b3 = new FlxButton(345, FlxG.height*3/4, value.toString(), correct);
+				b3 = new FlxButton(345, FlxG.height*3/4 - 50, value.toString(), correct);
 				correctAnswer = b3;
 			} else {
-				b3 = new FlxButton(345, FlxG.height * 3 / 4, value.toString(), wrong);
+				b3 = new FlxButton(345, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
 			}
 			
 			value = realChoices[3] as int;
 			if(value == answer) {
-				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), correct);
+				b4 = new FlxButton(475, FlxG.height*3/4 - 50, value.toString(), correct);
 				correctAnswer = b4;
 			} else {
-				b4 = new FlxButton(475, FlxG.height*3/4, value.toString(), wrong);
+				b4 = new FlxButton(475, FlxG.height*3/4 - 50, value.toString(), wrong);
 			}
 			var scale:Number = 1.5;
 			b1.scale.x = scale;
@@ -362,15 +408,13 @@ package {
 			b4.label.offset.y = (scale - 1) / 2 * b4.label.size;
 			b4.label.size = b4.label.size * scale;
 			
-			add(question);
 			add(b1);
 			add(b2);
 			add(b3);
-			add(b4);
+			add(b4);*/
 		}
 		
 		public function wrong():void {
-			question.text = "You are wrong!";
 			correctAnswer.flicker(1);
 			
 			if (!gameOver) {
@@ -383,8 +427,6 @@ package {
 		}
 		
 		public function correct():void {
-			question.text = "You are correct!";
-			
 			if(!gameOver) {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
@@ -402,6 +444,9 @@ package {
 			//question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
 			//question.setFormat(null, 16, 0, "center");
 			//add(question);
+			if (correctAnswer != null) {
+				correctAnswer.flicker(1);
+			}
 			
 			if(!gameOver) {
 				var data1:Object = { "completed":"failure" };
