@@ -171,9 +171,6 @@ package {
 			add(dotsLeft);
 			add(dot);
 			
-			if (difficulty == 0) {
-				addWord();
-			}
 			super.create();
 			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
@@ -225,7 +222,7 @@ package {
 			lastY = dot.y + dot.height / 2;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
-			if (words > speak && dots >= 2) {
+			if ((words > speak && dots >= 2) || (difficulty == 0 && dots == 7)) {
 				addWord();
 			}
 			
