@@ -139,9 +139,9 @@ package {
 			
 			super.create();
 			super.setCommandText("Clock in at 8:00!");
-			super.setTimer(11000);
+			super.setTimer(15000);
 			super.disableTimer();
-			//super.timerText.visible = false; // Don't show the timer!
+			//super.timerText.visible = true; // Don't show the timer!
 			var data5:Object = { "difficulty":level };
 			Registry.loggingControl.logLevelStart(13, data5);
 		}
