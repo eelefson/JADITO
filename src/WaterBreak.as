@@ -131,7 +131,6 @@ package  {
 				//	} else {
 				//		cup_graphic.frame = 0;
 				//	}
-				trace(button.x + button.width);
 				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + button.width &&
 					FlxG.mouse.screenY >= button.y && FlxG.mouse.screenY <= button.y + button.height && FlxG.mouse.justPressed()) {
 					clicked();	
