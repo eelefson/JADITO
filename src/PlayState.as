@@ -152,7 +152,7 @@ package {
 			}
 			YourScore = new DictatorDictionText(70, 113, 75, prevoiusScore.toString());
 			
-			OtherScoreText = new DictatorDictionText(70, 148, 300, "BoB's Score: ");
+			OtherScoreText = new DictatorDictionText(70, 148, 300, "Rival's Score: ");
 			OtherScore = new DictatorDictionText(70, 148, 75, Registry.BobScores[Registry.day]);
 			
 			YourScoreText.setFormat("Score", 28, 0xFF000000);
