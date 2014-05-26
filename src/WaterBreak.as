@@ -53,18 +53,20 @@ package  {
 			
 			if (Registry.difficultyLevel == 0) {
 				gauge_graphic = new FlxSprite(FlxG.width / 2, (FlxG.height / 2) + 155, LevelZeroGauge);
-				successStartPosition = 4;
-				successEndPosition = 11;
+				successStartPosition = 3;
+				successEndPosition = 12;
 			} else if (Registry.difficultyLevel == 1) {
 				gauge_graphic = new FlxSprite(FlxG.width / 2, (FlxG.height / 2) + 155, LevelOneGauge);
-				successStartPosition = 5;
-				successEndPosition = 10;
+				successStartPosition = 4;
+				successEndPosition = 11;
 			} else if (Registry.difficultyLevel == 2) {
 				gauge_graphic = new FlxSprite(FlxG.width / 2, (FlxG.height / 2) + 155, LevelTwoGauge);
-				successStartPosition = 6;
-				successEndPosition = 9;
+				successStartPosition = 5;
+				successEndPosition = 10;
 			} else if (Registry.difficultyLevel == 3) {
 				gauge_graphic = new FlxSprite(FlxG.width / 2, (FlxG.height / 2) + 155, LevelThreeGauge);
+				successStartPosition = 6;
+				successEndPosition = 9;
 			}
 			gauge_graphic.x = gauge_graphic.x - (gauge_graphic.width / 2);
 			gauge_graphic.y = gauge_graphic.y - (gauge_graphic.height / 2) - 12;
@@ -79,13 +81,13 @@ package  {
 			button.textHighlight.size = 30;
 			add(button);
 			
-			if (Registry.difficultyLevel == 3) {
+			/*if (Registry.difficultyLevel == 3) {
 				successStartPosition = FlxU.floor(Math.random() * 15);
 				green_cursor_graphic = new FlxSprite((gauge_graphic.x + 7) + (16 * successStartPosition), gauge_graphic.y + 5, GreenCursorImage);
 				add(green_cursor_graphic);
 				successStartPosition -= 1;
 				successEndPosition = successStartPosition + 2;
-			}
+			}*/
 			
 			// 16 total squares
 			// 14 pixels = width of square
