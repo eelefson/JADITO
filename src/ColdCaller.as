@@ -49,21 +49,22 @@ package {
 			
 			goalText = new FlxText(FlxG.width - 200, 40, FlxG.width, "");
 			goalText.color = 0x00FF0000;
-			goalText.size = 20;
+			goalText.size = 26;
+			goalText.font = "Regular";
 			add(goalText);
 			goalText.text = displayGoal(goal);
 			
 			var arrow:FlxSprite = new FlxSprite(FlxG.width - 250, 38);
 			arrow.loadGraphic(img);
 			add(arrow);
-			
 			// Generate a second goal number if the level is 2 or 3
 			if (level > 2) {
 				goal2 = generateGoal();
 			
-				goalText2 = new FlxText(FlxG.width - 200, goalText.y + 20, FlxG.width, "");
+				goalText2 = new FlxText(FlxG.width - 200, goalText.y + 26, FlxG.width, "");
 				goalText2.color = 0x00000000;
-				goalText2.size = 20;
+				goalText2.size = 26;
+				goalText2.font = "Regular";
 				add(goalText2);
 				goalText2.text = displayGoal(goal2);
 				

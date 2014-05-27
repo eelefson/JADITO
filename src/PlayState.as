@@ -19,6 +19,7 @@ package {
 		[Embed(source = "sound_assets/are-you-ready.mp3")] private var AreYouReadySFX:Class;
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
 		[Embed(source = "font_assets/pricedown bl.ttf", fontFamily = "Score", embedAsCFF = "false")] private var ScoreFont:String;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var Score2Font:String;
 		[Embed(source = "image_assets/computerStart2.png")] private var ComputerTextImage:Class;
 		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
 		
@@ -143,7 +144,7 @@ package {
 			underline.makeGraphic(toDoText.getRealWidth(), 1, 0xff000000);
 			add(underline);
 			
-			YourScoreText = new DictatorDictionText(70, 113, 300, "Your Score:  ");
+			YourScoreText = new DictatorDictionText(70, 113, 300, "Your Score:     ");
 			var prevoiusScore:int;
 			if (!Registry.failedMostRecentMinigame && Registry.playCurrentDay) {
 				prevoiusScore = Registry.score - ((Registry.difficultyLevel + 1) * 100);
@@ -163,6 +164,11 @@ package {
 			YourScore.x += YourScoreText.getRealWidth();
 			OtherScore.x += OtherScoreText.getRealWidth();
 			
+			add(YourScore);
+			add(YourScoreText);
+			add(OtherScore);
+			add(OtherScoreText);
+			
 			if (!Registry.failedMostRecentMinigame && Registry.playCurrentDay) {
 				var points:int = (Registry.difficultyLevel + 1) * 100;
 				ScoreReward = new DictatorDictionText(FlxG.width / 2, FlxG.height / 2, 275, "+" + points.toString());
@@ -170,14 +176,10 @@ package {
 				ScoreReward.x = ScoreReward.x - (ScoreReward.width / 2);
 				ScoreReward.y = ScoreReward.y - (ScoreReward.height / 2);
 				add(ScoreReward);
-				scoreXDistance = distanceBetweenPoints(new FlxPoint(YourScore.x + 25, 0), new FlxPoint(ScoreReward.x, 0)) / 40;
+				scoreXDistance = distanceBetweenPoints(new FlxPoint(YourScore.x, 0), new FlxPoint(ScoreReward.x, 0)) / 40;
 				scoreYDistance = (distanceBetweenPoints(new FlxPoint(0, YourScore.y), new FlxPoint(0, ScoreReward.y)) + 20) / 40;
 				scoreIncrement = 0;
 			}
-			add(YourScore);
-			add(YourScoreText);
-			add(OtherScore);
-			add(OtherScoreText);
 			
 			var x:int;
 			var y:int;
@@ -330,9 +332,9 @@ package {
 			generatePool();
 			clearInterval(computerScreenInterval);
 			
-			beginDayText = new BorderedText(0, FlxG.height, FlxG.width, "Get Ready To Begin!");
-			beginDayText.setFormat(null, 32, 0xffffffff, "center", 30);
-			beginDayText.y = beginDayText.y - beginDayText.height - 35;
+			beginDayText = new BorderedText(0, FlxG.height / 2, FlxG.width, "Get Ready To Begin!");
+			beginDayText.setFormat("Score2", 32, 0xffffffff, "center", 30);
+			beginDayText.y = beginDayText.y - (beginDayText.height / 2);
 			beginDayText.visible = false;
 			add(beginDayText);
 			blinkText();

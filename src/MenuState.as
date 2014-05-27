@@ -13,6 +13,7 @@ package  {
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
 		[Embed(source = "image_assets/SplashScreen.jpg")] private var SplashScreenImage:Class;
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
 		
 		public var start_button:FlxButton;
 		public var mute_button:FlxButton;
@@ -52,7 +53,7 @@ package  {
 			add(mute_button);
 			
 			musicText = new FlxText(5, FlxG.height - mute_button.height, FlxG.width, "Music:");
-			musicText.setFormat("Typewriter", 24, 0xFF000000, "left");
+			musicText.setFormat("Regular", 24, 0xFF000000, "left");
 			musicText.y = musicText.y - (musicText.height / 2);
 			add(musicText);
 			
@@ -73,8 +74,8 @@ package  {
 			add(rightWall);
 			
 			var instructions:FlxText;
-			instructions = new FlxText(0, FlxG.height - 120, FlxG.width, "Click to start!");
-			instructions.setFormat("Typewriter", 24, 0xFF000000, "center");
+			instructions = new FlxText(0, FlxG.height - 125, FlxG.width, "Click to start!");
+			instructions.setFormat("Regular", 30, 0xFF000000, "center");
 			add(instructions);
 			
 			super.create();

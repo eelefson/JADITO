@@ -27,6 +27,7 @@ package {
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
 		
 		[Embed(source = "sound_assets/tick.mp3")] private var tickSound:Class;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		private var hrs:int;
 		private var mins:int;
@@ -130,11 +131,13 @@ package {
 			changeImages();
 			
 			stopButton = new FlxButtonPlus(50, FlxG.height - 130, stopClock, null, "STOP!", 200, 40);
-			stopButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
+			stopButton.updateInactiveButtonColors([ 0xffFF0080]);
 			stopButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			stopButton.screenCenter();
-			stopButton.textNormal.size = 30;
-			stopButton.textHighlight.size = 30;
+			stopButton.textNormal.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			stopButton.textHighlight.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			stopButton.textNormal.y -= 7;
+			stopButton.textHighlight.y -= 7;
 			add(stopButton);
 			
 			super.create();

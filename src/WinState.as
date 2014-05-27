@@ -11,6 +11,8 @@ package  {
 		[Embed(source = "sound_assets/song.mp3")] private var Song:Class;
 		[Embed(source = "image_assets/BITDANCE.png")]  private var dance_sprites:Class;
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 
 		private var yes:FlxButtonPlus;
 		private var no:FlxButtonPlus;
@@ -37,29 +39,33 @@ package  {
 			dance_graphic.play("anim");
 			
 			winText = new BorderedText(0, 0, FlxG.width, "You Are The Boss!");
-			winText.setFormat("Typewriter", 34, 0xffffffff, "center", 1);
+			winText.setFormat("Regular", 34, 0xffffffff, "center", 1);
 			add(winText);
 			setInterval(blinkText, 500);
 			
-			var moveUp:int = 50;
+			var moveUp:int = 0;
 			var scale:Number = 2;
 			
-			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you got that promotion you wanted. Now that you are the boss, will you make the next guy suffer too?");
-			story.setFormat("Typewriter", 34, 0xffffffff, "center", 1);
+			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, will you make the next guy suffer too?");
+			story.setFormat("Regular", 34, 0xffffffff, "center", 1);
 			story.y = story.y - story.height / 2;
 			add(story);
 			
-			yes = new FlxButtonPlus(FlxG.width / 3, FlxG.height * 3 / 4 - moveUp, nextState, null, "Yes", 200, 40);
+			yes = new FlxButtonPlus(FlxG.width / 3, FlxG.height * 3 / 4 - moveUp + 15, nextState, null, "Yes", 200, 40);
 			yes.y = yes.y - yes.height / 2;
 			yes.x = yes.x - yes.width / 2;
-			yes.textNormal.setFormat("Typewriter", 34, 0xff000000);
-			yes.textHighlight.setFormat("Typewriter", 34, 0xff000000);
+			yes.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
+			yes.textHighlight.setFormat("Score2", 30, 0xffffffff, null, 1);
+			yes.textNormal.y -= 5;
+			yes.textHighlight.y -= 5;
 			
-			no = new FlxButtonPlus(FlxG.width * 2 / 3, FlxG.height * 3 / 4 - moveUp, null, null, "No", 200, 40);
+			no = new FlxButtonPlus(FlxG.width * 2 / 3, FlxG.height * 3 / 4 - moveUp + 15, null, null, "No", 200, 40);
 			no.y = no.y - no.height / 2;
 			no.x = no.x - no.width / 2;
-			no.textNormal.setFormat("Typewriter", 34, 0xff000000);
-			no.textHighlight.setFormat("Typewriter", 34, 0xff000000);
+			no.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
+			no.textHighlight.setFormat("Score2", 30, 0xffffffff, null, 1);
+			no.textNormal.y -= 5;
+			no.textHighlight.y -= 5;
 			
 			add(yes);
 			add(no);

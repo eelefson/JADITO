@@ -10,6 +10,7 @@ package   {
 		[Embed(source = "image_assets/dictating_boss2.png")] private var BossImage:Class;
 		[Embed(source = "image_assets/dictating_speech_bubble.png")] private var SpeechImage:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		private var answers:Array;
 		private var orderOfAnswers:Array; // DO NOT MODIFY
@@ -76,7 +77,7 @@ package   {
 			add(buttonGroup);
 			
 			commandsLeft = new FlxText(0, 150, FlxG.width, "Commands Remaining: " + commands.toString());
-			commandsLeft.setFormat(null, 16, 0xff000000, "center");
+			commandsLeft.setFormat("Score2", 24, 0xff000000, "center");
 			add(commandsLeft);
 			
 			boss_graphic = new FlxSprite(-120, FlxG.height / 2, BossImage);
@@ -259,8 +260,12 @@ package   {
 						
 						button.scale.x = scale;
 						button.scale.y = scale;
-						button.label.offset.y = (scale - 1) / 2 * button.label.size;
-						button.label.size = button.label.size * scale;
+						button.label.font = "Score2";
+						button.label.size = 16;
+						button.label.offset.y += 7;
+						button.label.color = 0xFF000000;
+						//button.label.size = button.label.size * scale;
+						//button.label.font = "Score2";
 						
 						button.color = 0xffffffff;
 					} else {
@@ -318,8 +323,8 @@ package   {
 			for (var i:int = 0; i < numberOfLines; i++) {
 				var command:DictatorDictionText;
 				for (var j:int = 0; j < numberToSelect; j++) {
-					command = new DictatorDictionText(0, (FlxG.height) / 2 - 17, FlxG.width, text[(numberToSelect * i)+j]);
-					command.setFormat(null, 36, colors[(numberToSelect * i)+j], "center", 1);
+					command = new DictatorDictionText(0, (FlxG.height) / 2 - 24, FlxG.width, text[(numberToSelect * i)+j]);
+					command.setFormat("Score2", 36, colors[(numberToSelect * i)+j], "center", 1);
 					//command.x = (command.x + curWidth) + (j * spacing);
 					//command.y = (command.y + curHeight);
 					//command.width = command.getRealWidth();

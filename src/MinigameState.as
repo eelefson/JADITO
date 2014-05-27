@@ -13,7 +13,9 @@ package  {
 		[Embed(source="sound_assets/correct-answer.mp3")] private var SuccessSFX:Class;
 		[Embed(source = "sound_assets/buzzer.mp3")] private var FailureSFX:Class;
 		[Embed(source="image_assets/big_check_mark3.png")] private var CheckMarkImage:Class;
-		[Embed(source="image_assets/x_mark_red_big.png")] private var XMarkImage:Class;
+		[Embed(source = "image_assets/x_mark_red_big.png")] private var XMarkImage:Class;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		
 		public var walls:FlxGroup;
@@ -26,7 +28,7 @@ package  {
 		private var x_graphic:FlxSprite;
 		
 		public var timer:FlxDelay;
-		public var timerText:FlxText;
+		public var timerText:BorderedText;
 		protected var commandText:FlxText;
 		private var skipButton:FlxButton;
 		
@@ -112,7 +114,7 @@ package  {
 			add(skipButton);*/
 			
 			goText = new BorderedText(FlxG.width / 2, FlxG.height / 2, FlxG.width, "READY!");
-			goText.setFormat(null, 36, 0xffffffff, "center", 30);
+			goText.setFormat("Score2", 36, 0xffffffff, "center", 25);
 			goText.x = goText.x - (goText.width / 2);
 			goText.y = goText.y - (goText.height / 2);
 			goText.visible = false;
@@ -165,6 +167,7 @@ package  {
 				}
 				
 				if (success && FlxU.ceil(totalTime) < 0) {
+					FlxG.mouse.show();
 					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;
 					if (Registry.pool.length == 0) {
@@ -179,6 +182,7 @@ package  {
 						FlxG.switchState(new PlayState());
 					}
 				} else if (FlxU.ceil(totalTime) < 0) {
+					FlxG.mouse.show();
 					FlxG.paused = false;
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
 					if (Registry.pool.length == 0) {
@@ -302,8 +306,8 @@ package  {
 		
 		protected function setTimer(runFor:int):void {
 			timer = new FlxDelay(runFor+1);
-			timerText = new FlxText(0, FlxG.height - 25, FlxG.width, "Time left: " + timer.secondsRemaining.toString());
-			timerText.setFormat(null, 16, 0xffffffff, "center");
+			timerText = new BorderedText(0, FlxG.height - 28, FlxG.width, "Time left: " + timer.secondsRemaining.toString());
+			timerText.setFormat("Regular", 21, 0xffffffff, "center", 10);
 			add(timerText);
 			// +3 for end time, +5 for start time
 			totalTime = runFor + 1 + 2 + 5;
@@ -324,13 +328,13 @@ package  {
 		
 		protected function setCommandText(command:String):void {
 			introCommandText = new BorderedText(FlxG.width / 2, FlxG.height / 2, FlxG.width, command);
-			introCommandText.setFormat(null, 36, 0xffffffff, "center", 30);
+			introCommandText.setFormat("Score2", 36, 0xffffffff, "center", 25);
 			introCommandText.x = introCommandText.x - (introCommandText.width / 2);
 			introCommandText.y = introCommandText.y - (introCommandText.height / 2);
 			add(introCommandText);
 			
-			commandText = new BorderedText(0, 0, FlxG.width, command);
-			commandText.setFormat(null, 16, 0xffffffff, "center");
+			commandText = new FlxText(0, -2, FlxG.width, command);
+			commandText.setFormat("Score2", 16, 0xffffffff, "center");
 			commandText.visible = false;
 			add(commandText);
 		}

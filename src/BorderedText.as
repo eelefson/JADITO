@@ -61,6 +61,10 @@ package  {
 						n = 1;
 					}
 					
+					if (_shadow == 25) {
+						n = 3;
+					}
+					
 					if (_shadow == 30) {
 						n = 4;
 					}

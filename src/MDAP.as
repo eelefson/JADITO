@@ -20,13 +20,15 @@ package {
 		[Embed(source = "image_assets/CrayonYellow.png")] private var crayonYellowImage:Class;
 		[Embed(source = "image_assets/CrayonOrange.png")] private var crayonOrangeImage:Class;
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
 		private var drawing:FlxSprite;
 		
 		private var dotsLeft:FlxText;
-		private var question:FlxText;
+		private var question:DictatorDictionText;
 		
 		/*private var b1:FlxButton;
 		private var b2:FlxButton;
@@ -80,8 +82,8 @@ package {
 			//dot.mousePressedCallback = moveDot;
 			//dot.clickable = true;
 			
-			dotsLeft = new FlxText(0, 25, FlxG.width, dots.toString() + " dots");
-			dotsLeft.setFormat(null, 16, 0, "right");
+			dotsLeft = new FlxText(-2, 25, FlxG.width, dots.toString() + " dots");
+			dotsLeft.setFormat("Score2", 24, 0, "right");
 			
 			//command = new FlxText(0, 0, FlxG.width, "Click the dots!");
 			//command.setFormat(null, 16, 0, "center");
@@ -249,15 +251,15 @@ package {
 				haze++;
 				praiseTemp = false;
 			}
-			var temp:FlxText
+			var temp:BorderedText;
 			if (Math.random() >= .5) {
-				temp = new FlxText(0, 25, FlxG.width, word);
+				temp = new BorderedText(0, 25, FlxG.width, word);
 				temp.velocity.y = (75 - difficulty * 25) + (Math.random() * 25 * (2 * difficulty + 1));
 			}else {
-				temp = new FlxText(0, FlxG.height - 45, FlxG.width, word);
+				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			temp.setFormat(null, 20, 0);
+			temp.setFormat("Score2", 20, 0, null, 10);
 			if (difficulty == 0) {
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			}
@@ -287,28 +289,29 @@ package {
 			var answer:int = 0;
 			
 			if (difficulty == 0) {
-				var q1:FlxText;
-				var q2:FlxText;
+				var q1:DictatorDictionText;
+				var q2:DictatorDictionText;
 				
 				if (Math.random() >= .5) {
-					q1 = new FlxText(0, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 165, "How many times were you told you did a ");
-					q2 = new FlxText(FlxG.width / 2 + 170, FlxG.height * 1 / 2 - 50, FlxG.width, "good job?");
-					q2.setFormat("Typewriter", 24, 0xFF006600, "left");
+					q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
+					q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
+					q2.setFormat("Regular", 24, 0xFF006600);
 					answer = praise;
 				}else {
-					q1 = new FlxText(0, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
-					q2 = new FlxText(FlxG.width / 2 + 135, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
-					q2.setFormat("Typewriter", 24, 0xFFF00000, "left");
+					q1 = new DictatorDictionText(FlxG.width / 2, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
+					q2 = new DictatorDictionText(0, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
+					q2.setFormat("Regular", 24, 0xFFF00000);
 					answer = haze;
 				}
-				q1.setFormat("Typewriter", 24, 0, "right");
-				
+				q1.setFormat("Regular", 24, 0);
+				q1.x = q1.x - ((q1.getRealWidth() + q2.getRealWidth()) / 2);
+				q2.x = q1.x + q1.getRealWidth();
 				add(q1);
 				add(q2);
 			}else {
 				var qContent:String;
-				question = new FlxText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
-				question.setFormat("Typewriter", 24, 0, "center");
+				question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
+				question.setFormat("Regular", 24, 0, "center");
 				
 				if (Math.random() >= .5) {
 					qContent = "How many times were you told you did a good job?";
@@ -353,10 +356,18 @@ package {
 				} else {
 					button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
 				}
+				//button.scale.x = scale;
+				//button.scale.y = scale;
+				//button.label.offset.y = (scale - 1) / 2 * button.label.size;
+				//button.label.size = button.label.size * scale;
+				
 				button.scale.x = scale;
 				button.scale.y = scale;
-				button.label.offset.y = (scale - 1) / 2 * button.label.size;
-				button.label.size = button.label.size * scale;
+				button.label.font = "Regular";
+				button.label.size = 16;
+				button.label.offset.y += 6;
+				button.label.color = 0xFF000000;
+				
 				add(button);
 			}/*
 			var value:int = realChoices[0] as int;

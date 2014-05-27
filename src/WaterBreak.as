@@ -16,6 +16,7 @@ package  {
 		[Embed(source = "image_assets/red_cursor.png")] private var RedCursorImage:Class;
 		[Embed(source = "image_assets/green_cursor.png")] private var GreenCursorImage:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		private var water_cooler_graphic:FlxSprite;
 		private var cup_graphic:FlxSprite;
@@ -73,12 +74,13 @@ package  {
 			add(gauge_graphic);
 			
 			button = new FlxButtonPlus(FlxG.width / 2, FlxG.height - 75, null, null, "STOP!", 200, 40);
-			button.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
+			button.updateInactiveButtonColors([ 0xffFF0080]);
 			button.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
-			///button.screenCenter();
-			button.x = button.x - (button.width / 2);
-			button.textNormal.size = 30;
-			button.textHighlight.size = 30;
+			button.screenCenter();
+			button.textNormal.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			button.textHighlight.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			button.textNormal.y -= 7;
+			button.textHighlight.y -= 7;
 			add(button);
 			
 			/*if (Registry.difficultyLevel == 3) {

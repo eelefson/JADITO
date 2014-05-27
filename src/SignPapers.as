@@ -37,7 +37,8 @@ package
 		[Embed(source = "/image_assets/signline.png")] private var img:Class;
 		[Embed(source = "image_assets/Signature2.png")] private var SignatureImage:Class;
 		
-		[Embed(source="../src/signpapers.txt",mimeType="application/octet-stream")] private var papersFile:Class;
+		[Embed(source = "../src/signpapers.txt", mimeType = "application/octet-stream")] private var papersFile:Class;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
@@ -84,17 +85,24 @@ package
 			signature_graphic.visible = false;
 			add(signature_graphic);
 			
-			numLeft = new FlxText(20, FlxG.height - 85, FlxG.width, "" + NUM_PAPERS);
+			numLeft = new FlxText(10, FlxG.height - 75, FlxG.width, "Papers: " + NUM_PAPERS);
+			numLeft.font = "Score2";
 			numLeft.color = 0x00000000;
-			numLeft.size = 50;
+			numLeft.size = 30;
 			add(numLeft);
 			
 			passButton = new FlxButtonPlus(50, (FlxG.height / 4) * 3, pass, null, "REFUSE", 200, 40);
-			passButton.updateInactiveButtonColors([ 0xffFF0080, 0xffFF80C0 ]);
+			passButton.updateInactiveButtonColors([ 0xffFF0080]);
 			passButton.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
 			passButton.screenCenter();
-			passButton.textNormal.size = 30;
-			passButton.textHighlight.size = 30;
+			passButton.textNormal.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			passButton.textHighlight.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
+			passButton.textNormal.y -= 7;
+			passButton.textHighlight.y -= 7;
+			//passButton.textNormal.size = 30;
+			//passButton.textHighlight.size = 30;
+			//passButton.textNormal.color = 0xFF000000;
+			//passButton.textHighlight.color = 0xFF000000;
 			add(passButton);
 			
 			super.create();
@@ -132,10 +140,10 @@ package
 									textGroup.remove(curr);
 								}
 								currPaperText.text = "Good work!";
-								numLeft.text = "0";
+								numLeft.text = "Papers: 0";
 							} else {
 								updateText();
-								numLeft.text = "" + (NUM_PAPERS - numAnswered);
+								numLeft.text = "Papers: " + (NUM_PAPERS - numAnswered);
 							}
 							
 						} else {
@@ -244,10 +252,10 @@ package
 						remove(curr);
 						textGroup.remove(curr);
 					}
-					numLeft.text = "0";
+					numLeft.text = "Papers: 0";
 				} else {
 					updateText();
-					numLeft.text = "" + (NUM_PAPERS - numAnswered);
+					numLeft.text = "Papers: " + (NUM_PAPERS - numAnswered);
 				}
 			} else {
 				if(!gameOver){

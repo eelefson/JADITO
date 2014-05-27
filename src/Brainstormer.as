@@ -10,6 +10,7 @@ package {
 		[Embed(source = "image_assets/crumpled_paper_small.png")] private var crumpledPaper:Class;
 		[Embed(source = "image_assets/recycle_bin3.png")] private var recycleBin:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		private var command:FlxText;
 		private var ideasLeft:FlxText;
@@ -53,12 +54,12 @@ package {
 			command.setFormat(null, 16, 0, "center");
 			add(command);
 			
-			ideasLeft = new FlxText(0, 25, FlxG.width, "Bad Ideas Left: " + numIdeas.toString());
-			ideasLeft.setFormat(null, 16, 0, "right");
+			ideasLeft = new FlxText(0, 25, FlxG.width - 4, "Bad Ideas Left: " + numIdeas.toString());
+			ideasLeft.setFormat("Score2", 24, 0, "right");
 			add(ideasLeft);
 			
 			help = new FlxText(0, FlxG.height / 2, FlxG.width / 4, "Click Here & Drag!");
-			help.setFormat(null, 16, 0, "center");
+			help.setFormat("Score2", 24, 0, "center");
 			help.alpha = .7;
 			
 			/*if (difficulty == 0) {

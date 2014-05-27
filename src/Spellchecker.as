@@ -25,7 +25,9 @@ package
 		
 		public var ticks:int = 0;
 		
-		[Embed(source="../src/spellchecker.txt",mimeType="application/octet-stream")] private var spellcheckFile:Class;
+		[Embed(source = "../src/spellchecker.txt", mimeType = "application/octet-stream")] private var spellcheckFile:Class;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
+		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		
 		override public function create():void
 		{
@@ -44,7 +46,8 @@ package
 				numTypos = 2;
 			}
 			
-			typoCounter = new FlxText(10, FlxG.height - 65, FlxG.width / 2, "" + numTypos);
+			typoCounter = new FlxText(10, FlxG.height - 75, FlxG.width, "Typos: " + numTypos);
+			typoCounter.font = "Score2";
 			typoCounter.size = 30;
 			typoCounter.color = 0xff000000;
 			add(typoCounter);
@@ -112,7 +115,7 @@ package
 				hasLoaded = true;
 			}
 			
-			typoCounter.text = "" + numTypos;
+			typoCounter.text = "Typos: " + numTypos;
 		}
 		
 		private function loadParagraph():void
@@ -175,7 +178,7 @@ package
 					}
 					
 					text.size = TEXT_SIZE;
-					text.font = "Typewriter";
+					text.font = "Regular";
 					
 					if (x + text.getRealWidth() > FlxG.width - TEXT_MARGIN) {
 						text.x = TEXT_MARGIN;

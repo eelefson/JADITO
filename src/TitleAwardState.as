@@ -9,6 +9,7 @@ package  {
 		[Embed(source = "image_assets/award.png")] private var AwardImage:Class;
 		[Embed(source = "sound_assets/title_award.mp3")] private var RewardSFX:Class;
 		[Embed(source = "image_assets/officewall.png")] private var wall:Class;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
 		
 		private var award_graphic:FlxSprite;
 		private var awardText:FlxText;
@@ -54,7 +55,7 @@ package  {
 			}
 			
 			awardText = new FlxText(FlxG.width / 2, FlxG.height / 2, 125, title);
-			awardText.setFormat(null, 16, 0xff000000, "center");
+			awardText.setFormat("Regular", 20, 0xff000000, "center");
 			awardText.x = awardText.x - (awardText.width / 2);
 			awardText.y = awardText.y - (awardText.height / 2);
 			add(awardText);
