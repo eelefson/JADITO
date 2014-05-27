@@ -1,5 +1,6 @@
 package  {
 	import org.flixel.*;
+	import flash.events.Event;
 	//import org.flixel.plugin.photonstorm.*;
 	
 	/**
@@ -15,5 +16,12 @@ package  {
 			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 3);
 			FlxG.mouse.show();
 		}
+		
+		override protected function create(FlashEvent:Event):void
+        {
+            super.create(FlashEvent);
+            stage.removeEventListener(Event.DEACTIVATE, onFocusLost);
+            stage.removeEventListener(Event.ACTIVATE, onFocus);
+        }
 	}
 }
