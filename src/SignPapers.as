@@ -158,7 +158,7 @@ package
 							gameOver = true;
 							super.timer.abort();
 						}
-				} else {
+				} else if (!gameOver) {
 					Registry.loggingControl.logAction(1, null);
 				}
 				if (FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&

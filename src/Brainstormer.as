@@ -155,7 +155,7 @@ package {
 				idea.elasticity = .75;
 				ideas.add(idea);
 				Registry.loggingControl.logAction(2, null);
-			} else if (FlxG.mouse.justPressed()) {
+			} else if (!FlxG.paused && !gameOver && FlxG.mouse.justPressed()) {
 				Registry.loggingControl.logAction(1, null);
 			}
 			

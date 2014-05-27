@@ -77,7 +77,7 @@ package {
 			
 			super.update();
 			
-			if (FlxG.mouse.justPressed()) {
+			if (!FlxG.paused && !gameOver && FlxG.mouse.justPressed()) {
 				Registry.loggingControl.logAction(1, null);
 			}
 			

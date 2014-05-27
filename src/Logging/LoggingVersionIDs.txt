@@ -6,3 +6,4 @@ Version IDs:
 1 - Debugging. This should be used when testing our
 	game so that they don't corrupt stats.
 2 - First release (May 16th, 2014).
+3 - Second release (May 26th, 2014). On Newgrounds.

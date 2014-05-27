@@ -138,7 +138,6 @@ package  {
 				//	} else {
 				//		cup_graphic.frame = 0;
 				//	}
-				trace(button.x);
 				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + 200 &&
 					FlxG.mouse.screenY >= button.y && FlxG.mouse.screenY <= button.y + button.height && FlxG.mouse.justPressed()) {
 					Registry.loggingControl.logAction(2, { "action":"button pressed" } );
@@ -165,7 +164,7 @@ package  {
 						white_cursor_graphic.visible = false;
 					}
 				}
-				if (FlxG.mouse.justPressed()) {
+				if (!FlxG.paused && !gameOver && FlxG.mouse.justPressed()) {
 					Registry.loggingControl.logAction(1, null);
 				}
 			}

@@ -106,9 +106,9 @@ package   {
 		
 		override public function update():void {
 			super.update();
-			if (FlxG.mouse.justPressed()) {
+			/*if (!FlxG.paused && FlxG.mouse.justPressed() &&!gameOver) {
 				Registry.loggingControl.logAction(1, null);
-			}
+			}*/
 		}
 		
 		private function checkIfCorrectColor(color:Array):void {

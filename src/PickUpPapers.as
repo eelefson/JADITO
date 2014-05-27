@@ -118,7 +118,7 @@ package  {
 					flipTimer.start();
 				}
 				
-				if (FlxG.mouse.justPressed()) {
+				if (!gameOver && FlxG.mouse.justPressed()) {
 					Registry.loggingControl.logAction(1, null);
 				}
 				

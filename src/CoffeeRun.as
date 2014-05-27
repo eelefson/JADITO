@@ -121,7 +121,7 @@ package {
 					traySprite.angularVelocity += 1;
 				}
 			}
-			if (FlxG.mouse.justPressed()) {
+			if (!FlxG.paused && !gameOver && FlxG.mouse.justPressed()) {
 				Registry.loggingControl.logAction(1, null);
 			}
 			if (Math.abs(traySprite.angle) > 60) {
