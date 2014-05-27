@@ -76,7 +76,7 @@ package  {
 			button = new FlxButtonPlus(FlxG.width / 2, FlxG.height - 75, null, null, "STOP!", 200, 40);
 			button.updateInactiveButtonColors([ 0xffFF0080]);
 			button.updateActiveButtonColors([ 0xffFFFF00, 0xffFF8000 ]);
-			button.screenCenter();
+			button.x = button.x - (button.width / 2);
 			button.textNormal.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
 			button.textHighlight.setFormat("Score2", 30, 0xFFFFFFFF, null, 1);
 			button.textNormal.y -= 7;
@@ -135,7 +135,8 @@ package  {
 				//	} else {
 				//		cup_graphic.frame = 0;
 				//	}
-				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + button.width &&
+				trace(button.x);
+				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + 200 &&
 					FlxG.mouse.screenY >= button.y && FlxG.mouse.screenY <= button.y + button.height && FlxG.mouse.justPressed()) {
 					clicked();	
 				} else {

@@ -76,6 +76,7 @@ package {
 			answerText = new FlxText(FlxG.width - 265, 380, FlxG.width);
 			answerText.color = 0x00800000;
 			answerText.size = 30;
+			answerText.font = "Regular";
 			add(answerText);
 			super.create();
 			super.setCommandText("Dial the Numbers!");

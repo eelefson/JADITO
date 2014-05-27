@@ -259,9 +259,11 @@ package {
 				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			temp.setFormat("Score2", 20, 0, null, 10);
 			if (difficulty == 0) {
+				temp.setFormat("Score2", 20, 0, null, 10);
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
+			} else {
+				temp.setFormat("Score2", 20, 0, null);
 			}
 			temp.velocity.x = 90 + (Math.random() * 40 * (difficulty + 1));
 			if (difficulty >= 3) {
