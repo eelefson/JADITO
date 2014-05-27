@@ -83,7 +83,10 @@ package
 			super.create();
 			super.setCommandText("Catch!");
 			super.setTimer(10 * 1000);
-			var data5:Object = { "difficulty":difficulty };
+			var data5:Object = { "difficulty":difficulty,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(3, data5);
 		}
 		

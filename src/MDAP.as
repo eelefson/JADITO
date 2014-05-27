@@ -177,7 +177,10 @@ package {
 			super.setCommandText("Connect the dots!");
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
-			var data5:Object = { "difficulty":difficulty };
+			var data5:Object = { "difficulty":difficulty,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(8, data5);
 		}
 		

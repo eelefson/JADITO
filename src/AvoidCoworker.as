@@ -173,7 +173,10 @@ package
 				super.setTimer(3 * 1000);
 			}
 			super.timer.callback = timeout;
-			var data3:Object = { "difficulty":difficulty };
+			var data3:Object = { "difficulty":difficulty, 
+								"playthrough":Registry.playthrough, 
+								"sequence num":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(1, data3);
 		}
 		

@@ -146,7 +146,10 @@ package {
 			super.disableTimer();
 			super.timer.callback = timeout;
 			//super.timerText.visible = true; // Don't show the timer!
-			var data5:Object = { "difficulty":level };
+			var data5:Object = { "difficulty":level,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(13, data5);
 		}
 		

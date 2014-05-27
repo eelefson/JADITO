@@ -42,6 +42,7 @@ package  {
 			Registry.failedMostRecentMinigame = false;
 			Registry.score = 0;
 			Registry.BobScores = new Array(200, 700, 1500, 2900, 4400, 8000);
+			Registry.playthroughSeqNum = 0;
 			
 			var title:FlxText;
 			splash_screen_graphic = new FlxSprite(0, 0, SplashScreenImage);

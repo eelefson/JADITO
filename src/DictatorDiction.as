@@ -97,7 +97,10 @@ package   {
 			}
 			super.setTimer(12000);
 			super.timer.callback = timeout;
-			var data5:Object = { "difficulty":level };
+			var data5:Object = { "difficulty":level,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(6, data5);
 		}
 		

@@ -73,7 +73,10 @@ package {
 			super.setCommandText("Staple the Papers!");
 			super.setTimer(time * 1000);
 			super.timer.callback = timeout;
-			var data5:Object = { "difficulty":difficulty };
+			var data5:Object = { "difficulty":difficulty,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(11, data5);
 		}
 		

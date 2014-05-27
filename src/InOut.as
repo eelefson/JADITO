@@ -57,7 +57,10 @@ package {
 			super.setCommandText("Sort Them!");
 			super.setTimer(13000);
 			super.timer.callback = timeout;
-			var data5:Object = { "difficulty":level };
+			var data5:Object = { "difficulty":level,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(7, data5);
 		}
 		

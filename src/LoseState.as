@@ -28,6 +28,8 @@ package  {
 			FlxG.bgColor = 0xff000000;
 			FlxG.music.stop();
 			
+			Registry.playthrough++;
+			
 			boss_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, BossFace);
 			boss_graphic.x = boss_graphic.x - (boss_graphic.width / 2);
 			boss_graphic.y = boss_graphic.y - (boss_graphic.height / 2) - 100;

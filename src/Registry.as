@@ -17,5 +17,7 @@ package  {
 		public static var failedMostRecentMinigame:Boolean;
 		public static var score:int;
 		public static var BobScores:Array = new Array(200, 700, 1500, 2900, 4400, 8000);
+		public static var playthrough:int = 0;
+		public static var playthroughSeqNum:int;
 	}
 }

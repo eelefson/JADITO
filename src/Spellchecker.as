@@ -67,7 +67,10 @@ package
 			} else {
 				super.setTimer(16000);
 			}
-			var data5:Object = { "difficulty":level };
+			var data5:Object = { "difficulty":level,
+								"playthrough":Registry.playthrough,
+								"sequence number":Registry.playthroughSeqNum };
+			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(12, data5);
 		}
 		
