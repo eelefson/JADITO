@@ -18,6 +18,7 @@ package  {
 		private var story:BorderedText;
 		private var replay:BorderedText;
 		private var encourage:BorderedText;
+		private var score:BorderedText;
 		
 		private var boss_graphic:FlxSprite;
 		
@@ -43,18 +44,22 @@ package  {
 			var moveUp:int = -45;
 			var scale:Number = 2;
 			
-			story = new BorderedText(50, FlxG.height / 2 - moveUp + 5, FlxG.width - 100, "You have been fired! Seems like office life was just too tough for you! It is only a matter of time before your job is picked up by some new, unlucky soul.");
-			story.setFormat("Regular", 26, 0xffffffff, "center", 10);
+			score = new BorderedText(50, FlxG.height / 2 - 13, FlxG.width - 100, "Final score: " + Registry.score + " / " + Registry.BobScores[Registry.day]);
+			score.setFormat("Regular", 22, 0xffffff00, "center", 10);
+			add(score);
+			
+			story = new BorderedText(50, FlxG.height / 2 - moveUp + 40, FlxG.width - 100, "You have been fired! Seems like office life was just too tough for you! It is only a matter of time before your job is picked up by some new, unlucky soul.");
+			story.setFormat("Regular", 22, 0xffffffff, "center", 10);
 			story.y = story.y - story.height / 2;
 			add(story);
 			
 			replay = new BorderedText(50, FlxG.height * 3 / 4 - moveUp, FlxG.width - 100, "Click to see how the next guy does!");
-			replay.setFormat("Regular", 26, 0xffffffff, "center", 10);
+			replay.setFormat("Regular", 22, 0xffffffff, "center", 10);
 			replay.y = replay.y - replay.height / 2;
 			add(replay);
 			
 			encourage = new BorderedText(50, FlxG.height + moveUp, FlxG.width - 100, "Your next playthrough might not be the same.");
-			encourage.setFormat("Regular", 20, 0xFF66FF66, "center", 10);
+			encourage.setFormat("Regular", 16, 0xFF66FF66, "center", 10);
 			encourage.y = encourage.y - encourage.height / 2;
 			add(encourage);
 			
