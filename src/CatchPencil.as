@@ -103,7 +103,7 @@ package
 				
 				if (pencil.y > FlxG.height) {
 					if (!gameOver) {
-						var data1:Object = { "completed":"failure" };
+						var data1:Object = { "completed":"failure","type":"past hand" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
 					gameOver = true;
@@ -126,7 +126,7 @@ package
 						super.timer.abort();
 					} else {
 						if (!gameOver) {
-							var data3:Object = { "completed":"failure" };
+							var data3:Object = { "completed":"failure","type":"above hand" };
 							Registry.loggingControl.logLevelEnd(data3);
 						}
 						gameOver = true;

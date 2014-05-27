@@ -234,7 +234,7 @@ package {
 		
 		public function timeout():void {
 			if (!gameOver) {
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;

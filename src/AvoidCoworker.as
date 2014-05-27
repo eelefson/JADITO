@@ -96,12 +96,19 @@ package
 			
 			//2, 8, 11 do not need to be rotated
 			
-			if (route == 0 || route == 4 || route == 7) {
+			
+			
+			if (route == 0 || route == 4 || route == 5) {
 				preview.angle = 90;
-			} else if (route == 1 || route == 6 || route == 5) {
+				preview.y = 90;
+			} else if (route == 1 || route == 6 || route == 7) {
 				preview.angle = 270;
-			} else if (route == 3 || route == 9 || route == 10) {
+				preview.y = FlxG.height - (preview.height + 90);
+			} else if (route == 3 || route == 10 || route == 11) {
 				preview.angle = 180;
+				preview.x = FlxG.width - (preview.width + 10);
+			} else {
+				preview.x = 10;
 			}
 
 			preview.visible = false;
@@ -272,7 +279,7 @@ package
 		
 		public function failure(me:FlxObject, them:FlxObject):void {
 			if (!gameOver) {
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"collision" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;

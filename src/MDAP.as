@@ -434,7 +434,7 @@ package {
 			correctAnswer.flicker(1);
 			
 			if (!gameOver) {
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"wrong answer" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
@@ -465,7 +465,7 @@ package {
 			}
 			
 			if(!gameOver) {
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;

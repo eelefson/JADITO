@@ -20,6 +20,12 @@ package  {
 		
 		private var seconds:int = 10;
 		
+		private var flipTimer:FlxDelay;
+		private var timerGoing:Boolean = false;
+		private var areVisible:Boolean = true;
+		private var flipSeconds:int;
+		private var deadSeconds:int = 1;
+		
 		private var bin:FlxExtendedSprite;
 		private var papers:FlxGroup;
 		
@@ -43,8 +49,11 @@ package  {
 			papers = new FlxGroup();
 			
 			difficulty = Registry.difficultyLevel;
-			papersCount = (difficulty * 5) + 5;
+			difficulty = 0;
+			papersCount = (difficulty * 4) + 5;
 			papersLeft = papersCount;
+			flipSeconds = 4 - difficulty;
+			flipTimer = new FlxDelay(flipSeconds * 1000);
 			
 			for (var i:int = 0; i < papersCount; i++) {
 				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
@@ -75,7 +84,7 @@ package  {
 			//command.visible = false;
 			
 			if(!gameOver){
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
@@ -87,22 +96,44 @@ package  {
 			FlxG.collide(papers, papers);
 			FlxG.collide(papers, super.walls);
 			//FlxCollision.pixelPerfectCheck(player, spikes);
-			if (papersLeft <= 0) {
-				if(!gameOver){
-					var data1:Object = { "completed":"success" };
-					Registry.loggingControl.logLevelEnd(data1);
+			if (!FlxG.paused) {	
+				if (!timerGoing) {
+					flipTimer.start();
+					timerGoing = true;
 				}
-				gameOver = true;
-				super.success = true;
-				super.timer.abort();
+				
+				if (flipTimer.hasExpired && timerGoing && difficulty > 0) {
+					if (areVisible) {
+						papers.setAll("visible", false);
+						areVisible = false;
+						flipTimer = new FlxDelay(deadSeconds * 1000);
+					} else {
+						papers.setAll("visible", true);
+						areVisible = true;
+						flipTimer = new FlxDelay(flipSeconds * 1000);
+					}
+					flipTimer.start();
+				}
+				
+				if (papersLeft <= 0) {
+					if(!gameOver){
+						var data1:Object = { "completed":"success" };
+						Registry.loggingControl.logLevelEnd(data1);
+					}
+					gameOver = true;
+					super.success = true;
+					super.timer.abort();
+				}
 			}
 			super.update();
 		}
 		
 		public function collect(trash:FlxExtendedSprite, x:int, y:int):void {
-			FlxG.play(PickupSFX);
-			papersLeft--;
-			trash.kill();
+			if (trash.visible) {
+				FlxG.play(PickupSFX);
+				papersLeft--;
+				trash.kill();
+			}
 		}
 		
 		override public function destroy():void {

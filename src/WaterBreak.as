@@ -175,7 +175,7 @@ package  {
 				super.success = true;
 			} else {
 				if(!gameOver){
-					var data2:Object = { "completed":"failure" };
+					var data2:Object = { "completed":"failure","type":"bad zone" };
 					Registry.loggingControl.logLevelEnd(data2);
 				} 
 				gameOver = true;
@@ -185,8 +185,13 @@ package  {
 		}
 		
 		public function timeout():void {
-				//var data1:Object = { "completed":"failure" };
-				//Registry.loggingControl.logLevelEnd(data1);
+			if (!gameOver) {
+				var data1:Object = { "completed":"failure","type":"timeout" };
+				Registry.loggingControl.logLevelEnd(data1);
+			}
+			gameOver = true;
+			super.success = false;
+			super.timer.abort();
 		}
 	}
 

@@ -144,6 +144,7 @@ package {
 			super.setCommandText("Clock in at 8:00!");
 			super.setTimer(15000);
 			super.disableTimer();
+			super.timer.callback = timeout;
 			//super.timerText.visible = true; // Don't show the timer!
 			var data5:Object = { "difficulty":level };
 			Registry.loggingControl.logLevelStart(13, data5);
@@ -273,13 +274,24 @@ package {
 					super.success = true;
 				} else { // Failure!
 					if(!gameOver){
-						var data2:Object = { "completed":"failure" };
+						var data2:Object = { "completed":"failure","type":"bad time" };
 						Registry.loggingControl.logLevelEnd(data2);
 					}
 					gameOver = true;
 					super.timer.abort();
 				}
 			}
+		}
+		
+		public function timeout():void {
+			if (!gameOver) {
+				var data5:Object = { "completed":"failure", "type":"timeout" };
+				Registry.loggingControl.logLevelEnd(data5);
+			}
+			
+			gameOver = true;
+			super.success = false;
+			super.timer.abort();
 		}
 		
 	}

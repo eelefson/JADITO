@@ -151,6 +151,9 @@ package {
 				idea.draggable = true;
 				idea.elasticity = .75;
 				ideas.add(idea);
+				Registry.loggingControl.logAction(2, null);
+			} else if (FlxG.mouse.justPressed()) {
+				Registry.loggingControl.logAction(1, null);
 			}
 			
 			FlxG.collide(ideas, ceiling);
@@ -175,7 +178,7 @@ package {
 			command.visible = false;
 			
 			if (!gameOver) {
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;

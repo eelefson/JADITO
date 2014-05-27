@@ -120,7 +120,7 @@ package {
 			}
 			if (Math.abs(traySprite.angle) > 60) {
 				if (!gameOver) {
-					var data1:Object = { "completed":"failure" };
+					var data1:Object = { "completed":"failure","type":"tray fell" };
 					Registry.loggingControl.logLevelEnd(data1);
 				}
 				gameOver = true;

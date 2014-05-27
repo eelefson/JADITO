@@ -35,7 +35,7 @@ package
 				if (!left) {
 					// Fail condition
 					if (!minigame_super.gameOver) {
-						var data1:Object = { "completed":"failure" };
+						var data1:Object = { "completed":"failure","type":"wrong bin" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
 					minigame_super.gameOver = true;

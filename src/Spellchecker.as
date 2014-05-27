@@ -99,9 +99,14 @@ package
 			}
 			
 			if (hasFailed) { // The user has failed!
-				if(!gameOver){
-					var data2:Object = { "completed":"failure" };
-					Registry.loggingControl.logLevelEnd(data2);
+				if (!gameOver) {
+					if (super.timer.hasExpired) {
+						var data2:Object = { "completed":"failure","type":"timeout" };
+						Registry.loggingControl.logLevelEnd(data2);
+					} else {
+						var data3:Object = { "completed":"failure", "type":"wrong word" };
+						Registry.loggingControl.logLevelEnd(data3);
+					}
 				}
 				gameOver = true;
 				ticks++;

@@ -148,7 +148,7 @@ package
 							
 						} else {
 							if(!gameOver) {
-								var data2:Object = { "completed":"failure" };
+								var data2:Object = { "completed":"failure","type":"wrong answer" };
 								Registry.loggingControl.logLevelEnd(data2);
 							}
 							gameOver = true;
@@ -259,7 +259,7 @@ package
 				}
 			} else {
 				if(!gameOver){
-					var data2:Object = { "completed":"failure" };
+					var data2:Object = { "completed":"failure","type":"wrong answer" };
 					Registry.loggingControl.logLevelEnd(data2);
 				}
 				gameOver = true;
@@ -290,7 +290,7 @@ package
 			
 		public function timeout():void {
 			if(!gameOver){
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;

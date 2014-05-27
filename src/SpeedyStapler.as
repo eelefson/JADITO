@@ -95,7 +95,7 @@ package {
 
 				} else if (stapleGroup.countLiving() == 0 && staples == 0) {
 					if(!gameOver){
-						var data2:Object = { "completed":"failure" };
+						var data2:Object = { "completed":"failure","type":"no staples" };
 						Registry.loggingControl.logLevelEnd(data2);
 					}
 					gameOver = true;
@@ -111,7 +111,7 @@ package {
 		
 		public function timeout():void {		
 			if(!gameOver){
-				var data1:Object = { "completed":"failure" };
+				var data1:Object = { "completed":"failure","type":"timeout" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
