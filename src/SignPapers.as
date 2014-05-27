@@ -122,7 +122,7 @@ package
 		
 		override public function update():void {
 			super.update();
-			if (!FlxG.paused) {
+			if (!FlxG.paused && !gameOver) {
 				// Easier to create rectangle bounding box than a sprite in this case
 				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
 					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {

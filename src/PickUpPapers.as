@@ -49,7 +49,6 @@ package  {
 			papers = new FlxGroup();
 			
 			difficulty = Registry.difficultyLevel;
-			difficulty = 0;
 			papersCount = (difficulty * 4) + 5;
 			papersLeft = papersCount;
 			flipSeconds = 4 - difficulty;
