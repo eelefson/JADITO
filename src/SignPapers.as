@@ -126,6 +126,7 @@ package
 				// Easier to create rectangle bounding box than a sprite in this case
 				if (FlxG.mouse.justReleased() && FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
 					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
+						Registry.loggingControl.logAction(3, { "action":"sign clicked" } );
 						if (currPaperAnswer) {
 							numAnswered++;
 							
@@ -157,6 +158,8 @@ package
 							gameOver = true;
 							super.timer.abort();
 						}
+				} else {
+					Registry.loggingControl.logAction(1, null);
 				}
 				if (FlxG.mouse.screenX >= lineSprite.x && FlxG.mouse.screenX <= lineSprite.x + lineSprite.width &&
 					FlxG.mouse.screenY >= lineSprite.y && FlxG.mouse.screenY <= lineSprite.y + lineSprite.height) {
@@ -239,6 +242,8 @@ package
 		
 		public function pass():void
 		{
+			
+			Registry.loggingControl.logAction(2, { "action":"pass button" } );
 			if (!currPaperAnswer) {
 				numAnswered++;
 				

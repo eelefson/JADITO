@@ -141,6 +141,7 @@ package  {
 				trace(button.x);
 				if (FlxG.mouse.screenX >= button.x && FlxG.mouse.screenX <= button.x + 200 &&
 					FlxG.mouse.screenY >= button.y && FlxG.mouse.screenY <= button.y + button.height && FlxG.mouse.justPressed()) {
+					Registry.loggingControl.logAction(2, { "action":"button pressed" } );
 					clicked();	
 				} else {
 					if (delay.hasExpired) {
@@ -163,6 +164,9 @@ package  {
 						red_cursor_graphic.visible = true;
 						white_cursor_graphic.visible = false;
 					}
+				}
+				if (FlxG.mouse.justPressed()) {
+					Registry.loggingControl.logAction(1, null);
 				}
 			}
 			

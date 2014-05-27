@@ -54,6 +54,8 @@ package
 		public function clicked(obj:InOutPaper, x:int, y:int):void
 		{
 			obj.frame = 1;
+			
+			Registry.loggingControl.logAction(2, { "action":"paper clicked" } );
 			//if (obj.velocity.x == 0) {
 				if (left) {
 					obj.velocity.x = 800;

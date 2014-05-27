@@ -107,6 +107,10 @@ package {
 				}
 				justStarted = false;
 			}
+			
+			if (FlxG.mouse.justPressed()) {
+				Registry.loggingControl.logAction(1, null);
+			}
 		}
 		
 		// Create the button sprites according to the Nums array
@@ -162,6 +166,8 @@ package {
 		public function clicked(obj:Num, x:int, y:int):void
 		{
 			obj.changeFrame(1);
+			
+			Registry.loggingControl.logAction(2, { "action":"clicked number" } );
 			
 			// Correct, increment the digit and update the result
 			if (obj.number == goal[currIndex]) {

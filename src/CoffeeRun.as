@@ -121,6 +121,9 @@ package {
 					traySprite.angularVelocity += 1;
 				}
 			}
+			if (FlxG.mouse.justPressed()) {
+				Registry.loggingControl.logAction(1, null);
+			}
 			if (Math.abs(traySprite.angle) > 60) {
 				if (!gameOver) {
 					var data1:Object = { "completed":"failure","type":"tray fell" };
@@ -135,10 +138,12 @@ package {
 		
 		public function adjustTrayLeft(obj:FlxExtendedSprite, x:int, y:int):void {
 			traySprite.angularVelocity += (10 + 3 * difficulty);
+			Registry.loggingControl.logAction(2, { "action":"tray left" } );
 		}
 		
 		public function adjustTrayRight(obj:FlxExtendedSprite, x:int, y:int):void {
 			traySprite.angularVelocity -= (10 + 3 * difficulty);
+			Registry.loggingControl.logAction(3, { "action":"tray right" } );
 		}
 		
 		public function timeout():void {

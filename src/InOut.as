@@ -77,6 +77,10 @@ package {
 			
 			super.update();
 			
+			if (FlxG.mouse.justPressed()) {
+				Registry.loggingControl.logAction(1, null);
+			}
+			
 			if (!FlxG.paused && ticks % mod == 0) {
 				addPaper();
 			}

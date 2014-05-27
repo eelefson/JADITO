@@ -118,6 +118,10 @@ package  {
 					flipTimer.start();
 				}
 				
+				if (FlxG.mouse.justPressed()) {
+					Registry.loggingControl.logAction(1, null);
+				}
+				
 				if (papersLeft <= 0) {
 					if(!gameOver){
 						var data1:Object = { "completed":"success" };
@@ -132,6 +136,7 @@ package  {
 		}
 		
 		public function collect(trash:FlxExtendedSprite, x:int, y:int):void {
+			Registry.loggingControl.logAction(2, { "action":"clickep paper" } );
 			if (trash.visible) {
 				FlxG.play(PickupSFX);
 				papersLeft--;

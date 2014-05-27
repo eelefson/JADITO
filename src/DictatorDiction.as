@@ -106,9 +106,14 @@ package   {
 		
 		override public function update():void {
 			super.update();
+			if (FlxG.mouse.justPressed()) {
+				Registry.loggingControl.logAction(1, null);
+			}
 		}
 		
 		private function checkIfCorrectColor(color:Array):void {
+			Registry.loggingControl.logAction(2, { "action":"color button" } );
+			
 			if (answers.slice(0, 1)[0] == color[0]) {
 				//correct!
 				commands--;
@@ -142,6 +147,7 @@ package   {
 		}
 		
 		private function checkIfCorrectText(text:Array):void {
+			Registry.loggingControl.logAction(3, { "action":"text button" } );
 			if (answers.slice(0, 1)[0] == text[0]) {
 				//correct!
 				commands--;
