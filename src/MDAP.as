@@ -60,6 +60,9 @@ package {
 		private var blink:Boolean;
 		private var intervalID:uint;
 		
+		private var versionA:Boolean;
+		private var hazeOnly:Boolean;
+		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
@@ -69,12 +72,16 @@ package {
 			FlxG.bgColor = 0xffffffff;
 			
 			gameOver = false;
+			versionA = true;
 			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
 			words = 20 + 10 * difficulty;
 			var seconds:int = 10 + 5 * difficulty;
-						
+			if (!versionA && difficulty == 0) {
+				words = 0;
+			}
+			
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
@@ -103,6 +110,11 @@ package {
 			//[ "Nice job!", "Hang in there!", "That looks really good!", "You are my hero!", "Nice artwork!",
 			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
+			
+			hazeOnly = true;
+			if (Math.random() < .5) {
+				hazeOnly = false;
+			}
 			
 			drawing = new FlxSprite(30, 70);
 			drawing.alpha = 0.5;
@@ -246,13 +258,24 @@ package {
 		public function addWord():void {
 			var word:String = "";
 			var praiseTemp:Boolean = true;
-			if (Math.random() >= .5) {
-				word = FlxU.getRandom(praisePhrases) as String;
-				praise++;
+			if (difficulty == 0) {
+				if (!hazeOnly) {
+					word = FlxU.getRandom(praisePhrases) as String;
+					praise++;
+				}else {
+					word = FlxU.getRandom(hazePhrases) as String;
+					haze++;
+					praiseTemp = false;
+				}
 			}else {
-				word = FlxU.getRandom(hazePhrases) as String;
-				haze++;
-				praiseTemp = false;
+				if (Math.random() >= .5) {
+					word = FlxU.getRandom(praisePhrases) as String;
+					praise++;
+				}else {
+					word = FlxU.getRandom(hazePhrases) as String;
+					haze++;
+					praiseTemp = false;
+				}
 			}
 			var temp:BorderedText;
 			if (Math.random() >= .5) {
@@ -262,7 +285,7 @@ package {
 				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			if (difficulty == 0) {
+			if (difficulty == 0 || (versionA && difficulty <= 1)) {
 				temp.setFormat("Score2", 20, 0, null, 10);
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			} else {
@@ -292,89 +315,156 @@ package {
 			sketchpad.visible = false;
 			//command.visible = false;
 			var answer:int = 0;
+			var qContent:String;
+			var scale:Number = 1.5;
 			
-			if (difficulty == 0) {
-				var q1:DictatorDictionText;
-				var q2:DictatorDictionText;
-				
-				if (Math.random() >= .5) {
-					q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
-					q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
-					q2.setFormat("Regular", 24, 0xFF006600);
-					answer = praise;
+			if(versionA) {
+				if (difficulty <= 1) {
+					var q1:DictatorDictionText;
+					var q2:DictatorDictionText;
+					if(difficulty == 0) {
+						if (!hazeOnly) {
+							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
+							q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
+							q2.setFormat("Regular", 24, 0xFF006600);
+							answer = praise;
+						}else {
+							q1 = new DictatorDictionText(FlxG.width / 2, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
+							q2 = new DictatorDictionText(0, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
+							q2.setFormat("Regular", 24, 0xFFF00000);
+							answer = haze;
+						}
+						q1.setFormat("Regular", 24, 0);
+						q1.x = q1.x - ((q1.getRealWidth() + q2.getRealWidth()) / 2);
+						q2.x = q1.x + q1.getRealWidth();
+					}else {
+						if (Math.random() >= .5) {
+							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
+							q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
+							q2.setFormat("Regular", 24, 0xFF006600);
+							answer = praise;
+						}else {
+							q1 = new DictatorDictionText(FlxG.width / 2, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
+							q2 = new DictatorDictionText(0, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
+							q2.setFormat("Regular", 24, 0xFFF00000);
+							answer = haze;
+						}
+						q1.setFormat("Regular", 24, 0);
+						q1.x = q1.x - ((q1.getRealWidth() + q2.getRealWidth()) / 2);
+						q2.x = q1.x + q1.getRealWidth();
+					}
+					add(q1);
+					add(q2);
 				}else {
-					q1 = new DictatorDictionText(FlxG.width / 2, FlxG.height * 1 / 2 - 50, FlxG.width / 2 + 130, "How many times were you told to ");
-					q2 = new DictatorDictionText(0, FlxG.height * 1 / 2 - 50, FlxG.width, "just quit?");
-					q2.setFormat("Regular", 24, 0xFFF00000);
-					answer = haze;
+					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
+					question.setFormat("Regular", 24, 0, "center");
+					
+					if (Math.random() >= .5) {
+						qContent = "How many times were you told you did a good job?";
+						answer = praise;
+					}else {
+						qContent = "How many times were you told to just quit?";
+						answer = haze;
+					}
+					question.text = qContent;
+					
+					add(question);
 				}
-				q1.setFormat("Regular", 24, 0);
-				q1.x = q1.x - ((q1.getRealWidth() + q2.getRealWidth()) / 2);
-				q2.x = q1.x + q1.getRealWidth();
-				add(q1);
-				add(q2);
 			}else {
-				var qContent:String;
-				question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
-				question.setFormat("Regular", 24, 0, "center");
-				
-				if (Math.random() >= .5) {
-					qContent = "How many times were you told you did a good job?";
-					answer = praise;
-				}else {
-					qContent = "How many times were you told to just quit?";
-					answer = haze;
-				}
-				question.text = qContent;
-				
-				add(question);
-			}
-			
-			var choices:Array = new Array();
-			var realChoices:Array = new Array();
-			
-			for (var i:int = answer - 4; i <= answer + 4; i++) {
-				if (i != praise && i != haze && i >= 0) {
-					choices.push(i);
-				}
-			}
-			FlxU.shuffle(choices, 30);
-			
-			realChoices.push(praise);
-			realChoices.push(choices[0]);
-			realChoices.push(choices[1]);
-			if (praise != haze) {
-				realChoices.push(haze);
-			} else {
-				realChoices.push(choices[2]);
-			}
-			FlxU.shuffle(realChoices, 16);
-			
-			for (i = 0; i < 4; i++) {
-				var button:FlxButton;
-				var value:int = realChoices[i] as int;
-				var scale:Number = 1.5;
+				if(difficulty == 0) {
+					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "What did your coworker say when you played?");
+					question.setFormat("Regular", 24, 0, "center");
+					
+					var hazeButton:FlxButtonPlus;
+					var praiseButton:FlxButtonPlus;
 
-				if(value == answer) {
-					button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
-					correctAnswer = button;
-				} else {
-					button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
+					if(hazeOnly) {
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, correct, null, "Just Quit!", 200, 40);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, wrong, null, "Good Job!", 200, 40);
+						//correctAnswer = hazeButton;
+					} else {
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, wrong, null, "Just Quit!", 200, 35);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
+						//correctAnswer = praiseButton;
+					}
+					
+					hazeButton.textNormal.font = "Regular";
+					hazeButton.textNormal.size = 20;
+					hazeButton.textHighlight.font = "Regular";
+					hazeButton.textHighlight.size = 20;
+					
+
+					praiseButton.textNormal.font = "Regular";
+					praiseButton.textNormal.size = 20;
+					praiseButton.textHighlight.font = "Regular";
+					praiseButton.textHighlight.size = 20;
+					
+					add(hazeButton);
+					add(praiseButton);
+					add(question);
+				}else {
+					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
+					question.setFormat("Regular", 24, 0, "center");
+					
+					if (Math.random() >= .5) {
+						qContent = "How many times were you told you did a good job?";
+						answer = praise;
+					}else {
+						qContent = "How many times were you told to just quit?";
+						answer = haze;
+					}
+					question.text = qContent;
+					
+					add(question);
 				}
-				//button.scale.x = scale;
-				//button.scale.y = scale;
-				//button.label.offset.y = (scale - 1) / 2 * button.label.size;
-				//button.label.size = button.label.size * scale;
+			}
+			if(!(!versionA && difficulty == 0)) {
+				var choices:Array = new Array();
+				var realChoices:Array = new Array();
 				
-				button.scale.x = scale;
-				button.scale.y = scale;
-				button.label.font = "Regular";
-				button.label.size = 16;
-				button.label.offset.y += 6;
-				button.label.color = 0xFF000000;
+				for (var i:int = answer - 4; i <= answer + 4; i++) {
+					if (i != praise && i != haze && i >= 0) {
+						choices.push(i);
+					}
+				}
+				FlxU.shuffle(choices, 30);
 				
-				add(button);
-			}/*
+				realChoices.push(praise);
+				realChoices.push(choices[0]);
+				realChoices.push(choices[1]);
+				if (praise != haze) {
+					realChoices.push(haze);
+				} else {
+					realChoices.push(choices[2]);
+				}
+				FlxU.shuffle(realChoices, 16);
+				
+				for (i = 0; i < 4; i++) {
+					var button:FlxButton;
+					var value:int = realChoices[i] as int;
+
+					if(value == answer) {
+						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
+						correctAnswer = button;
+					} else {
+						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
+					}
+					//button.scale.x = scale;
+					//button.scale.y = scale;
+					//button.label.offset.y = (scale - 1) / 2 * button.label.size;
+					//button.label.size = button.label.size * scale;
+					
+					button.scale.x = scale;
+					button.scale.y = scale;
+					button.label.font = "Regular";
+					button.label.size = 16;
+					button.label.offset.y += 6;
+					button.label.color = 0xFF000000;
+					
+					add(button);
+				}
+			}
+			/*
 			var value:int = realChoices[0] as int;
 			if(value == answer) {
 				b1 = new FlxButton(85, FlxG.height*3/4 - 50, value.toString(), correct);
@@ -434,7 +524,9 @@ package {
 		}
 		
 		public function wrong():void {
-			correctAnswer.flicker(1);
+			if(!(!versionA && difficulty == 0)) {
+				correctAnswer.flicker(1);
+			}
 			
 			if (!gameOver) {
 				var data1:Object = { "completed":"failure","type":"wrong answer" };
