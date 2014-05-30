@@ -3,6 +3,7 @@ package
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import mx.core.FlexSprite;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	import flash.utils.ByteArray;
@@ -32,10 +33,19 @@ package
 		
 		private var signature_graphic:FlxExtendedSprite
 		
+		private var newVersion:Boolean;
+		private var hintBubble:FlxSprite;
+		private var hint:FlxText;
+		private var tries:Number = 3;
+		
 		private static var NUM_PAPERS:int = 4; // How many papers the player must sign per game
 		
 		[Embed(source = "/image_assets/signline.png")] private var img:Class;
 		[Embed(source = "image_assets/Signature2.png")] private var SignatureImage:Class;
+		[Embed(source = "image_assets/hintbubble.png")] private var hintImage:Class;
+		
+		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
+		[Embed(source = "sound_assets/wrong.mp3")] private var wrongSound:Class;
 		
 		[Embed(source = "../src/signpapers.txt", mimeType = "application/octet-stream")] private var papersFile:Class;
 		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
@@ -44,6 +54,8 @@ package
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
 			}
+			
+			newVersion = true;
 			
 			FlxG.bgColor = 0xffaaaaaa;
 			
@@ -105,6 +117,22 @@ package
 			//passButton.textHighlight.color = 0xFF000000;
 			add(passButton);
 			
+			if (level == 0 && newVersion) {
+				signature_graphic.y += 20;
+				lineSprite.y += 20;
+				
+				hintBubble = new FlxSprite(0, 200);
+				hintBubble.loadGraphic(hintImage);
+				hintBubble.visible = false;
+				add(hintBubble);
+				
+				hint = new FlxText(150, 230, FlxG.width);
+				hint.size = 23;
+				hint.color = 0xFF000000;
+				hint.font = "Typewriter";
+				add(hint);
+			}
+			
 			super.create();
 			super.setCommandText("Sign for money gain ONLY!");
 			if (level < 2) {
@@ -130,6 +158,11 @@ package
 						if (currPaperAnswer) {
 							numAnswered++;
 							
+							if (level == 0 && newVersion) {
+								hintBubble.visible = false;
+								hint.text = "";
+							}
+							
 							// CHECKS IF VICTORY CONDITIONS ARE MET
 							if (numAnswered >= NUM_PAPERS) {
 								if(!gameOver){
@@ -147,16 +180,29 @@ package
 								numLeft.text = "Papers: 0";
 							} else {
 								updateText();
+								FlxG.play(inputSound);
 								numLeft.text = "Papers: " + (NUM_PAPERS - numAnswered);
 							}
 							
 						} else {
-							if(!gameOver) {
-								var data2:Object = { "completed":"failure","type":"wrong answer" };
-								Registry.loggingControl.logLevelEnd(data2);
+							if (level == 0 && newVersion && tries > 0) {
+					
+								hintBubble.visible = true;
+								hint.text = "Remember to sign for money gain only!";
+								tries--;
+								
+								FlxG.play(wrongSound);
+								
+							} else {
+							
+								if(!gameOver) {
+									var data2:Object = { "completed":"failure","type":"wrong answer" };
+									Registry.loggingControl.logLevelEnd(data2);
+								}
+								gameOver = true;
+								super.timer.abort();
+								
 							}
-							gameOver = true;
-							super.timer.abort();
 						}
 				} else if (!gameOver) {
 					Registry.loggingControl.logAction(1, null);
@@ -210,6 +256,10 @@ package
 			var x:int = TEXT_MARGIN;
 			var y:int = TEXT_MARGIN;
 			
+			if (level == 0 && newVersion) {
+				y -= 20;
+			}
+			
 			// Print each word
 			for (var j:int; j < paragraph.length; j++) {
 				var word:String = paragraph[j];
@@ -247,6 +297,11 @@ package
 			if (!currPaperAnswer) {
 				numAnswered++;
 				
+				if (level == 0 && newVersion) {
+					hintBubble.visible = false;
+					hint.text = "";
+				}
+				
 				if (numAnswered >= NUM_PAPERS) {
 					if(!gameOver){
 						var data1:Object = { "completed":"success" };
@@ -264,14 +319,26 @@ package
 				} else {
 					updateText();
 					numLeft.text = "Papers: " + (NUM_PAPERS - numAnswered);
+					FlxG.play(inputSound);
 				}
 			} else {
-				if(!gameOver){
-					var data2:Object = { "completed":"failure","type":"wrong answer" };
-					Registry.loggingControl.logLevelEnd(data2);
+				if (level == 0 && newVersion && tries > 0) {
+					
+					hintBubble.visible = true;
+					hint.text = "Be sure to sign if it gives money!";
+					tries--;
+					
+					FlxG.play(wrongSound);
+					
+				} else {
+				
+					if(!gameOver){
+						var data2:Object = { "completed":"failure","type":"wrong answer" };
+						Registry.loggingControl.logLevelEnd(data2);
+					}
+					gameOver = true;
+					super.timer.abort();
 				}
-				gameOver = true;
-				super.timer.abort();
 			}
 		}
 		
