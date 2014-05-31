@@ -325,7 +325,7 @@ package
 				if (level == 0 && newVersion && tries > 0) {
 					
 					hintBubble.visible = true;
-					hint.text = "Be sure to sign if it gives money!";
+					hint.text = "Don't refuse if you will gain money!";
 					tries--;
 					
 					FlxG.play(wrongSound);
