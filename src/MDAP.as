@@ -72,7 +72,9 @@ package {
 			FlxG.bgColor = 0xffffffff;
 			
 			gameOver = false;
-			versionA = true;
+			
+			// CHANGE THIS TO CHANGE THE VERSION
+			versionA = false;
 			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
@@ -85,30 +87,19 @@ package {
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
-			//dot.enableMouseClicks(false);
-			//dot.mousePressedCallback = moveDot;
-			//dot.clickable = true;
 			
 			dotsLeft = new FlxText(-2, 25, FlxG.width, dots.toString() + " dots");
 			dotsLeft.setFormat("Score2", 24, 0, "right");
 			
-			//command = new FlxText(0, 0, FlxG.width, "Click the dots!");
-			//command.setFormat(null, 16, 0, "center");
-			
 			sketchpad = new FlxSprite();
-			//sketchpad.makeGraphic(FlxG.width, FlxG.height);
 			sketchpad.loadGraphic(sketchpadImage);
 			add(sketchpad);
 			
 			hazePhrases = ["Just quit!"];
-			//[ "Intern!!!", "You shouldn't be proud!", "You missed a spot!", "Go to college for that?", "Just quit!", 
-			//":(", "That is bad!", "You will never make it!" ];
 			haze = 0;
 			
 			praisePhrases = ["Good job!"];
 			
-			//[ "Nice job!", "Hang in there!", "That looks really good!", "You are my hero!", "Nice artwork!",
-			//"You are great!", "You can do it!", "You got potential kid!", ":)", "You should be proud!" ];
 			praise = 0;
 			
 			hazeOnly = true;
@@ -173,14 +164,6 @@ package {
 			previousPoint = new FlxPoint(-100, -100);
 			add(ballGroup);
 			add(crayon_graphic);
-			
-			//dragMeText = new FlxText(crayon_graphic.x, crayon_graphic.y, 100, "Drag me!");
-			//dragMeText.y = dragMeText.y - dragMeText.height - 10;
-			//dragMeText.setFormat(null, 16, 0xff000000);
-			//dragMeText.visible = false;
-			//blinkText();
-			//intervalID = setInterval(blinkText, 500);
-			//add(dragMeText);
 			
 			add(dotsLeft);
 			add(dot);
@@ -449,10 +432,6 @@ package {
 					} else {
 						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
 					}
-					//button.scale.x = scale;
-					//button.scale.y = scale;
-					//button.label.offset.y = (scale - 1) / 2 * button.label.size;
-					//button.label.size = button.label.size * scale;
 					
 					button.scale.x = scale;
 					button.scale.y = scale;
@@ -464,63 +443,6 @@ package {
 					add(button);
 				}
 			}
-			/*
-			var value:int = realChoices[0] as int;
-			if(value == answer) {
-				b1 = new FlxButton(85, FlxG.height*3/4 - 50, value.toString(), correct);
-				correctAnswer = b1;
-			} else {
-				b1 = new FlxButton(85, FlxG.height*3/4 - 50, value.toString(), wrong);
-			}
-			
-			value = realChoices[1] as int;
-			if(value == answer) {
-				b2 = new FlxButton(215, FlxG.height*3/4 - 50, value.toString(), correct);
-				correctAnswer = b2;
-			} else {
-				b2 = new FlxButton(215, FlxG.height*3/4 - 50, value.toString(), wrong);
-			}
-			
-			value = realChoices[2] as int;
-			if(value == answer) {
-				b3 = new FlxButton(345, FlxG.height*3/4 - 50, value.toString(), correct);
-				correctAnswer = b3;
-			} else {
-				b3 = new FlxButton(345, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
-			}
-			
-			value = realChoices[3] as int;
-			if(value == answer) {
-				b4 = new FlxButton(475, FlxG.height*3/4 - 50, value.toString(), correct);
-				correctAnswer = b4;
-			} else {
-				b4 = new FlxButton(475, FlxG.height*3/4 - 50, value.toString(), wrong);
-			}
-			var scale:Number = 1.5;
-			b1.scale.x = scale;
-			b1.scale.y = scale;
-			b1.label.offset.y = (scale - 1) / 2 * b1.label.size;
-			b1.label.size = b1.label.size * scale;
-			
-			b2.scale.x = scale;
-			b2.scale.y = scale;
-			b2.label.offset.y = (scale - 1) / 2 * b2.label.size;
-			b2.label.size = b2.label.size * scale;
-			
-			b3.scale.x = scale;
-			b3.scale.y = scale;
-			b3.label.offset.y = (scale - 1) / 2 * b3.label.size;
-			b3.label.size = b3.label.size * scale;
-			
-			b4.scale.x = scale;
-			b4.scale.y = scale;
-			b4.label.offset.y = (scale - 1) / 2 * b4.label.size;
-			b4.label.size = b4.label.size * scale;
-			
-			add(b1);
-			add(b2);
-			add(b3);
-			add(b4);*/
 		}
 		
 		public function wrong():void {
@@ -547,14 +469,6 @@ package {
 		}
 		
 		public function timeout():void {
-			//dot.visible = false;
-			//dotsLeft.visible = false;
-			//sketchpad.visible = false;
-			//command.visible = false;
-			
-			//question = new FlxText(0, FlxG.height / 2 - 16, FlxG.width, "Out of time!");
-			//question.setFormat(null, 16, 0, "center");
-			//add(question);
 			if (correctAnswer != null) {
 				correctAnswer.flicker(1);
 			}

@@ -98,8 +98,11 @@ package {
 			if (Registry.pool.length == 0) {		
 				if (Registry.playCurrentDay) {
 					Registry.day++;
+					if (Registry.day != DaysOfTheWeek.MONDAY) {
+						generatePool();
+					}
 				}
-				Registry.playCurrentDay = false;
+				//Registry.playCurrentDay = false;
 				var s:int;
 				if (Registry.day == DaysOfTheWeek.SATURDAY) {
 					for (i = 0; i < 10; i++) {
@@ -135,7 +138,6 @@ package {
 				scribble_graphic = new FlxSprite(32 + (n * 48), 64, ScribbleImage);
 				add(scribble_graphic);				
 			}
-			
 			toDoText = new DictatorDictionText(95, 257 + 10, 132, "To Do:");
 			toDoText.setFormat("Typewriter", 18, 0xff000000, "center");
 			add(toDoText);

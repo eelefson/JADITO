@@ -74,7 +74,7 @@ package  {
 				if (Registry.day == DaysOfTheWeek.SATURDAY) {
 					FlxG.switchState(new WinState());
 				} else {
-					FlxG.switchState(new PlayState());
+					FlxG.switchState(new NewDayState());
 				}
 			}
 		}
