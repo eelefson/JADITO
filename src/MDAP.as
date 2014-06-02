@@ -84,7 +84,7 @@ package {
 			// 0 is original
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 1;
+			version = 0;
 			
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -101,10 +101,13 @@ package {
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
-
-			if (version == 1 && difficulty == 0) {
+			if (difficulty == 0) {
 				words = 0;
+				if (version == 2) {
+					words = 50
+				}
 			}
+			
 			
 			lastX = 0;
 			lastY = 0;
@@ -251,7 +254,7 @@ package {
 			lastY = dot.y + dot.height / 2;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
-			if (difficulty == 0) {
+			if (difficulty == 0 && version != 2) {
 				if (dots == 2) {
 					addWord();
 				}
@@ -339,9 +342,11 @@ package {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;
 					if (difficulty == 0) {
-						var hintTimer:FlxDelay = new FlxDelay(6000);
-						hintTimer.callback = showHint;
-						hintTimer.start();
+						if(version == 0) {
+							var hintTimer:FlxDelay = new FlxDelay(6000);
+							hintTimer.callback = showHint;
+							hintTimer.start();
+						}
 						
 						if (!hazeOnly) {
 							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
@@ -467,7 +472,7 @@ package {
 						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
 						correctAnswer = button;
 					} else {
-						if(difficulty == 0) {
+						if(difficulty == 0 && version != 2) {
 							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
 						}else {
 							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
@@ -550,7 +555,7 @@ package {
 			}
 			var data1:Object;
 			
-			if (difficulty == 0 && versionA) {
+			if (difficulty == 0 && version == 0) {
 				if(!gameOver) {
 					data1 = { "completed":"success" };
 					Registry.loggingControl.logLevelEnd(data1);
