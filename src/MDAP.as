@@ -92,7 +92,7 @@ package {
 			
 			hintVisible = false;
 				
-			difficulty = 0;
+			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
