@@ -24,14 +24,19 @@ package {
 		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
 		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
 		[Embed(source = "image_assets/hintbubble.png")] private var hintImage:Class;
-		
+
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
 		private var drawing:FlxSprite;
-		
+
 		private var dotsLeft:FlxText;
 		private var question:DictatorDictionText;
-		
+
+		/*private var b1:FlxButton;
+		private var b2:FlxButton;
+		private var b3:FlxButton;
+		private var b4:FlxButton;*/
+
 		private var difficulty:int;
 		private var dots:int;
 		private var haze:int;
@@ -39,59 +44,59 @@ package {
 		private var words:int;
 		private var hazePhrases:Array;
 		private var praisePhrases:Array;
-		
+
 		private var color:uint;
-		
+
 		private var correctAnswer:FlxButton;
-		
+
 		private var lastX:int;
 		private var lastY:int;
-		
+
 		// Eli added for line draw
 		private var crayon_graphic:FlxExtendedSprite;
 		private var dot_graphic:FlxExtendedSprite;
 		private var previousPoint:FlxPoint;
 		private var ballGroup:FlxGroup;
-		
+
 		private var dragMeText:FlxText;
 		private var blink:Boolean;
 		private var intervalID:uint;
-		
+
 		private var version:int;
 		private var hazeOnly:Boolean;
 		private var delay:FlxDelay;
-		
+
 		private var hintSprite:FlxSprite;
 		private var hintMessage:FlxText;
 		private var hintVisible:Boolean;
-		
+
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
 			}
-						
+
 			FlxG.mouse.hide();
 			FlxG.bgColor = 0xffffffff;
-			
+
 			gameOver = false;
-			
+
 			// CHANGE THIS TO CHANGE THE VERSION
 			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
 			version = 0;
-			
+
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
 			hintSprite.loadGraphic(hintImage);
-			
+
 			hintMessage = new FlxText(150, 240, FlxG.width, "Make sure to count phrases next time!");
 			hintMessage.size = 23;
 			hintMessage.color = 0xFF000000;
 			hintMessage.font = "Typewriter";
-			
+
 			hintVisible = false;
-				
+
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
@@ -102,31 +107,31 @@ package {
 					words = 75
 				}
 			}
-			
-			
+
+
 			lastX = 0;
 			lastY = 0;
 			dot = new Dot();
-			
+
 			dotsLeft = new FlxText(-2, 25, FlxG.width, dots.toString() + " dots");
 			dotsLeft.setFormat("Score2", 24, 0, "right");
-			
+
 			sketchpad = new FlxSprite();
 			sketchpad.loadGraphic(sketchpadImage);
 			add(sketchpad);
-			
+
 			hazePhrases = ["Just quit!"];
 			haze = 0;
-			
+
 			praisePhrases = ["Good job!"];
-			
+
 			praise = 0;
-			
+
 			hazeOnly = true;
 			if (Math.random() < .5) {
 				hazeOnly = false;
 			}
-						
+
 			drawing = new FlxSprite(30, 70);
 			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
@@ -143,7 +148,7 @@ package {
 				drawing.y = 60;
 			}
 			add(drawing);
-			
+
 			if (version != 2 || difficulty != 0) {
 				var X_OFFSET:int = 0;
 				var Y_OFFSET:int = -80;
@@ -176,7 +181,7 @@ package {
 						break;
 				}
 			}
-			
+
 			// Eli added for line draw
 			if (version != 2 || difficulty != 0) {
 				ballGroup = new FlxGroup();
@@ -187,11 +192,11 @@ package {
 				previousPoint = new FlxPoint(-100, -100);
 				add(ballGroup);
 				add(crayon_graphic);
-				
+
 				add(dotsLeft);
 				add(dot);
 			}
-			
+
 			super.create();
 			if (version == 2 && difficulty == 0) {
 				super.setCommandText("Count distinct phrases!");
@@ -210,7 +215,7 @@ package {
 			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(8, data5);
 		}
-		
+
 		override public function update():void {
 			super.update();
 			if (!FlxG.paused) {
@@ -228,9 +233,9 @@ package {
 					if (ballGroup.length > 3) {
 						ballGroup.getFirstAlive().kill();
 					}
-						
+
 					previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
-					
+
 					if (FlxG.overlap(dot_graphic, dot)) {
 						moveDot();
 					}
@@ -242,28 +247,22 @@ package {
 				}
 			}
 		}
-		
+
 		public function moveDot():void {
 			lastX = dot.x + dot.width / 2;
 			lastY = dot.y + dot.height / 2;
-			
+
 			var speak:int = FlxU.round(Math.random() * 100);
-			if (difficulty == 0) {
-				if (version != 2) {
-					if (dots == 2) {
-						addWord();
-					}
-				} else if (version == 2) {
-					if (dots == 7 || dots == 4 || dots == 2) {
-						addWord();
-					}
+			if (difficulty == 0 && version != 2) {
+				if (dots == 2) {
+					addWord();
 				}
 			}else {
 				if ((words > speak && dots >= 2)) {
 					addWord();
 				}
 			}
-			
+
 			dot.move();
 			dots--;
 			dotsLeft.text = dots.toString() + " dots";
@@ -271,7 +270,7 @@ package {
 				bossQuestion();
 			}
 		}
-		
+
 		public function addWord():void {
 			var word:String = "";
 			var praiseTemp:Boolean = true;
@@ -302,7 +301,7 @@ package {
 				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			if (difficulty == 0 || (version == 0 && difficulty <= 1)) {
+			if (difficulty == 0 || (version == 0 && difficulty <= 3)) {
 				temp.setFormat("Score2", 20, 0, null, 10);
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			} else {
@@ -317,7 +316,7 @@ package {
 			}
 			add(temp);
 		}
-		
+
 		public function bossQuestion():void {
 			if (version != 2 || difficulty != 0) {
 				remove(crayon_graphic);
@@ -328,7 +327,7 @@ package {
 			super.timer.callback = bossQuestionTimeout;
 			remove(drawing);
 			FlxG.mouse.show();
-			
+
 			dot.visible = false;
 			dotsLeft.visible = false;
 			sketchpad.visible = false;
@@ -336,16 +335,18 @@ package {
 			var answer:int = 0;
 			var qContent:String;
 			var scale:Number = 1.5;
-			
+
 			if(version == 0 || version == 2) {
-				if (difficulty <= 1) {
+				if (difficulty <= 3) {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;
 					if (difficulty == 0) {
-						//var hintTimer:FlxDelay = new FlxDelay(6000);
-						//hintTimer.callback = showHint;
-						//hintTimer.start();
-						
+						if(version == 0) {
+							var hintTimer:FlxDelay = new FlxDelay(6000);
+							hintTimer.callback = showHint;
+							hintTimer.start();
+						}
+
 						if (!hazeOnly) {
 							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
 							q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
@@ -381,7 +382,7 @@ package {
 				}else {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
 					question.setFormat("Regular", 24, 0, "center");
-					
+
 					if (Math.random() >= .5) {
 						qContent = "How many times were you told you did a good job?";
 						answer = praise;
@@ -390,14 +391,14 @@ package {
 						answer = haze;
 					}
 					question.text = qContent;
-					
+
 					add(question);
 				}
 			}else {
 				if(difficulty == 0) {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "What did your coworker say when you played?");
 					question.setFormat("Regular", 24, 0, "center");
-					
+
 					var hazeButton:FlxButtonPlus;
 					var praiseButton:FlxButtonPlus;
 
@@ -410,25 +411,25 @@ package {
 						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
 						//correctAnswer = praiseButton;
 					}
-					
+
 					hazeButton.textNormal.font = "Regular";
 					hazeButton.textNormal.size = 20;
 					hazeButton.textHighlight.font = "Regular";
 					hazeButton.textHighlight.size = 20;
-					
+
 
 					praiseButton.textNormal.font = "Regular";
 					praiseButton.textNormal.size = 20;
 					praiseButton.textHighlight.font = "Regular";
 					praiseButton.textHighlight.size = 20;
-					
+
 					add(hazeButton);
 					add(praiseButton);
 					add(question);
 				}else {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "");
 					question.setFormat("Regular", 24, 0, "center");
-					
+
 					if (Math.random() >= .5) {
 						qContent = "How many times were you told you did a good job?";
 						answer = praise;
@@ -437,21 +438,21 @@ package {
 						answer = haze;
 					}
 					question.text = qContent;
-					
+
 					add(question);
 				}
 			}
 			if(!(version == 1 && difficulty == 0)) {
 				var choices:Array = new Array();
 				var realChoices:Array = new Array();
-				
+
 				for (var i:int = answer - 4; i <= answer + 4; i++) {
 					if (i != praise && i != haze && i >= 0) {
 						choices.push(i);
 					}
 				}
 				FlxU.shuffle(choices, 30);
-				
+
 				realChoices.push(praise);
 				realChoices.push(choices[0]);
 				realChoices.push(choices[1]);
@@ -461,7 +462,7 @@ package {
 					realChoices.push(choices[2]);
 				}
 				FlxU.shuffle(realChoices, 16);
-				
+
 				for (i = 0; i < 4; i++) {
 					var button:FlxButton;
 					var value:int = realChoices[i] as int;
@@ -470,39 +471,31 @@ package {
 						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
 						correctAnswer = button;
 					} else {
-						//if(version == 1 && difficulty == 0) {
-						//	button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
-						//}else {
+						if(difficulty == 0 && version != 2) {
+							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
+						}else {
 							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
-						//}
+						}
 					}
-					
+
 					button.scale.x = scale;
 					button.scale.y = scale;
 					button.label.font = "Regular";
 					button.label.size = 16;
 					button.label.offset.y += 6;
 					button.label.color = 0xFF000000;
-					
+
 					add(button);
 				}
 			}
 		}
-		
+
 		public function wrong():void {
 			//if(!(version == 1 && difficulty == 0)) {
-			if (version != 1 && difficulty != 0 && correctAnswer != null) {
+			if(correctAnswer != null) {
 				correctAnswer.flicker(1);
-			} else {
-				if (version != 1 && difficulty == 0) {
-					showHint();
-				} else {
-					if (version == 1 && difficulty != 0) {
-						correctAnswer.flicker(1);
-					}
-				}
 			}
-			
+
 			if (!gameOver) {
 				var data1:Object = { "completed":"failure","type":"wrong answer" };
 				Registry.loggingControl.logLevelEnd(data1);
@@ -511,7 +504,7 @@ package {
 			super.success = false;
 			super.timer.abort();
 		}
-		
+
 		public function showHint():void {
 			if(correctAnswer != null) {
 				correctAnswer.flicker(1);
@@ -522,7 +515,7 @@ package {
 				add(hintMessage);
 			}
 		}
-		
+
 		public function correct():void {
 			if(!gameOver) {
 				var data1:Object = { "completed":"success" };
@@ -540,14 +533,12 @@ package {
 			gameOver = true;
 			super.success = true;
 		}
-		
+
 		public function timeout():void {
-			//if (version != 1 && difficulty != 0 && correctAnswer != null) {
-			//	correctAnswer.flicker(1);
-			//} else {
-			//	showHint();
-			//}
-			
+			if (correctAnswer != null) {
+				correctAnswer.flicker(1);
+			}
+
 			if(!gameOver) {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
@@ -556,30 +547,22 @@ package {
 			super.success = false;
 			super.timer.abort();
 		}
-		
+
 		public function bossQuestionTimeout():void {
-			if (version != 1 && difficulty != 0 && correctAnswer != null) {
+			if (correctAnswer != null) {
 				correctAnswer.flicker(1);
-			} else {
-				if (version != 1 && difficulty == 0) {
-					showHint();
-				} else {
-					if (version == 1 && difficulty != 0) {
-						correctAnswer.flicker(1);
-					}
-				}
 			}
 			var data1:Object;
-			
-			//if (difficulty == 0 && version == 0) {
-			//	if(!gameOver) {
-			//		data1 = { "completed":"success" };
-			//		Registry.loggingControl.logLevelEnd(data1);
-			//	}	
+
+			if (difficulty == 0 && version == 0) {
+				if(!gameOver) {
+					data1 = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}	
 				//FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
-			//	gameOver = true;
-			//	super.success = true;
-			//}else {
+				gameOver = true;
+				super.success = true;
+			}else {
 				if(!gameOver) {
 					data1 = { "completed":"failure","type":"timeoutQuestion" };
 					Registry.loggingControl.logLevelEnd(data1);
@@ -587,9 +570,9 @@ package {
 				gameOver = true;
 				super.success = false;
 				super.timer.abort();
-			//}
+			}
 		}
-		
+
 		override public function destroy():void {
 			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
 			FlxMouseControl.clear();
