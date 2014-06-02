@@ -60,8 +60,9 @@ package {
 		private var blink:Boolean;
 		private var intervalID:uint;
 		
-		private var versionA:Boolean;
+		private var version:int;
 		private var hazeOnly:Boolean;
+		private var delay:FlxDelay;
 		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
@@ -74,13 +75,16 @@ package {
 			gameOver = false;
 			
 			// CHANGE THIS TO CHANGE THE VERSION
-			versionA = false;
+			// 0 is original
+			// 1 is with different first question
+			// 2 is with mechanics separated at start
+			version = 1;
 			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
 			words = 20 + 10 * difficulty;
 			var seconds:int = 10 + 5 * difficulty;
-			if (!versionA && difficulty == 0) {
+			if (version == 1 && difficulty == 0) {
 				words = 0;
 			}
 			
@@ -124,52 +128,64 @@ package {
 			}
 			add(drawing);
 			
-			var X_OFFSET:int = 0;
-			var Y_OFFSET:int = -80;
-			var SCALE:Number = 0.7;
-			randNum = Math.floor(Math.random() * 6);
-			switch (randNum) {
-				case 0:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonRedImage);
-					color = 0xFFDB4D4D;
-					break;
-				case 1:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonBlueImage);
-					color = 0xFFA3A3FF;
-					break;
-				case 2:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonGreenImage);
-					color = 0xFF47A347;
-					break;
-				case 3:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonYellowImage);
-					color = 0xFFFFFF00;
-					break;
-				case 4:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonOrangeImage);
-					color = 0xFFCC6600;
-					break;
-				default:
-					crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonPurpleImage);
-					color = 0xFFCC66FF;
-					break;
+			if (version != 2 || difficulty != 0) {
+				var X_OFFSET:int = 0;
+				var Y_OFFSET:int = -80;
+				var SCALE:Number = 0.7;
+				randNum = Math.floor(Math.random() * 6);
+				switch (randNum) {
+					case 0:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonRedImage);
+						color = 0xFFDB4D4D;
+						break;
+					case 1:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonBlueImage);
+						color = 0xFFA3A3FF;
+						break;
+					case 2:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonGreenImage);
+						color = 0xFF47A347;
+						break;
+					case 3:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonYellowImage);
+						color = 0xFFFFFF00;
+						break;
+					case 4:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonOrangeImage);
+						color = 0xFFCC6600;
+						break;
+					default:
+						crayon_graphic = new FlxExtendedSprite(dot.x, dot.y, crayonPurpleImage);
+						color = 0xFFCC66FF;
+						break;
+				}
 			}
 			
 			// Eli added for line draw
-			ballGroup = new FlxGroup();
-			crayon_graphic.x = FlxG.width / 2;
-			crayon_graphic.y = FlxG.height / 2;
-			dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
-			crayon_graphic.offset.y = crayon_graphic.height;
-			previousPoint = new FlxPoint(-100, -100);
-			add(ballGroup);
-			add(crayon_graphic);
-			
-			add(dotsLeft);
-			add(dot);
+			if (version != 2 || difficulty != 0) {
+				ballGroup = new FlxGroup();
+				crayon_graphic.x = FlxG.width / 2;
+				crayon_graphic.y = FlxG.height / 2;
+				dot_graphic = new FlxExtendedSprite(crayon_graphic.x, crayon_graphic.y + crayon_graphic.height, DotImage);
+				crayon_graphic.offset.y = crayon_graphic.height;
+				previousPoint = new FlxPoint(-100, -100);
+				add(ballGroup);
+				add(crayon_graphic);
+				
+				add(dotsLeft);
+				add(dot);
+			}
 			
 			super.create();
-			super.setCommandText("Connect the dots!");
+			if (version == 2 && difficulty == 0) {
+				super.setCommandText("Count distinct phrases!");
+				delay = new FlxDelay(1000);
+				delay.start();
+			} else if (version == 2 && difficulty != 0) {
+				super.setCommandText("Count and Connect Dots");
+			} else {
+				super.setCommandText("Connect the dots!");
+			}
 			super.setTimer(seconds * 1000);
 			super.timer.callback = timeout;
 			var data5:Object = { "difficulty":difficulty,
@@ -181,43 +197,38 @@ package {
 		
 		override public function update():void {
 			super.update();
-			if(!FlxG.paused) {
-				dot_graphic.x = FlxG.mouse.screenX;
-				dot_graphic.y = FlxG.mouse.screenY;
-				crayon_graphic.x = FlxG.mouse.screenX;
-				crayon_graphic.y = FlxG.mouse.screenY;
-				if (previousPoint.x != -100 && previousPoint.y != -100) {
-					var line:FlxSprite = new FlxSprite();
-					line.makeGraphic(640, 480, 0x00000000);
-					line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
-					ballGroup.add(line);
-				}
-				if (ballGroup.length > 3) {
-					ballGroup.getFirstAlive().kill();
-				}
+			if (!FlxG.paused) {
+				if (version != 2 || difficulty != 0) {
+					dot_graphic.x = FlxG.mouse.screenX;
+					dot_graphic.y = FlxG.mouse.screenY;
+					crayon_graphic.x = FlxG.mouse.screenX;
+					crayon_graphic.y = FlxG.mouse.screenY;
+					if (previousPoint.x != -100 && previousPoint.y != -100) {
+						var line:FlxSprite = new FlxSprite();
+						line.makeGraphic(640, 480, 0x00000000);
+						line.drawLine(previousPoint.x, previousPoint.y, dot_graphic.x, dot_graphic.y, color, 16);
+						ballGroup.add(line);
+					}
+					if (ballGroup.length > 3) {
+						ballGroup.getFirstAlive().kill();
+					}
+						
+					previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
 					
-				previousPoint = new FlxPoint(dot_graphic.x, dot_graphic.y);
-				
-				if (FlxG.overlap(dot_graphic, dot)) {
-					moveDot();
+					if (FlxG.overlap(dot_graphic, dot)) {
+						moveDot();
+					}
+				} else {
+					if (delay.hasExpired && dots > 0) {
+						trace(dots);
+						moveDot();
+						delay.reset(1000);
+					}
 				}
-			}
-		}
-		
-		private function blinkText():void {
-			if (blink) {
-				dragMeText.visible = true;
-				blink = false;
-			} else {
-				dragMeText.visible = false;
-				blink = true;
 			}
 		}
 		
 		public function moveDot():void {
-			if (lastX != 0) {
-				drawLine();
-			}
 			lastX = dot.x + dot.width / 2;
 			lastY = dot.y + dot.height / 2;
 			
@@ -232,10 +243,6 @@ package {
 			if (dots == 0) {
 				bossQuestion();
 			}
-		}
-		
-		public function drawLine():void {
-			//sketchpad.drawLine(lastX, lastY, dot.x + dot.width / 2, dot.y + dot.height / 2, 0);
 		}
 		
 		public function addWord():void {
@@ -268,7 +275,7 @@ package {
 				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			if (difficulty == 0 || (versionA && difficulty <= 1)) {
+			if (difficulty == 0 || (version == 0 && difficulty <= 1)) {
 				temp.setFormat("Score2", 20, 0, null, 10);
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			} else {
@@ -285,9 +292,11 @@ package {
 		}
 		
 		public function bossQuestion():void {
-			remove(crayon_graphic);
-			remove(dot_graphic);
-			ballGroup.kill();
+			if (version != 2 && difficulty != 0) {
+				remove(crayon_graphic);
+				remove(dot_graphic);
+				ballGroup.kill();
+			}
 			super.resetTimer(6000);
 
 			remove(drawing);
@@ -301,7 +310,7 @@ package {
 			var qContent:String;
 			var scale:Number = 1.5;
 			
-			if(versionA) {
+			if(version == 0 || version == 2) {
 				if (difficulty <= 1) {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;
@@ -401,7 +410,7 @@ package {
 					add(question);
 				}
 			}
-			if(!(!versionA && difficulty == 0)) {
+			if(!(version == 1 && difficulty == 0)) {
 				var choices:Array = new Array();
 				var realChoices:Array = new Array();
 				
@@ -446,7 +455,7 @@ package {
 		}
 		
 		public function wrong():void {
-			if(!(!versionA && difficulty == 0)) {
+			if(!(version == 1 && difficulty == 0)) {
 				correctAnswer.flicker(1);
 			}
 			
