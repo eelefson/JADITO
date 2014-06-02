@@ -23,6 +23,10 @@ package {
 		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var Score2Font:String;
 		[Embed(source = "image_assets/computerStart2.png")] private var ComputerTextImage:Class;
 		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
+		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
+		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
+		
+		public var mute_button:FlxButton;
 		
 		private var clipboard_graphic:FlxSprite;
 		private var box_graphic:FlxSprite;
@@ -255,6 +259,17 @@ package {
 				timer = new FlxDelay(3000);
 				timer.start();
 			}
+			
+			if (FlxG.music.active) {
+				mute_button = new FlxButton(10, FlxG.height, null, mute);
+				mute_button.loadGraphic(PlayButton);
+			
+			}else {
+				mute_button = new FlxButton(10, FlxG.height, null, play);
+				mute_button.loadGraphic(MuteButton);
+			}
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
 			
 			//FlxKongregate.submitStats("Score", Registry.score);
 			super.create();
@@ -635,6 +650,24 @@ package {
 				dist *= -1;
 			}
 			return dist;
+		}
+		
+		public function mute():void {
+			FlxG.music.pause();
+			mute_button.kill();
+			mute_button = new FlxButton(10, FlxG.height, null, play);
+			mute_button.loadGraphic(MuteButton);
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
+		}
+		
+		public function play():void {
+			FlxG.music.resume();
+			mute_button.kill();
+			mute_button = new FlxButton(10, FlxG.height, null, mute);
+			mute_button.loadGraphic(PlayButton);
+			mute_button.y = mute_button.y - (mute_button.height);
+			add(mute_button);
 		}
 		
 		public function shuffle(a:Array):void {
