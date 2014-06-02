@@ -32,11 +32,6 @@ package {
 		private var dotsLeft:FlxText;
 		private var question:DictatorDictionText;
 		
-		/*private var b1:FlxButton;
-		private var b2:FlxButton;
-		private var b3:FlxButton;
-		private var b4:FlxButton;*/
-		
 		private var difficulty:int;
 		private var dots:int;
 		private var haze:int;
@@ -84,7 +79,7 @@ package {
 			// 0 is original
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 1;
+			version = 0;
 			
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -97,7 +92,7 @@ package {
 			
 			hintVisible = false;
 				
-			difficulty = Registry.difficultyLevel;
+			difficulty = 0;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
@@ -238,7 +233,6 @@ package {
 					}
 				} else {
 					if (delay.hasExpired && dots > 0) {
-						trace(dots);
 						moveDot();
 						delay.reset(1000);
 					}
@@ -252,8 +246,14 @@ package {
 			
 			var speak:int = FlxU.round(Math.random() * 100);
 			if (difficulty == 0) {
-				if (dots == 2) {
-					addWord();
+				if (version != 2) {
+					if (dots == 2) {
+						addWord();
+					}
+				} else if (version == 2) {
+					if (dots == 7 || dots == 4 || dots == 2) {
+						addWord();
+					}
 				}
 			}else {
 				if ((words > speak && dots >= 2)) {
@@ -339,9 +339,9 @@ package {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;
 					if (difficulty == 0) {
-						var hintTimer:FlxDelay = new FlxDelay(6000);
-						hintTimer.callback = showHint;
-						hintTimer.start();
+						//var hintTimer:FlxDelay = new FlxDelay(6000);
+						//hintTimer.callback = showHint;
+						//hintTimer.start();
 						
 						if (!hazeOnly) {
 							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
@@ -467,11 +467,11 @@ package {
 						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
 						correctAnswer = button;
 					} else {
-						if(difficulty == 0) {
-							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
-						}else {
+						//if(version == 1 && difficulty == 0) {
+						//	button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
+						//}else {
 							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
-						}
+						//}
 					}
 					
 					button.scale.x = scale;
@@ -488,8 +488,16 @@ package {
 		
 		public function wrong():void {
 			//if(!(version == 1 && difficulty == 0)) {
-			if(correctAnswer != null) {
+			if (version != 1 && difficulty != 0 && correctAnswer != null) {
 				correctAnswer.flicker(1);
+			} else {
+				if (version != 1 && difficulty == 0) {
+					showHint();
+				} else {
+					if (version == 1 && difficulty != 0) {
+						correctAnswer.flicker(1);
+					}
+				}
 			}
 			
 			if (!gameOver) {
@@ -531,9 +539,11 @@ package {
 		}
 		
 		public function timeout():void {
-			if (correctAnswer != null) {
-				correctAnswer.flicker(1);
-			}
+			//if (version != 1 && difficulty != 0 && correctAnswer != null) {
+			//	correctAnswer.flicker(1);
+			//} else {
+			//	showHint();
+			//}
 			
 			if(!gameOver) {
 				var data1:Object = { "completed":"success" };
@@ -545,20 +555,28 @@ package {
 		}
 		
 		public function bossQuestionTimeout():void {
-			if (correctAnswer != null) {
+			if (version != 1 && difficulty != 0 && correctAnswer != null) {
 				correctAnswer.flicker(1);
+			} else {
+				if (version != 1 && difficulty == 0) {
+					showHint();
+				} else {
+					if (version == 1 && difficulty != 0) {
+						correctAnswer.flicker(1);
+					}
+				}
 			}
 			var data1:Object;
 			
-			if (difficulty == 0 && versionA) {
-				if(!gameOver) {
-					data1 = { "completed":"success" };
-					Registry.loggingControl.logLevelEnd(data1);
-				}	
+			//if (difficulty == 0 && version == 0) {
+			//	if(!gameOver) {
+			//		data1 = { "completed":"success" };
+			//		Registry.loggingControl.logLevelEnd(data1);
+			//	}	
 				//FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
-				gameOver = true;
-				super.success = true;
-			}else {
+			//	gameOver = true;
+			//	super.success = true;
+			//}else {
 				if(!gameOver) {
 					data1 = { "completed":"failure","type":"timeoutQuestion" };
 					Registry.loggingControl.logLevelEnd(data1);
@@ -566,7 +584,7 @@ package {
 				gameOver = true;
 				super.success = false;
 				super.timer.abort();
-			}
+			//}
 		}
 		
 		override public function destroy():void {
