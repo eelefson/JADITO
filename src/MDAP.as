@@ -23,6 +23,7 @@ package {
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
 		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
 		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var ScoreFont:String;
+		[Embed(source = "image_assets/hintbubble.png")] private var hintImage:Class;
 		
 		private var dot:Dot;
 		private var sketchpad:FlxSprite;
@@ -64,6 +65,10 @@ package {
 		private var versionA:Boolean;
 		private var hazeOnly:Boolean;
 		
+		private var hintSprite:FlxSprite;
+		private var hintMessage:FlxText;
+		private var hintVisible:Boolean;
+		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
@@ -77,11 +82,22 @@ package {
 			// CHANGE THIS TO CHANGE THE VERSION
 			versionA = true;
 			
+			// Hint information
+			hintSprite = new FlxSprite(0, 210);
+			hintSprite.loadGraphic(hintImage);
+			
+			hintMessage = new FlxText(150, 240, FlxG.width, "Make sure to count phrases next time!");
+			hintMessage.size = 23;
+			hintMessage.color = 0xFF000000;
+			hintMessage.font = "Typewriter";
+			
+			hintVisible = false;
+				
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
-			words = 20 + 10 * difficulty;
+			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
-			if (!versionA && difficulty == 0) {
+			if (difficulty == 0) {
 				words = 0;
 			}
 			
@@ -223,8 +239,14 @@ package {
 			lastY = dot.y + dot.height / 2;
 			
 			var speak:int = FlxU.round(Math.random() * 100);
-			if ((words > speak && dots >= 2) || (difficulty == 0 && dots == 7)) {
-				addWord();
+			if (difficulty == 0) {
+				if (dots == 2) {
+					addWord();
+				}
+			}else {
+				if ((words > speak && dots >= 2)) {
+					addWord();
+				}
 			}
 			
 			dot.move();
@@ -289,8 +311,8 @@ package {
 			remove(crayon_graphic);
 			remove(dot_graphic);
 			ballGroup.kill();
-			super.resetTimer(6000);
-
+			super.resetTimer(8000);
+			super.timer.callback = bossQuestionTimeout;
 			remove(drawing);
 			FlxG.mouse.show();
 			
@@ -306,7 +328,11 @@ package {
 				if (difficulty <= 1) {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;
-					if(difficulty == 0) {
+					if (difficulty == 0) {
+						var hintTimer:FlxDelay = new FlxDelay(6000);
+						hintTimer.callback = showHint;
+						hintTimer.start();
+						
 						if (!hazeOnly) {
 							q1 = new DictatorDictionText(FlxG.width / 2, (FlxG.height / 2) - 50, FlxG.width, "How many times were you told you did a ");
 							q2 = new DictatorDictionText(0, (FlxG.height / 2) - 50, FlxG.width, "good job?");
@@ -431,7 +457,11 @@ package {
 						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), correct);
 						correctAnswer = button;
 					} else {
-						button = new FlxButton(85 + 130 * i, FlxG.height*3/4 - 50, value.toString(), wrong);
+						if(difficulty == 0) {
+							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), showHint);
+						}else {
+							button = new FlxButton(85 + 130 * i, FlxG.height * 3 / 4 - 50, value.toString(), wrong);
+						}
 					}
 					
 					button.scale.x = scale;
@@ -447,7 +477,7 @@ package {
 		}
 		
 		public function wrong():void {
-			if(!(!versionA && difficulty == 0)) {
+			if(correctAnswer != null) {
 				correctAnswer.flicker(1);
 			}
 			
@@ -458,6 +488,17 @@ package {
 			gameOver = true;
 			super.success = false;
 			super.timer.abort();
+		}
+		
+		public function showHint():void {
+			if(correctAnswer != null) {
+				correctAnswer.flicker(1);
+			}
+			if (!hintVisible) {
+				hintVisible = true;
+				add(hintSprite);
+				add(hintMessage);
+			}
 		}
 		
 		public function correct():void {
@@ -484,12 +525,37 @@ package {
 			}
 			
 			if(!gameOver) {
-				var data1:Object = { "completed":"failure","type":"timeout" };
+				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			gameOver = true;
 			super.success = false;
 			super.timer.abort();
+		}
+		
+		public function bossQuestionTimeout():void {
+			if (correctAnswer != null) {
+				correctAnswer.flicker(1);
+			}
+			var data1:Object;
+			
+			if (difficulty == 0 && versionA) {
+				if(!gameOver) {
+					data1 = { "completed":"success" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}	
+				//FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
+				gameOver = true;
+				super.success = true;
+			}else {
+				if(!gameOver) {
+					data1 = { "completed":"failure","type":"timeoutQuestion" };
+					Registry.loggingControl.logLevelEnd(data1);
+				}
+				gameOver = true;
+				super.success = false;
+				super.timer.abort();
+			}
 		}
 		
 		override public function destroy():void {
