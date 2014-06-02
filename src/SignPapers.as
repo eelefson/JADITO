@@ -7,6 +7,7 @@ package
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	import flash.utils.ByteArray;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	public class SignPapers extends MinigameState
 	{
@@ -169,6 +170,15 @@ package
 									var data1:Object = { "completed":"success" };
 									Registry.loggingControl.logLevelEnd(data1);
 								}
+								/*if (level == 0) {
+									FlxKongregate.submitStats("SignThePapersBeginner", 1);
+								}else if (level == 1) {
+									FlxKongregate.submitStats("SignThePapersEasy", 1);
+								}else if (level == 2) {
+									FlxKongregate.submitStats("SignThePapersMedium", 1);
+								}else {
+									FlxKongregate.submitStats("SignThePapersHard", 1);
+								}*/
 								gameOver = true;
 								super.success = true;
 								for (var i:int = 0; i < textGroup.length; i++) {

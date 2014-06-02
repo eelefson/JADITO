@@ -4,6 +4,7 @@ package
 	import mx.core.FlexSprite;
 	import org.flixel.*;	
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -124,6 +125,15 @@ package
 							var data2:Object = { "completed":"success" };
 							Registry.loggingControl.logLevelEnd(data2);
 						}
+						/*if (difficulty == 0) {
+							FlxKongregate.submitStats("CatchThePencilBeginner", 1);
+						}else if (difficulty == 1) {
+							FlxKongregate.submitStats("CatchThePencilEasy", 1);
+						}else if (difficulty == 2) {
+							FlxKongregate.submitStats("CatchThePencilMedium", 1);
+						}else {
+							FlxKongregate.submitStats("CatchThePencilHard", 1);
+						}*/
 						gameOver = true;
 						super.success = true;
 						super.timer.abort();

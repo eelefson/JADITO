@@ -2,7 +2,8 @@ package {
 	import mx.core.FlexSprite;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+	
 	/**
 	 * @author Connor
 	 */
@@ -172,6 +173,15 @@ package {
 				}
 				gameOver = true;
 				super.success = true;
+				/*if (difficulty == 0) {
+					FlxKongregate.submitStats("BrainstormerBeginner", 1);
+				}else if (difficulty == 1) {
+					FlxKongregate.submitStats("BrainstormerEasy", 1);
+				}else if (difficulty == 2) {
+					FlxKongregate.submitStats("BrainstormerMedium", 1);
+				}else {
+					FlxKongregate.submitStats("BrainstormerHard", 1);
+				}*/
 				super.timer.abort();
 			}
 			super.update();

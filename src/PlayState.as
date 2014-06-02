@@ -2,7 +2,8 @@ package {
 	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-	
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+
 	/**
 	 * ...
 	 * @author Elijah Elefson
@@ -255,6 +256,7 @@ package {
 				timer.start();
 			}
 			
+			//FlxKongregate.submitStats("Score", Registry.score);
 			super.create();
 		}
 		
@@ -363,6 +365,7 @@ package {
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 0);
 					shuffle(levelZeroMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -387,6 +390,7 @@ package {
 					break;
 				case DaysOfTheWeek.TUESDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 2 LEVEL 1 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 1);
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
@@ -439,6 +443,7 @@ package {
 					break;
 				case DaysOfTheWeek.WEDNESDAY:				
 					// SELECT 6 LEVEL 1 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 2);
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -462,6 +467,7 @@ package {
 					break;
 				case DaysOfTheWeek.THURSDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 4 LEVEL 2 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 3);
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
@@ -516,6 +522,7 @@ package {
 					break;
 				case DaysOfTheWeek.FRIDAY:				
 					// SELECT 6 LEVEL 2 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 4);
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -539,6 +546,7 @@ package {
 					break;
 				case DaysOfTheWeek.SATURDAY:				
 					// SELECT 10 LEVEL 3 GAMES
+					//FlxKongregate.submitStats("DaysComplete", 5);
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 10; i++) {
 						pair = new Dictionary();

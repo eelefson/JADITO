@@ -3,6 +3,8 @@ package
 	import org.flixel.*;	
 	import org.flixel.plugin.photonstorm.*;
 	import org.flixel.plugin.photonstorm.FlxExtendedSprite;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+
 	/**
 	 * ...
 	 * @author Thomas Eberlein
@@ -297,6 +299,17 @@ package
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
+			
+			/*if (difficulty == 0) {
+				FlxKongregate.submitStats("AvoidTheCoworkerBeginner", 1);
+			}else if (difficulty == 1) {
+				FlxKongregate.submitStats("AvoidTheCoworkerEasy", 1);
+			}else if (difficulty == 2) {
+				FlxKongregate.submitStats("AvoidTheCoworkerMedium", 1);
+			}else {
+				FlxKongregate.submitStats("AvoidTheCoworkerHard", 1);
+			}*/
+			
 			gameOver = true;
 			super.success = true;
 			super.timer.abort();

@@ -2,6 +2,8 @@ package   {
 	import flash.utils.Dictionary;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+	
 	/**
 	 * ...
 	 * @author Elijah Elefson
@@ -27,6 +29,8 @@ package   {
 		private var buttonGroup:FlxGroup;
 		private var currentTextIndex:int = 0;
 		
+		private var level:int;
+		
 		override public function create():void {
 			var wallpaper:FlxSprite = new FlxSprite(0, 0);
 			wallpaper.loadGraphic(wall);
@@ -51,7 +55,7 @@ package   {
 			
 			bossCommands = new FlxGroup();
 			buttonGroup = new FlxGroup();
-			var level:int = Registry.difficultyLevel;
+			level = Registry.difficultyLevel;
 			if (level == 0) {
 				placeText(4, 1, text, colors);
 				placeButtons(4, 1, text.slice(0, 4), colors.slice(0, 4), true);
@@ -127,6 +131,15 @@ package   {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
+					/*if (level == 0) {
+						FlxKongregate.submitStats("DictatorDictationBeginner", 1);
+					}else if (level == 1) {
+						FlxKongregate.submitStats("DictatorDictationEasy", 1);
+					}else if (level == 2) {
+						FlxKongregate.submitStats("DictatorDictationMedium", 1);
+					}else {
+						FlxKongregate.submitStats("DictatorDictationHard", 1);
+					}*/
 					gameOver = true;
 					super.success = true;
 					return;

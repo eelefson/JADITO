@@ -2,6 +2,7 @@ package  {
 	import org.flixel.*;
 	import flash.utils.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -79,7 +80,12 @@ package  {
 			instructions.setFormat("Regular", 30, 0xFF000000, "center");
 			add(instructions);
 			
+			//FlxKongregate.init(apiHasLoaded);
 			super.create();
+		}
+		
+		private function apiHasLoaded():void {
+			FlxKongregate.connect();
 		}
 		
 		override public function update():void {

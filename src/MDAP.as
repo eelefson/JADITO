@@ -2,6 +2,7 @@ package {
 	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 
 	/**
 	 * @author Connor
@@ -74,7 +75,7 @@ package {
 			gameOver = false;
 			
 			// CHANGE THIS TO CHANGE THE VERSION
-			versionA = false;
+			versionA = true;
 			
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
@@ -106,7 +107,7 @@ package {
 			if (Math.random() < .5) {
 				hazeOnly = false;
 			}
-			
+						
 			drawing = new FlxSprite(30, 70);
 			drawing.alpha = 0.5;
 			var randNum:int = Math.floor(Math.random() * 3);
@@ -464,6 +465,15 @@ package {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
+			/*if (difficulty == 0) {
+				FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
+			}else if (difficulty == 1) {
+				FlxKongregate.submitStats("MyDaughtersArtProjectEasy", 1);
+			}else if (difficulty == 2) {
+				FlxKongregate.submitStats("MyDaughtersArtProjectMedium", 1);
+			}else {
+				FlxKongregate.submitStats("MyDaughtersArtProjectHard", 1);
+			}*/
 			gameOver = true;
 			super.success = true;
 		}

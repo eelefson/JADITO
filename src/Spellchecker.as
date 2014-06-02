@@ -5,6 +5,7 @@ package
 	import flash.net.URLRequest;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	import flash.utils.ByteArray;
 	
 	public class Spellchecker extends MinigameState
@@ -85,6 +86,15 @@ package
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
+					/*if (level == 0) {
+						FlxKongregate.submitStats("SpellCheckerBeginner", 1);
+					}else if (level == 1) {
+						FlxKongregate.submitStats("SpellCheckerEasy", 1);
+					}else if (level == 2) {
+						FlxKongregate.submitStats("SpellCheckerMedium", 1);
+					}else {
+						FlxKongregate.submitStats("SpellCheckerHard", 1);
+					}*/
 					gameOver = true;
 					super.success = true;
 				}

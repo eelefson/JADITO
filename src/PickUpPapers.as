@@ -2,6 +2,7 @@ package  {
 	
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -126,6 +127,15 @@ package  {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
+					/*if (difficulty == 0) {
+						FlxKongregate.submitStats("PickUpPapersBeginner", 1);
+					}else if (difficulty == 1) {
+						FlxKongregate.submitStats("PickUpPapersEasy", 1);
+					}else if (difficulty == 2) {
+						FlxKongregate.submitStats("PickUpPapersMedium", 1);
+					}else {
+						FlxKongregate.submitStats("PickUpPapersHard", 1);
+					}*/
 					gameOver = true;
 					super.success = true;
 					super.timer.abort();
