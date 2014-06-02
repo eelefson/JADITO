@@ -32,11 +32,6 @@ package {
 		private var dotsLeft:FlxText;
 		private var question:DictatorDictionText;
 
-		/*private var b1:FlxButton;
-		private var b2:FlxButton;
-		private var b3:FlxButton;
-		private var b4:FlxButton;*/
-
 		private var difficulty:int;
 		private var dots:int;
 		private var haze:int;
@@ -68,7 +63,6 @@ package {
 
 		private var hintSprite:FlxSprite;
 		private var hintMessage:FlxText;
-		private var hintVisible:Boolean;
 
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
@@ -90,12 +84,10 @@ package {
 			hintSprite = new FlxSprite(0, 210);
 			hintSprite.loadGraphic(hintImage);
 
-			hintMessage = new FlxText(150, 240, FlxG.width, "Make sure to count phrases next time!");
+			hintMessage = new FlxText(150, 240, FlxG.width, "Counting phrases is required NEXT time!");
 			hintMessage.size = 23;
 			hintMessage.color = 0xFF000000;
 			hintMessage.font = "Typewriter";
-
-			hintVisible = false;
 
 			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
@@ -200,7 +192,7 @@ package {
 			super.create();
 			if (version == 2 && difficulty == 0) {
 				super.setCommandText("Count distinct phrases!");
-				delay = new FlxDelay(1000);
+				delay = new FlxDelay(750);
 				delay.start();
 			} else if (version == 2 && difficulty != 0) {
 				super.setCommandText("Count and Connect Dots");
@@ -242,7 +234,7 @@ package {
 				} else {
 					if (delay.hasExpired && dots > 0) {
 						moveDot();
-						delay.reset(1000);
+						delay.reset(750);
 					}
 				}
 			}
@@ -323,7 +315,7 @@ package {
 				remove(dot_graphic);
 				ballGroup.kill();
 			}
-			super.resetTimer(6000);
+			super.resetTimer(8000);
 			super.timer.callback = bossQuestionTimeout;
 			remove(drawing);
 			FlxG.mouse.show();
@@ -342,9 +334,11 @@ package {
 					var q2:DictatorDictionText;
 					if (difficulty == 0) {
 						if(version == 0) {
-							var hintTimer:FlxDelay = new FlxDelay(6000);
+							var hintTimer:FlxDelay = new FlxDelay(5000);
 							hintTimer.callback = showHint;
 							hintTimer.start();
+							add(hintSprite);
+							add(hintMessage);
 						}
 
 						if (!hazeOnly) {
@@ -508,11 +502,6 @@ package {
 		public function showHint():void {
 			if(correctAnswer != null) {
 				correctAnswer.flicker(1);
-			}
-			if (!hintVisible) {
-				hintVisible = true;
-				add(hintSprite);
-				add(hintMessage);
 			}
 		}
 
