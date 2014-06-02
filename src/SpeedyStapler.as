@@ -1,6 +1,7 @@
 package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -93,6 +94,15 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
+					/*if (difficulty == 0) {
+						FlxKongregate.submitStats("SpeedyStaplerBeginner", 1);
+					}else if (difficulty == 1) {
+						FlxKongregate.submitStats("SpeedyStaplerEasy", 1);
+					}else if (difficulty == 2) {
+						FlxKongregate.submitStats("SpeedyStaplerMedium", 1);
+					}else {
+						FlxKongregate.submitStats("SpeedyStaplerHard", 1);
+					}*/
 					gameOver = true;
 					super.success = true;
 

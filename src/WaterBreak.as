@@ -1,6 +1,8 @@
 package  {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+	
 	/**
 	 * ...
 	 * @author Elijah Elefson
@@ -33,13 +35,14 @@ package  {
 		private var successStartPosition:int;
 		private var successEndPosition:int;
 		
-		
+		private var difficulty:int;
 		override public function create():void {
 			var wallpaper:FlxSprite = new FlxSprite(0, 0);
 			wallpaper.loadGraphic(wall);
 			add(wallpaper);
 			
 			gameOver = false;
+			difficulty = Registry.difficultyLevel;
 			
 			water_cooler_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2, WaterCoolerImage);
 			water_cooler_graphic.x = water_cooler_graphic.x - (water_cooler_graphic.width / 2);
@@ -177,6 +180,15 @@ package  {
 					var data1:Object = { "completed":"success" };
 					Registry.loggingControl.logLevelEnd(data1);
 				}
+				/*if (difficulty == 0) {
+					FlxKongregate.submitStats("WaterBreakBeginner", 1);
+				}else if (difficulty == 1) {
+					FlxKongregate.submitStats("WaterBreakEasy", 1);
+				}else if (difficulty == 2) {
+					FlxKongregate.submitStats("WaterBreakMedium", 1);
+				}else {
+					FlxKongregate.submitStats("WaterBreakHard", 1);
+				}*/
 				gameOver = true;
 				super.success = true;
 			} else {

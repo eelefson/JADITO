@@ -315,7 +315,7 @@ package  {
 		}
 		
 		protected function resetTimer(runFor:int):void {
-			timer.reset(6000);
+			timer.reset(runFor);
 			startingTime = timer.secondsRemaining;
 			timeLeftBar.scale.x = 1;
 		}

@@ -2,7 +2,8 @@ package  {
 	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;	
-	
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+
 	/**
 	 * ...
 	 * @author Elijah Elefson
@@ -64,6 +65,7 @@ package  {
 			add(encourage);
 			
 			FlxG.play(YouAreFiredSFX);
+			//FlxKongregate.submitStats("Score", Registry.score);
 		}
 		
 		override public function update():void {

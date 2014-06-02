@@ -1,7 +1,8 @@
 package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
-
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+	
 	/**
 	 * @author Connor
 	 */
@@ -151,6 +152,15 @@ package {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
+			/*if (difficulty == 0) {
+				FlxKongregate.submitStats("CoffeeRunBeginner", 1);
+			}else if (difficulty == 1) {
+				FlxKongregate.submitStats("CoffeeRunEasy", 1);
+			}else if (difficulty == 2) {
+				FlxKongregate.submitStats("CoffeeRunMedium", 1);
+			}else {
+				FlxKongregate.submitStats("CoffeeRunHard", 1);
+			}*/
 			gameOver = true;
 			super.success = true;
 			super.timer.abort();

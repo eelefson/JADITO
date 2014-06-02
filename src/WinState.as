@@ -1,7 +1,8 @@
 package  {
 	import flash.utils.*;
 	import org.flixel.*;
-	import org.flixel.plugin.photonstorm.*;	
+	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -73,6 +74,8 @@ package  {
 			add(no);
 			
 			FlxG.playMusic(Song);
+			//FlxKongregate.submitStats("Score", Registry.score);
+			//FlxKongregate.submitStats("DaysComplete", 6);
 		}
 		
 		override public function update():void {

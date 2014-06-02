@@ -1,6 +1,7 @@
 package {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	public class ColdCaller extends MinigameState {
 		[Embed(source = "sound_assets/phoneblip.mp3")] private var inputSound:Class;
@@ -209,6 +210,15 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
+					/*if (level == 0) {
+						FlxKongregate.submitStats("ColdCallerBeginner", 1);
+					}else if (level == 1) {
+						FlxKongregate.submitStats("ColdCallerEasy", 1);
+					}else if (level == 2) {
+						FlxKongregate.submitStats("ColdCallerMedium", 1);
+					}else {
+						FlxKongregate.submitStats("ColdCallerHard", 1);
+					}*/
 					gameOver = true;
 					super.success = true;
 				}
