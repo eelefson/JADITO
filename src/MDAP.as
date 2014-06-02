@@ -81,7 +81,7 @@ package {
 			gameOver = false;
 			
 			// CHANGE THIS TO CHANGE THE VERSION
-			// 0 is original
+			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
 			version = 0;
@@ -104,7 +104,7 @@ package {
 			if (difficulty == 0) {
 				words = 0;
 				if (version == 2) {
-					words = 50
+					words = 75
 				}
 			}
 			
