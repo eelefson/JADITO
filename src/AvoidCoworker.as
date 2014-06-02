@@ -177,7 +177,7 @@ package
 			super.timer.callback = timeout;
 			var data3:Object = { "difficulty":difficulty, 
 								"playthrough":Registry.playthrough, 
-								"sequence num":Registry.playthroughSeqNum };
+								"sequence number":Registry.playthroughSeqNum };
 			Registry.playthroughSeqNum++;
 			Registry.loggingControl.logLevelStart(1, data3);
 		}
