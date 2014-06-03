@@ -274,18 +274,20 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					if (level == 0) {
-						FlxKongregate.submitStats("ClockInBeginner", 1);
-						FlxKongregate.submitStats("ClockInProgress", 1);
-					}else if (level == 1) {
-						FlxKongregate.submitStats("ClockInEasy", 1);
-						FlxKongregate.submitStats("ClockInProgress", 2);
-					}else if (level == 2) {
-						FlxKongregate.submitStats("ClockInMedium", 1);
-						FlxKongregate.submitStats("ClockInProgress", 3);
-					}else {
-						FlxKongregate.submitStats("ClockInHard", 1);
-						FlxKongregate.submitStats("ClockInProgress", 4);
+					if(Registry.kongregate) {
+						if (level == 0) {
+							FlxKongregate.submitStats("ClockInBeginner", 1);
+							FlxKongregate.submitStats("ClockInProgress", 1);
+						}else if (level == 1) {
+							FlxKongregate.submitStats("ClockInEasy", 1);
+							FlxKongregate.submitStats("ClockInProgress", 2);
+						}else if (level == 2) {
+							FlxKongregate.submitStats("ClockInMedium", 1);
+							FlxKongregate.submitStats("ClockInProgress", 3);
+						}else {
+							FlxKongregate.submitStats("ClockInHard", 1);
+							FlxKongregate.submitStats("ClockInProgress", 4);
+						}
 					}
 					gameOver = true;
 					super.success = true;

@@ -509,18 +509,20 @@ package {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
-			if (difficulty == 0) {
-				FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
-				FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 1);
-			}else if (difficulty == 1) {
-				FlxKongregate.submitStats("MyDaughtersArtProjectEasy", 1);
-				FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 2);
-			}else if (difficulty == 2) {
-				FlxKongregate.submitStats("MyDaughtersArtProjectMedium", 1);
-				FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 3);
-			}else {
-				FlxKongregate.submitStats("MyDaughtersArtProjectHard", 1);
-				FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 4);
+			if(Registry.kongregate) {
+				if (difficulty == 0) {
+					FlxKongregate.submitStats("MyDaughtersArtProjectBeginner", 1);
+					FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 1);
+				}else if (difficulty == 1) {
+					FlxKongregate.submitStats("MyDaughtersArtProjectEasy", 1);
+					FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 2);
+				}else if (difficulty == 2) {
+					FlxKongregate.submitStats("MyDaughtersArtProjectMedium", 1);
+					FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 3);
+				}else {
+					FlxKongregate.submitStats("MyDaughtersArtProjectHard", 1);
+					FlxKongregate.submitStats("MyDaughtersArtProjectProgress", 4);
+				}
 			}
 			gameOver = true;
 			super.success = true;

@@ -23,6 +23,7 @@ package  {
 		public static var nextWeek:Boolean;
 		public static var firstPlaythrough:Boolean;
 		public static var skip:Boolean = false;
+		public static var kongregate:Boolean = false;
 		
 		static public function beginGame():void {
 			// RESET ALL REGISTRY VALUES TO MAKE SURE NOTHING WEIRD HAPPENS

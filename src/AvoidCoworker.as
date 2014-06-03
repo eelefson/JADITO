@@ -299,19 +299,20 @@ package
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
-			
-			if (difficulty == 0) {
-				FlxKongregate.submitStats("AvoidTheCoworkerBeginner", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 1);
-			}else if (difficulty == 1) {
-				FlxKongregate.submitStats("AvoidTheCoworkerEasy", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 2);
-			}else if (difficulty == 2) {
-				FlxKongregate.submitStats("AvoidTheCoworkerMedium", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 3);
-			}else {
-				FlxKongregate.submitStats("AvoidTheCoworkerHard", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 4);
+			if(Registry.kongregate) {
+				if (difficulty == 0) {
+					FlxKongregate.submitStats("AvoidTheCoworkerBeginner", 1);
+					FlxKongregate.submitStats("AvoidTheCoworkerProgress", 1);
+				}else if (difficulty == 1) {
+					FlxKongregate.submitStats("AvoidTheCoworkerEasy", 1);
+					FlxKongregate.submitStats("AvoidTheCoworkerProgress", 2);
+				}else if (difficulty == 2) {
+					FlxKongregate.submitStats("AvoidTheCoworkerMedium", 1);
+					FlxKongregate.submitStats("AvoidTheCoworkerProgress", 3);
+				}else {
+					FlxKongregate.submitStats("AvoidTheCoworkerHard", 1);
+					FlxKongregate.submitStats("AvoidTheCoworkerProgress", 4);
+				}
 			}
 			
 			gameOver = true;
