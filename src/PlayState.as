@@ -89,7 +89,11 @@ package {
 		private var scoreIncrement:int;
 		
 		override public function create():void {
-			Registry.skip = true;
+			if (Registry.firstPlaythrough) {
+				Registry.skip = true;
+			} else {
+				Registry.skip = false;
+			}
 			var i:int;
 			
 			FlxG.bgColor = 0xffffffff;

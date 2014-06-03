@@ -123,7 +123,7 @@ package  {
 			goText.visible = false;
 			add(goText);
 			 
-			if (Registry.difficultyLevel == 0) {
+			if (Registry.difficultyLevel == 0 && Registry.firstPlaythrough) {
 				timeRemaining = 5;
 				levelZero = true;
 			} else {
@@ -222,7 +222,7 @@ package  {
 					}
 					timeRemaining -= FlxG.elapsed;
 				} else {
-					if (!levelZero) {
+					if (!levelZero || !Registry.firstPlaythrough) {
 						if (timeRemaining < 0.2) {
 							introCommandText.y -= 10;
 							introCommandText.size -= 1;

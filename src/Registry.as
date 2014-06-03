@@ -20,6 +20,7 @@ package  {
 		public static var playthrough:int = 0;
 		public static var playthroughSeqNum:int;
 		public static var nextWeek:Boolean;
+		public static var firstPlaythrough:Boolean;
 		public static var skip:Boolean = false;
 		
 		static public function beginGame():void {
@@ -38,6 +39,7 @@ package  {
 			Registry.BobScores = new Array(200, 700, 1500, 2900, 4400, 8000);
 			Registry.playthroughSeqNum = 0;
 			Registry.nextWeek = false;
+			Registry.firstPlaythrough = true;
 			
 			Registry.titles = new Array("Lead Pencil Pusher",
 										"King of the Cubicles",
@@ -107,6 +109,7 @@ package  {
 				Registry.BobScores[j] = Registry.BobScores[j] + Registry.score;
 			}
 			Registry.playthroughSeqNum += 1;
+			Registry.firstPlaythrough = false;
 			
 			Registry.titles = new Array("Lead Pencil Pusher",
 										"King of the Cubicles",
