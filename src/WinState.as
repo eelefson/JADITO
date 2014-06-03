@@ -43,7 +43,7 @@ package  {
 			add(dance_graphic);
 			dance_graphic.play("anim");
 
-			winText = new BorderedText(0, 0, FlxG.width, "You Are The Boss!");
+			winText = new BorderedText(0, 0, FlxG.width, "Got Promotion!");
 			winText.setFormat("Regular", 34, 0xffffffff, "center", 1);
 			add(winText);
 			setInterval(blinkText, 500);
@@ -51,7 +51,7 @@ package  {
 			var moveUp:int = -30;
 			var scale:Number = 2;
 			
-			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, we'll move on to the next worker. Keeping adding to your score and reach new heights!");
+			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Good luck on your next week! Keeping adding to your score and reach new heights!");
 			story.setFormat("Regular", 30, 0xffffffff, "center", 1);
 			story.y = story.y - story.height / 2;
 			add(story);
