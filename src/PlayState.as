@@ -21,11 +21,13 @@ package {
 		[Embed(source = "font_assets/SLOPI___.ttf", fontFamily = "Typewriter", embedAsCFF = "false")] private var TypewriterFont:String;
 		[Embed(source = "font_assets/pricedown bl.ttf", fontFamily = "Score", embedAsCFF = "false")] private var ScoreFont:String;
 		[Embed(source = "font_assets/BowlbyOne-Regular.ttf", fontFamily = "Score2", embedAsCFF = "false")] private var Score2Font:String;
+		[Embed(source = "font_assets/ArbutusSlab-Regular.ttf", fontFamily = "Regular", embedAsCFF = "false")] private var RegularFont:String;
 		[Embed(source = "image_assets/computerStart2.png")] private var ComputerTextImage:Class;
 		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
 		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
-		[Embed(source = "image_assets/hintbubblewhite.png")] private var scoreHint:Class;
+		[Embed(source = "image_assets/hint_bubble_new.png")] private var scoreHint:Class;
+		[Embed(source = "image_assets/close.png")] private var closeGraphic:Class;
 		
 		public var mute_button:FlxButton;
 		
@@ -91,6 +93,7 @@ package {
 		
 		private var hintBubble:FlxExtendedSprite;
 		private var hintGroup:FlxGroup = new FlxGroup();
+		private var closeButton:FlxExtendedSprite;
 		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
@@ -137,15 +140,6 @@ package {
 				if (Registry.day == DaysOfTheWeek.MONDAY) {
 					FlxG.play(BeginSFX);
 				}
-				computerScreenText = new FlxSprite(365, 60, ComputerTextImage);
-				computerScreenText.visible = false;
-				add(computerScreenText);
-				blinkSprite();
-				computerScreenInterval = setInterval(blinkSprite, 1000);
-				
-				computer_screen_graphic = new FlxButton(365, 51, null, clickBeginButton);
-				computer_screen_graphic.loadGraphic(ComputerScreenImage);
-				add(computer_screen_graphic);
 			} else if (Registry.nextWeek) {
 				begin();
 			}
@@ -273,14 +267,22 @@ package {
 				hintBubble = new FlxExtendedSprite(0, 0);
 				hintBubble.loadGraphic(scoreHint);
 				hintBubble.x = (FlxG.width / 2) - (hintBubble.width / 2);
-				hintBubble.y = (FlxG.height / 2) - (hintBubble.height / 2);
-				hintBubble.enableMouseClicks(true, true);
-				hintBubble.mousePressedCallback = killHint;
+				hintBubble.y = (FlxG.height / 2) - (hintBubble.height / 2) + 35;
+				//hintBubble.enableMouseClicks(true, true);
+				//hintBubble.mousePressedCallback = killHint;
 				hintGroup.add(hintBubble);
-				var hint:FlxText = new FlxText(hintBubble.x + 20, hintBubble.y + 100, hintBubble.width - 40);
+				
+				closeButton = new FlxExtendedSprite(hintBubble.x + hintBubble.width, hintBubble.y + 5);
+				closeButton.loadGraphic(closeGraphic);
+				closeButton.x -= (closeButton.width + 5);
+				closeButton.enableMouseClicks(true, true);
+				closeButton.mousePressedCallback = killHint;
+				hintGroup.add(closeButton);
+				
+				var hint:FlxText = new FlxText(hintBubble.x + 20, hintBubble.y + 25, hintBubble.width - 40);
 				hint.size = 40;
 				hint.color = 0xFF000000;
-				hint.font = "Typewriter";
+				hint.font = "Regular";
 				hint.text = "Beat your rival coworker's score each day, or you're fired!";
 				hintGroup.add(hint);
 				add(hintGroup);
@@ -733,6 +735,15 @@ package {
 		
 		public function killHint(me:FlxExtendedSprite, x:int, y:int):void {
 			hintGroup.kill();
+			computerScreenText = new FlxSprite(365, 60, ComputerTextImage);
+			computerScreenText.visible = false;
+			add(computerScreenText);
+			blinkSprite();
+			computerScreenInterval = setInterval(blinkSprite, 1000);
+				
+			computer_screen_graphic = new FlxButton(365, 51, null, clickBeginButton);
+			computer_screen_graphic.loadGraphic(ComputerScreenImage);
+			add(computer_screen_graphic);
 		}
 		
 		override public function destroy():void {
