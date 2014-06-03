@@ -166,12 +166,29 @@ package
 				var paragraph:Array = array[0].split(" "); // Holds all correct words
 				
 				var misspellings:Array = array[1].split(" "); // Holds all substitutions
+
+				var temp_misspellings:Array = new Array();
+				for(var m:int = 0; m < misspellings.length; m++){
+					temp_misspellings[m] = misspellings[m];
+				}
 				
+				shuffle(temp_misspellings);
+				
+				var misspelling_one:String = temp_misspellings.shift();
 				// A random index into misspellings
-				var replaceIndex:int = Math.floor(Math.random() * misspellings.length) + 1;
+				for(var l:int = 0; l < misspellings.length; l++){
+					if (misspellings[l] == misspelling_one) {
+						var replaceIndex:int =  l + 1;
+					}
+				}
 				var replaceIndex2:int = -1;
 				if (level >= 2) { // We need a second one if the difficulty is 2 or 3
-					replaceIndex2 = Math.floor(Math.random() * misspellings.length) + 1
+					var misspelling_two:String = temp_misspellings.shift();
+					for(var k:int = 0; k < misspellings.length; k++){
+						if (misspellings[k] == misspelling_two) {
+							replaceIndex2 =  k + 1;
+						}
+					}
 				}
 				
 				var x:int = TEXT_MARGIN;
@@ -210,7 +227,16 @@ package
 				}
 			}
 		
-
+		public function shuffle(a:Array):void {
+			var p:int;
+			var t:*;
+			for (var i:int = a.length - 1; i >= 0; i--) {
+				p = Math.floor((i+1)*Math.random());
+				t = a[i];
+				a[i] = a[p];
+				a[p] = t;
+			}
+		}
 	}
 
 }
