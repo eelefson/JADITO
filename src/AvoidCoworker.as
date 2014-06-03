@@ -15,8 +15,8 @@ package
 		[Embed(source = "image_assets/you.png")] private var youImg:Class;
 		[Embed(source = "image_assets/cubicleSimple.png")] private var cubicle:Class;
 		[Embed(source = "image_assets/coworkerArrow.png")] private var rightArrow:Class;
-		[Embed(source = "image_assets/curveArrow.png")] private var curveArrow:Class;
-		[Embed(source = "image_assets/curveArrowFlip.png")] private var curveArrowFlip:Class;
+		[Embed(source = "image_assets/curveArrow2.png")] private var curveArrow:Class;
+		[Embed(source = "image_assets/curveArrowFlip2.png")] private var curveArrowFlip:Class;
 		[Embed(source = "image_assets/work_station2.png")] private var workStationImage:Class;
 		[Embed(source = "image_assets/skull2.png")] private var skullImage:Class;
 		//[Embed(source = "image_assets/officewall.png")] private var wall:Class;
