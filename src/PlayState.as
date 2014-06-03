@@ -269,7 +269,7 @@ package {
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
 			
-			if (Registry.firstPlaythrough) {
+			if (Registry.firstPlaythrough && !Registry.playCurrentDay) {
 				hintBubble = new FlxExtendedSprite(0, 0);
 				hintBubble.loadGraphic(scoreHint);
 				hintBubble.x = (FlxG.width / 2) - (hintBubble.width / 2);
