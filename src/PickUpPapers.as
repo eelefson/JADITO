@@ -128,17 +128,17 @@ package  {
 						Registry.loggingControl.logLevelEnd(data1);
 					}
 					if (difficulty == 0) {
-						FlxKongregate.submitStats("PickUpPapersBeginner", 1);
-						FlxKongregate.submitStats("PickUpPapersProgress", 1);
+						//FlxKongregate.submitStats("PickUpPapersBeginner", 1);
+						//FlxKongregate.submitStats("PickUpPapersProgress", 1);
 					}else if (difficulty == 1) {
-						FlxKongregate.submitStats("PickUpPapersEasy", 1);
-						FlxKongregate.submitStats("PickUpPapersProgress", 2);
+						//FlxKongregate.submitStats("PickUpPapersEasy", 1);
+						//FlxKongregate.submitStats("PickUpPapersProgress", 2);
 					}else if (difficulty == 2) {
-						FlxKongregate.submitStats("PickUpPapersMedium", 1);
-						FlxKongregate.submitStats("PickUpPapersProgress", 3);
+						//FlxKongregate.submitStats("PickUpPapersMedium", 1);
+						//FlxKongregate.submitStats("PickUpPapersProgress", 3);
 					}else {
-						FlxKongregate.submitStats("PickUpPapersHard", 1);
-						FlxKongregate.submitStats("PickUpPapersProgress", 4);
+						//FlxKongregate.submitStats("PickUpPapersHard", 1);
+						//FlxKongregate.submitStats("PickUpPapersProgress", 4);
 					}
 					gameOver = true;
 					super.success = true;

@@ -126,17 +126,17 @@ package
 							Registry.loggingControl.logLevelEnd(data2);
 						}
 						if (difficulty == 0) {
-							FlxKongregate.submitStats("CatchThePencilBeginner", 1);
-							FlxKongregate.submitStats("CatchThePencilProgress", 1);
+							//FlxKongregate.submitStats("CatchThePencilBeginner", 1);
+							//FlxKongregate.submitStats("CatchThePencilProgress", 1);
 						}else if (difficulty == 1) {
-							FlxKongregate.submitStats("CatchThePencilEasy", 1);
-							FlxKongregate.submitStats("CatchThePencilProgress", 2);
+							//FlxKongregate.submitStats("CatchThePencilEasy", 1);
+							//FlxKongregate.submitStats("CatchThePencilProgress", 2);
 						}else if (difficulty == 2) {
-							FlxKongregate.submitStats("CatchThePencilMedium", 1);
-							FlxKongregate.submitStats("CatchThePencilProgress", 3);
+							//FlxKongregate.submitStats("CatchThePencilMedium", 1);
+							//FlxKongregate.submitStats("CatchThePencilProgress", 3);
 						}else {
-							FlxKongregate.submitStats("CatchThePencilHard", 1);
-							FlxKongregate.submitStats("CatchThePencilProgress", 4);
+							//FlxKongregate.submitStats("CatchThePencilHard", 1);
+							//FlxKongregate.submitStats("CatchThePencilProgress", 4);
 						}
 						gameOver = true;
 						super.success = true;

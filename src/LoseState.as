@@ -65,8 +65,8 @@ package  {
 			add(encourage);
 			
 			FlxG.play(YouAreFiredSFX);
-			FlxKongregate.submitStats("TotalScore", Registry.score);
-			FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			//FlxKongregate.submitStats("TotalScore", Registry.score);
+			//FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
 		}
 		
 		override public function update():void {

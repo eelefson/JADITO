@@ -153,17 +153,17 @@ package {
 				Registry.loggingControl.logLevelEnd(data1);
 			}
 			if (difficulty == 0) {
-				FlxKongregate.submitStats("CoffeeRunBeginner", 1);
-				FlxKongregate.submitStats("CoffeeRunProgress", 1);
+				//FlxKongregate.submitStats("CoffeeRunBeginner", 1);
+				//FlxKongregate.submitStats("CoffeeRunProgress", 1);
 			}else if (difficulty == 1) {
-				FlxKongregate.submitStats("CoffeeRunEasy", 1);
-				FlxKongregate.submitStats("CoffeeRunProgress", 2);
+				//FlxKongregate.submitStats("CoffeeRunEasy", 1);
+				//FlxKongregate.submitStats("CoffeeRunProgress", 2);
 			}else if (difficulty == 2) {
-				FlxKongregate.submitStats("CoffeeRunMedium", 1);
-				FlxKongregate.submitStats("CoffeeRunProgress", 3);
+				//FlxKongregate.submitStats("CoffeeRunMedium", 1);
+				//FlxKongregate.submitStats("CoffeeRunProgress", 3);
 			}else {
-				FlxKongregate.submitStats("CoffeeRunHard", 1);
-				FlxKongregate.submitStats("CoffeeRunProgress", 4);
+				//FlxKongregate.submitStats("CoffeeRunHard", 1);
+				//FlxKongregate.submitStats("CoffeeRunProgress", 4);
 			}
 			gameOver = true;
 			super.success = true;

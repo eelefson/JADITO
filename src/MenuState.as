@@ -65,13 +65,13 @@ package  {
 			instructions.setFormat("Regular", 30, 0xFF000000, "center");
 			add(instructions);
 			
-			FlxKongregate.init(apiHasLoaded);
-			FlxKongregate.submitStats("GameLoad", 1);
+			//FlxKongregate.init(apiHasLoaded);
+			//FlxKongregate.submitStats("GameLoad", 1);
 			super.create();
 		}
 		
 		private function apiHasLoaded():void {
-			FlxKongregate.connect();
+			//FlxKongregate.connect();
 		}
 		
 		override public function update():void {

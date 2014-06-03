@@ -301,17 +301,17 @@ package
 			}
 			
 			if (difficulty == 0) {
-				FlxKongregate.submitStats("AvoidTheCoworkerBeginner", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 1);
+				//FlxKongregate.submitStats("AvoidTheCoworkerBeginner", 1);
+				//FlxKongregate.submitStats("AvoidTheCoworkerProgress", 1);
 			}else if (difficulty == 1) {
-				FlxKongregate.submitStats("AvoidTheCoworkerEasy", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 2);
+				//FlxKongregate.submitStats("AvoidTheCoworkerEasy", 1);
+				//FlxKongregate.submitStats("AvoidTheCoworkerProgress", 2);
 			}else if (difficulty == 2) {
-				FlxKongregate.submitStats("AvoidTheCoworkerMedium", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 3);
+				//FlxKongregate.submitStats("AvoidTheCoworkerMedium", 1);
+				//FlxKongregate.submitStats("AvoidTheCoworkerProgress", 3);
 			}else {
-				FlxKongregate.submitStats("AvoidTheCoworkerHard", 1);
-				FlxKongregate.submitStats("AvoidTheCoworkerProgress", 4);
+				//FlxKongregate.submitStats("AvoidTheCoworkerHard", 1);
+				//FlxKongregate.submitStats("AvoidTheCoworkerProgress", 4);
 			}
 			
 			gameOver = true;
