@@ -93,7 +93,10 @@ package  {
 		}
 		
 		public function nextState():void {
-			FlxG.switchState(new ReplayScreen());
+			Registry.nextWeek = true;
+			Registry.newWeek();
+			FlxG.playMusic(Elevatormusic7);
+			FlxG.switchState(new PlayState());
 		}
 	}
 }

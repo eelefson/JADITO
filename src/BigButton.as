@@ -2,7 +2,7 @@ package
 {
 	import org.flixel.*;
 	import flash.events.MouseEvent;
-	
+
 	/**
 	 * A simple button class that calls a function when clicked by the mouse.
 	 * 
@@ -13,7 +13,7 @@ package
 		// CHANGE TO THE SIZE OF BUTTON YOU WANT
 		[Embed(source="image_assets/biggest_button.png")] protected var ImgDefaultButton:Class;
 		[Embed(source="org/flixel/data/beep.mp3")] protected var SndBeep:Class;
-		
+
 		/**
 		 * Used with public variable <code>status</code>, means not highlighted or pressed.
 		 */
@@ -26,7 +26,7 @@ package
 		 * Used with public variable <code>status</code>, means pressed (usually from mouse click).
 		 */
 		static public var PRESSED:uint = 2;
-		
+
 		/**
 		 * The text that appears on the button.
 		 */
@@ -82,7 +82,7 @@ package
 		 * Used for checkbox-style behavior.
 		 */
 		protected var _onToggle:Boolean;
-		
+
 		/**
 		 * Tracks whether or not the button is currently pressed.
 		 */
@@ -91,7 +91,7 @@ package
 		 * Whether or not the button has initialized itself yet.
 		 */
 		protected var _initialized:Boolean;
-		
+
 		/**
 		 * Creates a new <code>FlxButton</code> object with a gray background
 		 * and a callback function on the UI thread.
@@ -114,12 +114,12 @@ package
 			// CHANGE THE 120 to whatever the width of the button graphic is!!!!
 			// CHANGE THE 30 to whatever the height of one section of the button graphic is!!!!
 			loadGraphic(ImgDefaultButton,true,false,160,40);
-			
+
 			onUp = OnClick;
 			onDown = null;
 			onOut = null;
 			onOver = null;
-			
+
 			soundOver = null;
 			soundOut = null;
 			soundDown = null;
@@ -130,7 +130,7 @@ package
 			_pressed = false;
 			_initialized = false;
 		}
-		
+
 		/**
 		 * Called by the game state when state is changed (if this object belongs to the state)
 		 */
@@ -157,7 +157,7 @@ package
 				soundUp.destroy();
 			super.destroy();
 		}
-		
+
 		/**
 		 * Since button uses its own mouse handler for thread reasons,
 		 * we run a little pre-check here to make sure that we only add
@@ -166,7 +166,7 @@ package
 		override public function preUpdate():void
 		{
 			super.preUpdate();
-			
+
 			if(!_initialized)
 			{
 				if(FlxG.stage != null)
@@ -176,7 +176,7 @@ package
 				}
 			}
 		}
-		
+
 		/**
 		 * Called by the game loop automatically, handles mouseover and click detection.
 		 */
@@ -203,7 +203,7 @@ package
 					break;
 			}
 		}
-		
+
 		/**
 		 * Basic button update logic
 		 */
@@ -256,7 +256,7 @@ package
 					status = NORMAL;
 				}
 			}
-		
+
 			//Then if the label and/or the label offset exist,
 			// position them to match the button.
 			if(label != null)
@@ -269,14 +269,14 @@ package
 				label.x += labelOffset.x;
 				label.y += labelOffset.y;
 			}
-			
+
 			//Then pick the appropriate frame of animation
 			if((status == HIGHLIGHT) && _onToggle)
 				frame = NORMAL;
 			else
 				frame = status;
 		}
-		
+
 		/**
 		 * Just draws the button graphic and text label to the screen.
 		 */
@@ -290,7 +290,7 @@ package
 				label.draw();
 			}
 		}
-		
+
 		/**
 		 * Updates the size of the text field to match the button.
 		 */
@@ -300,7 +300,7 @@ package
 			if(label != null)
 				label.width = width;
 		}
-		
+
 		/**
 		 * Set sounds to play during mouse-button interactions.
 		 * These operations can be done manually as well, and the public
@@ -327,7 +327,7 @@ package
 			if(SoundUp != null)
 				soundUp = FlxG.loadSound(SoundUp, SoundUpVolume);
 		}
-		
+
 		/**
 		 * Use this to toggle checkbox-style behavior.
 		 */
@@ -335,7 +335,7 @@ package
 		{
 			return _onToggle;
 		}
-		
+
 		/**
 		 * @private
 		 */
@@ -343,7 +343,7 @@ package
 		{
 			_onToggle = On;
 		}
-		
+
 		/**
 		 * Internal function for handling the actual callback call (for UI thread dependent calls like <code>FlxU.openURL()</code>).
 		 */

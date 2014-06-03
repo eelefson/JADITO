@@ -89,6 +89,7 @@ package {
 		private var scoreIncrement:int;
 		
 		override public function create():void {
+			Registry.skip = true;
 			var i:int;
 			
 			FlxG.bgColor = 0xffffffff;
@@ -158,10 +159,10 @@ package {
 			} else {
 				prevoiusScore = Registry.score;
 			}
-			YourScore = new DictatorDictionText(70, 113, 75, prevoiusScore.toString());
+			YourScore = new DictatorDictionText(70, 113, 90, prevoiusScore.toString());
 			
 			OtherScoreText = new DictatorDictionText(70, 148, 300, "Rival's Score: ");
-			OtherScore = new DictatorDictionText(70, 148, 75, Registry.BobScores[Registry.day]);
+			OtherScore = new DictatorDictionText(70, 148, 90, "" + Registry.BobScores[Registry.day]);
 			
 			YourScoreText.setFormat("Score", 28, 0xFF000000);
 			YourScore.setFormat("Score", 28, 0xFF000000);
@@ -255,9 +256,15 @@ package {
 			add(rightWall);
 			
 			if (Registry.playCurrentDay) {
-				timeRemaining = 0.5;
-				timer = new FlxDelay(3000);
-				timer.start();
+				if (Registry.skip) {
+					timeRemaining = 0.0;
+					timer = new FlxDelay(0);
+					timer.start();
+				} else {
+					timeRemaining = 0.5;
+					timer = new FlxDelay(3000);
+					timer.start();
+				}
 			}
 			
 			if (FlxG.music.active) {
