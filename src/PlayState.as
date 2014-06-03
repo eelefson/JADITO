@@ -28,6 +28,8 @@ package {
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
 		[Embed(source = "image_assets/hint_bubble_new.png")] private var scoreHint:Class;
 		[Embed(source = "image_assets/close.png")] private var closeGraphic:Class;
+		[Embed(source = "image_assets/paused2.png")] private var pauseTextGraphic:Class;
+		[Embed(source = "image_assets/resume.png")] private var resumeTextGraphic:Class;
 		
 		public var mute_button:FlxButton;
 		
@@ -94,11 +96,21 @@ package {
 		private var hintBubble:FlxExtendedSprite;
 		private var hintGroup:FlxGroup = new FlxGroup();
 		private var closeButton:FlxExtendedSprite;
+		private var pauseText:FlxSprite;
+		private var resumeText:FlxSprite;
+		private var isPaused:Boolean;
+		
+		private var timeAtPause:Number;
+		private var timerRemainingAtPause:int;
+		private var beginZoom:Boolean = false;
+		private var firstDay:Boolean = false;
 		
 		override public function create():void {
 			if (FlxG.getPlugin(FlxMouseControl) == null) {
 				FlxG.addPlugin(new FlxMouseControl);
 			}
+			
+			isPaused = false;
 			
 			/*
 			if (Registry.firstPlaythrough) {
@@ -287,6 +299,8 @@ package {
 				hint.text = "Beat your rival coworker's score each day, or you're fired!";
 				hintGroup.add(hint);
 				add(hintGroup);
+			} else {
+				pause();
 			}
 			
 			if (Registry.playCurrentDay) {
@@ -312,58 +326,111 @@ package {
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
 			
-			FlxKongregate.submitStats("TotalScore", Registry.score);
-			FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			//FlxKongregate.submitStats("TotalScore", Registry.score);
+			//FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
 			super.create();
 		}
 		
 		override public function update():void {
 			super.update();
-			var i:int;
-			if (Registry.playCurrentDay) {
-				var box:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
-				
-				// Calculates the x and y distances between the camera center and the next unfilled black box
-				if (flag) {
-					xDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(cameraX, box.y + (box.height / 2))) / 40;
-					yDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(box.x + (box.width / 2), cameraY)) / 40;
-					flag = false;
-				}
-				if (timeRemaining < 0 && !Registry.failedMostRecentMinigame) {
-					if (scoreIncrement != 40) {
-						ScoreReward.x -= scoreXDistance;
-						ScoreReward.y += scoreYDistance;
-						ScoreReward.size -= 2.99;
-						scoreIncrement++;
-					} else if (scoreIncrement == 40) {
-						ScoreReward.visible = false;
-						YourScore.text = Registry.score.toString();
-					}
-				}
-				// Begins panning over to and zooming into the next unfilled black box
-				if (timer.secondsElapsed > 1) {
-					if (playWhoosh) {
-						FlxG.play(WhooshSFX);
-						playWhoosh = false;
-					}
-					zoomCam.focusOn(new FlxPoint(cameraX, cameraY));
-					if (increment != 40) {
-						cameraX += xDistance;
-						cameraY += yDistance;
-						increment++;
-					}
-					zoomCam.fade(0xffffffff, 2);
+			if (!isPaused) {
+				var i:int;
+				if (Registry.playCurrentDay) {
+					var box:FlxSprite = checkBoxes.members[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)];
 					
-					zoomCam.targetZoom = 7;
-				} else if (mostRecentMark != null) {
-					mostRecentMark.alpha += 0.02;
+					// Calculates the x and y distances between the camera center and the next unfilled black box
+					if (flag) {
+						xDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(cameraX, box.y + (box.height / 2))) / 40;
+						yDistance = distanceBetweenPoints(new FlxPoint(box.x + (box.width / 2), box.y + (box.height / 2)), new FlxPoint(box.x + (box.width / 2), cameraY)) / 40;
+						flag = false;
+					}
+					if (timeRemaining < 0 && !Registry.failedMostRecentMinigame) {
+						if (scoreIncrement != 40) {
+							ScoreReward.x -= scoreXDistance;
+							ScoreReward.y += scoreYDistance;
+							ScoreReward.size -= 2.99;
+							scoreIncrement++;
+						} else if (scoreIncrement == 40) {
+							ScoreReward.visible = false;
+							YourScore.text = Registry.score.toString();
+						}
+					}
+					// Begins panning over to and zooming into the next unfilled black box
+					if (!Registry.failedMostRecentMinigame && !firstDay) {
+						trace(scoreIncrement);
+						if (timer.secondsRemaining < 1 && !beginZoom && scoreIncrement == 40) {
+							beginZoom = true;
+						}
+					} else {
+						if (timer.secondsRemaining < 1 && !beginZoom) {
+							beginZoom = true;
+						}
+					}
+					
+					if (beginZoom) {
+						if (playWhoosh) {
+							FlxG.play(WhooshSFX);
+							playWhoosh = false;
+						}
+						zoomCam.focusOn(new FlxPoint(cameraX, cameraY));
+						if (increment != 40) {
+							cameraX += xDistance;
+							cameraY += yDistance;
+							increment++;
+						}
+						zoomCam.fade(0xffffffff, 2);
+						
+						zoomCam.targetZoom = 7;
+					} else if (mostRecentMark != null) {
+						mostRecentMark.alpha += 0.02;
+					}
+					
+					if (timer.hasExpired && increment == 40) {
+						pickMinigame();
+					}
 				}
-				
-				if (timer.hasExpired) {
-					pickMinigame();
-				}
+				timeRemaining -= FlxG.elapsed;
 			}
-			timeRemaining -= FlxG.elapsed;
+		}
+		
+		public function pause():void {
+			pauseText = new FlxSprite(380, 60, pauseTextGraphic);
+			pauseText.visible = true;
+			add(pauseText);
+				
+			computer_screen_graphic = new FlxButton(365, 51, null, clickPause);
+			computer_screen_graphic.loadGraphic(ComputerScreenImage);
+			add(computer_screen_graphic);
+		}
+		
+		public function clickPause():void {
+			timeAtPause = timeRemaining;
+			timerRemainingAtPause = timer.secondsRemaining;
+			timer.abort();
+			
+			pauseText.visible = false;
+			computer_screen_graphic.kill();
+			isPaused = true;
+			
+			resumeText = new FlxSprite(380, 60, resumeTextGraphic);
+			resumeText.visible = true;
+			add(resumeText);
+				
+			computer_screen_graphic = new FlxButton(365, 51, null, clickResume);
+			computer_screen_graphic.loadGraphic(ComputerScreenImage);
+			add(computer_screen_graphic);
+		}
+		
+		public function clickResume():void {
+			timeRemaining = timeAtPause + FlxG.elapsed;
+			timer = new FlxDelay(timerRemainingAtPause * 1000);
+			timer.start();
+			
+			resumeText.visible = false;
+			computer_screen_graphic.kill();
+			isPaused = false;
+			
+			pause();
 		}
 		
 		private function blinkSprite():void {
@@ -387,6 +454,8 @@ package {
 		}
 		
 		public function clickBeginButton():void {
+			firstDay = true;
+			
 			computerScreenText.visible = false;
 			computer_screen_graphic.kill();
 			Registry.playCurrentDay = true;
@@ -434,7 +503,7 @@ package {
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
-					FlxKongregate.submitStats("DaysComplete", 0);
+					//FlxKongregate.submitStats("DaysComplete", 0);
 					shuffle(levelZeroMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -459,7 +528,7 @@ package {
 					break;
 				case DaysOfTheWeek.TUESDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 2 LEVEL 1 GAMES
-					FlxKongregate.submitStats("DaysComplete", 1);
+					//FlxKongregate.submitStats("DaysComplete", 1);
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
@@ -512,7 +581,7 @@ package {
 					break;
 				case DaysOfTheWeek.WEDNESDAY:				
 					// SELECT 6 LEVEL 1 GAMES
-					FlxKongregate.submitStats("DaysComplete", 2);
+					//FlxKongregate.submitStats("DaysComplete", 2);
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -536,7 +605,7 @@ package {
 					break;
 				case DaysOfTheWeek.THURSDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 4 LEVEL 2 GAMES
-					FlxKongregate.submitStats("DaysComplete", 3);
+					//FlxKongregate.submitStats("DaysComplete", 3);
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
@@ -591,7 +660,7 @@ package {
 					break;
 				case DaysOfTheWeek.FRIDAY:				
 					// SELECT 6 LEVEL 2 GAMES
-					FlxKongregate.submitStats("DaysComplete", 4);
+					//FlxKongregate.submitStats("DaysComplete", 4);
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -615,7 +684,7 @@ package {
 					break;
 				case DaysOfTheWeek.SATURDAY:				
 					// SELECT 10 LEVEL 3 GAMES
-					FlxKongregate.submitStats("DaysComplete", 5);
+					//FlxKongregate.submitStats("DaysComplete", 5);
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 10; i++) {
 						pair = new Dictionary();
@@ -692,7 +761,7 @@ package {
 					minigameState = new WhatDidTheBossSay();
 					break;
 			}
-			FlxKongregate.submitStats("TotalMinigames", 1);
+			//FlxKongregate.submitStats("TotalMinigames", 1);
 			FlxG.switchState(minigameState);
 		}
 		
@@ -741,6 +810,7 @@ package {
 			computerScreenText = new FlxSprite(365, 60, ComputerTextImage);
 			computerScreenText.visible = false;
 			add(computerScreenText);
+			
 			blinkSprite();
 			computerScreenInterval = setInterval(blinkSprite, 1000);
 				
