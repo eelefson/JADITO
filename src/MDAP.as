@@ -78,7 +78,7 @@ package {
 			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 1;
+			version = 0;
 
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -393,10 +393,11 @@ package {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "What did your coworker say when you played?");
 					question.setFormat("Regular", 24, 0, "center");
 
-					var hazeButton:BigButton;
-					var praiseButton:BigButton;
+					var hazeButton:FlxButtonPlus;
+					var praiseButton:FlxButtonPlus;
 
 					if(hazeOnly) {
+<<<<<<< HEAD
 						hazeButton = new BigButton(340, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
 						praiseButton = new BigButton(100, FlxG.height * 3 / 4 - 50, "Good Job!", wrong);
 						//correctAnswer = hazeButton;
@@ -415,6 +416,27 @@ package {
 					praiseButton.label.size = 22;
 					//praiseButton.label.offset.y += 6;
 					praiseButton.label.color = 0xFF006600;
+=======
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, correct, null, "Just Quit!", 200, 40);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, wrong, null, "Good Job!", 200, 40);
+						//correctAnswer = hazeButton;
+					} else {
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, wrong, null, "Just Quit!", 200, 35);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
+						//correctAnswer = praiseButton;
+					}
+
+					hazeButton.textNormal.font = "Regular";
+					hazeButton.textNormal.size = 20;
+					hazeButton.textHighlight.font = "Regular";
+					hazeButton.textHighlight.size = 20;
+
+
+					praiseButton.textNormal.font = "Regular";
+					praiseButton.textNormal.size = 20;
+					praiseButton.textHighlight.font = "Regular";
+					praiseButton.textHighlight.size = 20;
+>>>>>>> parent of 284367c... Added DAH BIG BUTTONNNNNN
 
 					add(hazeButton);
 					add(praiseButton);
