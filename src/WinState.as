@@ -26,7 +26,6 @@ package  {
 		
 		override public function create():void {
 			Registry.playthrough++;
-			Registry.day = 0;
 			
 			dance_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
 			dance_graphic.loadGraphic(dance_sprites, true, false, 328 * 0.75, 272 * 0.75);
@@ -50,12 +49,12 @@ package  {
 			var moveUp:int = 0;
 			var scale:Number = 2;
 			
-			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, we'll move on to the next worker. Life in the workplace will never change...");
+			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, will you make the next guy suffer too?");
 			story.setFormat("Regular", 34, 0xffffffff, "center", 1);
 			story.y = story.y - story.height / 2;
 			add(story);
 			
-			yes = new FlxButtonPlus(FlxG.width / 2, FlxG.height * 3 / 4 + 40, nextState, null, "Next", 200, 40);
+			yes = new FlxButtonPlus(FlxG.width / 3, FlxG.height * 3 / 4 - moveUp + 15, nextState, null, "Yes", 200, 40);
 			yes.y = yes.y - yes.height / 2;
 			yes.x = yes.x - yes.width / 2;
 			yes.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
@@ -72,7 +71,7 @@ package  {
 			no.textHighlight.y -= 5;
 			
 			add(yes);
-			//add(no);
+			add(no);
 			
 			FlxG.playMusic(Song);
 			//FlxKongregate.submitStats("Score", Registry.score);
@@ -94,8 +93,7 @@ package  {
 		}
 		
 		public function nextState():void {
-			FlxG.playMusic(Elevatormusic7);
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new ReplayScreen());
 		}
 	}
 }
