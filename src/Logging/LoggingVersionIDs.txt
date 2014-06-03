@@ -7,5 +7,5 @@ Version IDs:
 	game so that they don't corrupt stats.
 2 - First release (May 16th, 2014).
 3 - Second release (May 26th, 2014). On Newgrounds.
-4 - Third release (June 2nd, 2014). On Kongregate.
+6 - Third release (June 2nd, 2014). On Kongregate.
 100 - Mini-release to test MDAP and Sign The Papers
