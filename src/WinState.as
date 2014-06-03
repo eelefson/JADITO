@@ -26,7 +26,7 @@ package  {
 		
 		override public function create():void {
 			Registry.playthrough++;
-			Registry.day = 0;
+			Registry.day = DaysOfTheWeek.MONDAY;
 			
 			dance_graphic = new FlxSprite(FlxG.width / 2, FlxG.height / 2);
 			dance_graphic.loadGraphic(dance_sprites, true, false, 328 * 0.75, 272 * 0.75);
