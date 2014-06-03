@@ -172,18 +172,20 @@ package
 									var data1:Object = { "completed":"success" };
 									Registry.loggingControl.logLevelEnd(data1);
 								}
-								if (level == 0) {
-									//FlxKongregate.submitStats("SignThePapersBeginner", 1);
-									//FlxKongregate.submitStats("SignThePapersProgress", 1);
-								}else if (level == 1) {
-									//FlxKongregate.submitStats("SignThePapersEasy", 1);
-									//FlxKongregate.submitStats("SignThePapersProgress", 2);
-								}else if (level == 2) {
-									//FlxKongregate.submitStats("SignThePapersMedium", 1);
-									//FlxKongregate.submitStats("SignThePapersProgress", 3);
-								}else {
-									//FlxKongregate.submitStats("SignThePapersHard", 1);
-									//FlxKongregate.submitStats("SignThePapersProgress", 4);
+								if(Registry.kongregate) {
+									if (level == 0) {
+										FlxKongregate.submitStats("SignThePapersBeginner", 1);
+										FlxKongregate.submitStats("SignThePapersProgress", 1);
+									}else if (level == 1) {
+										FlxKongregate.submitStats("SignThePapersEasy", 1);
+										FlxKongregate.submitStats("SignThePapersProgress", 2);
+									}else if (level == 2) {
+										FlxKongregate.submitStats("SignThePapersMedium", 1);
+										FlxKongregate.submitStats("SignThePapersProgress", 3);
+									}else {
+										FlxKongregate.submitStats("SignThePapersHard", 1);
+										FlxKongregate.submitStats("SignThePapersProgress", 4);
+									}
 								}
 								gameOver = true;
 								super.success = true;

@@ -86,18 +86,20 @@ package
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					if (level == 0) {
-						//FlxKongregate.submitStats("SpellCheckerBeginner", 1);
-						//FlxKongregate.submitStats("SpellCheckerProgress", 1);
-					}else if (level == 1) {
-						//FlxKongregate.submitStats("SpellCheckerEasy", 1);
-						//FlxKongregate.submitStats("SpellCheckerProgress", 2);
-					}else if (level == 2) {
-						//FlxKongregate.submitStats("SpellCheckerMedium", 1);
-						//FlxKongregate.submitStats("SpellCheckerProgress", 3);
-					}else {
-						//FlxKongregate.submitStats("SpellCheckerHard", 1);
-						//FlxKongregate.submitStats("SpellCheckerProgress", 4);
+					if(Registry.kongregate) {
+						if (level == 0) {
+							FlxKongregate.submitStats("SpellCheckerBeginner", 1);
+							FlxKongregate.submitStats("SpellCheckerProgress", 1);
+						}else if (level == 1) {
+							FlxKongregate.submitStats("SpellCheckerEasy", 1);
+							FlxKongregate.submitStats("SpellCheckerProgress", 2);
+						}else if (level == 2) {
+							FlxKongregate.submitStats("SpellCheckerMedium", 1);
+							FlxKongregate.submitStats("SpellCheckerProgress", 3);
+						}else {
+							FlxKongregate.submitStats("SpellCheckerHard", 1);
+							FlxKongregate.submitStats("SpellCheckerProgress", 4);
+						}
 					}
 					gameOver = true;
 					super.success = true;

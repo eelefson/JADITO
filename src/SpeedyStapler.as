@@ -95,18 +95,20 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					if (difficulty == 0) {
-						//FlxKongregate.submitStats("SpeedyStaplerBeginner", 1);
-						//FlxKongregate.submitStats("SpeedyStaplerProgress", 1);
-					}else if (difficulty == 1) {
-						//FlxKongregate.submitStats("SpeedyStaplerEasy", 1);
-						//FlxKongregate.submitStats("SpeedyStaplerProgress", 2);
-					}else if (difficulty == 2) {
-						//FlxKongregate.submitStats("SpeedyStaplerMedium", 1);
-						//FlxKongregate.submitStats("SpeedyStaplerProgress", 3);
-					}else {
-						//FlxKongregate.submitStats("SpeedyStaplerHard", 1);
-						//FlxKongregate.submitStats("SpeedyStaplerProgress", 4);
+					if(Registry.kongregate) {
+						if (difficulty == 0) {
+							FlxKongregate.submitStats("SpeedyStaplerBeginner", 1);
+							FlxKongregate.submitStats("SpeedyStaplerProgress", 1);
+						}else if (difficulty == 1) {
+							FlxKongregate.submitStats("SpeedyStaplerEasy", 1);
+							FlxKongregate.submitStats("SpeedyStaplerProgress", 2);
+						}else if (difficulty == 2) {
+							FlxKongregate.submitStats("SpeedyStaplerMedium", 1);
+							FlxKongregate.submitStats("SpeedyStaplerProgress", 3);
+						}else {
+							FlxKongregate.submitStats("SpeedyStaplerHard", 1);
+							FlxKongregate.submitStats("SpeedyStaplerProgress", 4);
+						}
 					}
 					gameOver = true;
 					super.success = true;

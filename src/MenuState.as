@@ -64,14 +64,16 @@ package  {
 			instructions = new FlxText(0, FlxG.height - 125, FlxG.width, "Click to start!");
 			instructions.setFormat("Regular", 30, 0xFF000000, "center");
 			add(instructions);
-			
-			//FlxKongregate.init(apiHasLoaded);
-			//FlxKongregate.submitStats("GameLoad", 1);
+
+			if(Registry.kongregate) {
+				FlxKongregate.init(apiHasLoaded);
+				FlxKongregate.submitStats("GameLoad", 1);
+			}
 			super.create();
 		}
 		
 		private function apiHasLoaded():void {
-			//FlxKongregate.connect();
+			FlxKongregate.connect();
 		}
 		
 		override public function update():void {

@@ -180,18 +180,20 @@ package  {
 					var data1:Object = { "completed":"success" };
 					Registry.loggingControl.logLevelEnd(data1);
 				}
-				if (difficulty == 0) {
-					//FlxKongregate.submitStats("WaterBreakBeginner", 1);
-					//FlxKongregate.submitStats("WaterBreakProgress", 1);
-				}else if (difficulty == 1) {
-					//FlxKongregate.submitStats("WaterBreakEasy", 1);
-					//FlxKongregate.submitStats("WaterBreakProgress", 2);
-				}else if (difficulty == 2) {
-					//FlxKongregate.submitStats("WaterBreakMedium", 1);
-					//FlxKongregate.submitStats("WaterBreakProgress", 3);
-				}else {
-					//FlxKongregate.submitStats("WaterBreakHard", 1);
-					//FlxKongregate.submitStats("WaterBreakProgress", 4);
+				if(Registry.kongregate) {
+					if (difficulty == 0) {
+						FlxKongregate.submitStats("WaterBreakBeginner", 1);
+						FlxKongregate.submitStats("WaterBreakProgress", 1);
+					}else if (difficulty == 1) {
+						FlxKongregate.submitStats("WaterBreakEasy", 1);
+						FlxKongregate.submitStats("WaterBreakProgress", 2);
+					}else if (difficulty == 2) {
+						FlxKongregate.submitStats("WaterBreakMedium", 1);
+						FlxKongregate.submitStats("WaterBreakProgress", 3);
+					}else {
+						FlxKongregate.submitStats("WaterBreakHard", 1);
+						FlxKongregate.submitStats("WaterBreakProgress", 4);
+					}
 				}
 				gameOver = true;
 				super.success = true;

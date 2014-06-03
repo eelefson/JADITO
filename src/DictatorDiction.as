@@ -131,18 +131,20 @@ package   {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					if (level == 0) {
-						//FlxKongregate.submitStats("DictatorDictationBeginner", 1);
-						//FlxKongregate.submitStats("DictatorDictationProgress", 1);
-					}else if (level == 1) {
-						//FlxKongregate.submitStats("DictatorDictationEasy", 1);
-						//FlxKongregate.submitStats("DictatorDictationProgress", 2);
-					}else if (level == 2) {
-						//FlxKongregate.submitStats("DictatorDictationMedium", 1);
-						//FlxKongregate.submitStats("DictatorDictationProgress", 3);
-					}else {
-						//FlxKongregate.submitStats("DictatorDictationHard", 1);
-						//FlxKongregate.submitStats("DictatorDictationProgress", 4);
+					if(Registry.kongregate) {
+						if (level == 0) {
+							FlxKongregate.submitStats("DictatorDictationBeginner", 1);
+							FlxKongregate.submitStats("DictatorDictationProgress", 1);
+						}else if (level == 1) {
+							FlxKongregate.submitStats("DictatorDictationEasy", 1);
+							FlxKongregate.submitStats("DictatorDictationProgress", 2);
+						}else if (level == 2) {
+							FlxKongregate.submitStats("DictatorDictationMedium", 1);
+							FlxKongregate.submitStats("DictatorDictationProgress", 3);
+						}else {
+							FlxKongregate.submitStats("DictatorDictationHard", 1);
+							FlxKongregate.submitStats("DictatorDictationProgress", 4);
+						}
 					}
 					gameOver = true;
 					super.success = true;
