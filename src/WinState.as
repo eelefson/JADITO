@@ -94,6 +94,8 @@ package  {
 		}
 		
 		public function nextState():void {
+			Registry.nextWeek = true;
+			Registry.newWeek();
 			FlxG.playMusic(Elevatormusic7);
 			FlxG.switchState(new PlayState());
 		}
