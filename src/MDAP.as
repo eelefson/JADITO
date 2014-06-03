@@ -78,7 +78,7 @@ package {
 			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 2;
+			version = 1;
 
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -89,7 +89,7 @@ package {
 			hintMessage.color = 0xFF000000;
 			hintMessage.font = "Typewriter";
 
-			difficulty = 1;
+			difficulty = Registry.difficultyLevel;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
@@ -397,24 +397,24 @@ package {
 					var praiseButton:BigButton;
 
 					if(hazeOnly) {
-						hazeButton = new BigButton(350, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
-						praiseButton = new BigButton(90, FlxG.height * 3 / 4 - 50, "Good Job!", wrong);
+						hazeButton = new BigButton(340, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
+						praiseButton = new BigButton(100, FlxG.height * 3 / 4 - 50, "Good Job!", wrong);
 						//correctAnswer = hazeButton;
 					} else {
-						hazeButton = new BigButton(350, FlxG.height * 3 / 4 - 50, "Just Quit!", wrong);
-						praiseButton = new BigButton(90, FlxG.height * 3 / 4 - 50, "Good Job!", correct);
+						hazeButton = new BigButton(340, FlxG.height * 3 / 4 - 50, "Just Quit!", wrong);
+						praiseButton = new BigButton(100, FlxG.height * 3 / 4 - 50, "Good Job!", correct);
 						//correctAnswer = praiseButton;
 					}
 					
 					hazeButton.label.font = "Regular";
 					hazeButton.label.size = 22;
 					//hazeButton.label.offset.y += 6;
-					hazeButton.label.color = 0xFF000000;
+					hazeButton.label.color = 0xFFF00000;
 					
 					praiseButton.label.font = "Regular";
 					praiseButton.label.size = 22;
 					//praiseButton.label.offset.y += 6;
-					praiseButton.label.color = 0xFF000000;
+					praiseButton.label.color = 0xFF006600;
 
 					add(hazeButton);
 					add(praiseButton);
