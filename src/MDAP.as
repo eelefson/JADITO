@@ -89,7 +89,7 @@ package {
 			hintMessage.color = 0xFF000000;
 			hintMessage.font = "Typewriter";
 
-			difficulty = Registry.difficultyLevel;
+			difficulty = 3;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;
@@ -293,7 +293,7 @@ package {
 				temp = new BorderedText(0, FlxG.height - 45, FlxG.width, word);
 				temp.velocity.y = -(75 - difficulty * 25) - (Math.random() * 25 * (2 * difficulty + 1));
 			}
-			if (difficulty == 0 || (version == 0 && difficulty <= 3)) {
+			if (difficulty <= 3) {
 				temp.setFormat("Score2", 20, 0, null, 10);
 				temp.color = (praiseTemp) ? 0xFF006600 : 0xFFF00000;
 			} else {
@@ -328,7 +328,7 @@ package {
 			var qContent:String;
 			var scale:Number = 1.5;
 
-			if(version == 0 || version == 2) {
+			if(version == 0 || version == 2 || (version == 1 && difficulty != 0)) {
 				if (difficulty <= 3) {
 					var q1:DictatorDictionText;
 					var q2:DictatorDictionText;

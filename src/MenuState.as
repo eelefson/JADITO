@@ -104,7 +104,7 @@ package  {
 		
 		public function clickStartButton():void {
 			Registry.beginGame();
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new MDAP());
 		}
 	}
 }
