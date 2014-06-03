@@ -23,6 +23,7 @@ package  {
 
 		private var winText:BorderedText;
 		public var blink:Boolean = true;
+		private var score:BorderedText;
 
 		override public function create():void {
 			Registry.playthrough++;
@@ -47,15 +48,19 @@ package  {
 			add(winText);
 			setInterval(blinkText, 500);
 
-			var moveUp:int = 0;
+			var moveUp:int = -30;
 			var scale:Number = 2;
-
-			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, we'll move on to the next worker. Life in the workplace will never change...");
-			story.setFormat("Regular", 34, 0xffffffff, "center", 1);
+			
+			story = new BorderedText(50, FlxG.height / 2 - moveUp, FlxG.width - 100, "After all that hard work, you finally got that promotion you wanted! Now that you are the boss, we'll move on to the next worker. Keeping adding to your score and reach new heights!");
+			story.setFormat("Regular", 30, 0xffffffff, "center", 1);
 			story.y = story.y - story.height / 2;
 			add(story);
 
-			yes = new FlxButtonPlus(FlxG.width / 2, FlxG.height * 3 / 4 + 40, nextState, null, "Next", 200, 40);
+			score = new BorderedText(50, story.y - 33, FlxG.width - 100, "Final score: " + Registry.score);
+			score.setFormat("Regular", 30, 0xffffff00, "center", 10);
+			add(score);
+			
+			yes = new FlxButtonPlus(FlxG.width / 2, FlxG.height * 3 / 4 + 45, nextState, null, "Continue", 200, 40);
 			yes.y = yes.y - yes.height / 2;
 			yes.x = yes.x - yes.width / 2;
 			yes.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
@@ -63,16 +68,7 @@ package  {
 			yes.textNormal.y -= 5;
 			yes.textHighlight.y -= 5;
 
-			no = new FlxButtonPlus(FlxG.width * 2 / 3, FlxG.height * 3 / 4 - moveUp + 15, null, null, "No", 200, 40);
-			no.y = no.y - no.height / 2;
-			no.x = no.x - no.width / 2;
-			no.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
-			no.textHighlight.setFormat("Score2", 30, 0xffffffff, null, 1);
-			no.textNormal.y -= 5;
-			no.textHighlight.y -= 5;
-
 			add(yes);
-			//add(no);
 
 			FlxG.playMusic(Song);
 			//FlxKongregate.submitStats("Score", Registry.score);
