@@ -96,7 +96,7 @@ package  {
 			Registry.taskStatuses = null;
 			Registry.difficultyLevel = 0;
 			Registry.minigames = null;
-			Registry.playCurrentDay = true;
+			Registry.playCurrentDay = false;
 			Registry.titles = null;
 			Registry.usingWhatDidTheBossSay = false;
 			Registry.failures = 0;
@@ -106,7 +106,6 @@ package  {
 				Registry.BobScores[j] = Registry.BobScores[j] + Registry.score;
 			}
 			Registry.playthroughSeqNum += 1;
-			Registry.nextWeek = false;
 			
 			Registry.titles = new Array("Lead Pencil Pusher",
 										"King of the Cubicles",
@@ -149,6 +148,7 @@ package  {
 			// Array containing arrays of the minigames at each difficulty level(0-3)
 			var minigames:Array = new Array(levelZeroMinigames, new Array(), new Array(), new Array());
 			Registry.day = DaysOfTheWeek.MONDAY;
+			Registry.playCurrentDay = false;
 			Registry.pool = new Array();
 			Registry.taskStatuses = new Array();
 			for (i = 0; i < 6; i++) {

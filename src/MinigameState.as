@@ -175,7 +175,7 @@ package  {
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.SUCCESS;
 					if (Registry.pool.length == 0) {
 						if (Registry.playCurrentDay) {
-							if (Registry.score < Registry.BobScores[Registry.day] + (8000 * Registry.playthrough)) {
+							if (Registry.score < Registry.BobScores[Registry.day]) {
 								FlxG.switchState(new LoseState());
 							} else {
 								FlxG.switchState(new TitleAwardState());
@@ -190,7 +190,7 @@ package  {
 					Registry.taskStatuses[Registry.taskStatuses.indexOf(TaskStatuses.EMPTY)] = TaskStatuses.FAILURE;
 					if (Registry.pool.length == 0) {
 						if (Registry.playCurrentDay) {
-							if (Registry.score < Registry.BobScores[Registry.day]+ (8000 * Registry.playthrough)) {
+							if (Registry.score < Registry.BobScores[Registry.day]) {
 								FlxG.switchState(new LoseState());
 							} else {
 								FlxG.switchState(new TitleAwardState());
