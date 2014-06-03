@@ -326,8 +326,10 @@ package {
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
 			
-			//FlxKongregate.submitStats("TotalScore", Registry.score);
-			//FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			if(Registry.kongregate) {
+				FlxKongregate.submitStats("TotalScore", Registry.score);
+				FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			}
 			super.create();
 		}
 		
@@ -503,7 +505,9 @@ package {
 			switch(Registry.day) {
 				case DaysOfTheWeek.MONDAY:
 					// SELECT 6 LEVEL 0 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 0);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 0);
+					}
 					shuffle(levelZeroMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -528,7 +532,9 @@ package {
 					break;
 				case DaysOfTheWeek.TUESDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 2 LEVEL 1 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 1);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 1);
+					}
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 2; i++) {
 						pair = new Dictionary();
@@ -581,7 +587,9 @@ package {
 					break;
 				case DaysOfTheWeek.WEDNESDAY:				
 					// SELECT 6 LEVEL 1 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 2);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 2);
+					}
 					shuffle(levelOneMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -605,7 +613,9 @@ package {
 					break;
 				case DaysOfTheWeek.THURSDAY: // NO SUPPORT FOR WHAT DID THE BOSS SAY YET
 					// SELECT 4 LEVEL 2 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 3);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 3);
+					}
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 4; i++) {
 						pair = new Dictionary();
@@ -660,7 +670,9 @@ package {
 					break;
 				case DaysOfTheWeek.FRIDAY:				
 					// SELECT 6 LEVEL 2 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 4);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 4);
+					}
 					shuffle(levelTwoMinigames);
 					for (i = 0; i < 6; i++) {
 						pair = new Dictionary();
@@ -684,7 +696,9 @@ package {
 					break;
 				case DaysOfTheWeek.SATURDAY:				
 					// SELECT 10 LEVEL 3 GAMES
-					//FlxKongregate.submitStats("DaysComplete", 5);
+					if(Registry.kongregate) {
+						FlxKongregate.submitStats("DaysComplete", 5);
+					}
 					shuffle(levelThreeMinigames);
 					for (i = 0; i < 10; i++) {
 						pair = new Dictionary();
@@ -761,7 +775,9 @@ package {
 					minigameState = new WhatDidTheBossSay();
 					break;
 			}
-			//FlxKongregate.submitStats("TotalMinigames", 1);
+			if(Registry.kongregate) {
+				FlxKongregate.submitStats("TotalMinigames", 1);
+			}
 			FlxG.switchState(minigameState);
 		}
 		
