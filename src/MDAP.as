@@ -78,7 +78,7 @@ package {
 			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 0;
+			version = 2;
 
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -89,7 +89,7 @@ package {
 			hintMessage.color = 0xFF000000;
 			hintMessage.font = "Typewriter";
 
-			difficulty = Registry.difficultyLevel;
+			difficulty = 1;
 			dots = 7 + 6 * difficulty;
 			words = Math.min(20 + 10 * difficulty, 40);
 			var seconds:int = 10 + 5 * difficulty;

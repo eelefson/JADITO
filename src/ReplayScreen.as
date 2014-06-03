@@ -35,7 +35,7 @@ package  {
 		override public function update():void {
 			super.update();
 			if (FlxG.mouse.justPressed()) {
-				FlxG.switchState(new MenuState());
+				FlxG.switchState(new PlayState());
 			}
 		}
 	}
