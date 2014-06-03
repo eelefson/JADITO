@@ -281,7 +281,7 @@ package {
 				hint.size = 40;
 				hint.color = 0xFF000000;
 				hint.font = "Typewriter";
-				hint.text = "Beat your rival coworker's score, or your fired!!!";
+				hint.text = "Beat your rival coworker's score each day, or you're fired!";
 				hintGroup.add(hint);
 				add(hintGroup);
 			}
