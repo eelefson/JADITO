@@ -121,7 +121,7 @@ package {
 				}
 			}
 			
-			if (!Registry.playCurrentDay) {
+			if (!Registry.playCurrentDay && !Registry.nextWeek) {
 				if (Registry.day == DaysOfTheWeek.MONDAY) {
 					FlxG.play(BeginSFX);
 				}
@@ -134,6 +134,8 @@ package {
 				computer_screen_graphic = new FlxButton(365, 51, null, clickBeginButton);
 				computer_screen_graphic.loadGraphic(ComputerScreenImage);
 				add(computer_screen_graphic);
+			} else if (Registry.nextWeek) {
+				begin();
 			}
 			
 			var day:int = Registry.day - 1;
@@ -366,6 +368,18 @@ package {
 			blinkText();
 			setInterval(blinkText, 500);
 			FlxG.play(AreYouReadySFX);
+			
+			timer = new FlxDelay(3000);
+			timer.start();
+			if (Registry.usingWhatDidTheBossSay) {
+				FlxG.switchState(new WhatDidTheBossSayCommand());
+			}
+		}
+		
+		public function begin():void {
+			Registry.nextWeek = false;
+			Registry.playCurrentDay = true;
+			generatePool();
 			
 			timer = new FlxDelay(3000);
 			timer.start();
