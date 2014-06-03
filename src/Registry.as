@@ -102,6 +102,7 @@ package  {
 			Registry.failures = 0;
 			Registry.failedMostRecentMinigame = false;
 			Registry.score = Registry.score;
+			Registry.BobScores = new Array(200, 700, 1500, 2900, 4400, 8000);
 			for (var j:int = 0; j < Registry.BobScores.length; j++) {
 				Registry.BobScores[j] = Registry.BobScores[j] + Registry.score;
 			}
