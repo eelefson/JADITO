@@ -112,8 +112,8 @@ package {
 			
 			isPaused = false;
 			
-			/*
-			if (Registry.firstPlaythrough) {
+			
+			/*if (Registry.firstPlaythrough) {
 				Registry.skip = true;
 			} else {
 				Registry.skip = false;
@@ -360,10 +360,12 @@ package {
 						trace(scoreIncrement);
 						if (timer.secondsRemaining < 1 && !beginZoom && scoreIncrement == 40) {
 							beginZoom = true;
+							killScreen();
 						}
 					} else {
 						if (timer.secondsRemaining < 1 && !beginZoom) {
 							beginZoom = true;
+							killScreen();
 						}
 					}
 					
@@ -391,6 +393,11 @@ package {
 				}
 				timeRemaining -= FlxG.elapsed;
 			}
+		}
+		
+		public function killScreen():void {
+			computer_screen_graphic.kill();
+			isPaused = false;
 		}
 		
 		public function pause():void {
