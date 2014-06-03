@@ -173,15 +173,19 @@ package {
 				}
 				gameOver = true;
 				super.success = true;
-				/*if (difficulty == 0) {
+				if (difficulty == 0) {
 					FlxKongregate.submitStats("BrainstormerBeginner", 1);
+					FlxKongregate.submitStats("BrainstormerProgress", 1);
 				}else if (difficulty == 1) {
 					FlxKongregate.submitStats("BrainstormerEasy", 1);
+					FlxKongregate.submitStats("BrainstormerProgress", 2);
 				}else if (difficulty == 2) {
 					FlxKongregate.submitStats("BrainstormerMedium", 1);
+					FlxKongregate.submitStats("BrainstormerProgress", 3);
 				}else {
 					FlxKongregate.submitStats("BrainstormerHard", 1);
-				}*/
+					FlxKongregate.submitStats("BrainstormerProgress", 4);
+				}
 				super.timer.abort();
 			}
 			super.update();

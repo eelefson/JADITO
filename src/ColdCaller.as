@@ -210,15 +210,19 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					/*if (level == 0) {
+					if (level == 0) {
 						FlxKongregate.submitStats("ColdCallerBeginner", 1);
+						FlxKongregate.submitStats("ColdCallerProgress", 1);
 					}else if (level == 1) {
 						FlxKongregate.submitStats("ColdCallerEasy", 1);
+						FlxKongregate.submitStats("ColdCallerProgress", 2);
 					}else if (level == 2) {
 						FlxKongregate.submitStats("ColdCallerMedium", 1);
+						FlxKongregate.submitStats("ColdCallerProgress", 3);
 					}else {
 						FlxKongregate.submitStats("ColdCallerHard", 1);
-					}*/
+						FlxKongregate.submitStats("ColdCallerProgress", 4);
+					}
 					gameOver = true;
 					super.success = true;
 				}

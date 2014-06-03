@@ -65,7 +65,8 @@ package  {
 			instructions.setFormat("Regular", 30, 0xFF000000, "center");
 			add(instructions);
 			
-			//FlxKongregate.init(apiHasLoaded);
+			FlxKongregate.init(apiHasLoaded);
+			FlxKongregate.submitStats("GameLoad", 1);
 			super.create();
 		}
 		
@@ -104,7 +105,7 @@ package  {
 		
 		public function clickStartButton():void {
 			Registry.beginGame();
-			FlxG.switchState(new MDAP());
+			FlxG.switchState(new PlayState());
 		}
 	}
 }

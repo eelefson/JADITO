@@ -71,8 +71,9 @@ package  {
 			add(yes);
 
 			FlxG.playMusic(Song);
-			//FlxKongregate.submitStats("Score", Registry.score);
-			//FlxKongregate.submitStats("DaysComplete", 6);
+			FlxKongregate.submitStats("TotalScore", Registry.score);
+			FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			FlxKongregate.submitStats("DaysComplete", 6);
 		}
 
 		override public function update():void {

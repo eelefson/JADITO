@@ -16,6 +16,7 @@ package  {
 		public static var failures:int;
 		public static var failedMostRecentMinigame:Boolean;
 		public static var score:int;
+		public static var weekScore:int;
 		public static var BobScores:Array = new Array(200, 700, 1500, 2900, 4400, 8000);
 		public static var playthrough:int = 0;
 		public static var playthroughSeqNum:int;
@@ -40,7 +41,7 @@ package  {
 			Registry.playthroughSeqNum = 0;
 			Registry.nextWeek = false;
 			Registry.firstPlaythrough = true;
-			
+			Registry.weekScore = 0;
 			Registry.titles = new Array("Lead Pencil Pusher",
 										"King of the Cubicles",
 										"Director of Menial Tasks",
@@ -104,6 +105,7 @@ package  {
 			Registry.failures = 0;
 			Registry.failedMostRecentMinigame = false;
 			Registry.score = Registry.score;
+			Registry.weekScore = 0;
 			Registry.BobScores = new Array(200, 700, 1500, 2900, 4400, 8000);
 			for (var j:int = 0; j < Registry.BobScores.length; j++) {
 				Registry.BobScores[j] = Registry.BobScores[j] + Registry.score;

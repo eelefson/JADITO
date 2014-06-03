@@ -66,9 +66,9 @@ package  {
 		public var levelZero:Boolean;
 		
 		override public function create():void {
-			if (Registry.skip) {
+			/*if (Registry.skip) {
 				success = true;
-			}
+			}*/
 			FlxG.camera.flash(0xffffffff, 1);
 			
 			walls = new FlxGroup();
@@ -283,6 +283,7 @@ package  {
 		
 		public function placeSuccessGraphic():void {
 			Registry.score += 100 * (Registry.difficultyLevel + 1);
+			Registry.weekScore += 100 * (Registry.difficultyLevel + 1);
 			Registry.failedMostRecentMinigame = false;
 			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
 			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);

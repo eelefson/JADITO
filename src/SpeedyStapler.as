@@ -21,7 +21,8 @@ package {
 		private var stapleGroup:FlxGroup;
 		private var tempPaperGroup:FlxGroup;
 		private var lives:FlxGroup;
-				
+		private var difficulty:int;
+		
 		override public function create():void {
 			//FlxG.play(Startup);
 			
@@ -30,7 +31,7 @@ package {
 			
 			gameOver = false;
 			
-			var difficulty:int = Registry.difficultyLevel;
+			difficulty = Registry.difficultyLevel;
 			var papersLeft:int = 2 * (difficulty + 1);
 			var time:int = 10 + 5 * difficulty;
 			if (difficulty < 1) {
@@ -94,15 +95,19 @@ package {
 						var data1:Object = { "completed":"success" };
 						Registry.loggingControl.logLevelEnd(data1);
 					}
-					/*if (difficulty == 0) {
+					if (difficulty == 0) {
 						FlxKongregate.submitStats("SpeedyStaplerBeginner", 1);
+						FlxKongregate.submitStats("SpeedyStaplerProgress", 1);
 					}else if (difficulty == 1) {
 						FlxKongregate.submitStats("SpeedyStaplerEasy", 1);
+						FlxKongregate.submitStats("SpeedyStaplerProgress", 2);
 					}else if (difficulty == 2) {
 						FlxKongregate.submitStats("SpeedyStaplerMedium", 1);
+						FlxKongregate.submitStats("SpeedyStaplerProgress", 3);
 					}else {
 						FlxKongregate.submitStats("SpeedyStaplerHard", 1);
-					}*/
+						FlxKongregate.submitStats("SpeedyStaplerProgress", 4);
+					}
 					gameOver = true;
 					super.success = true;
 

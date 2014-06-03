@@ -114,15 +114,19 @@ package {
 				var data1:Object = { "completed":"success" };
 				Registry.loggingControl.logLevelEnd(data1);
 			}
-			/*if (level == 0) {
+			if (level == 0) {
 				FlxKongregate.submitStats("InOutBeginner", 1);
+				FlxKongregate.submitStats("InOutProgress", 1);
 			}else if (level == 1) {
 				FlxKongregate.submitStats("InOutEasy", 1);
+				FlxKongregate.submitStats("InOutProgress", 2);
 			}else if (level == 2) {
 				FlxKongregate.submitStats("InOutMedium", 1);
+				FlxKongregate.submitStats("InOutProgress", 3);
 			}else {
 				FlxKongregate.submitStats("InOutHard", 1);
-			}*/
+				FlxKongregate.submitStats("InOutProgress", 4);
+			}
 			gameOver = true;
 			super.success = true;
 		}

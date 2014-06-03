@@ -13,7 +13,7 @@ package  {
 	public class Main extends FlxGame {
 		public function Main():void {
 			super(640, 480, MenuState, 1, 60, 60);
-			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 4);
+			Registry.loggingControl = new Logger("jadito", 103, "4453dcb14ff92850b75600e5193f7247", 1, 6);
 			FlxG.mouse.show();
 		}
 		
