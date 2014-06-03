@@ -20,6 +20,7 @@ package  {
 		public static var playthrough:int = 0;
 		public static var playthroughSeqNum:int;
 		public static var nextWeek:Boolean;
+		public static var skip:Boolean = false;
 		
 		static public function beginGame():void {
 			// RESET ALL REGISTRY VALUES TO MAKE SURE NOTHING WEIRD HAPPENS

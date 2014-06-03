@@ -66,6 +66,9 @@ package  {
 		public var levelZero:Boolean;
 		
 		override public function create():void {
+			if (Registry.skip) {
+				success = true;
+			}
 			FlxG.camera.flash(0xffffffff, 1);
 			
 			walls = new FlxGroup();

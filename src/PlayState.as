@@ -89,6 +89,7 @@ package {
 		private var scoreIncrement:int;
 		
 		override public function create():void {
+			Registry.skip = true;
 			var i:int;
 			
 			FlxG.bgColor = 0xffffffff;
@@ -255,9 +256,15 @@ package {
 			add(rightWall);
 			
 			if (Registry.playCurrentDay) {
-				timeRemaining = 0.5;
-				timer = new FlxDelay(3000);
-				timer.start();
+				if (Registry.skip) {
+					timeRemaining = 0.0;
+					timer = new FlxDelay(0);
+					timer.start();
+				} else {
+					timeRemaining = 0.5;
+					timer = new FlxDelay(3000);
+					timer.start();
+				}
 			}
 			
 			if (FlxG.music.active) {
