@@ -37,7 +37,7 @@ package
 		private var newVersion:Boolean;
 		private var hintBubble:FlxSprite;
 		private var hint:FlxText;
-		private var tries:Number = 3;
+		private var tries:Number;
 		
 		private static var NUM_PAPERS:int = 4; // How many papers the player must sign per game
 		
@@ -65,6 +65,8 @@ package
 			gameOver = false;
 			
 			level = Registry.difficultyLevel;
+			
+			tries = 3 - level;
 			
 			papers = new Array();
 			
@@ -118,7 +120,7 @@ package
 			//passButton.textHighlight.color = 0xFF000000;
 			add(passButton);
 			
-			if (level == 0 && newVersion) {
+			if (newVersion) {
 				signature_graphic.y += 20;
 				lineSprite.y += 20;
 				
@@ -159,7 +161,7 @@ package
 						if (currPaperAnswer) {
 							numAnswered++;
 							
-							if (level == 0 && newVersion) {
+							if (newVersion) {
 								hintBubble.visible = false;
 								hint.text = "";
 							}
@@ -195,7 +197,7 @@ package
 							}
 							
 						} else {
-							if (level == 0 && newVersion && tries > 0) {
+							if (newVersion && tries > 0) {
 					
 								hintBubble.visible = true;
 								hint.text = "Remember to sign for money gain only!";
@@ -266,6 +268,10 @@ package
 			var x:int = TEXT_MARGIN;
 			var y:int = TEXT_MARGIN;
 			
+			if (newVersion && level >= 2) {
+				y -= 20;
+			}
+			
 			if (level == 0 && newVersion) {
 				y -= 20;
 			}
@@ -307,7 +313,7 @@ package
 			if (!currPaperAnswer) {
 				numAnswered++;
 				
-				if (level == 0 && newVersion) {
+				if (newVersion) {
 					hintBubble.visible = false;
 					hint.text = "";
 				}
@@ -332,7 +338,7 @@ package
 					FlxG.play(inputSound);
 				}
 			} else {
-				if (level == 0 && newVersion && tries > 0) {
+				if (newVersion && tries > 0) {
 					
 					hintBubble.visible = true;
 					hint.text = "Don't refuse if you will gain money!";
