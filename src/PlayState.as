@@ -90,8 +90,13 @@ package {
 		private var scoreIncrement:int;
 		
 		private var hintBubble:FlxExtendedSprite;
+		private var hintGroup:FlxGroup = new FlxGroup();
 		
 		override public function create():void {
+			if (FlxG.getPlugin(FlxMouseControl) == null) {
+				FlxG.addPlugin(new FlxMouseControl);
+			}
+			
 			if (Registry.firstPlaythrough) {
 				Registry.skip = true;
 			} else {
@@ -264,17 +269,21 @@ package {
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
 			
-			if (true) {
+			if (Registry.firstPlaythrough) {
 				hintBubble = new FlxExtendedSprite(0, 0);
 				hintBubble.loadGraphic(scoreHint);
 				hintBubble.x = (FlxG.width / 2) - (hintBubble.width / 2);
 				hintBubble.y = (FlxG.height / 2) - (hintBubble.height / 2);
-				add(hintBubble);
-				var hint:FlxText = new FlxText(hintBubble.x + 20, hintBubble.y + 20, hintBubble.width - 40);
-				hint.size = 23;
+				hintBubble.enableMouseClicks(true, true);
+				hintBubble.mousePressedCallback = killHint;
+				hintGroup.add(hintBubble);
+				var hint:FlxText = new FlxText(hintBubble.x + 20, hintBubble.y + 100, hintBubble.width - 40);
+				hint.size = 40;
 				hint.color = 0xFF000000;
 				hint.font = "Typewriter";
-				add(hint);
+				hint.text = "Beat your rival coworker's score, or your fired!!!";
+				hintGroup.add(hint);
+				add(hintGroup);
 			}
 			
 			if (Registry.playCurrentDay) {
@@ -720,6 +729,17 @@ package {
 				a[i] = a[p];
 				a[p] = t;
 			}
+		}
+		
+		public function killHint(me:FlxExtendedSprite, x:int, y:int):void {
+			hintGroup.kill();
+		}
+		
+		override public function destroy():void {
+			//	Important! Clear out the plugin otherwise resources will get messed right up after a while
+			FlxMouseControl.clear();
+
+			super.destroy();
 		}
 	}
 }
