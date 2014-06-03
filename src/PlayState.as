@@ -25,6 +25,7 @@ package {
 		[Embed(source = "image_assets/transparent.png")] private var ComputerScreenImage:Class;
 		[Embed(source = "image_assets/Mute.png")] private var MuteButton:Class;
 		[Embed(source = "image_assets/Play.png")] private var PlayButton:Class;
+		[Embed(source = "image_assets/hintbubblewhite.png")] private var scoreHint:Class;
 		
 		public var mute_button:FlxButton;
 		
@@ -87,6 +88,8 @@ package {
 		private var scoreXDistance:Number;
 		private var scoreYDistance:Number;
 		private var scoreIncrement:int;
+		
+		private var hintBubble:FlxExtendedSprite;
 		
 		override public function create():void {
 			if (Registry.firstPlaythrough) {
@@ -260,6 +263,19 @@ package {
 			rightWall = new FlxTileblock(FlxG.width - 2, 0, 2, FlxG.height);
 			rightWall.makeGraphic(2, FlxG.height, 0xff000000);
 			add(rightWall);
+			
+			if (true) {
+				hintBubble = new FlxExtendedSprite(0, 0);
+				hintBubble.loadGraphic(scoreHint);
+				hintBubble.x = (FlxG.width / 2) - (hintBubble.width / 2);
+				hintBubble.y = (FlxG.height / 2) - (hintBubble.height / 2);
+				add(hintBubble);
+				var hint:FlxText = new FlxText(hintBubble.x + 20, hintBubble.y + 20, hintBubble.width - 40);
+				hint.size = 23;
+				hint.color = 0xFF000000;
+				hint.font = "Typewriter";
+				add(hint);
+			}
 			
 			if (Registry.playCurrentDay) {
 				if (Registry.skip) {
