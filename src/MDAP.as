@@ -393,29 +393,28 @@ package {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "What did your coworker say when you played?");
 					question.setFormat("Regular", 24, 0, "center");
 
-					var hazeButton:FlxButtonPlus;
-					var praiseButton:FlxButtonPlus;
+					var hazeButton:BigButton;
+					var praiseButton:BigButton;
 
 					if(hazeOnly) {
-						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, correct, null, "Just Quit!", 200, 40);
-						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, wrong, null, "Good Job!", 200, 40);
+						hazeButton = new BigButton(350, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
+						praiseButton = new BigButton(90, FlxG.height * 3 / 4 - 50, "Good Job!", wrong);
 						//correctAnswer = hazeButton;
 					} else {
-						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, wrong, null, "Just Quit!", 200, 35);
-						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
+						hazeButton = new BigButton(350, FlxG.height * 3 / 4 - 50, "Just Quit!", wrong);
+						praiseButton = new BigButton(90, FlxG.height * 3 / 4 - 50, "Good Job!", correct);
 						//correctAnswer = praiseButton;
 					}
-
-					hazeButton.textNormal.font = "Regular";
-					hazeButton.textNormal.size = 20;
-					hazeButton.textHighlight.font = "Regular";
-					hazeButton.textHighlight.size = 20;
-
-
-					praiseButton.textNormal.font = "Regular";
-					praiseButton.textNormal.size = 20;
-					praiseButton.textHighlight.font = "Regular";
-					praiseButton.textHighlight.size = 20;
+					
+					hazeButton.label.font = "Regular";
+					hazeButton.label.size = 22;
+					//hazeButton.label.offset.y += 6;
+					hazeButton.label.color = 0xFF000000;
+					
+					praiseButton.label.font = "Regular";
+					praiseButton.label.size = 22;
+					//praiseButton.label.offset.y += 6;
+					praiseButton.label.color = 0xFF000000;
 
 					add(hazeButton);
 					add(praiseButton);
