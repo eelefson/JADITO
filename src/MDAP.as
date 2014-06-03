@@ -78,7 +78,7 @@ package {
 			// 0 is original with hint on first question and only warning about counting
 			// 1 is with different first question
 			// 2 is with mechanics separated at start
-			version = 0;
+			version = 1;
 
 			// Hint information
 			hintSprite = new FlxSprite(0, 210);
@@ -393,8 +393,8 @@ package {
 					question = new DictatorDictionText(0, FlxG.height * 1/2 - 50, FlxG.width, "What did your coworker say when you played?");
 					question.setFormat("Regular", 24, 0, "center");
 
-					var hazeButton:FlxButtonPlus;
-					var praiseButton:FlxButtonPlus;
+					var hazeButton:BigButton;
+					var praiseButton:BigButton;
 
 					if(hazeOnly) {
 						hazeButton = new BigButton(340, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
