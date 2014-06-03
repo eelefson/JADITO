@@ -398,6 +398,7 @@ package {
 
 					if(hazeOnly) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 						hazeButton = new BigButton(340, FlxG.height * 3 / 4 - 50, "Just Quit!", correct);
 						praiseButton = new BigButton(100, FlxG.height * 3 / 4 - 50, "Good Job!", wrong);
 						//correctAnswer = hazeButton;
@@ -425,6 +426,16 @@ package {
 						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
 						//correctAnswer = praiseButton;
 					}
+=======
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, correct, null, "Just Quit!", 200, 40);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, wrong, null, "Good Job!", 200, 40);
+						//correctAnswer = hazeButton;
+					} else {
+						hazeButton = new FlxButtonPlus(350, FlxG.height * 3 / 4 - 50, wrong, null, "Just Quit!", 200, 35);
+						praiseButton = new FlxButtonPlus(90, FlxG.height * 3 / 4 - 50, correct, null, "Good Job!", 200, 35);
+						//correctAnswer = praiseButton;
+					}
+>>>>>>> parent of 284367c... Added DAH BIG BUTTONNNNNN
 
 					hazeButton.textNormal.font = "Regular";
 					hazeButton.textNormal.size = 20;
@@ -436,6 +447,9 @@ package {
 					praiseButton.textNormal.size = 20;
 					praiseButton.textHighlight.font = "Regular";
 					praiseButton.textHighlight.size = 20;
+<<<<<<< HEAD
+>>>>>>> parent of 284367c... Added DAH BIG BUTTONNNNNN
+=======
 >>>>>>> parent of 284367c... Added DAH BIG BUTTONNNNNN
 
 					add(hazeButton);
