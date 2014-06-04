@@ -326,10 +326,6 @@ package {
 			mute_button.y = mute_button.y - (mute_button.height);
 			add(mute_button);
 			
-			if(Registry.kongregate) {
-				FlxKongregate.submitStats("TotalScore", Registry.score);
-				FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
-			}
 			super.create();
 		}
 		

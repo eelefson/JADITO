@@ -2,6 +2,7 @@ package  {
 	import flash.utils.*;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	
 	/**
 	 * ...
@@ -284,6 +285,10 @@ package  {
 		public function placeSuccessGraphic():void {
 			Registry.score += 100 * (Registry.difficultyLevel + 1);
 			Registry.weekScore += 100 * (Registry.difficultyLevel + 1);
+			if(Registry.kongregate) {
+				FlxKongregate.submitStats("TotalScore", Registry.score);
+				FlxKongregate.submitStats("WeeklyScore", Registry.weekScore);
+			}
 			Registry.failedMostRecentMinigame = false;
 			check_graphic = new FlxSprite(0, 0, CheckMarkImage);
 			check_graphic.x = ((FlxG.width - check_graphic.width) / 2);
