@@ -21,12 +21,14 @@ package  {
 		
 		private var seconds:int = 10;
 		
+		/*
 		private var flipTimer:FlxDelay;
 		private var timerGoing:Boolean = false;
 		private var areVisible:Boolean = true;
 		private var flipSeconds:int;
 		private var deadSeconds:int = 1;
-		
+		*/
+		private var invisibleWall:WallOfInvisibility;
 		private var bin:FlxExtendedSprite;
 		private var papers:FlxGroup;
 		
@@ -49,11 +51,11 @@ package  {
 			
 			papers = new FlxGroup();
 			
-			difficulty = Registry.difficultyLevel;
+			difficulty = 3;
 			papersCount = (difficulty * 4) + 5;
 			papersLeft = papersCount;
-			flipSeconds = 4 - difficulty;
-			flipTimer = new FlxDelay(flipSeconds * 1000);
+			var flipSeconds:int = 4 - difficulty;
+			//flipTimer = new FlxDelay(flipSeconds * 1000);
 			
 			for (var i:int = 0; i < papersCount; i++) {
 				var x:int =  FlxU.round(Math.random() * (FlxG.width - recycleWidth));
@@ -68,6 +70,12 @@ package  {
 			}
 			
 			add(papers);
+			
+			invisibleWall = new WallOfInvisibility(flipSeconds, 1.25);
+			if(difficulty > 0) {
+				add(invisibleWall);
+			}
+			
 			super.create();
 			super.setCommandText("Pick them up!");
 			if (difficulty < 3) {
@@ -100,11 +108,11 @@ package  {
 			FlxG.collide(papers, super.walls);
 			//FlxCollision.pixelPerfectCheck(player, spikes);
 			if (!FlxG.paused) {	
+				/*
 				if (!timerGoing) {
 					flipTimer.start();
 					timerGoing = true;
 				}
-				
 				if (flipTimer.hasExpired && timerGoing && difficulty > 0) {
 					if (areVisible) {
 						papers.setAll("visible", false);
@@ -116,7 +124,7 @@ package  {
 						flipTimer = new FlxDelay(flipSeconds * 1000);
 					}
 					flipTimer.start();
-				}
+				}*/
 				
 				if (!gameOver && FlxG.mouse.justPressed()) {
 					Registry.loggingControl.logAction(1, null);
