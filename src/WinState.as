@@ -24,6 +24,8 @@ package  {
 		private var winText:BorderedText;
 		public var blink:Boolean = true;
 		private var score:BorderedText;
+		
+		private var timer:FlxDelay;
 
 		override public function create():void {
 			Registry.playthrough++;
@@ -60,7 +62,7 @@ package  {
 			score.setFormat("Regular", 30, 0xffffff00, "center", 10);
 			add(score);
 			
-			yes = new FlxButtonPlus(FlxG.width / 2, FlxG.height * 3 / 4 + 45, nextState, null, "Continue", 200, 40);
+			yes = new FlxButtonPlus(FlxG.width / 2, FlxG.height * 3 / 4 + 45, nextState, null, "Continue?", 200, 40);
 			yes.y = yes.y - yes.height / 2;
 			yes.x = yes.x - yes.width / 2;
 			yes.textNormal.setFormat("Score2", 30, 0xffffffff, null, 1);
@@ -70,6 +72,9 @@ package  {
 
 			add(yes);
 
+			timer = new FlxDelay(15000);
+			timer.start();
+			
 			FlxG.playMusic(Song);
 			if(Registry.kongregate) {
 				FlxKongregate.submitStats("TotalScore", Registry.score);
@@ -80,6 +85,12 @@ package  {
 
 		override public function update():void {
 			super.update();
+			if (timer.secondsElapsed >= 4) {
+				yes.text = timer.secondsRemaining.toString();
+			}
+			if (timer.hasExpired) {
+				nextState();
+			}
 		}
 
 		public function blinkText():void {
